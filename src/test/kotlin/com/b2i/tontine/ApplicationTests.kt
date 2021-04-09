@@ -1,10 +1,10 @@
-package com.b2i.tontine_webapp
+package com.b2i.tontine
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class TontineWebappApplicationTests {
+class ApplicationTests {
 
     @Test
     fun contextLoads() {
