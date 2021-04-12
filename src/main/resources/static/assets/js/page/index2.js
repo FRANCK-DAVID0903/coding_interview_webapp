@@ -1,334 +1,510 @@
 "use strict";
-var chartTextColor = '#96A2B4';
 
-var draw = Chart.controllers.line.prototype.draw;
-Chart.controllers.lineShadow = Chart.controllers.line.extend({
-	draw : function() {
-		draw.apply(this, arguments);
-		var ctx = this.chart.chart.ctx;
-		var _stroke = ctx.stroke;
-		ctx.stroke = function() {
-			ctx.save();
-			ctx.shadowColor = '#00000075';
-			ctx.shadowBlur = 10;
-			ctx.shadowOffsetX = 8;
-			ctx.shadowOffsetY = 8;
-			_stroke.apply(this, arguments)
-			ctx.restore();
-		}
-	}
+$(function () {
+  getCardChart();
+  chart1();
+  lineChart();
+  dumbbellPlotChart();
+
+  if ($("#project-team-scroll").length) {
+    $("#project-team-scroll")
+      .css({
+        height: 400,
+      })
+      .niceScroll();
+  }
+  if ($("#project-list").length) {
+    $("#project-list")
+      .css({
+        height: 400,
+      })
+      .niceScroll();
+  }
+  if ($("#client-details").length) {
+    $("#client-details")
+      .css({
+        height: 400,
+      })
+      .niceScroll();
+  }
 });
 
-function monthlyEarningChart() {
-	var options = {
-	          series: [{
-	          name: 'Income',
-	          data: [60, 80, 70, 100, 60, 85, 65]
-	        }, {
-	          name: 'Expense',
-	          data: [11, 32, 45, 32, 34, 52, 41]
-	        }],
-	          chart: {
-	          height: 227,
-	          type: 'area',
-	          toolbar : {
-					show : false
-				}
-	        },
-	        dataLabels: {
-	          enabled: false
-	        },
-	        stroke: {
-	          curve: 'straight',
-	          dashArray: [5,0]
-	        },
-	        colors: ['#00FFE8', '#B102FC'],
-	        xaxis: {
-	          type: 'line',
-	          categories: ["January", "February", "March", "April", "May", "June", "July"]
-	        },
-	        legend : {
-				 position: 'top'
-			}
-	        };
+function getCardChart() {
+  var randomFromArray = function (array) {
+    var currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
 
-	        var chart = new ApexCharts(document.querySelector("#monthlyEarningChart"), options);
-	        chart.render();
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  };
+
+  var chartData = [47, 29, 54, 34, 41, 22, 48, 53, 22, 20, 50, 59, 56, 45, 48];
+
+  // chart 1
+  var card1 = {
+    chart: {
+      type: "area",
+      height: 50,
+      sparkline: {
+        enabled: true,
+      },
+    },
+    stroke: {
+      width: 2,
+    },
+    series: [
+      {
+        data: randomFromArray(chartData),
+      },
+    ],
+    colors: ["#FA9313"],
+    tooltip: {
+      theme: "dark",
+      marker: {
+        show: true,
+      },
+      x: {
+        show: false,
+      },
+    },
+  };
+  var card1 = new ApexCharts(document.querySelector("#cardChart1"), card1);
+  card1.render();
+
+  // chart 2
+  var card2 = {
+    chart: {
+      type: "area",
+      height: 50,
+      sparkline: {
+        enabled: true,
+      },
+    },
+    stroke: {
+      width: 2,
+    },
+    series: [
+      {
+        data: randomFromArray(chartData),
+      },
+    ],
+    colors: ["#99C853"],
+    tooltip: {
+      theme: "dark",
+      marker: {
+        show: true,
+      },
+      x: {
+        show: false,
+      },
+    },
+  };
+  var card2 = new ApexCharts(document.querySelector("#cardChart2"), card2);
+  card2.render();
+
+  // chart 3
+  var card3 = {
+    chart: {
+      type: "area",
+      height: 50,
+      sparkline: {
+        enabled: true,
+      },
+    },
+    stroke: {
+      width: 2,
+    },
+    series: [
+      {
+        data: randomFromArray(chartData),
+      },
+    ],
+    colors: ["#1B55E2"],
+    tooltip: {
+      theme: "dark",
+      marker: {
+        show: true,
+      },
+      x: {
+        show: false,
+      },
+    },
+  };
+  var card3 = new ApexCharts(document.querySelector("#cardChart3"), card3);
+  card3.render();
+
+  // chart 4
+  var card4 = {
+    chart: {
+      type: "area",
+      height: 50,
+      sparkline: {
+        enabled: true,
+      },
+    },
+    stroke: {
+      width: 2,
+    },
+    series: [
+      {
+        data: randomFromArray(chartData),
+      },
+    ],
+    colors: ["#E7515A"],
+    tooltip: {
+      theme: "dark",
+      marker: {
+        show: true,
+      },
+      x: {
+        show: false,
+      },
+    },
+  };
+  var card4 = new ApexCharts(document.querySelector("#cardChart4"), card4);
+  card4.render();
 }
-monthlyEarningChart();
 
-function yearlyRevenueChart() {
-
-	var options = {
-		series : [ {
-			name : 'Revenue',
-			data : [ 87, 57, 74, 88, 75, 45, 69 ],
-			labels : [ "thousands" ]
-		}, {
-			name : "Expense",
-			data : [ 35, 41, 62, 42, 13, 18, 29 ],
-			labels : [ "thousands" ]
-		}, {
-			name : 'Profit',
-			data : [ 60, 47, 68, 74, 70, 36, 60 ],
-			labels : [ "thousands" ]
-		} ],
-		xaxis : {
-			categories : [ "2020", "2019", "2018", "2017", "2016", "2015","2014" ]
-		},
-		chart : {
-			type : 'line',
-			height : 227,
-			toolbar : {
-				show : false
-			}
-		},
-		dataLabels : {
-			enabled : false
-		},
-		markers : {
-			hover : {
-				sizeOffset : 4
-			}
-		},
-		legend : {
-			 position: 'top'
-		}
-	};
-
-	var chart = new ApexCharts(document.querySelector("#yearlyRevenueChart"),options);
-	chart.render();
-	
-}
-yearlyRevenueChart();
-
-function taskIssuesChart() {
-	var chart = new ApexCharts(document.querySelector("#taskIssuesChart"), {
-		series : [ 80, 45 ],
-		chart : {
-			height : 345,
-			type : 'radialBar',
-			foreColor : chartTextColor,
-		},
-		plotOptions : {
-			radialBar : {
-				dataLabels : {
-					name : {
-						fontSize : '22px',
-					},
-					value : {
-						fontSize : '16px',
-					},
-					total : {
-						show : true,
-						label : 'Total',
-						color : chartTextColor,
-						formatter : function(w) {
-							return 125
-						}
-					}
-				}
-			}
-		},
-		labels : [ 'Open', 'Close' ],
-	});
-	chart.render();
-}
-taskIssuesChart();
-
-function chart1(){
-	
-	var options = {
-	          series: [{
-	          name: 'Cash Flow',
-	          data: [13.07,
-	            5.8,7.37, 8.1, 13.57, 15.75, 17.1, 19.8, -8.03, -16.4, -24.2, -32.3, -10.6, -30.6, -15.1, -20.6]
-	        }],
-	          chart: {
-	          type: 'bar',
-	          height: 200,
-	          toolbar : {
-					show : false
-				}
-	        },
-	        plotOptions: {
-	          bar: {
-	            colors: {
-	              ranges: [{
-	                from: -100,
-	                to: -46,
-	                color: '#F15B46'
-	              }, {
-	                from: -45,
-	                to: 0,
-	                color: '#FEB019'
-	              }]
-	            },
-	            columnWidth: '80%',
-	          }
-	        },
-	        dataLabels: {
-	          enabled: false,
-	        },
-	        grid: {
-	            show: false
-	        },
-	        yaxis: {
-	          show : false
-	        },
-	        xaxis : {
-	        	show : false,
-				position : 'bottom',
-				labels : {
-					offsetY : -1,
-					show : false
-				},
-				axisBorder : {
-					show : false
-				},
-				axisTicks : {
-					show : false
-				},
-				tooltip : {
-					enabled : false,
-					offsetY : -35,
-
-				}
-			}
-	        };
-	
-	        var chart = new ApexCharts(document.querySelector("#chart-1"), options);
-	        chart.render();
-	
-}
-chart1();
-
-function chart2(){
-	
-	var chart = new ApexCharts(document.querySelector("#chart-2"), {
-		chart : {
-			height : 200,
-			type : 'bar',
-			foreColor : chartTextColor,
-			toolbar : {
-				show : false,
-			}
-		},
-		colors : [ '#9C27B0', '#E91E63', '#9C27B0' ],
-		fill : {
-			colors : [ '#9a56ff', '#e36cd9', '#9C27B0' ]
-		},
-		plotOptions : {
-			bar : {
-				columnWidth : '40%',
-				dataLabels : {
-					position : 'top', // top, center, bottom
-				},
-			}
-		},
-		dataLabels : {
-			enabled : true,
-			formatter : function(val) {
-				return val;
-			},
-			offsetY : -20,
-			style : {
-				fontSize : '12px',
-				colors : [ "#e36cd9", "#e36cd9", "#e36cd9" ]
-			}
-		},
-		series : [ {
-			name : 'Sales',
-			data : [ 30, 34, 51, 23, 45, 41, 22 ]
-		} ],
-		grid: {
-            show: false
+function chart1() {
+  var options = {
+    series: [
+      {
+        name: "series1",
+        data: [81, 90, 78, 101, 92, 109, 100],
+      },
+      {
+        name: "series2",
+        data: [61, 82, 95, 82, 84, 102, 91],
+      },
+    ],
+    chart: {
+      height: 380,
+      type: "area",
+      dropShadow: {
+        enabled: true,
+        opacity: 0.3,
+        blur: 5,
+        left: -7,
+        top: 22,
+      },
+      toolbar: {
+        show: false,
+      },
+    },
+    colors: ["#6777EF", "#FEB019"],
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      show: true,
+      curve: "smooth",
+      width: 3,
+      lineCap: "square",
+    },
+    xaxis: {
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+      crosshairs: {
+        show: true,
+      },
+      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+      labels: {
+        offsetX: 0,
+        offsetY: 5,
+        style: {
+          fontSize: "12px",
+          fontFamily: "Segoe UI",
+          cssClass: "apexcharts-xaxis-title",
         },
-        yaxis: {
-          show : false
+      },
+    },
+    yaxis: {
+      labels: {
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+          fontSize: "12px",
+          fontFamily: "Segoe UI",
+          cssClass: "apexcharts-yaxis-title",
         },
-        xaxis : {
-        	show : false,
-			position : 'bottom',
-			labels : {
-				offsetY : -1,
-				show : false
-			},
-			axisBorder : {
-				show : false
-			},
-			axisTicks : {
-				show : false
-			},
+      },
+    },
+    legend: {
+      show: false,
+    },
+    tooltip: {
+      theme: "dark",
+      marker: {
+        show: true,
+      },
+      x: {
+        show: true,
+      },
+    },
+  };
 
-			tooltip : {
-				enabled : false,
-				offsetY : -35,
+  var chart = new ApexCharts(document.querySelector("#chart1"), options);
+  chart.render();
 
-			}
-		}
-
-	});
-
-	chart.render();
-	
+  $('#chart-tabs a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
+    var id = $(this).attr("data-id");
+    if (id && id === "1") {
+      chart.updateSeries([
+        {
+          name: "income",
+          data: [15, 48, 36, 20, 40, 60, 35, 20],
+        },
+        {
+          name: "expense",
+          data: [8, 22, 60, 35, 17, 24, 48, 37],
+        },
+      ]);
+    } else if (id && id === "2") {
+      chart.updateSeries([
+        {
+          name: "income",
+          data: [19, 38, 43, 27, 44, 55, 32, 26],
+        },
+        {
+          name: "expense",
+          data: [12, 20, 58, 39, 21, 31, 41, 37],
+        },
+      ]);
+    } else if (id && id === "3") {
+      chart.updateSeries([
+        {
+          name: "income",
+          data: [10, 28, 22, 32, 41, 51, 42, 30],
+        },
+        {
+          name: "expense",
+          data: [17, 22, 42, 35, 31, 28, 53, 31],
+        },
+      ]);
+    }
+  });
 }
-chart2();
+function lineChart() {
+  am4core.useTheme(am4themes_animated);
 
-function chart3(){
-	
-	var options = {
-	          series: [{
-	            name: "Desktops",
-	            data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
-	        }],
-	          chart: {
-	          height: 200,
-	          type: 'line',
-	          zoom: {
-	            enabled: false
-	          },
-	          toolbar : {
-					show : false
-				}
-	        },
-	        colors:['#c02976'],
-	        dataLabels: {
-	          enabled: false
-	        },
-	        stroke: {
-	          curve: 'straight'
-	        },
-	        grid: {
-	            show: false
-	        },
-	        yaxis: {
-	          show : false
-	        },
-	        xaxis : {
-	        	show : false,
-				position : 'bottom',
-				labels : {
-					offsetY : -1,
-					show : false
-				},
-				axisBorder : {
-					show : false
-				},
-				axisTicks : {
-					show : false
-				},
+  // Create chart instance
+  var chart = am4core.create("amchartLineDashboard", am4charts.XYChart);
 
-				tooltip : {
-					enabled : false,
-					offsetY : -35,
+  // Add data
+  chart.data = [
+    {
+      year: "1983",
+      value: 0.177,
+    },
+    {
+      year: "1984",
+      value: -0.021,
+    },
+    {
+      year: "1985",
+      value: -0.037,
+    },
+    {
+      year: "1986",
+      value: 0.03,
+    },
+    {
+      year: "1987",
+      value: 0.179,
+    },
+    {
+      year: "1988",
+      value: 0.18,
+    },
+    {
+      year: "1989",
+      value: 0.104,
+    },
+    {
+      year: "1990",
+      value: 0.255,
+    },
+    {
+      year: "1991",
+      value: 0.21,
+    },
+    {
+      year: "1992",
+      value: 0.065,
+    },
+    {
+      year: "1993",
+      value: 0.11,
+    },
+    {
+      year: "1994",
+      value: 0.172,
+    },
+    {
+      year: "1995",
+      value: 0.269,
+    },
+    {
+      year: "1996",
+      value: 0.141,
+    },
+    {
+      year: "1997",
+      value: 0.353,
+    },
+    {
+      year: "1998",
+      value: 0.548,
+    },
+    {
+      year: "1999",
+      value: 0.298,
+    },
+    {
+      year: "2000",
+      value: 0.267,
+    },
+    {
+      year: "2001",
+      value: 0.411,
+    },
+    {
+      year: "2002",
+      value: 0.462,
+    },
+    {
+      year: "2003",
+      value: 0.47,
+    },
+    {
+      year: "2004",
+      value: 0.445,
+    },
+    {
+      year: "2005",
+      value: 0.47,
+    },
+  ];
+  // Create axes
+  var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+  dateAxis.renderer.grid.template.location = 0;
+  dateAxis.renderer.labels.template.fill = am4core.color("#9aa0ac");
+  //dateAxis.renderer.minGridDistance = 30;
 
-				}
-			}
-	        };
+  var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+  valueAxis.renderer.labels.template.fill = am4core.color("#9aa0ac");
 
-	        var chart = new ApexCharts(document.querySelector("#chart-3"), options);
-	        chart.render();
-	
+  // Create series
+  function createSeries(field, name, date) {
+    var series = chart.series.push(new am4charts.LineSeries());
+    series.dataFields.valueY = field;
+    series.dataFields.dateX = "year";
+    series.name = name;
+    series.strokeWidth = 2;
+
+    var bullet = series.bullets.push(new am4charts.CircleBullet());
+    bullet.circle.stroke = am4core.color("#fff");
+    bullet.circle.strokeWidth = 2;
+  }
+
+  createSeries("value", "Series #1", "date");
+
+  chart.legend = new am4charts.Legend();
+  chart.cursor = new am4charts.XYCursor();
 }
-chart3();
+
+function dumbbellPlotChart() {
+  // Themes begin
+  am4core.useTheme(am4themes_animated);
+  // Themes end
+
+  var chart = am4core.create("dumbbellPlotChart", am4charts.XYChart);
+
+  var data = [];
+  var open = 100;
+  var close = 120;
+
+  var names = [
+    "Raina",
+    "Demarcus",
+    "Carlo",
+    "Jacinda",
+    "Richie",
+    "Antony",
+    "Amada",
+    "Idalia",
+    "Janella",
+    "Marla",
+    "Curtis",
+    "Shellie",
+  ];
+
+  for (var i = 0; i < names.length; i++) {
+    open += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 5);
+    close = open + Math.round(Math.random() * 10) + 3;
+    data.push({
+      category: names[i],
+      open: open,
+      close: close,
+    });
+  }
+
+  chart.data = data;
+
+  var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+  categoryAxis.renderer.grid.template.location = 0;
+  categoryAxis.renderer.ticks.template.disabled = true;
+  categoryAxis.renderer.axisFills.template.disabled = true;
+  categoryAxis.dataFields.category = "category";
+  categoryAxis.renderer.minGridDistance = 15;
+  categoryAxis.renderer.grid.template.location = 0.5;
+  categoryAxis.renderer.grid.template.strokeDasharray = "1,3";
+  categoryAxis.renderer.labels.template.rotation = -90;
+  categoryAxis.renderer.labels.template.horizontalCenter = "left";
+  categoryAxis.renderer.labels.template.dx = 17;
+  categoryAxis.renderer.inside = true;
+  categoryAxis.renderer.labels.template.fill = am4core.color("#9aa0ac");
+
+  var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+  valueAxis.tooltip.disabled = true;
+  valueAxis.renderer.ticks.template.disabled = true;
+  valueAxis.renderer.axisFills.template.disabled = true;
+  valueAxis.renderer.labels.template.fill = am4core.color("#9aa0ac");
+
+  var series = chart.series.push(new am4charts.ColumnSeries());
+  series.dataFields.categoryX = "category";
+  series.dataFields.openValueY = "open";
+  series.dataFields.valueY = "close";
+  series.tooltipText = "open: {openValueY.value} close: {valueY.value}";
+  series.sequencedInterpolation = true;
+  series.fillOpacity = 0;
+  series.strokeOpacity = 1;
+  series.columns.template.width = 0.01;
+  series.tooltip.pointerOrientation = "horizontal";
+
+  var openBullet = series.bullets.create(am4charts.CircleBullet);
+  openBullet.locationY = 1;
+
+  var closeBullet = series.bullets.create(am4charts.CircleBullet);
+
+  closeBullet.fill = chart.colors.getIndex(4);
+  closeBullet.stroke = closeBullet.fill;
+
+  chart.cursor = new am4charts.XYCursor();
+}

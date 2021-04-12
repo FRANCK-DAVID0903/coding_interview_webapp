@@ -2,18 +2,18 @@
 
 // initialize map
 var map = new GMaps({
-  div: '#map',
-  lat: 23.031741,
-  lng: 72.518850,
-  zoom: 8
+  div: "#map",
+  lat: 23.014711,
+  lng: 72.53081,
+  zoom: 8,
 });
 
 // draw route between 'origin' to 'destination'
 map.drawRoute({
-	origin: [23.031741, 72.518850],
-    destination: [23.030240, 72.522498],
-  travelMode: 'driving',
-  strokeColor: '#131540',
+  origin: [23.014711, 72.53081],
+  destination: [22.29133, 70.802255],
+  travelMode: "driving",
+  strokeColor: "#131540",
   strokeOpacity: 0.6,
-  strokeWeight: 6
+  strokeWeight: 6,
 });

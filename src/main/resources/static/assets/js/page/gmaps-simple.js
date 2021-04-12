@@ -1,7 +1,7 @@
 "use strict";
 
 var simple_map = new GMaps({
-  div: '#simple-map',
-  lat: 23.031741,
-  lng: 72.518850
-})
+  div: "#simple-map",
+  lat: 23.014711,
+  lng: 72.53081,
+});

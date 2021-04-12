@@ -1,0 +1,9 @@
+<head xmlns:th="http://www.thymeleaf.org" th:fragment="head ( title )">
+
+  <th:block th:include="fragments/fragment_meta :: meta" />
+
+  <th:block th:replace="fragments/fragment_title :: title(page_title= ${ title } ) "/>
+
+  <th:block th:replace="fragments/fragment_stylesheet :: stylesheet " />
+
+</head>

@@ -1,13 +1,14 @@
-'use strict';
+"use strict";
 $(function () {
   barChart();
-  curveChart();
+  barChartWithImg();
   lineChart();
-  radarChart();
+  donutChart();
   pieChart();
-  waterfallChart();
-  ganttChart();
-  candleStickChart();
+  gaugeChart();
+  radialLineChart();
+  dumbbellPlotChart();
+  mapBubble();
 });
 
 function barChart() {
@@ -15,139 +16,194 @@ function barChart() {
   am4core.useTheme(am4themes_animated);
   // Themes end
 
-// Create chart instance
-var chart = am4core.create("barChart", am4charts.XYChart);
+  // Create chart instance
+  var chart = am4core.create("barChart", am4charts.XYChart);
+  chart.scrollbarX = new am4core.Scrollbar();
 
-//Add data
-chart.data = [{
- "year": 2010,
- "income": 33.5,
- "expenses": 17.2
-},{
- "year": 2011,
- "income": 36.2,
- "expenses": 21.5
-},{
- "year": 2012,
- "income": 30.1,
- "expenses": 20.1
-},{
- "year": 2013,
- "income": 39.5,
- "expenses": 23.2
-},{
- "year": 2014,
- "income": 29.1,
- "expenses": 12.3
-}];
+  // Add data
+  chart.data = [
+    {
+      country: "USA",
+      visits: 3025,
+    },
+    {
+      country: "China",
+      visits: 1882,
+    },
+    {
+      country: "Japan",
+      visits: 1809,
+    },
+    {
+      country: "Germany",
+      visits: 1322,
+    },
+    {
+      country: "UK",
+      visits: 1122,
+    },
+    {
+      country: "France",
+      visits: 1114,
+    },
+    {
+      country: "India",
+      visits: 984,
+    },
+    {
+      country: "Spain",
+      visits: 711,
+    },
+    {
+      country: "Netherlands",
+      visits: 665,
+    },
+    {
+      country: "Russia",
+      visits: 580,
+    },
+    {
+      country: "South Korea",
+      visits: 443,
+    },
+    {
+      country: "Canada",
+      visits: 441,
+    },
+  ];
 
-//Create axes
-var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
-categoryAxis.dataFields.category = "year";
-categoryAxis.numberFormatter.numberFormat = "#";
-categoryAxis.renderer.inversed = true;
-categoryAxis.renderer.grid.template.location = 0;
-categoryAxis.renderer.cellStartLocation = 0.1;
-categoryAxis.renderer.cellEndLocation = 0.9;
+  // Create axes
+  var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+  categoryAxis.dataFields.category = "country";
+  categoryAxis.renderer.grid.template.location = 0;
+  categoryAxis.renderer.minGridDistance = 30;
+  categoryAxis.renderer.labels.template.horizontalCenter = "right";
+  categoryAxis.renderer.labels.template.verticalCenter = "middle";
+  categoryAxis.renderer.labels.template.rotation = 270;
+  categoryAxis.tooltip.disabled = true;
+  categoryAxis.renderer.minHeight = 110;
+  categoryAxis.renderer.labels.template.fill = am4core.color("#8e8da4");
 
-var  valueAxis = chart.xAxes.push(new am4charts.ValueAxis()); 
-valueAxis.renderer.opposite = true;
+  var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+  valueAxis.renderer.minWidth = 50;
+  valueAxis.renderer.labels.template.fill = am4core.color("#8e8da4");
 
-//Create series
-function createSeries(field, name) {
- var series = chart.series.push(new am4charts.ColumnSeries());
- series.dataFields.valueX = field;
- series.dataFields.categoryY = "year";
- series.name = name;
- series.columns.template.tooltipText = "{name}: [bold]{valueX}[/]";
- series.columns.template.height = am4core.percent(100);
- series.sequencedInterpolation = true;
+  // Create series
+  var series = chart.series.push(new am4charts.ColumnSeries());
+  series.sequencedInterpolation = true;
+  series.dataFields.valueY = "visits";
+  series.dataFields.categoryX = "country";
+  series.tooltipText = "[{categoryX}: bold]{valueY}[/]";
+  series.columns.template.strokeWidth = 0;
 
- var valueLabel = series.bullets.push(new am4charts.LabelBullet());
- valueLabel.label.text = "{valueX}";
- valueLabel.label.horizontalCenter = "left";
- valueLabel.label.dx = 10;
- valueLabel.label.hideOversized = false;
- valueLabel.label.truncate = false;
+  series.tooltip.pointerOrientation = "vertical";
 
- var categoryLabel = series.bullets.push(new am4charts.LabelBullet());
- categoryLabel.label.text = "{name}";
- categoryLabel.label.horizontalCenter = "right";
- categoryLabel.label.dx = -10;
- categoryLabel.label.fill = am4core.color("#fff");
- categoryLabel.label.hideOversized = false;
- categoryLabel.label.truncate = false;
+  series.columns.template.column.cornerRadiusTopLeft = 10;
+  series.columns.template.column.cornerRadiusTopRight = 10;
+  series.columns.template.column.fillOpacity = 0.8;
+
+  // on hover, make corner radiuses bigger
+  let hoverState = series.columns.template.column.states.create("hover");
+  hoverState.properties.cornerRadiusTopLeft = 0;
+  hoverState.properties.cornerRadiusTopRight = 0;
+  hoverState.properties.fillOpacity = 1;
+
+  series.columns.template.adapter.add("fill", (fill, target) => {
+    return chart.colors.getIndex(target.dataItem.index);
+  });
+
+  // Cursor
+  chart.cursor = new am4charts.XYCursor();
 }
+function barChartWithImg() {
+  // Themes begin
+  am4core.useTheme(am4themes_animated);
+  // Themes end
 
-createSeries("income", "Income");
-createSeries("expenses", "Expenses");
-}
-function curveChart() {
-	// Themes begin
-	am4core.useTheme(am4themes_animated);
-	// Themes end
+  // Create chart instance
+  var chart = am4core.create("barImg", am4charts.XYChart);
 
-	var chart = am4core.create("curveChart", am4charts.XYChart);
-	chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
+  // Add data
+  chart.data = [
+    {
+      name: "John",
+      points: 35654,
+      color: chart.colors.next(),
+      bullet: "assets/img/users/user1-round.png",
+    },
+    {
+      name: "Damon",
+      points: 65456,
+      color: chart.colors.next(),
+      bullet: "assets/img/users/user2-round.png",
+    },
+    {
+      name: "Patrick",
+      points: 45724,
+      color: chart.colors.next(),
+      bullet: "assets/img/users/user3-round.png",
+    },
+    {
+      name: "Sarah",
+      points: 13654,
+      color: chart.colors.next(),
+      bullet: "assets/img/users/user4-round.png",
+    },
+    {
+      name: "Pooja",
+      points: 32589,
+      color: chart.colors.next(),
+      bullet: "assets/img/users/user5-round.png",
+    },
+    {
+      name: "jatin",
+      points: 45895,
+      color: chart.colors.next(),
+      bullet: "assets/img/users/user6-round.png",
+    },
+  ];
 
-	chart.data = [{
-	  "country": "2010",
-	  "value": 1035
-	}, {
-	  "country": "2011",
-	  "value": 2832
-	}, {
-	  "country": "2012",
-	  "value": 1809
-	}, {
-	  "country": "2013",
-	  "value": 3332
-	}, {
-	  "country": "2014",
-	  "value": 1012
-	}, {
-	  "country": "2015",
-	  "value": -1304
-	}, {
-	  "country": "2016",
-	  "value": -777
-	}, {
-	  "country": "2017",
-	  "value": 1111
-	}, {
-	  "country": "2018",
-	  "value": 1665
-	}];
+  // Create axes
+  var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+  categoryAxis.dataFields.category = "name";
+  categoryAxis.renderer.grid.template.disabled = true;
+  categoryAxis.renderer.minGridDistance = 30;
+  categoryAxis.renderer.inside = true;
+  categoryAxis.renderer.labels.template.fill = am4core.color("#fff");
+  categoryAxis.renderer.labels.template.fontSize = 14;
 
+  var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+  valueAxis.renderer.grid.template.strokeDasharray = "4,4";
+  valueAxis.renderer.labels.template.disabled = true;
+  valueAxis.min = 0;
 
-	var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-	categoryAxis.renderer.grid.template.location = 0;
-	categoryAxis.dataFields.category = "country";
-	categoryAxis.renderer.minGridDistance = 40;
+  // Do not crop bullets
+  chart.maskBullets = false;
 
-	var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+  // Remove padding
+  chart.paddingBottom = 0;
 
-	var series = chart.series.push(new am4charts.CurvedColumnSeries());
-	series.dataFields.categoryX = "country";
-	series.dataFields.valueY = "value";
-	series.tooltipText = "{valueY.value}"
-	series.columns.template.strokeOpacity = 0;
+  // Create series
+  var series = chart.series.push(new am4charts.ColumnSeries());
+  series.dataFields.valueY = "points";
+  series.dataFields.categoryX = "name";
+  series.columns.template.propertyFields.fill = "color";
+  series.columns.template.propertyFields.stroke = "color";
+  series.columns.template.column.cornerRadiusTopLeft = 15;
+  series.columns.template.column.cornerRadiusTopRight = 15;
+  series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/b]";
 
-	series.columns.template.fillOpacity = 0.75;
-
-	var hoverState = series.columns.template.states.create("hover");
-	hoverState.properties.fillOpacity = 1;
-	hoverState.properties.tension = 0.4;
-
-	chart.cursor = new am4charts.XYCursor();
-
-	// Add distinctive colors for each column using adapter
-	series.columns.template.adapter.add("fill", function(fill, target) {
-	  return chart.colors.getIndex(target.dataItem.index);
-	});
-
-	chart.scrollbarX = new am4core.Scrollbar();
-
+  // Add bullets
+  var bullet = series.bullets.push(new am4charts.Bullet());
+  var image = bullet.createChild(am4core.Image);
+  image.horizontalCenter = "middle";
+  image.verticalCenter = "bottom";
+  image.dy = 20;
+  image.y = am4core.percent(100);
+  image.propertyFields.href = "bullet";
+  image.tooltipText = series.columns.template.tooltipText;
+  image.propertyFields.fill = "color";
+  image.filters.push(new am4core.DropShadowFilter());
 }
 
 function lineChart() {
@@ -159,146 +215,436 @@ function lineChart() {
   var chart = am4core.create("lineChart", am4charts.XYChart);
 
   // Add data
-  chart.data = [{
-    "date": "2012-08-12",
-    "value": 40
-  }, {
-    "date": "2012-08-13",
-    "value": 30
-  }, {
-    "date": "2012-08-14",
-    "value": 20
-  }, {
-    "date": "2012-08-15",
-    "value": 25
-  }, {
-    "date": "2012-08-16",
-    "value": 35
-  }, {
-    "date": "2012-08-17",
-    "value": 15
-  }, {
-    "date": "2012-08-18",
-    "value": 13
-  }, {
-    "date": "2012-08-19",
-    "value": 19
-  }, {
-    "date": "2012-08-20",
-    "value": 10
-  }, {
-    "date": "2012-08-28",
-    "value": 13
-  }, {
-    "date": "2012-08-29",
-    "value": 31
-  }, {
-    "date": "2012-08-30",
-    "value": 28
-  }, {
-    "date": "2012-08-31",
-    "value": 22
-  }, {
-    "date": "2012-09-01",
-    "value": 10
-  }, {
-    "date": "2012-09-02",
-    "value": 10
-  }, {
-    "date": "2012-09-03",
-    "value": 20
-  }, {
-    "date": "2012-09-04",
-    "value": 21
-  }, {
-    "date": "2012-09-05",
-    "value": 15
-  }, {
-    "date": "2012-09-06",
-    "value": 10
-  }, {
-    "date": "2012-09-07",
-    "value": 12
-  }, {
-    "date": "2012-09-08",
-    "value": 11
-  }, {
-    "date": "2012-09-09",
-    "value": 33
-  }, {
-    "date": "2012-09-10",
-    "value": 34
-  }, {
-    "date": "2012-09-11",
-    "value": 36
-  }, {
-    "date": "2012-09-12",
-    "value": 21
-  }, {
-    "date": "2012-09-13",
-    "value": 20
-  }, {
-    "date": "2012-10-14",
-    "value": 21
-  }, {
-    "date": "2012-10-15",
-    "value": 45
-  }, {
-    "date": "2012-10-16",
-    "value": 45
-  }, {
-    "date": "2012-10-17",
-    "value": 62
-  }, {
-    "date": "2012-10-18",
-    "value": 61
-  }, {
-    "date": "2012-10-19",
-    "value": 63
-  }, {
-    "date": "2012-10-20",
-    "value": 63
-  }, {
-    "date": "2012-10-21",
-    "value": 22
-  }, {
-    "date": "2012-10-22",
-    "value": 23
-  }, {
-    "date": "2012-10-23",
-    "value": 15
-  }, {
-    "date": "2012-10-24",
-    "value": 24
-  }, {
-    "date": "2012-10-25",
-    "value": 19
-  }, {
-    "date": "2012-10-26",
-    "value": 31
-  }, {
-    "date": "2012-10-27",
-    "value": 56
-  }, {
-    "date": "2012-10-28",
-    "value": 77
-  }, {
-    "date": "2012-10-29",
-    "value": 50
-  }, {
-    "date": "2012-10-30",
-    "value": 83
-  }];
+  chart.data = [
+    {
+      date: "2012-08-12",
+      value: 32,
+    },
+    {
+      date: "2012-08-13",
+      value: 18,
+    },
+    {
+      date: "2012-08-14",
+      value: 24,
+    },
+    {
+      date: "2012-08-15",
+      value: 22,
+    },
+    {
+      date: "2012-08-16",
+      value: 18,
+    },
+    {
+      date: "2012-08-17",
+      value: 19,
+    },
+    {
+      date: "2012-08-18",
+      value: 14,
+    },
+    {
+      date: "2012-08-19",
+      value: 15,
+    },
+    {
+      date: "2012-08-20",
+      value: 12,
+    },
+    {
+      date: "2012-08-28",
+      value: 18,
+    },
+    {
+      date: "2012-08-29",
+      value: 20,
+    },
+    {
+      date: "2012-08-30",
+      value: 29,
+    },
+    {
+      date: "2012-08-31",
+      value: 33,
+    },
+    {
+      date: "2012-09-01",
+      value: 42,
+    },
+    {
+      date: "2012-09-02",
+      value: 35,
+    },
+    {
+      date: "2012-09-03",
+      value: 31,
+    },
+    {
+      date: "2012-09-04",
+      value: 47,
+    },
+    {
+      date: "2012-09-05",
+      value: 52,
+    },
+    {
+      date: "2012-09-06",
+      value: 46,
+    },
+    {
+      date: "2012-09-07",
+      value: 41,
+    },
+    {
+      date: "2012-09-08",
+      value: 43,
+    },
+    {
+      date: "2012-09-09",
+      value: 40,
+    },
+    {
+      date: "2012-09-10",
+      value: 39,
+    },
+    {
+      date: "2012-09-11",
+      value: 34,
+    },
+    {
+      date: "2012-09-12",
+      value: 29,
+    },
+    {
+      date: "2012-09-13",
+      value: 34,
+    },
+    {
+      date: "2012-11-14",
+      value: 81,
+    },
+    {
+      date: "2012-11-15",
+      value: 87,
+    },
+    {
+      date: "2012-11-16",
+      value: 82,
+    },
+    {
+      date: "2012-11-17",
+      value: 86,
+    },
+    {
+      date: "2012-11-18",
+      value: 80,
+    },
+    {
+      date: "2012-11-19",
+      value: 87,
+    },
+    {
+      date: "2012-11-20",
+      value: 83,
+    },
+    {
+      date: "2012-11-21",
+      value: 85,
+    },
+    {
+      date: "2012-11-22",
+      value: 84,
+    },
+    {
+      date: "2012-11-23",
+      value: 82,
+    },
+    {
+      date: "2012-11-24",
+      value: 73,
+    },
+    {
+      date: "2012-11-25",
+      value: 71,
+    },
+    {
+      date: "2012-11-26",
+      value: 75,
+    },
+    {
+      date: "2012-11-27",
+      value: 79,
+    },
+    {
+      date: "2012-11-28",
+      value: 70,
+    },
+    {
+      date: "2012-11-29",
+      value: 73,
+    },
+    {
+      date: "2012-11-30",
+      value: 61,
+    },
+    {
+      date: "2012-12-01",
+      value: 62,
+    },
+    {
+      date: "2012-12-02",
+      value: 66,
+    },
+    {
+      date: "2012-12-03",
+      value: 65,
+    },
+    {
+      date: "2012-12-04",
+      value: 73,
+    },
+    {
+      date: "2012-12-05",
+      value: 79,
+    },
+    {
+      date: "2012-12-06",
+      value: 78,
+    },
+    {
+      date: "2012-12-07",
+      value: 78,
+    },
+    {
+      date: "2012-12-08",
+      value: 78,
+    },
+    {
+      date: "2012-12-09",
+      value: 74,
+    },
+    {
+      date: "2012-12-10",
+      value: 73,
+    },
+    {
+      date: "2012-12-11",
+      value: 75,
+    },
+    {
+      date: "2012-12-12",
+      value: 70,
+    },
+    {
+      date: "2012-12-13",
+      value: 77,
+    },
+    {
+      date: "2012-12-14",
+      value: 67,
+    },
+    {
+      date: "2012-12-15",
+      value: 62,
+    },
+    {
+      date: "2012-12-16",
+      value: 64,
+    },
+    {
+      date: "2012-12-17",
+      value: 61,
+    },
+    {
+      date: "2012-12-18",
+      value: 59,
+    },
+    {
+      date: "2012-12-19",
+      value: 53,
+    },
+    {
+      date: "2012-12-20",
+      value: 54,
+    },
+    {
+      date: "2012-12-21",
+      value: 56,
+    },
+    {
+      date: "2012-12-22",
+      value: 59,
+    },
+    {
+      date: "2012-12-23",
+      value: 58,
+    },
+    {
+      date: "2012-12-24",
+      value: 55,
+    },
+    {
+      date: "2012-12-25",
+      value: 52,
+    },
+    {
+      date: "2012-12-26",
+      value: 54,
+    },
+    {
+      date: "2012-12-27",
+      value: 50,
+    },
+    {
+      date: "2012-12-28",
+      value: 50,
+    },
+    {
+      date: "2012-12-29",
+      value: 51,
+    },
+    {
+      date: "2012-12-30",
+      value: 52,
+    },
+    {
+      date: "2012-12-31",
+      value: 58,
+    },
+    {
+      date: "2013-01-01",
+      value: 60,
+    },
+    {
+      date: "2013-01-02",
+      value: 67,
+    },
+    {
+      date: "2013-01-03",
+      value: 64,
+    },
+    {
+      date: "2013-01-04",
+      value: 66,
+    },
+    {
+      date: "2013-01-05",
+      value: 60,
+    },
+    {
+      date: "2013-01-06",
+      value: 63,
+    },
+    {
+      date: "2013-01-07",
+      value: 61,
+    },
+    {
+      date: "2013-01-08",
+      value: 60,
+    },
+    {
+      date: "2013-01-09",
+      value: 65,
+    },
+    {
+      date: "2013-01-10",
+      value: 75,
+    },
+    {
+      date: "2013-01-11",
+      value: 77,
+    },
+    {
+      date: "2013-01-12",
+      value: 78,
+    },
+    {
+      date: "2013-01-13",
+      value: 70,
+    },
+    {
+      date: "2013-01-14",
+      value: 70,
+    },
+    {
+      date: "2013-01-15",
+      value: 73,
+    },
+    {
+      date: "2013-01-16",
+      value: 71,
+    },
+    {
+      date: "2013-01-17",
+      value: 74,
+    },
+    {
+      date: "2013-01-18",
+      value: 78,
+    },
+    {
+      date: "2013-01-19",
+      value: 85,
+    },
+    {
+      date: "2013-01-20",
+      value: 82,
+    },
+    {
+      date: "2013-01-21",
+      value: 83,
+    },
+    {
+      date: "2013-01-22",
+      value: 88,
+    },
+    {
+      date: "2013-01-23",
+      value: 85,
+    },
+    {
+      date: "2013-01-24",
+      value: 85,
+    },
+    {
+      date: "2013-01-25",
+      value: 80,
+    },
+    {
+      date: "2013-01-26",
+      value: 87,
+    },
+    {
+      date: "2013-01-27",
+      value: 84,
+    },
+    {
+      date: "2013-01-28",
+      value: 83,
+    },
+    {
+      date: "2013-01-29",
+      value: 84,
+    },
+    {
+      date: "2013-01-30",
+      value: 81,
+    },
+  ];
 
   // Create axes
   var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
+  dateAxis.renderer.labels.template.fill = am4core.color("#8e8da4");
   var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+  valueAxis.renderer.labels.template.fill = am4core.color("#8e8da4");
 
   // Create series
   var series = chart.series.push(new am4charts.LineSeries());
   series.dataFields.valueY = "value";
   series.dataFields.dateX = "date";
-  series.tooltipText = "{value}"
+  series.tooltipText = "{value}";
   series.strokeWidth = 2;
   series.minBulletDistance = 15;
 
@@ -337,796 +683,465 @@ function lineChart() {
   chart.scrollbarX.parent = chart.bottomAxesContainer;
 
   chart.events.on("ready", function () {
-    dateAxis.zoom({ start: 0.90, end: 1 });
+    dateAxis.zoom({ start: 0.9, end: 1 });
   });
-
 }
 
-function radarChart(){
-	// Themes begin
-	am4core.useTheme(am4themes_animated);
-	// Themes end
-	  
-	// Create chart instance
-	var chart = am4core.create("radarChart", am4charts.RadarChart);
-	chart.scrollbarX = new am4core.Scrollbar();
-
-	var data = [];
-
-	for(var i = 0; i < 20; i++){
-	  data.push({category: i, value:Math.round(Math.random() * 100)});
-	}
-
-	chart.data = data;
-	chart.radius = am4core.percent(100);
-	chart.innerRadius = am4core.percent(50);
-
-	// Create axes
-	var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-	categoryAxis.dataFields.category = "category";
-	categoryAxis.renderer.grid.template.location = 0;
-	categoryAxis.renderer.minGridDistance = 30;
-	categoryAxis.tooltip.disabled = true;
-	categoryAxis.renderer.minHeight = 110;
-	categoryAxis.renderer.grid.template.disabled = true;
-	//categoryAxis.renderer.labels.template.disabled = true;
-	let labelTemplate = categoryAxis.renderer.labels.template;
-	labelTemplate.radius = am4core.percent(-60);
-	labelTemplate.location = 0.5;
-	labelTemplate.relativeRotation = 90;
-
-	var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-	valueAxis.renderer.grid.template.disabled = true;
-	valueAxis.renderer.labels.template.disabled = true;
-	valueAxis.tooltip.disabled = true;
-
-	// Create series
-	var series = chart.series.push(new am4charts.RadarColumnSeries());
-	series.sequencedInterpolation = true;
-	series.dataFields.valueY = "value";
-	series.dataFields.categoryX = "category";
-	series.columns.template.strokeWidth = 0;
-	series.tooltipText = "{valueY}";
-	series.columns.template.radarColumn.cornerRadius = 10;
-	series.columns.template.radarColumn.innerCornerRadius = 0;
-
-	series.tooltip.pointerOrientation = "vertical";
-
-	// on hover, make corner radiuses bigger
-	let hoverState = series.columns.template.radarColumn.states.create("hover");
-	hoverState.properties.cornerRadius = 0;
-	hoverState.properties.fillOpacity = 1;
-
-
-	series.columns.template.adapter.add("fill", function(fill, target) {
-	  return chart.colors.getIndex(target.dataItem.index);
-	})
-
-	// Cursor
-	chart.cursor = new am4charts.RadarCursor();
-	chart.cursor.innerRadius = am4core.percent(50);
-	chart.cursor.lineY.disabled = true;
-
-}
 function donutChart() {
-// Create chart instance
-var chart = am4core.create("donutChart", am4charts.PieChart);
+  // Themes begin
+  am4core.useTheme(am4themes_animated);
+  // Themes end
 
-// Add data
-chart.data = [{
-  "country": "Lithuania",
-  "litres": 550.8
-}, {
-  "country": "Czech Republic",
-  "litres": 330.8
-}, {
-  "country": "Ireland",
-  "litres": 210.2
-},{
-  "country": "The Netherlands",
-  "litres": 51,
-  "hidden": true
-}];
+  // Create chart instance
+  var chart = am4core.create("donutChart", am4charts.PieChart);
 
-// Add and configure Series
-var pieSeries = chart.series.push(new am4charts.PieSeries());
-pieSeries.dataFields.value = "litres";
-pieSeries.dataFields.category = "country";
-pieSeries.dataFields.hidden = "hidden";
+  // Add data
+  chart.data = [
+    {
+      country: "Lithuania",
+      litres: 501.9,
+    },
+    {
+      country: "Czech Republic",
+      litres: 301.9,
+    },
+    {
+      country: "Ireland",
+      litres: 201.1,
+    },
+    {
+      country: "Germany",
+      litres: 165.8,
+    },
+    {
+      country: "Australia",
+      litres: 139.9,
+    },
+    {
+      country: "Austria",
+      litres: 128.3,
+    },
+    {
+      country: "UK",
+      litres: 99,
+    },
+    {
+      country: "Belgium",
+      litres: 60,
+    },
+    {
+      country: "The Netherlands",
+      litres: 50,
+    },
+  ];
 
-// Let's cut a hole in our Pie chart the size of 40% the radius
-chart.innerRadius = am4core.percent(40);
+  // Set inner radius
+  chart.innerRadius = am4core.percent(50);
 
-// Disable ticks and labels
-pieSeries.labels.template.disabled = true;
-pieSeries.ticks.template.disabled = true;
+  // Add and configure Series
+  var pieSeries = chart.series.push(new am4charts.PieSeries());
+  pieSeries.dataFields.value = "litres";
+  pieSeries.dataFields.category = "country";
+  pieSeries.slices.template.stroke = am4core.color("#fff");
+  pieSeries.slices.template.strokeWidth = 2;
+  pieSeries.slices.template.strokeOpacity = 1;
+  pieSeries.labels.template.fill = am4core.color("#8e8da4");
 
-// Add a legend
-chart.legend = new am4charts.Legend();
-chart.legend.position = "bottom";
-
-pieSeries.colors.list = [
-	  am4core.color("#30D4EE"),
-	  am4core.color("#C1FC2E"),
-	  am4core.color("#FC692E"),
-	  am4core.color("#FF9671"),
-	  am4core.color("#FFC75F"),
-	  am4core.color("#F9F871"),
-	];
+  // This creates initial animation
+  pieSeries.hiddenState.properties.opacity = 1;
+  pieSeries.hiddenState.properties.endAngle = -90;
+  pieSeries.hiddenState.properties.startAngle = -90;
 }
 
 function pieChart() {
+  // Themes begin
+  am4core.useTheme(am4themes_animated);
+  // Themes end
 
-	// Themes begin
-	am4core.useTheme(am4themes_animated);
-	// Themes end
+  // Create chart instance
+  var chart = am4core.create("pieChart", am4charts.PieChart);
 
-	var chart = am4core.create("pieChart", am4charts.PieChart3D);
-	chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+  // Add data
+  chart.data = [
+    {
+      country: "Lithuania",
+      litres: 501.9,
+    },
+    {
+      country: "Czech Republic",
+      litres: 301.9,
+    },
+    {
+      country: "Ireland",
+      litres: 201.1,
+    },
+    {
+      country: "Germany",
+      litres: 165.8,
+    },
+    {
+      country: "Australia",
+      litres: 139.9,
+    },
+    {
+      country: "Austria",
+      litres: 128.3,
+    },
+    {
+      country: "UK",
+      litres: 99,
+    },
+    {
+      country: "Belgium",
+      litres: 60,
+    },
+    {
+      country: "The Netherlands",
+      litres: 50,
+    },
+  ];
 
-	chart.data = [
-	  {
-	    country: "America",
-	    litres: 501.9
-	  },
-	  {
-	    country: "Ireland",
-	    litres: 201.1
-	  },
-	  {
-	    country: "Germany",
-	    litres: 165.8
-	  },
-	  {
-	    country: "Australia",
-	    litres: 139.9
-	  },
-	  {
-	    country: "Canada",
-	    litres: 128.3
-	  }
-	];
+  // Add and configure Series
+  var pieSeries = chart.series.push(new am4charts.PieSeries());
+  pieSeries.dataFields.value = "litres";
+  pieSeries.dataFields.category = "country";
+  pieSeries.slices.template.stroke = am4core.color("#fff");
+  pieSeries.slices.template.strokeWidth = 2;
+  pieSeries.slices.template.strokeOpacity = 1;
+  pieSeries.labels.template.fill = am4core.color("#8e8da4");
 
-	chart.innerRadius = am4core.percent(40);
-	chart.depth = 120;
-
-	chart.legend = new am4charts.Legend();
-
-	var series = chart.series.push(new am4charts.PieSeries3D());
-	series.dataFields.value = "litres";
-	series.dataFields.depthValue = "litres";
-	series.dataFields.category = "country";
-	series.slices.template.cornerRadius = 5;
-	series.colors.step = 3;
+  // This creates initial animation
+  pieSeries.hiddenState.properties.opacity = 1;
+  pieSeries.hiddenState.properties.endAngle = -90;
+  pieSeries.hiddenState.properties.startAngle = -90;
 }
 
-function waterfallChart() {
+function gaugeChart() {
+  // Themes begin
+  am4core.useTheme(am4themes_animated);
+  // Themes end
 
-	// Themes begin
-	am4core.useTheme(am4themes_animated);
-	// Themes end
+  // Create chart instance
+  var chart = am4core.create("gaugeChart", am4charts.RadarChart);
 
-	var chart = am4core.create("waterfallChart", am4charts.XYChart);
-	chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
+  // Add data
+  chart.data = [
+    {
+      category: "Research",
+      value: 80,
+      full: 100,
+    },
+    {
+      category: "Marketing",
+      value: 35,
+      full: 100,
+    },
+    {
+      category: "Distribution",
+      value: 92,
+      full: 100,
+    },
+    {
+      category: "Human Resources",
+      value: 68,
+      full: 100,
+    },
+  ];
 
-	// using math in the data instead of final values just to illustrate the idea of Waterfall chart
-	// a separate data field for step series is added because we don't need last step (notice, the last data item doesn't have stepValue)
-	chart.data = [ {
-	  category: "Net revenue",
-	  value: 9316,
-	  open: 0,
-	  stepValue: 9316,
-	  color: chart.colors.getIndex( 14 ),
-	  displayValue: 9316
-	}, {
-	  category: "Cost of sales",
-	  value: 9316 - 2386,
-	  open: 9316,
-	  stepValue: 9316 - 2386,
-	  color: chart.colors.getIndex( 9 ),
-	  displayValue: 2386
-	}, {
-	  category: "Operating expenses",
-	  value: 9316 - 2386 - 1233,
-	  open: 9316 - 2386,
-	  stepValue: 9316 - 2386 - 1233,
-	  color: chart.colors.getIndex( 10 ),
-	  displayValue: 1233
-	}, {
-	  category: "Amortisation",
-	  value: 9316 - 2386 - 1233 - 313,
-	  open: 9316 - 2386 - 1233,
-	  stepValue: 9316 - 2386 - 1233 - 313,
-	  color: chart.colors.getIndex( 11 ),
-	  displayValue: 313
-	}, {
-	  category: "Income from equity",
-	  value: 9316 - 2386 - 1233 - 313 + 1575,
-	  open: 9316 - 2386 - 1233 - 313,
-	  stepValue: 9316 - 2386 - 1233 - 313 + 1575,
-	  color: chart.colors.getIndex( 17 ),
-	  displayValue: 1575
-	}, {
-	  category: "Operating income",
-	  value: 9316 - 2386 - 1233 - 313 + 1575,
-	  open: 0,
-	  color: chart.colors.getIndex( 18 ),
-	  displayValue: 9316 - 2386 - 1233 - 313 + 1575
-	} ];
+  // Make chart not full circle
+  chart.startAngle = -90;
+  chart.endAngle = 180;
+  chart.innerRadius = am4core.percent(20);
 
-	var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-	categoryAxis.dataFields.category = "category";
-	categoryAxis.renderer.minGridDistance = 40;
+  // Set number format
+  chart.numberFormatter.numberFormat = "#.#'%'";
 
-	var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+  // Create axes
+  var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+  categoryAxis.dataFields.category = "category";
+  categoryAxis.renderer.grid.template.location = 0;
+  categoryAxis.renderer.grid.template.strokeOpacity = 0;
+  categoryAxis.renderer.labels.template.horizontalCenter = "right";
+  categoryAxis.renderer.labels.template.fontWeight = 500;
+  categoryAxis.renderer.labels.template.adapter.add("fill", function (
+    fill,
+    target
+  ) {
+    return target.dataItem.index >= 0
+      ? chart.colors.getIndex(target.dataItem.index)
+      : fill;
+  });
+  categoryAxis.renderer.minGridDistance = 10;
 
-	var columnSeries = chart.series.push(new am4charts.ColumnSeries());
-	columnSeries.dataFields.categoryX = "category";
-	columnSeries.dataFields.valueY = "value";
-	columnSeries.dataFields.openValueY = "open";
-	columnSeries.fillOpacity = 0.8;
-	columnSeries.sequencedInterpolation = true;
-	columnSeries.interpolationDuration = 1500;
+  var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+  valueAxis.renderer.grid.template.strokeOpacity = 0;
+  valueAxis.min = 0;
+  valueAxis.max = 100;
+  valueAxis.strictMinMax = true;
+  valueAxis.renderer.labels.template.fill = am4core.color("#8e8da4");
 
-	var columnTemplate = columnSeries.columns.template;
-	columnTemplate.strokeOpacity = 0;
-	columnTemplate.propertyFields.fill = "color";
+  // Create series
+  var series1 = chart.series.push(new am4charts.RadarColumnSeries());
+  series1.dataFields.valueX = "full";
+  series1.dataFields.categoryY = "category";
+  series1.clustered = false;
+  series1.columns.template.fill = new am4core.InterfaceColorSet().getFor(
+    "alternativeBackground"
+  );
+  series1.columns.template.fillOpacity = 0.08;
+  series1.columns.template.cornerRadiusTopLeft = 20;
+  series1.columns.template.strokeWidth = 0;
+  series1.columns.template.radarColumn.cornerRadius = 20;
 
-	var label = columnTemplate.createChild(am4core.Label);
-	label.text = "{displayValue.formatNumber('$#,## a')}";
-	label.align = "center";
-	label.valign = "middle";
+  var series2 = chart.series.push(new am4charts.RadarColumnSeries());
+  series2.dataFields.valueX = "value";
+  series2.dataFields.categoryY = "category";
+  series2.clustered = false;
+  series2.columns.template.strokeWidth = 0;
+  series2.columns.template.tooltipText = "{category}: [bold]{value}[/]";
+  series2.columns.template.radarColumn.cornerRadius = 20;
 
+  series2.columns.template.adapter.add("fill", function (fill, target) {
+    return chart.colors.getIndex(target.dataItem.index);
+  });
 
-	var stepSeries = chart.series.push(new am4charts.StepLineSeries());
-	stepSeries.dataFields.categoryX = "category";
-	stepSeries.dataFields.valueY = "stepValue";
-	stepSeries.noRisers = true;
-	stepSeries.stroke = new am4core.InterfaceColorSet().getFor("alternativeBackground");
-	stepSeries.strokeDasharray = "3,3";
-	stepSeries.interpolationDuration = 2000;
-	stepSeries.sequencedInterpolation = true;
-
-	// because column width is 80%, we modify start/end locations so that step would start with column and end with next column
-	stepSeries.startLocation = 0.1;
-	stepSeries.endLocation = 1.1;
-
-	chart.cursor = new am4charts.XYCursor();
-	chart.cursor.behavior = "none";
-
+  // Add cursor
+  chart.cursor = new am4charts.RadarCursor();
 }
-function ganttChart() {
-	// Themes begin
-	am4core.useTheme(am4themes_animated);
-	// Themes end
+function radialLineChart() {
+  // Themes begin
+  am4core.useTheme(am4themes_animated);
+  // Themes end
 
-	var chart = am4core.create("ganttChart", am4charts.XYChart);
-	chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+  /* Create chart instance */
+  var chart = am4core.create("radialLineChart", am4charts.RadarChart);
 
-	chart.paddingRight = 30;
-	chart.dateFormatter.inputDateFormat = "yyyy-MM-dd HH:mm";
+  var data = [];
+  var value1 = 500;
+  var value2 = 600;
 
-	var colorSet = new am4core.ColorSet();
-	colorSet.saturation = 0.4;
+  for (var i = 0; i < 12; i++) {
+    let date = new Date();
+    date.setMonth(i, 1);
+    value1 -= Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 50);
+    value2 -= Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 50);
+    data.push({ date: date, value1: value1, value2: value2 });
+  }
 
-	chart.data = [ {
-	  "category": "Module #1",
-	  "start": "2016-01-01",
-	  "end": "2016-01-14",
-	  "color": colorSet.getIndex(0).brighten(0),
-	  "task": "Gathering requirements"
-	}, {
-	  "category": "Module #1",
-	  "start": "2016-01-16",
-	  "end": "2016-01-27",
-	  "color": colorSet.getIndex(0).brighten(0.4),
-	  "task": "Producing specifications"
-	}, {
-	  "category": "Module #1",
-	  "start": "2016-02-05",
-	  "end": "2016-04-18",
-	  "color": colorSet.getIndex(0).brighten(0.8),
-	  "task": "Development"
-	}, {
-	  "category": "Module #1",
-	  "start": "2016-04-18",
-	  "end": "2016-04-30",
-	  "color": colorSet.getIndex(0).brighten(1.2),
-	  "task": "Testing and QA"
-	}, {
-	  "category": "Module #2",
-	  "start": "2016-01-08",
-	  "end": "2016-01-10",
-	  "color": colorSet.getIndex(2).brighten(0),
-	  "task": "Gathering requirements"
-	}, {
-	  "category": "Module #2",
-	  "start": "2016-01-12",
-	  "end": "2016-01-15",
-	  "color": colorSet.getIndex(2).brighten(0.4),
-	  "task": "Producing specifications"
-	}, {
-	  "category": "Module #2",
-	  "start": "2016-01-16",
-	  "end": "2016-02-05",
-	  "color": colorSet.getIndex(2).brighten(0.8),
-	  "task": "Development"
-	}, {
-	  "category": "Module #2",
-	  "start": "2016-02-10",
-	  "end": "2016-02-18",
-	  "color": colorSet.getIndex(2).brighten(1.2),
-	  "task": "Testing and QA"
-	}, {
-	  "category": "Module #3",
-	  "start": "2016-01-02",
-	  "end": "2016-01-08",
-	  "color": colorSet.getIndex(4).brighten(0),
-	  "task": "Gathering requirements"
-	}, {
-	  "category": "Module #3",
-	  "start": "2016-01-08",
-	  "end": "2016-01-16",
-	  "color": colorSet.getIndex(4).brighten(0.4),
-	  "task": "Producing specifications"
-	}, {
-	  "category": "Module #3",
-	  "start": "2016-01-19",
-	  "end": "2016-03-01",
-	  "color": colorSet.getIndex(4).brighten(0.8),
-	  "task": "Development"
-	}, {
-	  "category": "Module #3",
-	  "start": "2016-03-12",
-	  "end": "2016-04-05",
-	  "color": colorSet.getIndex(4).brighten(1.2),
-	  "task": "Testing and QA"
-	}, {
-	  "category": "Module #4",
-	  "start": "2016-01-01",
-	  "end": "2016-01-19",
-	  "color": colorSet.getIndex(6).brighten(0),
-	  "task": "Gathering requirements"
-	}, {
-	  "category": "Module #4",
-	  "start": "2016-01-19",
-	  "end": "2016-02-03",
-	  "color": colorSet.getIndex(6).brighten(0.4),
-	  "task": "Producing specifications"
-	}, {
-	  "category": "Module #4",
-	  "start": "2016-03-20",
-	  "end": "2016-04-25",
-	  "color": colorSet.getIndex(6).brighten(0.8),
-	  "task": "Development"
-	}, {
-	  "category": "Module #4",
-	  "start": "2016-04-27",
-	  "end": "2016-05-15",
-	  "color": colorSet.getIndex(6).brighten(1.2),
-	  "task": "Testing and QA"
-	}, {
-	  "category": "Module #5",
-	  "start": "2016-01-01",
-	  "end": "2016-01-12",
-	  "color": colorSet.getIndex(8).brighten(0),
-	  "task": "Gathering requirements"
-	}, {
-	  "category": "Module #5",
-	  "start": "2016-01-12",
-	  "end": "2016-01-19",
-	  "color": colorSet.getIndex(8).brighten(0.4),
-	  "task": "Producing specifications"
-	}, {
-	  "category": "Module #5",
-	  "start": "2016-01-19",
-	  "end": "2016-03-01",
-	  "color": colorSet.getIndex(8).brighten(0.8),
-	  "task": "Development"
-	}, {
-	  "category": "Module #5",
-	  "start": "2016-03-08",
-	  "end": "2016-03-30",
-	  "color": colorSet.getIndex(8).brighten(1.2),
-	  "task": "Testing and QA"
-	} ];
+  chart.data = data;
 
-	chart.dateFormatter.dateFormat = "yyyy-MM-dd";
-	chart.dateFormatter.inputDateFormat = "yyyy-MM-dd";
+  /* Create axes */
+  var categoryAxis = chart.xAxes.push(new am4charts.DateAxis());
+  categoryAxis.renderer.labels.template.fill = am4core.color("#8e8da4");
 
-	var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
-	categoryAxis.dataFields.category = "category";
-	categoryAxis.renderer.grid.template.location = 0;
-	categoryAxis.renderer.inversed = true;
+  var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+  valueAxis.extraMin = 0.2;
+  valueAxis.extraMax = 0.2;
+  valueAxis.tooltip.disabled = true;
+  valueAxis.renderer.labels.template.fill = am4core.color("#8e8da4");
 
-	var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-	dateAxis.renderer.minGridDistance = 70;
-	dateAxis.baseInterval = { count: 1, timeUnit: "day" };
-	// dateAxis.max = new Date(2018, 0, 1, 24, 0, 0, 0).getTime();
-	//dateAxis.strictMinMax = true;
-	dateAxis.renderer.tooltipLocation = 0;
+  /* Create and configure series */
+  var series1 = chart.series.push(new am4charts.RadarSeries());
+  series1.dataFields.valueY = "value1";
+  series1.dataFields.dateX = "date";
+  series1.strokeWidth = 3;
+  series1.tooltipText = "{valueY}";
+  series1.name = "Series 2";
+  series1.bullets.create(am4charts.CircleBullet);
 
-	var series1 = chart.series.push(new am4charts.ColumnSeries());
-	series1.columns.template.height = am4core.percent(70);
-	series1.columns.template.tooltipText = "{task}: [bold]{openDateX}[/] - [bold]{dateX}[/]";
+  var series2 = chart.series.push(new am4charts.RadarSeries());
+  series2.dataFields.valueY = "value2";
+  series2.dataFields.dateX = "date";
+  series2.strokeWidth = 3;
+  series2.tooltipText = "{valueY}";
+  series2.name = "Series 2";
+  series2.bullets.create(am4charts.CircleBullet);
 
-	series1.dataFields.openDateX = "start";
-	series1.dataFields.dateX = "end";
-	series1.dataFields.categoryY = "category";
-	series1.columns.template.propertyFields.fill = "color"; // get color from data
-	series1.columns.template.propertyFields.stroke = "color";
-	series1.columns.template.strokeOpacity = 1;
+  chart.scrollbarX = new am4core.Scrollbar();
+  chart.scrollbarY = new am4core.Scrollbar();
 
-	chart.scrollbarX = new am4core.Scrollbar();
+  chart.cursor = new am4charts.RadarCursor();
+
+  chart.legend = new am4charts.Legend();
 }
-function candleStickChart(){
+function dumbbellPlotChart() {
+  // Themes begin
+  am4core.useTheme(am4themes_animated);
+  // Themes end
 
-	// Themes begin
-	am4core.useTheme(am4themes_animated);
-	// Themes end
+  var chart = am4core.create("dumbbellPlotChart", am4charts.XYChart);
 
-	var chart = am4core.create("candleStickChart", am4charts.XYChart);
-	chart.paddingRight = 20;
+  var data = [];
+  var open = 100;
+  var close = 120;
 
-	chart.dateFormatter.inputDateFormat = "yyyy-MM-dd";
+  var names = [
+    "Raina",
+    "Demarcus",
+    "Carlo",
+    "Jacinda",
+    "Richie",
+    "Antony",
+    "Amada",
+    "Idalia",
+    "Janella",
+    "Marla",
+    "Curtis",
+    "Shellie",
+  ];
 
-	var dateAxis = chart.xAxes.push(new am4charts.DateAxis());
-	dateAxis.renderer.grid.template.location = 0;
+  for (var i = 0; i < names.length; i++) {
+    open += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 5);
+    close = open + Math.round(Math.random() * 10) + 3;
+    data.push({ category: names[i], open: open, close: close });
+  }
 
-	var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-	valueAxis.tooltip.disabled = true;
+  chart.data = data;
 
-	var series = chart.series.push(new am4charts.CandlestickSeries());
-	series.dataFields.dateX = "date";
-	series.dataFields.valueY = "close";
-	series.dataFields.openValueY = "open";
-	series.dataFields.lowValueY = "low";
-	series.dataFields.highValueY = "high";
-	series.simplifiedProcessing = true;
-	series.tooltipText = "Open:${openValueY.value}\nLow:${lowValueY.value}\nHigh:${highValueY.value}\nClose:${valueY.value}";
+  var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+  categoryAxis.renderer.grid.template.location = 0;
+  categoryAxis.renderer.ticks.template.disabled = true;
+  categoryAxis.renderer.axisFills.template.disabled = true;
+  categoryAxis.dataFields.category = "category";
+  categoryAxis.renderer.minGridDistance = 15;
+  categoryAxis.renderer.grid.template.location = 0.5;
+  categoryAxis.renderer.grid.template.strokeDasharray = "1,3";
+  categoryAxis.renderer.labels.template.rotation = -90;
+  categoryAxis.renderer.labels.template.horizontalCenter = "left";
+  categoryAxis.renderer.labels.template.dx = 17;
+  categoryAxis.renderer.inside = true;
+  categoryAxis.renderer.labels.template.fill = am4core.color("#8e8da4");
 
-	chart.cursor = new am4charts.XYCursor();
+  var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+  valueAxis.tooltip.disabled = true;
+  valueAxis.renderer.ticks.template.disabled = true;
+  valueAxis.renderer.axisFills.template.disabled = true;
+  valueAxis.renderer.labels.template.fill = am4core.color("#8e8da4");
 
-	// a separate series for scrollbar
-	var lineSeries = chart.series.push(new am4charts.LineSeries());
-	lineSeries.dataFields.dateX = "date";
-	lineSeries.dataFields.valueY = "close";
-	// need to set on default state, as initially series is "show"
-	lineSeries.defaultState.properties.visible = false;
+  var series = chart.series.push(new am4charts.ColumnSeries());
+  series.dataFields.categoryX = "category";
+  series.dataFields.openValueY = "open";
+  series.dataFields.valueY = "close";
+  series.tooltipText = "open: {openValueY.value} close: {valueY.value}";
+  series.sequencedInterpolation = true;
+  series.fillOpacity = 0;
+  series.strokeOpacity = 1;
+  series.columns.template.width = 0.01;
+  series.tooltip.pointerOrientation = "horizontal";
 
-	// hide from legend too (in case there is one)
-	lineSeries.hiddenInLegend = true;
-	lineSeries.fillOpacity = 0.5;
-	lineSeries.strokeOpacity = 0.5;
+  var openBullet = series.bullets.create(am4charts.CircleBullet);
+  openBullet.locationY = 1;
 
-	var scrollbarX = new am4charts.XYChartScrollbar();
-	scrollbarX.series.push(lineSeries);
-	chart.scrollbarX = scrollbarX;
+  var closeBullet = series.bullets.create(am4charts.CircleBullet);
 
-	chart.data = [ {
-	    "date": "2011-08-01",
-	    "open": "136.65",
-	    "high": "136.96",
-	    "low": "134.15",
-	    "close": "136.49"
-	  }, {
-	    "date": "2011-08-02",
-	    "open": "135.26",
-	    "high": "135.95",
-	    "low": "131.50",
-	    "close": "131.85"
-	  }, {
-	    "date": "2011-08-05",
-	    "open": "132.90",
-	    "high": "135.27",
-	    "low": "128.30",
-	    "close": "135.25"
-	  }, {
-	    "date": "2011-08-06",
-	    "open": "134.94",
-	    "high": "137.24",
-	    "low": "132.63",
-	    "close": "135.03"
-	  }, {
-	    "date": "2011-08-07",
-	    "open": "136.76",
-	    "high": "136.86",
-	    "low": "132.00",
-	    "close": "134.01"
-	  }, {
-	    "date": "2011-08-08",
-	    "open": "131.11",
-	    "high": "133.00",
-	    "low": "125.09",
-	    "close": "126.39"
-	  }, {
-	    "date": "2011-08-09",
-	    "open": "123.12",
-	    "high": "127.75",
-	    "low": "120.30",
-	    "close": "125.00"
-	  }, {
-	    "date": "2011-08-12",
-	    "open": "128.32",
-	    "high": "129.35",
-	    "low": "126.50",
-	    "close": "127.79"
-	  }, {
-	    "date": "2011-08-13",
-	    "open": "128.29",
-	    "high": "128.30",
-	    "low": "123.71",
-	    "close": "124.03"
-	  }, {
-	    "date": "2011-08-14",
-	    "open": "122.74",
-	    "high": "124.86",
-	    "low": "119.65",
-	    "close": "119.90"
-	  }, {
-	    "date": "2011-08-15",
-	    "open": "117.01",
-	    "high": "118.50",
-	    "low": "111.62",
-	    "close": "117.05"
-	  }, {
-	    "date": "2011-08-16",
-	    "open": "122.01",
-	    "high": "123.50",
-	    "low": "119.82",
-	    "close": "122.06"
-	  }, {
-	    "date": "2011-08-19",
-	    "open": "123.96",
-	    "high": "124.50",
-	    "low": "120.50",
-	    "close": "122.22"
-	  }, {
-	    "date": "2011-08-20",
-	    "open": "122.21",
-	    "high": "128.96",
-	    "low": "121.00",
-	    "close": "127.57"
-	  }, {
-	    "date": "2011-08-21",
-	    "open": "131.22",
-	    "high": "132.75",
-	    "low": "130.33",
-	    "close": "132.51"
-	  }, {
-	    "date": "2011-08-22",
-	    "open": "133.09",
-	    "high": "133.34",
-	    "low": "129.76",
-	    "close": "131.07"
-	  }, {
-	    "date": "2011-08-23",
-	    "open": "130.53",
-	    "high": "135.37",
-	    "low": "129.81",
-	    "close": "135.30"
-	  }, {
-	    "date": "2011-08-26",
-	    "open": "133.39",
-	    "high": "134.66",
-	    "low": "132.10",
-	    "close": "132.25"
-	  }, {
-	    "date": "2011-08-27",
-	    "open": "130.99",
-	    "high": "132.41",
-	    "low": "126.63",
-	    "close": "126.82"
-	  }, {
-	    "date": "2011-08-28",
-	    "open": "129.88",
-	    "high": "134.18",
-	    "low": "129.54",
-	    "close": "134.08"
-	  }, {
-	    "date": "2011-08-29",
-	    "open": "132.67",
-	    "high": "138.25",
-	    "low": "132.30",
-	    "close": "136.25"
-	  }, {
-	    "date": "2011-08-30",
-	    "open": "139.49",
-	    "high": "139.65",
-	    "low": "137.41",
-	    "close": "138.48"
-	  }, {
-	    "date": "2011-09-03",
-	    "open": "139.94",
-	    "high": "145.73",
-	    "low": "139.84",
-	    "close": "144.16"
-	  }, {
-	    "date": "2011-09-04",
-	    "open": "144.97",
-	    "high": "145.84",
-	    "low": "136.10",
-	    "close": "136.76"
-	  }, {
-	    "date": "2011-09-05",
-	    "open": "135.56",
-	    "high": "137.57",
-	    "low": "132.71",
-	    "close": "135.01"
-	  }, {
-	    "date": "2011-09-06",
-	    "open": "132.01",
-	    "high": "132.30",
-	    "low": "130.00",
-	    "close": "131.77"
-	  }, {
-	    "date": "2011-09-09",
-	    "open": "136.99",
-	    "high": "138.04",
-	    "low": "133.95",
-	    "close": "136.71"
-	  }, {
-	    "date": "2011-09-10",
-	    "open": "137.90",
-	    "high": "138.30",
-	    "low": "133.75",
-	    "close": "135.49"
-	  }, {
-	    "date": "2011-09-11",
-	    "open": "135.99",
-	    "high": "139.40",
-	    "low": "135.75",
-	    "close": "136.85"
-	  }, {
-	    "date": "2011-09-12",
-	    "open": "138.83",
-	    "high": "139.00",
-	    "low": "136.65",
-	    "close": "137.20"
-	  }, {
-	    "date": "2011-09-13",
-	    "open": "136.57",
-	    "high": "138.98",
-	    "low": "136.20",
-	    "close": "138.81"
-	  }, {
-	    "date": "2011-09-16",
-	    "open": "138.99",
-	    "high": "140.59",
-	    "low": "137.60",
-	    "close": "138.41"
-	  }, {
-	    "date": "2011-09-17",
-	    "open": "139.06",
-	    "high": "142.85",
-	    "low": "137.83",
-	    "close": "140.92"
-	  }, {
-	    "date": "2011-09-18",
-	    "open": "143.02",
-	    "high": "143.16",
-	    "low": "139.40",
-	    "close": "140.77"
-	  }, {
-	    "date": "2011-09-19",
-	    "open": "140.15",
-	    "high": "141.79",
-	    "low": "139.32",
-	    "close": "140.31"
-	  }, {
-	    "date": "2011-09-20",
-	    "open": "141.14",
-	    "high": "144.65",
-	    "low": "140.31",
-	    "close": "144.15"
-	  }, {
-	    "date": "2011-09-23",
-	    "open": "146.73",
-	    "high": "149.85",
-	    "low": "146.65",
-	    "close": "148.28"
-	  }, {
-	    "date": "2011-09-24",
-	    "open": "146.84",
-	    "high": "153.22",
-	    "low": "146.82",
-	    "close": "153.18"
-	  }, {
-	    "date": "2011-09-25",
-	    "open": "154.47",
-	    "high": "155.00",
-	    "low": "151.25",
-	    "close": "152.77"
-	  }, {
-	    "date": "2011-09-26",
-	    "open": "153.77",
-	    "high": "154.52",
-	    "low": "152.32",
-	    "close": "154.50"
-	  }, {
-	    "date": "2011-09-27",
-	    "open": "153.44",
-	    "high": "154.60",
-	    "low": "152.75",
-	    "close": "153.47"
-	  }, {
-	    "date": "2011-09-30",
-	    "open": "154.63",
-	    "high": "157.41",
-	    "low": "152.93",
-	    "close": "156.34"
-	  }, {
-	    "date": "2011-10-01",
-	    "open": "156.55",
-	    "high": "158.59",
-	    "low": "155.89",
-	    "close": "158.45"
-	  }, {
-	    "date": "2011-10-02",
-	    "open": "157.78",
-	    "high": "159.18",
-	    "low": "157.01",
-	    "close": "157.92"
-	  }, {
-	    "date": "2011-10-03",
-	    "open": "158.00",
-	    "high": "158.08",
-	    "low": "153.50",
-	    "close": "156.24"
-	  }, {
-	    "date": "2011-10-04",
-	    "open": "158.37",
-	    "high": "161.58",
-	    "low": "157.70",
-	    "close": "161.45"
-	  }, {
-	    "date": "2011-10-07",
-	    "open": "163.49",
-	    "high": "167.91",
-	    "low": "162.97",
-	    "close": "167.91"
-	  }, {
-	    "date": "2011-10-08",
-	    "open": "170.20",
-	    "high": "171.11",
-	    "low": "166.68",
-	    "close": "167.86"
-	  }, {
-	    "date": "2011-10-09",
-	    "open": "167.55",
-	    "high": "167.88",
-	    "low": "165.60",
-	    "close": "166.79"
-	  }, {
-	    "date": "2011-10-10",
-	    "open": "169.49",
-	    "high": "171.88",
-	    "low": "153.21",
-	    "close": "162.23"
-	  }, {
-	    "date": "2011-10-11",
-	    "open": "163.01",
-	    "high": "167.28",
-	    "low": "161.80",
-	    "close": "167.25"
-	  }, {
-	    "date": "2011-10-14",
-	    "open": "167.98",
-	    "high": "169.57",
-	    "low": "163.50",
-	    "close": "166.98"
-	  }, {
-	    "date": "2011-10-15",
-	    "open": "165.54",
-	    "high": "170.18",
-	    "low": "165.15",
-	    "close": "169.58"
-	  }, {
-	    "date": "2011-10-16",
-	    "open": "172.69",
-	    "high": "173.04",
-	    "low": "169.18",
-	    "close": "172.75"
-	  }];
+  closeBullet.fill = chart.colors.getIndex(4);
+  closeBullet.stroke = closeBullet.fill;
 
+  chart.cursor = new am4charts.XYCursor();
+
+  chart.scrollbarX = new am4core.Scrollbar();
+  chart.scrollbarY = new am4core.Scrollbar();
+}
+
+function mapBubble() {
+  // Themes begin
+  am4core.useTheme(am4themes_animated);
+  // Themes end
+
+  // Create map instance
+  var chart = am4core.create("mapBubble", am4maps.MapChart);
+
+  var title = chart.titles.create();
+  title.text =
+    "[bold font-size: 20]Population of Countries in 2011[/]\nsource: Gapminder";
+  title.textAlign = "middle";
+
+  var latlong = {
+    IN: { latitude: 20, longitude: 77 },
+    JP: { latitude: 36, longitude: 138 },
+    AU: { latitude: -27, longitude: 133 },
+    US: { latitude: 38, longitude: -97 },
+    RU: { latitude: 60, longitude: 100 },
+    BR: { latitude: -10, longitude: -55 },
+    DZ: { latitude: 28, longitude: 3 },
+  };
+
+  var mapData = [
+    {
+      id: "IN",
+      name: "India",
+      value: 1241491960,
+      color: chart.colors.getIndex(0),
+    },
+    {
+      id: "JP",
+      name: "Japan",
+      value: 126497241,
+      color: chart.colors.getIndex(0),
+    },
+    { id: "AU", name: "Australia", value: 22605732, color: "#8aabb0" },
+    {
+      id: "US",
+      name: "United States",
+      value: 313085380,
+      color: chart.colors.getIndex(4),
+    },
+    {
+      id: "RU",
+      name: "Russia",
+      value: 142835555,
+      color: chart.colors.getIndex(1),
+    },
+    {
+      id: "BR",
+      name: "Brazil",
+      value: 196655014,
+      color: chart.colors.getIndex(3),
+    },
+    {
+      id: "DZ",
+      name: "Algeria",
+      value: 35980193,
+      color: chart.colors.getIndex(2),
+    },
+  ];
+
+  // Add lat/long information to data
+  for (var i = 0; i < mapData.length; i++) {
+    mapData[i].latitude = latlong[mapData[i].id].latitude;
+    mapData[i].longitude = latlong[mapData[i].id].longitude;
+  }
+
+  // Set map definition
+  chart.geodata = am4geodata_worldLow;
+
+  // Set projection
+  chart.projection = new am4maps.projections.Miller();
+
+  // Create map polygon series
+  var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+  polygonSeries.exclude = ["AQ"];
+  polygonSeries.useGeodata = true;
+
+  var imageSeries = chart.series.push(new am4maps.MapImageSeries());
+  imageSeries.data = mapData;
+  imageSeries.dataFields.value = "value";
+
+  var imageTemplate = imageSeries.mapImages.template;
+  imageTemplate.propertyFields.latitude = "latitude";
+  imageTemplate.propertyFields.longitude = "longitude";
+  imageTemplate.nonScaling = true;
+
+  var circle = imageTemplate.createChild(am4core.Circle);
+  circle.fillOpacity = 0.7;
+  circle.propertyFields.fill = "color";
+  circle.tooltipText = "{name}: [bold]{value}[/]";
+
+  imageSeries.heatRules.push({
+    target: circle,
+    property: "radius",
+    min: 4,
+    max: 30,
+    dataField: "value",
+  });
 }
