@@ -27,7 +27,9 @@ class Tontine : BaseEntity() {
 
     var numberOfParticipant : Int = 0
 
-    var periodicity : String = ""
+    var periodicity : String = Periodicity.MONTHLY
+
+    var type : String = Type.OPENED
 
     var startDate : LocalDate? = null
 
