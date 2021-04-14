@@ -41,8 +41,9 @@ constructor(
             .authorizeRequests()
             .antMatchers(
                 "/${RestControllerEndpoint.API_BASE_URL}/**",
-                "/${RestControllerEndpoint.API_BASE_SECURED_URL}/**","/account/login",
-                "/account/login","/frontend/**","/account/register",
+                "/${RestControllerEndpoint.API_BASE_SECURED_URL}/**",
+                "/account/login",
+                "/account/register",
             )
             .permitAll()
             .anyRequest()
