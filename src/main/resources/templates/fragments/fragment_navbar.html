@@ -64,23 +64,23 @@
 
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                    <img alt="image" th:src="@{/assets/img/user.png}" class="user-img-radious-style">
+                    <img alt="image" th:src="@{/assets/img/user_a.png}" class="user-img-radious-style">
                     <span class="d-sm-none d-lg-inline-block"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right pullDown">
-                    <div class="dropdown-title">Hello Sarah Smith</div>
+                    <div class="dropdown-title" th:text="${user.username}"></div>
                     <a href="#" class="dropdown-item has-icon">
-                        <i class="far fa-user"></i> Profile
+                        <i class="far fa-user"></i> Mon profil
                     </a>
-                    <a href="#" class="dropdown-item has-icon">
+                    <!--<a href="#" class="dropdown-item has-icon">
                         <i class="fas fa-bolt"></i> Activities
-                    </a>
+                    </a>-->
                     <a href="#" class="dropdown-item has-icon">
-                        <i class="fas fa-cog"></i> Settings
+                        <i class="fas fa-cog"></i> Paramètres
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item has-icon text-danger">
-                        <i class="fas fa-sign-out-alt"></i> Logout
+                    <a th:href="@{/account/logout}" class="dropdown-item has-icon text-danger">
+                        <i class="fas fa-sign-out-alt"></i> Se deconnecter
                     </a>
                 </div>
             </li>

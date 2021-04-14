@@ -41,9 +41,8 @@ constructor(
             .authorizeRequests()
             .antMatchers(
                 "/${RestControllerEndpoint.API_BASE_URL}/**",
-                "/${RestControllerEndpoint.API_BASE_SECURED_URL}/**","/",
-                "/account/login", "/account/patient-create", "/account/professional-create",
-                "/account/patient", "/account/professional"
+                "/${RestControllerEndpoint.API_BASE_SECURED_URL}/**","/account/login",
+                "/account/login","/frontend/**","/account/register",
             )
             .permitAll()
             .anyRequest()
@@ -52,10 +51,10 @@ constructor(
             .formLogin()
             .loginPage("/account/login")
             .failureUrl("/account/login?error=true")
-            .usernameParameter("email")
+            .usernameParameter("username")
             .passwordParameter("password")
-            //.successHandler(authenticationSuccessHandler)
-            .defaultSuccessUrl("/dash", true)
+            .successHandler(authenticationSuccessHandler)
+            .defaultSuccessUrl("/backend/", true)
             .permitAll()
             .and()
             .logout()

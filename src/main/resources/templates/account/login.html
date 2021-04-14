@@ -1,51 +1,93 @@
+<div xmlns:th="http://www.thymeleaf.org">
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-  <!--Header
-  ============================================= -->
-  <th:block th:replace="fragments/fragment_head('Login')" />
-
-  <body>
-
-    <!-- Loader ============================================= -->
-    <th:block th:replace="fragments/fragment_loader" />
-
-    <div id="app">
-
-      <div class="main-wrapper main-wrapper-1">
-
-        <!-- Navbar ============================================= -->
-        <th:block th:replace="fragments/fragment_navbar" />
-
-        <!-- Sidebar ============================================= -->
-        <th:block th:replace="fragments/fragment_sidebar" />
+<html lang="en">
 
 
-        <!-- Main Content ============================================= -->
-        <div class="main-content">
+<!-- Mirrored from www.radixtouch.in/templates/admin/gati/source/light/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 04 Dec 2020 14:11:12 GMT -->
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Tontine - Connexion</title>
+  <!-- General CSS Files -->
+  <link rel="stylesheet" th:href="@{/assets/css/app.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/bundles/bootstrap-social/bootstrap-social.css}">
+  <!-- Template CSS -->
+  <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+  <link rel="stylesheet" th:href="@{/assets/css/components.css}">
+  <!-- Custom style CSS -->
+  <link rel="stylesheet" th:href="@{/assets/css/custom.css}">
+  <link rel='shortcut icon' type='image/x-icon' th:href="@{/assets/img/favicon.ico}" />
+</head>
 
-          <section class="section">
-
-            <div class="section-body">
-
-
-
+<body>
+<div class="loader"></div>
+<div id="app">
+  <section class="section">
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h4>Connexion</h4>
             </div>
-
-          </section>
-
+            <div class="card-body">
+              <form th:method="POST" th:action="@{/account/login}" class="needs-validation" novalidate="">
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input id="username" type="text" class="form-control" name="username" tabindex="1" required autofocus>
+                  <div class="invalid-feedback">
+                    Merci de renseigner votre mot de passe
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="d-block">
+                    <label for="password" class="control-label">Mot de passe</label>
+                    <!--<div class="float-right">
+                      <a href="auth-forgot-password.html" class="text-small">
+                        Mot de passe oublié?
+                      </a>
+                    </div>-->
+                  </div>
+                  <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
+                  <div class="invalid-feedback">
+                    Merci de renseigner votre mot de passe
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
+                    <label class="custom-control-label" for="remember-me">Se souvenir de moi</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                    Connexion
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="mt-5 text-muted text-center">
+            Vous n'avez pas de compte? <a th:href="@{/account/register}">Créez-en un</a>
+          </div>
         </div>
-
-        <!-- Footer ============================================= -->
-        <th:block th:replace="fragments/fragment_footer" />
-
       </div>
-
     </div>
+  </section>
+</div>
+<!-- General JS Scripts -->
+<script th:src="@{/assets/js/app.min.js}"></script>
+<!-- JS Libraies -->
+<!-- Page Specific JS File -->
+<!-- Template JS File -->
+<script th:src="@{/assets/js/scripts.js}"></script>
+<!-- Custom JS File -->
+<script th:src="@{/assets/js/custom.js}"></script>
+</body>
 
-    <!-- Scripts ============================================= -->
-    <th:block th:replace="fragments/fragment_script :: script"/>
 
-  </body>
-
+<!-- Mirrored from www.radixtouch.in/templates/admin/gati/source/light/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 04 Dec 2020 14:11:12 GMT -->
 </html>
+
+</div>

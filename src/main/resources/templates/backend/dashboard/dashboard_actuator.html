@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!--Header
+============================================= -->
+<th:block th:replace="fragments/fragment_head('Login')" />
+
+<body>
+
+<!-- Loader ============================================= -->
+<th:block th:replace="fragments/fragment_loader" />
+
+<div id="app">
+
+    <div class="main-wrapper main-wrapper-1">
+
+        <!-- Navbar ============================================= -->
+        <th:block th:replace="fragments/fragment_navbar" />
+
+        <!-- Sidebar ============================================= -->
+        <th:block th:replace="fragments/fragment_sidebar" />
+
+
+        <!-- Main Content ============================================= -->
+        <div class="main-content">
+
+            <section class="section">
+
+                <div class="section-body">
+
+
+
+                </div>
+
+            </section>
+
+        </div>
+
+        <!-- Footer ============================================= -->
+        <th:block th:replace="fragments/fragment_footer" />
+
+    </div>
+
+</div>
+
+<!-- Scripts ============================================= -->
+<th:block th:replace="fragments/fragment_script :: script"/>
+
+</body>
+
+</html>

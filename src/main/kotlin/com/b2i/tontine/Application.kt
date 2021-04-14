@@ -1,5 +1,9 @@
 package com.b2i.tontine
 
+import com.b2i.tontine.application.bootstrap.ActuatorBootstrap
+import com.b2i.tontine.application.bootstrap.RoleBootstrap
+import com.b2i.tontine.domain.account.port.RoleDomain
+import com.b2i.tontine.domain.account.port.UserDomain
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -12,10 +16,14 @@ class Application {
 
     @Bean
     fun initDatabase(
+            roleDomain: RoleDomain,
+            userDomain: UserDomain,
 
-    ): CommandLineRunner {
+            ): CommandLineRunner {
 
         return CommandLineRunner {
+            RoleBootstrap.seed(roleDomain)
+            ActuatorBootstrap.seed(roleDomain,userDomain)
 
         }
     }

@@ -88,7 +88,7 @@ class WebMvcConfig constructor(
                 apiHandlerInterceptor
             )
         )
-        registry.addInterceptor(MappedInterceptor(arrayOf("/dash/**","/**"), authenticatedUserInterceptor))
+        registry.addInterceptor(MappedInterceptor(arrayOf("/dashboard/**","/**"), authenticatedUserInterceptor))
         registry.addInterceptor(MappedInterceptor(arrayOf("/**"), helperInterceptor))
     }
 

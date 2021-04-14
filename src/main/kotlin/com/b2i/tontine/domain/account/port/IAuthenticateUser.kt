@@ -19,4 +19,6 @@ interface IAuthenticateUser {
 
     fun authenticateUser(username: String, password: String): OperationResult<User>
 
+    fun findTypeBy(id: Long): String
+
 }

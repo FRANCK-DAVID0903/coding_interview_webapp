@@ -9,4 +9,6 @@ object ControllerEndpoint {
     const val BACKEND_DATA_EXTRACT = "${BACKEND_DASHBOARD}/extract"
 
     const val FRONTEND_BASE = "frontend"
+
+    const val REGISTER = "register"
 }

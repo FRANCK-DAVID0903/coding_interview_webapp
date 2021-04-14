@@ -1,0 +1,113 @@
+<div xmlns:th="http://www.thymeleaf.org">
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+
+    <!-- Mirrored from www.radixtouch.in/templates/admin/gati/source/light/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 04 Dec 2020 14:11:12 GMT -->
+    <head>
+        <meta charset="UTF-8">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+        <title>Tontine - Connexion</title>
+        <!-- General CSS Files -->
+        <link rel="stylesheet" th:href="@{/assets/css/app.min.css}">
+        <link rel="stylesheet" th:href="@{/assets/bundles/bootstrap-social/bootstrap-social.css}">
+        <!-- Template CSS -->
+        <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+        <link rel="stylesheet" th:href="@{/assets/css/components.css}">
+        <!-- Custom style CSS -->
+        <link rel="stylesheet" th:href="@{/assets/css/custom.css}">
+        <link rel='shortcut icon' type='image/x-icon' th:href="@{/assets/img/favicon.ico}" />
+    </head>
+
+    <body>
+    <div class="loader"></div>
+    <div id="app">
+        <section class="section">
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h4>S'inscrire</h4>
+                            </div>
+                            <div class="card-body">
+                                <form method="POST" th:action="@{/account/register}">
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label for="fristName">Prénoms</label>
+                                            <input id="fristName" type="text" class="form-control" name="fristName" autofocus>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="lastName">Nom</label>
+                                            <input id="lastName" type="text" class="form-control" name="lastName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Telephone</label>
+                                        <input id="email" type="email" class="form-control" name="email">
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tel">Email</label>
+                                        <input id="tel" type="text" class="form-control" name="tel">
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label for="password" class="d-block">Mot de passe</label>
+                                            <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator"
+                                                   name="password">
+                                            <div id="pwindicator" class="pwindicator">
+                                                <div class="bar"></div>
+                                                <div class="label"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="password2" class="d-block">Confirmation mot de passe</label>
+                                            <input id="password2" type="password" class="form-control" name="password-confirm">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" name="agree" class="custom-control-input" id="agree">
+                                            <label class="custom-control-label" for="agree">J'accepte les termes et conditions</label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                            S'inscrire
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="mb-4 text-muted text-center">
+                                Déjà enregistré? <a href="auth-login.html">Connexion</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- General JS Scripts -->
+    <script th:src="@{/assets/js/app.min.js}"></script>
+    <!-- JS Libraies -->
+
+    <script th:src="@{/assets/bundles/jquery-pwstrength/jquery.pwstrength.min.js}"></script>
+    <script th:src="@{/assets/bundles/jquery-selectric/jquery.selectric.min.js}"></script>
+    <!-- Page Specific JS File -->
+    <script th:src="@{/assets/js/page/auth-register.js}"></script>
+    <!-- Page Specific JS File -->
+    <!-- Template JS File -->
+    <script th:src="@{/assets/js/scripts.js}"></script>
+    <!-- Custom JS File -->
+    <script th:src="@{/assets/js/custom.js}"></script>
+    </body>
+
+
+    <!-- Mirrored from www.radixtouch.in/templates/admin/gati/source/light/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 04 Dec 2020 14:11:12 GMT -->
+    </html>
+
+</div>

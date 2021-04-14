@@ -45,6 +45,10 @@ class UserWorker : UserDomain {
         return OperationResult(data, errors)
     }
 
+    override fun findTypeBy(id: Long): String {
+        return userRepository.findTypeBy(id)
+    }
+
     override fun lock(username: String): OperationResult<Boolean> {
         TODO("Not yet implemented")
     }
@@ -74,7 +78,7 @@ class UserWorker : UserDomain {
         }
 
         if (model.lastname.isNullOrEmpty()) {
-            errors["firstname"] = "Le prénom est requis pour la création d'un utilisateur"
+            errors["lastname"] = "Le nom est requis pour la création d'un utilisateur"
         }
 
         if (errors.isEmpty()) {
