@@ -1,5 +1,6 @@
 package com.b2i.tontine.domain.association_member.entity
 
+import com.b2i.tontine.domain.account.entity.AssociationRole
 import com.b2i.tontine.domain.account.entity.User
 import com.b2i.tontine.domain.account.entity.UserType
 import com.b2i.tontine.domain.association.entity.Association
@@ -18,6 +19,8 @@ class AssociationMember() : AuditableEntity<String>() {
 
     @EmbeddedId
     private var associationMemberId : AssociationMemberId? = null
+
+    var role : String = AssociationRole.MEMBER
 
     @ManyToOne(targetEntity = Association::class, optional = false)
     @MapsId("associationId")
