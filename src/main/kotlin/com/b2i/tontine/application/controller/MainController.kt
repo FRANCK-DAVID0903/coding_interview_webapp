@@ -55,12 +55,4 @@ class MainController(
         }
     }
 
-    @GetMapping(value = ["/account/register", "/account/register"])
-    fun registerPage(
-            model:Model,
-            redirectAttributes: RedirectAttributes
-    ): String {
-
-        return "account/register"
-    }
 }
