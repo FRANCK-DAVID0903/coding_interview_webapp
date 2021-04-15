@@ -39,19 +39,27 @@ class AssociationController(
     fun createAssociation(
         redirectAttributes: RedirectAttributes,
         @RequestParam("name") name: String,
-        @RequestParam("description") description: String,
+        @RequestParam("acronym") acronym: String,
         @RequestParam("email") email: String,
         @RequestParam("phoneNumber") phoneNumber: String,
+        @RequestParam("description") description: String,
         locale: Locale
     ): String {
 
-        var url = "/create"
+        var url = "create"
 
         when {
             name.isEmpty() -> {
                 ControlForm.redirectAttribute(
                     redirectAttributes,
                     messageSource.getMessage("association_name_empty", null, locale),
+                    Color.red
+                )
+            }
+            acronym.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("association_acronym_empty", null, locale),
                     Color.red
                 )
             }
@@ -72,9 +80,10 @@ class AssociationController(
             else -> {
                 val association = Association()
                 association.name = name
-                association.description = description
+                association.acronym = acronym
                 association.email = email
                 association.phoneNumber = phoneNumber
+                association.description = description
 
                 val result: OperationResult<Association> = associationDomain.saveAssociation(association)
 
@@ -85,7 +94,7 @@ class AssociationController(
                         messageSource.getMessage("association_save_success", null, locale)
                     )
                 ) {
-                    url = "/associations"
+                    url = "list_associations"
                 }
 
             }

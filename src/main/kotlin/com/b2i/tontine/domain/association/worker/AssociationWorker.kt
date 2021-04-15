@@ -32,6 +32,10 @@ class AssociationWorker : AssociationDomain {
             errors["name"] = "association_name_empty"
         }
 
+        if (association.acronym.isEmpty()) {
+            errors["acronym"] = "association_acronym_empty"
+        }
+
         if (association.email.isEmpty()) {
             errors["email"] = "association_email_empty"
         }
@@ -50,9 +54,10 @@ class AssociationWorker : AssociationDomain {
                 if (optionalAssociation.isPresent) {
                     val associationToUpdate = optionalAssociation.get()
                     associationToUpdate.name = association.name
-                    associationToUpdate.description = association.description
+                    associationToUpdate.acronym = association.acronym
                     associationToUpdate.email = association.email
                     associationToUpdate.phoneNumber = association.phoneNumber
+                    associationToUpdate.description = association.description
 
                     data = associationRepository.save(associationToUpdate)
                 } else {

@@ -28,7 +28,52 @@
 
         <div class="section-body">
 
-          GOAT
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4>Associations list</h4>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-striped" id="table-1">
+                      <thead>
+                        <tr>
+                          <th class="text-center">#</th>
+                          <th>Name</th>
+                          <th>Acronym</th>
+                          <th>Creation date</th>
+                          <th>Status</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <tr th:each="association : ${associations}">
+
+                          <td th:text="${association.id}"></td>
+
+                          <td th:text="${association.name}"></td>
+
+                          <td class="align-middle" th:text="${association.acronym}"></td>
+
+                          <td class="text-center">2018-01-20</td>
+
+                          <td class="text-center">
+                            <div class="badge badge-success badge-shadow">Completed</div>
+                          </td>
+
+                          <td class="text-center"><a href="#" class="btn btn-primary">Detail</a></td>
+
+                        </tr>
+                      </tbody>
+
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
 

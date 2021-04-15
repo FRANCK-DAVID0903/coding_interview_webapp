@@ -14,13 +14,19 @@ class Association : BaseEntity() {
 
     var name : String = ""
 
-    var description : String = ""
+    var acronym : String = ""
+
+//    creation date
+//    status
 
     @Column(unique = true, nullable = false)
     var email : String = ""
 
     @Column(unique = true, nullable = false)
     var phoneNumber : String = ""
+
+    @Column(columnDefinition = "text")
+    var description : String = ""
 
     var state : Int = 0
 
