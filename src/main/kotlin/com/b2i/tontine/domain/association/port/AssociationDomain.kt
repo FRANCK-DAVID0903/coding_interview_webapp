@@ -6,5 +6,4 @@ package com.b2i.tontine.domain.association.port
  * @Date: 2021/04/13
  * @Time: 11:23
  */
-interface AssociationDomain {
-}
+interface AssociationDomain : IManageAssociation

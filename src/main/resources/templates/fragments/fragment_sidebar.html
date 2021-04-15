@@ -23,8 +23,12 @@
                     <span>Associations</span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li class="active"><a class="nav-link" href="#">Créer association</a></li>
-                    <li class="active"><a class="nav-link" href="#">Liste des associations</a></li>
+                    <li class="active">
+                        <a class="nav-link" th:href="@{/backend/association/create}">Créer association</a>
+                    </li>
+                    <li class="active">
+                        <a class="nav-link" th:href="@{/backend/association/list_associations}">Liste des associations</a>
+                    </li>
                 </ul>
             </li>
 
