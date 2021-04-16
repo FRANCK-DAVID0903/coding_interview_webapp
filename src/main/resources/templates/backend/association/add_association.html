@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+  <!--Header
+  ============================================= -->
+  <th:block th:replace="fragments/fragment_head('Home')" />
+
+  <body>
+
+    <!-- Loader ============================================= -->
+    <th:block th:replace="fragments/fragment_loader" />
+
+    <div id="app">
+
+      <div class="main-wrapper main-wrapper-1">
+
+        <!-- Navbar ============================================= -->
+        <th:block th:replace="fragments/fragment_navbar" />
+
+        <!-- Sidebar ============================================= -->
+        <th:block th:replace="fragments/fragment_sidebar" />
+
+
+        <!-- Main Content ============================================= -->
+        <div class="main-content">
+
+          <section class="section">
+
+            <div class="section-body">
+
+              <div class="row">
+
+                <div class="col-12 col-md-12 col-lg-12">
+
+                  <div class="card">
+
+                    <div class="card-header">
+                      <h3>Create an association</h3>
+                    </div>
+
+                    <form method="post" th:action="@{/backend/association/create}">
+
+                      <div class="card-body">
+
+                        <input type="hidden" value="-1" name="id">
+                        <input type="hidden" th:value="1" name="created">
+
+                        <div class="form-row">
+
+                          <div class="form-group col-md-6">
+                            <label >Association name</label>
+                            <input required type="text" class="form-control" name="name" placeholder="Name">
+                          </div>
+
+                          <div class="form-group col-md-6">
+                            <label >Association Acronym</label>
+                            <input required type="text" class="form-control" name="acronym"  placeholder="Acronym">
+                          </div>
+
+                        </div>
+
+                        <div class="form-row">
+
+                          <div class="form-group col-md-6">
+                            <label >Mail address</label>
+                            <input required type="email" max="20"  class="form-control" name="email"  placeholder="Email">
+                          </div>
+
+                          <div class="form-group col-md-6">
+                            <label >Phone number</label>
+                            <input required type="text" max="20"  class="form-control" name="phoneNumber" placeholder="Phone number">
+                          </div>
+
+                        </div>
+
+                        <div class="form-row">
+                          <div class="form-group col-md-12">
+                            <label>Description</label>
+                            <textarea required  name="description" class="form-control"></textarea>
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <div class="card-footer">
+                        <button class="btn btn-primary">Save</button>
+                      </div>
+
+                    </form>
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+        </div>
+
+        <!-- Footer ============================================= -->
+        <th:block th:replace="fragments/fragment_footer" />
+
+      </div>
+
+    </div>
+
+    <!-- Scripts ============================================= -->
+    <th:block th:replace="fragments/fragment_script :: script"/>
+
+  </body>
+
+</html>
