@@ -57,6 +57,7 @@ class WebMvcConfig constructor(
         val sessionLocaleResolver = SessionLocaleResolver()
         sessionLocaleResolver.setDefaultLocale(Locale.FRENCH)
         return sessionLocaleResolver
+
     }
 
     @Bean
