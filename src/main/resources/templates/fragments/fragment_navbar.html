@@ -8,16 +8,6 @@
                         <i data-feather="menu"></i>
                     </a>
                 </li>
-                <li>
-                    <form class="form-inline mr-auto">
-                        <div class="search-element">
-                            <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="200">
-                            <button class="btn" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </form>
-                </li>
             </ul>
         </div>
         <ul class="navbar-nav navbar-right">
@@ -70,17 +60,20 @@
                 <div class="dropdown-menu dropdown-menu-right pullDown">
                     <div class="dropdown-title" th:text="${user.username}"></div>
                     <a href="#" class="dropdown-item has-icon">
-                        <i class="far fa-user"></i> Mon profil
+                        <i class="far fa-user"></i>
+                        <span th:text="#{navbar_profile}"></span>
                     </a>
                     <!--<a href="#" class="dropdown-item has-icon">
                         <i class="fas fa-bolt"></i> Activities
                     </a>-->
                     <a href="#" class="dropdown-item has-icon">
-                        <i class="fas fa-cog"></i> Paramètres
+                        <i class="fas fa-cog"></i>
+                        <span th:text="#{navbar_setting}"></span>
                     </a>
                     <div class="dropdown-divider"></div>
                     <a th:href="@{/account/logout}" class="dropdown-item has-icon text-danger">
-                        <i class="fas fa-sign-out-alt"></i> Se deconnecter
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span th:text="#{navbar_logout}"></span>
                     </a>
                 </div>
             </li>

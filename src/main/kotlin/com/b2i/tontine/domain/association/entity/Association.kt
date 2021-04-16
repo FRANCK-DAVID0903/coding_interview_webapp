@@ -16,9 +16,6 @@ class Association : BaseEntity() {
 
     var acronym : String = ""
 
-//    creation date
-//    status
-
     @Column(unique = true, nullable = false)
     var email : String = ""
 

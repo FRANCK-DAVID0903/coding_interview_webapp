@@ -35,7 +35,9 @@
                   <div class="card">
 
                     <div class="card-header">
-                      <h3>Create an association</h3>
+                      <h3>
+                        <span th:text="#{sidebar_association_create}"></span>
+                      </h3>
                     </div>
 
                     <form method="post" th:action="@{/backend/association/create}">
@@ -43,17 +45,20 @@
                       <div class="card-body">
 
                         <input type="hidden" value="-1" name="id">
-                        <input type="hidden" th:value="1" name="created">
 
                         <div class="form-row">
 
                           <div class="form-group col-md-6">
-                            <label >Association name</label>
-                            <input required type="text" class="form-control" name="name" placeholder="Name">
+                            <label>
+                              <span th:text="#{association_page_label_name}"></span>
+                            </label>
+                            <input type="text" class="form-control" name="name" placeholder="Name">
                           </div>
 
                           <div class="form-group col-md-6">
-                            <label >Association Acronym</label>
+                            <label>
+                              <span th:text="#{association_page_label_acronym}"></span>
+                            </label>
                             <input required type="text" class="form-control" name="acronym"  placeholder="Acronym">
                           </div>
 
@@ -62,12 +67,16 @@
                         <div class="form-row">
 
                           <div class="form-group col-md-6">
-                            <label >Mail address</label>
+                            <label>
+                              <span th:text="#{association_page_label_mail}"></span>
+                            </label>
                             <input required type="email" max="20"  class="form-control" name="email"  placeholder="Email">
                           </div>
 
                           <div class="form-group col-md-6">
-                            <label >Phone number</label>
+                            <label>
+                              <span th:text="#{association_page_label_phone}"></span>
+                            </label>
                             <input required type="text" max="20"  class="form-control" name="phoneNumber" placeholder="Phone number">
                           </div>
 
@@ -107,7 +116,12 @@
     </div>
 
     <!-- Scripts ============================================= -->
-    <th:block th:replace="fragments/fragment_script :: script"/>
+    <script>
+      $(document).ready(function () {
+        $('#association').attr('class', 'active');
+        $('#association-add').attr('class', 'active');
+      });
+    </script>
 
   </body>
 

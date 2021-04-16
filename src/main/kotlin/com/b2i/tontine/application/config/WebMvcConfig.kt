@@ -54,7 +54,7 @@ class WebMvcConfig constructor(
     @Bean
     fun localeResolver(): LocaleResolver {
         val localeResolver = AcceptHeaderLocaleResolver()
-        localeResolver.defaultLocale = Locale.FRENCH
+        localeResolver.defaultLocale = Locale.ENGLISH
         return localeResolver
     }
 

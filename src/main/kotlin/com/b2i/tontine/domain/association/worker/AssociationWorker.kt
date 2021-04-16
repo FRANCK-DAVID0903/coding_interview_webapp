@@ -45,9 +45,21 @@ class AssociationWorker : AssociationDomain {
         }
 
         if (errors.isEmpty()) {
+            val optionalAssociationEmail = associationRepository.findByEmail(association.email)
+            val optionalAssociationPhoneNumber = associationRepository.findByPhoneNumber(association.phoneNumber)
 
             if (association.id == -1L) {
-                data = associationRepository.save(association)
+                when {
+                    optionalAssociationEmail.isPresent -> {
+                        errors["error"] = "association_email_already_exist"
+                    }
+                    optionalAssociationPhoneNumber.isPresent -> {
+                        errors["error"] = "association_phoneNumber_already_exist"
+                    }
+                    else -> {
+                        data = associationRepository.save(association)
+                    }
+                }
             } else {
                 val optionalAssociation = associationRepository.findById(association.id)
 
@@ -55,8 +67,6 @@ class AssociationWorker : AssociationDomain {
                     val associationToUpdate = optionalAssociation.get()
                     associationToUpdate.name = association.name
                     associationToUpdate.acronym = association.acronym
-                    associationToUpdate.email = association.email
-                    associationToUpdate.phoneNumber = association.phoneNumber
                     associationToUpdate.description = association.description
 
                     data = associationRepository.save(associationToUpdate)
