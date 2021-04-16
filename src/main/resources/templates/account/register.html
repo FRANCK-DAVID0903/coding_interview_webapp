@@ -23,6 +23,27 @@
     <div class="loader"></div>
     <div id="app">
         <section class="section">
+            <li>
+                <!--<a ><span th:text="#{lang.change}"></span><i class="fa fa-caret-down"></i></a>-->
+                <ul class="lang-tooltip lang-action">
+                    <li>
+                        <a onclick="ChangeLanguage('fr');"
+                           class="current-lan"
+                           th:text="#{lang.fr}"
+                           th:style = "#{'Français'}">
+                        </a>
+                    </li>
+
+                    <li>
+                        <a onclick="ChangeLanguage('en');"
+                           th:text="#{lang.eng}"
+                           th:style = "#{'English'}">
+                        </a>
+                    </li>
+
+                </ul>
+
+            </li>
             <div class="container mt-5">
                 <div class="row">
                     <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
@@ -103,6 +124,15 @@
             </div>
         </section>
     </div>
+    <script>
+        function ChangeLanguage(lang) {
+
+            //alert("The URL of this page is: " + window.location.href+"/?lang="+lang);
+            var newUrl = window.location.pathname+"?lang="+lang
+            window.location.replace(newUrl);
+
+        }
+    </script>
     <!-- General JS Scripts -->
     <script th:src="@{/assets/js/app.min.js}"></script>
     <!-- JS Libraies -->

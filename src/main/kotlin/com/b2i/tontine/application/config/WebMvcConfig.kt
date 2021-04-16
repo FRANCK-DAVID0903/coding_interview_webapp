@@ -22,6 +22,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import org.springframework.web.servlet.handler.MappedInterceptor
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor
+import org.springframework.web.servlet.i18n.SessionLocaleResolver
 import java.util.*
 
 
@@ -53,9 +54,10 @@ class WebMvcConfig constructor(
 
     @Bean
     fun localeResolver(): LocaleResolver {
-        val localeResolver = AcceptHeaderLocaleResolver()
-        localeResolver.defaultLocale = Locale.ENGLISH
-        return localeResolver
+        val sessionLocaleResolver = SessionLocaleResolver()
+        sessionLocaleResolver.setDefaultLocale(Locale.FRENCH)
+        return sessionLocaleResolver
+
     }
 
     @Bean
