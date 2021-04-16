@@ -1,12 +1,26 @@
 package com.b2i.tontine.application.controller
 
+import com.b2i.social.application.controlForm.ControlForm
+import com.b2i.social.application.event.SendEmailEvent
+import com.b2i.tontine.application.controlForm.Color
 import com.b2i.tontine.application.facade.AuthenticationFacade
+import com.b2i.tontine.domain.account.entity.FolderSrc
 import com.b2i.tontine.domain.account.entity.UserType
+import com.b2i.tontine.domain.account.member.entity.Member
+import com.b2i.tontine.domain.account.member.port.MemberDomain
+import com.b2i.tontine.domain.account.port.RoleDomain
 import com.b2i.tontine.domain.account.port.UserDomain
+import com.b2i.tontine.infrastructure.local.storage.StorageService
+import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -17,7 +31,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes
 @Controller
 class MainController(
         private val authenticationFacade: AuthenticationFacade,
-        private val userDomain: UserDomain
+        private val userDomain: UserDomain,
+        private val memberDomain: MemberDomain,
+        private val roleDomain: RoleDomain,
+        private val eventPublisher: ApplicationEventPublisher,
+        private val storageService: StorageService
 ): BaseController(ControllerEndpoint.BACKEND_DASHBOARD) {
 
     @GetMapping(value = ["/backend", "/backend"])

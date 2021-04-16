@@ -7,7 +7,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-        <title>Tontine - Connexion</title>
+        <title>Tontine - S'enregistrer</title>
         <!-- General CSS Files -->
         <link rel="stylesheet" th:href="@{/assets/css/app.min.css}">
         <link rel="stylesheet" th:href="@{/assets/bundles/bootstrap-social/bootstrap-social.css}">
@@ -28,34 +28,47 @@
                     <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h4>S'inscrire</h4>
+                                <h4 th:text="#{member_register}"></h4>
                             </div>
                             <div class="card-body">
-                                <form method="POST" th:action="@{/account/register}">
+                                <form method="POST" th:action="@{/account/register}" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="form-group col-6">
-                                            <label for="fristName">Prénoms</label>
-                                            <input id="fristName" type="text" class="form-control" name="fristName" autofocus>
+                                            <label for="lastname" th:text="#{member_lastname}"></label>
+                                            <input id="lastname" type="text" class="form-control" name="lastname">
                                         </div>
                                         <div class="form-group col-6">
-                                            <label for="lastName">Nom</label>
-                                            <input id="lastName" type="text" class="form-control" name="lastName">
+                                            <label for="firstname" th:text="#{member_firstname}"></label>
+                                            <input id="firstname" type="text" class="form-control" name="firstname" autofocus>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="email">Email</label>
+                                        <label for="email" th:text="#{member_email}"></label>
                                         <input id="email" type="email" class="form-control" name="email">
                                         <div class="invalid-feedback">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="tel">Telephone</label>
-                                        <input id="tel" type="text" class="form-control" name="tel">
-
+                                        <label th:text="#{member_email}"></label>
+                                        <input id="img" name="img" type="file" class="form-control">
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-4">
+                                            <label for="username" th:text="#{member_username}"></label>
+                                            <input id="username" type="text" class="form-control" name="username" autofocus>
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <label for="tel" th:text="#{member_phone}"></label>
+                                            <input id="tel" type="text" class="form-control" name="tel">
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <label for="dateNaissance" th:text="#{member_birthday}"></label>
+                                            <input id="dateNaissance" type="date" class="form-control" name="dateNaissance">
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-6">
-                                            <label for="password" class="d-block">Mot de passe</label>
+                                            <label for="password" class="d-block" th:text="#{member_password}"></label>
                                             <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator"
                                                    name="password">
                                             <div id="pwindicator" class="pwindicator">
@@ -64,19 +77,19 @@
                                             </div>
                                         </div>
                                         <div class="form-group col-6">
-                                            <label for="password2" class="d-block">Confirmation mot de passe</label>
-                                            <input id="password2" type="password" class="form-control" name="password-confirm">
+                                            <label for="password2" class="d-block" th:text="#{member_password_confirm}"></label>
+                                            <input id="password2" type="password" class="form-control" name="password2">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" name="agree" class="custom-control-input" id="agree">
-                                            <label class="custom-control-label" for="agree">J'accepte les termes et conditions</label>
+                                            <label class="custom-control-label" for="agree" th:text="#{member_accept_terms}"></label>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block">
-                                            S'inscrire
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block" th:text="#{member_register}">
+
                                         </button>
                                     </div>
                                 </form>
@@ -103,6 +116,8 @@
     <script th:src="@{/assets/js/scripts.js}"></script>
     <!-- Custom JS File -->
     <script th:src="@{/assets/js/custom.js}"></script>
+    <!-- SweetAlert JS File -->
+    <script th:src="@{/assets/js/sweetalert2.min.js}"></script>
     </body>
 
 

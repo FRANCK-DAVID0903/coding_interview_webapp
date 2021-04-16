@@ -49,6 +49,14 @@ class UserWorker : UserDomain {
         return userRepository.findTypeBy(id)
     }
 
+    override fun isTakenUserByEmail(email: String): Boolean {
+        return userRepository.countAllByContactEmail(email) >0L
+    }
+
+    override fun isTakenUserByUsername(username: String): Boolean {
+        return userRepository.countAllByUsername(username) >0L
+    }
+
     override fun lock(username: String): OperationResult<Boolean> {
         TODO("Not yet implemented")
     }

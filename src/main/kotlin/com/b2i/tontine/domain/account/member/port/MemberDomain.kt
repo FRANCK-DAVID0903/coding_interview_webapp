@@ -6,5 +6,5 @@ package com.b2i.tontine.domain.account.member.port
  * @Date: 2021/04/13
  * @Time: 11:31
  */
-interface MemberDomain {
+interface MemberDomain:IManageMember {
 }
