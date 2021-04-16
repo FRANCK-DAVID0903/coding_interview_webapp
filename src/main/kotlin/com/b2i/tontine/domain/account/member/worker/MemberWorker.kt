@@ -1,14 +1,11 @@
 package com.b2i.tontine.domain.account.member.worker
 
-import com.b2i.social.application.controlForm.ControlForm
-import com.b2i.tontine.application.controlForm.Color
 import com.b2i.tontine.domain.account.member.entity.Member
 import com.b2i.tontine.domain.account.member.port.MemberDomain
 import com.b2i.tontine.infrastructure.db.repository.MemberRepository
 import com.b2i.tontine.infrastructure.db.repository.UserRepository
 import com.b2i.tontine.utils.OperationResult
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Component
 
 

@@ -1,6 +1,6 @@
 package com.b2i.tontine.application.controller.account
 
-import com.b2i.social.application.controlForm.ControlForm
+import com.b2i.tontine.application.controlForm.ControlForm
 import com.b2i.social.application.event.SendEmailEvent
 import com.b2i.tontine.application.controlForm.Color
 import com.b2i.tontine.application.controller.BaseController

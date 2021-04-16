@@ -1,6 +1,6 @@
 package com.b2i.tontine.application.controller.association
 
-import com.b2i.social.application.controlForm.ControlForm
+import com.b2i.tontine.application.controlForm.ControlForm
 import com.b2i.tontine.application.controlForm.Color
 import com.b2i.tontine.application.controller.BaseController
 import com.b2i.tontine.application.controller.ControllerEndpoint
@@ -87,10 +87,17 @@ class AssociationController(
 
                 val result: OperationResult<Association> = associationDomain.saveAssociation(association)
 
+                val err: MutableMap<String, String> = mutableMapOf()
+                if (result.errors!!.isNotEmpty()) {
+                    result.errors.forEach {
+                            (key, value) -> err[key] = messageSource.getMessage(value, null, locale)
+                    }
+                }
+
                 if (
                     ControlForm.verifyHashMapRedirect(
                         redirectAttributes,
-                        result.errors!!,
+                        err,
                         messageSource.getMessage("association_save_success", null, locale)
                     )
                 ) {
