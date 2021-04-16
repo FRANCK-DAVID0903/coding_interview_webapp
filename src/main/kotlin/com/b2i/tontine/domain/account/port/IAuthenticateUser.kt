@@ -21,4 +21,8 @@ interface IAuthenticateUser {
 
     fun findTypeBy(id: Long): String
 
+    fun isTakenUserByEmail(email: String):Boolean
+
+    fun isTakenUserByUsername(username:String):Boolean
+
 }

@@ -7,7 +7,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-        <title>Tontine - Connexion</title>
+        <title>Tontine - S'enregistrer</title>
         <!-- General CSS Files -->
         <link rel="stylesheet" th:href="@{/assets/css/app.min.css}">
         <link rel="stylesheet" th:href="@{/assets/bundles/bootstrap-social/bootstrap-social.css}">
@@ -31,11 +31,11 @@
                                 <h4>S'inscrire</h4>
                             </div>
                             <div class="card-body">
-                                <form method="POST" th:action="@{/account/register}">
+                                <form method="POST" th:action="@{account/register}" enctype="multipart/form-data">
                                     <div class="row">
                                         <div class="form-group col-6">
-                                            <label for="fristName">Prénoms</label>
-                                            <input id="fristName" type="text" class="form-control" name="fristName" autofocus>
+                                            <label for="firstName">Prénoms</label>
+                                            <input id="firstName" type="text" class="form-control" name="firstName" autofocus>
                                         </div>
                                         <div class="form-group col-6">
                                             <label for="lastName">Nom</label>
@@ -49,9 +49,22 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="tel">Telephone</label>
-                                        <input id="tel" type="text" class="form-control" name="tel">
-
+                                        <label>File</label>
+                                        <input id="img" name="img" type="file" class="form-control">
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-4">
+                                            <label for="username">Username</label>
+                                            <input id="username" type="text" class="form-control" name="username" autofocus>
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <label for="tel">Telephone</label>
+                                            <input id="tel" type="text" class="form-control" name="tel">
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <label for="dateNaissance">Date de Naissance</label>
+                                            <input id="dateNaissance" type="date" class="form-control" name="dateNaissance">
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-6">
@@ -65,7 +78,7 @@
                                         </div>
                                         <div class="form-group col-6">
                                             <label for="password2" class="d-block">Confirmation mot de passe</label>
-                                            <input id="password2" type="password" class="form-control" name="password-confirm">
+                                            <input id="password2" type="password" class="form-control" name="password2">
                                         </div>
                                     </div>
                                     <div class="form-group">

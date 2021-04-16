@@ -9,6 +9,10 @@ interface UserRepository : JpaRepository<User, Long> {
 
     fun findByUsername(username: String): Optional<User>
 
+    fun countAllByUsername(username: String): Long
+
+    fun countAllByContactEmail(email: String):Long
+
     @Query(value = "SELECT U.user_type FROM user_account U WHERE U.id = ?1", nativeQuery = true)
     fun findTypeBy(id: Long): String
 }
