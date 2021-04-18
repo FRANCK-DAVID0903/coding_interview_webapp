@@ -48,7 +48,40 @@
 
   <script th:src="@{/assets/js/page/forms-advanced-forms.js}"></script>
 
+
+  <!--<script type="text/javascript">
+    function ChangeLanguage(lang) {
+      let newUrl = window.location.pathname + "?lang=" + lang;
+      window.location.replace(newUrl);
+    }
+  </script>-->
+
   <script type="application/javascript">
+
+    /*--------------------------------------
+    Change language script
+    ---------------------------------------*/
+    function ChangeLanguage1(lang) {
+      let newUrl = window.location.pathname + "?lang=" + lang;
+      window.location.replace(newUrl);
+    }
+
+    function SetLanguage(lang) {
+      localStorage.setItem("lang",lang);
+    }
+
+    function ChangeLanguage(){
+      if(localStorage.getItem("lang")) {
+        let newUrl = window.location.pathname + "?lang=" + localStorage.getItem("lang");
+        window.location.replace(newUrl);
+      }
+      else {
+        let newUrl = window.location.pathname + "?lang=fr";
+        window.location.replace(newUrl);
+      }
+
+    }
+
 
     /*--------------------------------------
             Sweet Alert Dialogs
