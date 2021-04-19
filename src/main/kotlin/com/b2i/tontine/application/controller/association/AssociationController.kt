@@ -10,10 +10,7 @@ import com.b2i.tontine.utils.OperationResult
 import org.springframework.context.MessageSource
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
 import java.util.*
 
@@ -117,5 +114,33 @@ class AssociationController(
 
         return forwardTo("list_association")
     }
+
+    @GetMapping(value = ["/detail_association/{id}"])
+    fun associationDetail(model: Model, @PathVariable("id") id: String): String {
+        var page: String = "detail_association"
+        val association: Association? = associationDomain.findAssociationById(id.toLong()).orElse(null)
+
+        if (association == null) {
+            page = "list_association"
+        } else {
+            model.addAttribute("association", association)
+        }
+
+        return forwardTo(page)
+    }
+
+//    fun injectDependance(model: Model){
+//        val userC = authenticationFacade.getAuthenticatedUser().get()
+//        val profil = UserProfiler.profile(userC)
+//
+//        if (profil.pfAdmin) {
+//            model.addAttribute("allProject", projectWorker.findAllProjectByFocalPoint(userC.id))
+//        } else{
+//            model.addAttribute("allProject", projectWorker.findAllProject())
+//        }
+//
+//        model.addAttribute("contacts", contactsDomain.findAllContacts().first())
+//        model.addAttribute("regions", regionWorker.findAllRegion())
+//    }
 
 }
