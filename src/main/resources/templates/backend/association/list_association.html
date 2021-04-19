@@ -32,7 +32,7 @@
                 <div class="col-12">
                   <div class="card">
                     <div class="card-header">
-                      <h4>Associations list</h4>
+                      <h4 th:text="#{association_list_page_table_name}"></h4>
                     </div>
                     <div class="card-body">
                       <div class="table-responsive">
@@ -40,11 +40,11 @@
                           <thead>
                             <tr>
                               <th class="text-center">#</th>
-                              <th>Name</th>
-                              <th>Acronym</th>
-                              <th>Creation date</th>
-                              <th>Status</th>
-                              <th>Action</th>
+                              <th th:text="#{association_list_page_table_header_name}"></th>
+                              <th th:text="#{association_list_page_table_header_acronym}"></th>
+                              <th th:text="#{association_list_page_table_header_createDate}"></th>
+                              <th th:text="#{association_list_page_table_header_status}"></th>
+                              <th th:text="#{association_list_page_table_header_Action}"></th>
                             </tr>
                           </thead>
 
