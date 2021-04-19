@@ -5,6 +5,7 @@
   ============================================= -->
   <th:block th:replace="fragments/fragment_head('Home')" />
 
+  <!--<body onload="ChangeLanguage()">-->
   <body>
 
     <!-- Loader ============================================= -->
@@ -50,16 +51,16 @@
 
                           <div class="form-group col-md-6">
                             <label>
-                              <span th:text="#{association_page_label_name}"></span>
+                              <span th:text="#{association_add_page_label_name}"></span>
                             </label>
-                            <input required type="text" class="form-control" name="name" placeholder="Name">
+                            <input required type="text" class="form-control" name="name" th:placeholder="#{association_page_label_name}">
                           </div>
 
                           <div class="form-group col-md-6">
                             <label>
-                              <span th:text="#{association_page_label_acronym}"></span>
+                              <span th:text="#{association_add_page_label_acronym}"></span>
                             </label>
-                            <input required type="text" class="form-control" name="acronym"  placeholder="Acronym">
+                            <input required type="text" class="form-control" name="acronym" th:placeholder="#{association_page_label_acronym}">
                           </div>
 
                         </div>
@@ -68,16 +69,16 @@
 
                           <div class="form-group col-md-6">
                             <label>
-                              <span th:text="#{association_page_label_mail}"></span>
+                              <span th:text="#{association_add_page_label_mail}"></span>
                             </label>
-                            <input required type="email" max="20"  class="form-control" name="email"  placeholder="Email">
+                            <input required type="email" max="20"  class="form-control" name="email" th:placeholder="#{association_page_label_mail}">
                           </div>
 
                           <div class="form-group col-md-6">
                             <label>
-                              <span th:text="#{association_page_label_phone}"></span>
+                              <span th:text="#{association_add_page_label_phone}"></span>
                             </label>
-                            <input required type="text" max="20"  class="form-control" name="phoneNumber" placeholder="Phone number">
+                            <input required type="text" max="20"  class="form-control" name="phoneNumber" th:placeholder="#{association_page_label_phone}">
                           </div>
 
                         </div>
@@ -92,7 +93,9 @@
                       </div>
 
                       <div class="card-footer">
-                        <button class="btn btn-primary">Save</button>
+                        <button class="btn btn-primary">
+                          <span th:text="#{association_add_page_button_save}"></span>
+                        </button>
                       </div>
 
                     </form>

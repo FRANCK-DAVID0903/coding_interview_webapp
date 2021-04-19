@@ -1,9 +1,6 @@
-package com.b2i.social.application.controlForm
+package com.b2i.tontine.application.controlForm
 
-import com.b2i.tontine.application.controlForm.Color
-import com.b2i.tontine.domain.account.entity.User
 import org.springframework.ui.Model
-import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
 
 object ControlForm {

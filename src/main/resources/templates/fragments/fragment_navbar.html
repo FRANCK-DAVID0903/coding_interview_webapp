@@ -52,6 +52,32 @@
                 </div>
             </li>
 
+            <li class="dropdown dropdown-list-toggle">
+                <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg">
+                    <i data-feather="globe"></i>
+                </a>
+                <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+                    <div class="dropdown-header">
+                        <span class="dropdown-item-desc" th:text="#{language}"></span>
+                    </div>
+
+                    <div class="dropdown-list-content dropdown-list-icons">
+                        <a onclick="ChangeLanguage('en');" class="dropdown-item dropdown-item-unread">
+                            <img alt="image" th:src="@{/assets/bundles/flag-icon-css/flags/4x3/us.svg}" class="dropdown-item-icon">
+                            <span class="dropdown-item-desc" th:text="#{lang.eng}">
+                                <span class="time">EN / US</span>
+                            </span>
+                        </a>
+                        <a onclick="ChangeLanguage('fr');" class="dropdown-item dropdown-item-unread">
+                            <img alt="image" th:src="@{/assets/bundles/flag-icon-css/flags/4x3/fr.svg}" class="dropdown-item-icon">
+                            <span class="dropdown-item-desc" th:text="#{lang.fr}">
+                                <span class="time">FR</span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </li>
+
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                     <img alt="image" th:src="@{/assets/img/user_a.png}" class="user-img-radious-style">

@@ -48,7 +48,17 @@
 
   <script th:src="@{/assets/js/page/forms-advanced-forms.js}"></script>
 
+
   <script type="application/javascript">
+
+    /*--------------------------------------
+    Change language script
+    ---------------------------------------*/
+    function ChangeLanguage(lang) {
+      let newUrl = window.location.pathname + "?lang=" + lang;
+      window.location.replace(newUrl);
+    }
+
 
     /*--------------------------------------
             Sweet Alert Dialogs
