@@ -81,6 +81,76 @@ class AssociationWorker : AssociationDomain {
         return  OperationResult(data, errors)
     }
 
+    override fun updateAssociationEmail(id: Long, email: String): OperationResult<Association> {
+        val errors: MutableMap<String, String> = mutableMapOf()
+        var data: Association? = null
+
+        if (email.isEmpty()) {
+            errors["email"] = "association_email_empty"
+        }
+
+        if (errors.isEmpty()) {
+            val optionalAssociation = associationRepository.findById(id)
+
+            if (!optionalAssociation.isPresent) {
+                errors["not_found"] = "association_not_found"
+            } else {
+                val association = optionalAssociation.get()
+                val optionalAssociationEmail = associationRepository.findByEmail(email)
+
+                if (optionalAssociationEmail.isPresent) {
+                    val associationEmail = optionalAssociationEmail.get()
+                    if (associationEmail.id == association.id) {
+                        association.email = email
+                    } else {
+                        errors["error"] = "association_email_already_exist"
+                    }
+                } else {
+                    association.email = email
+                }
+
+                data = associationRepository.save(association)
+            }
+        }
+
+        return  OperationResult(data, errors)
+    }
+
+    override fun updateAssociationPhoneNumber(id: Long, phoneNumber: String): OperationResult<Association> {
+        val errors: MutableMap<String, String> = mutableMapOf()
+        var data: Association? = null
+
+        if (phoneNumber.isEmpty()) {
+            errors["phoneNumber"] = "association_phoneNumber_empty"
+        }
+
+        if (errors.isEmpty()) {
+            val optionalAssociation = associationRepository.findById(id)
+
+            if (!optionalAssociation.isPresent) {
+                errors["not_found"] = "association_not_found"
+            } else {
+                val association = optionalAssociation.get()
+                val optionalAssociationPhoneNumber = associationRepository.findByPhoneNumber(phoneNumber)
+
+                if (optionalAssociationPhoneNumber.isPresent) {
+                    val associationPhone = optionalAssociationPhoneNumber.get()
+                    if (associationPhone.id == association.id) {
+                        association.phoneNumber = phoneNumber
+                    } else {
+                        errors["error"] = "association_phoneNumber_already_exist"
+                    }
+                } else {
+                    association.phoneNumber = phoneNumber
+                }
+
+                data = associationRepository.save(association)
+            }
+        }
+
+        return  OperationResult(data, errors)
+    }
+
     override fun changeAssociationState(id: Long): OperationResult<Boolean> {
         val errors: MutableMap<String, String> = mutableMapOf()
         var data = false

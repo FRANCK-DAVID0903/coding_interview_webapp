@@ -14,6 +14,10 @@ interface IManageAssociation {
 
     fun saveAssociation(association: Association) : OperationResult<Association>
 
+    fun updateAssociationEmail(id: Long, email: String): OperationResult<Association>
+
+    fun updateAssociationPhoneNumber(id: Long, phoneNumber: String): OperationResult<Association>
+
     fun changeAssociationState(id: Long): OperationResult<Boolean>
 
     fun findAssociationById(id: Long): Optional<Association>

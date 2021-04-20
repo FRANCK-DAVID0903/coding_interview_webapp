@@ -64,25 +64,28 @@
               </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-              <div class="card card-statistic-1">
-                <div class="card-icon l-bg-orange">
-                  <i class="fas fa-hiking"></i>
-                </div>
-                <div class="card-wrap">
-                  <div class="padding-20">
-                    <div class="text-right">
-                      <h3 class="font-light mb-0">
-                        <i class="ti-arrow-up text-success"></i> 158
-                      </h3>
-                      <span class="text-muted" th:text="#{association_detail_page_num_member}"></span>
+              <a>
+                <div class="card card-statistic-1">
+                  <div class="card-icon l-bg-orange">
+                    <i class="fas fa-hiking"></i>
+                  </div>
+                  <div class="card-wrap">
+                    <div class="padding-20">
+                      <div class="text-right">
+                        <h3 class="font-light mb-0">
+                          <i class="ti-arrow-up text-success"></i> 158
+                        </h3>
+                        <span class="text-muted" th:text="#{association_detail_page_num_member}"></span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
             </div>
           </div>
 
           <div class="row mt-sm-4">
+
             <div class="col-12 col-md-12 col-lg-4">
               <div class="card author-box">
                 <div class="card-body">
@@ -92,6 +95,7 @@
                     <div class="author-box-name">
                       <a href="#" th:text="${association.name}"></a>
                     </div>
+                    <div class="author-box-job" th:text="${association.acronym}"></div>
                   </div>
                   <div class="text-center">
                     <div class="author-box-description">
@@ -127,83 +131,145 @@
             <div class="col-12 col-md-12 col-lg-8">
               <div class="card">
                 <div class="padding-20">
+
                   <ul class="nav nav-tabs" id="myTab2" role="tablist">
                     <li class="nav-item">
-                      <a class="nav-link active" id="home-tab2" data-toggle="tab" href="#about" role="tab"
-                         aria-selected="true">About</a>
+                      <a class="nav-link active" id="info-tab2" data-toggle="tab" href="#infos" role="tab"
+                         aria-selected="true" th:text="#{association_detail_page_tab_information}"></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#settings" role="tab"
-                         aria-selected="false">Setting</a>
+                      <a class="nav-link" id="email-tab2" data-toggle="tab" href="#emails" role="tab"
+                         aria-selected="false" th:text="#{association_detail_page_tab_change_email}"></a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="phone-tab2" data-toggle="tab" href="#phones" role="tab"
+                         aria-selected="false" th:text="#{association_detail_page_tab_change_phone}"></a>
                     </li>
                   </ul>
-                  <div class="tab-content tab-bordered" id="myTab3Content">
-                    <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="home-tab2">
-                      <div class="row">
-                        <div class="col-md-3 col-6 b-r">
-                          <strong>Full Name</strong>
-                          <br>
-                          <p class="text-muted">Emily Smith</p>
-                        </div>
-                        <div class="col-md-3 col-6 b-r">
-                          <strong>Mobile</strong>
-                          <br>
-                          <p class="text-muted">(123) 456 7890</p>
-                        </div>
-                        <div class="col-md-3 col-6 b-r">
-                          <strong>Email</strong>
-                          <br>
-                          <p class="text-muted">johndeo@example.com</p>
-                        </div>
-                        <div class="col-md-3 col-6">
-                          <strong>Location</strong>
-                          <br>
-                          <p class="text-muted">India</p>
-                        </div>
-                      </div>
-                    </div>
 
-                    <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="profile-tab2">
-                      <form method="post" class="needs-validation">
+                  <div class="tab-content tab-bordered" id="myTab3Content">
+
+                    <div class="tab-pane fade show active" id="infos" role="tabpanel" aria-labelledby="info-tab2">
+                      <form method="post" th:action="@{/backend/association/update}" class="needs-validation">
+
+                        <input type="hidden" th:value="${association.id}" name="id">
+
                         <div class="card-header">
-                          <h4>Edit Profile</h4>
+                          <h4 th:text="#{association_detail_page_tab_information_desc}"></h4>
                         </div>
+
                         <div class="card-body">
                           <div class="row">
-                            <div class="form-group col-md-6 col-12">
-                              <label>First Name</label>
-                              <input type="text" class="form-control" value="John">
-                              <div class="invalid-feedback">
-                                Please fill in the first name
-                              </div>
-                            </div>
-                            <div class="form-group col-md-6 col-12">
-                              <label>Last Name</label>
-                              <input type="text" class="form-control" value="Deo">
-                              <div class="invalid-feedback">
-                                Please fill in the last name
-                              </div>
+                            <div class="form-group col-md-12 col-12">
+                              <label>
+                                <span th:text="#{association_add_page_label_name}"></span>
+                              </label>
+                              <input required type="text" class="form-control" name="name" th:value="${association.name}">
                             </div>
                           </div>
+
                           <div class="row">
-                            <div class="form-group col-md-7 col-12">
-                              <label>Email</label>
-                              <input type="email" class="form-control" value="test@example.com">
-                              <div class="invalid-feedback">
-                                Please fill in the email
-                              </div>
+                            <div class="form-group col-md-12 col-12">
+                              <label>
+                                <span th:text="#{association_add_page_label_acronym}"></span>
+                              </label>
+                              <input required type="text" class="form-control" name="acronym" th:value="${association.acronym}">
                             </div>
-                            <div class="form-group col-md-5 col-12">
-                              <label>Phone</label>
-                              <input type="tel" class="form-control" value="">
+                          </div>
+
+                          <div class="row">
+                            <div class="form-group col-md-12 col-12">
+                              <label>Description</label>
+                              <textarea required  name="description" class="form-control" th:text="${association.description}"></textarea>
                             </div>
                           </div>
                         </div>
+
                         <div class="card-footer text-right">
-                          <button class="btn btn-primary">Save Changes</button>
+                          <button class="btn btn-primary">
+                            <span th:text="#{association_add_page_button_save}"></span>
+                          </button>
                         </div>
+
                       </form>
                     </div>
+
+                    <div class="tab-pane fade" id="emails" role="tabpanel" aria-labelledby="email-tab2">
+                      <form method="post" th:action="@{/backend/association/update_mail}" class="needs-validation">
+
+                        <input type="hidden" th:value="${association.id}" name="id">
+
+                        <div class="card-header">
+                          <h4 th:text="#{association_detail_page_tab_change_email_desc}"></h4>
+                        </div>
+
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="form-group col-md-12 col-12">
+                              <label>
+                                <span th:text="#{association_detail_page_tab_change_email_old}"></span>
+                              </label>
+                              <input disabled type="text" class="form-control" name="email" th:placeholder="${association.email}">
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="form-group col-md-12 col-12">
+                              <label>
+                                <span th:text="#{association_detail_page_tab_change_email_new}"></span>
+                              </label>
+                              <input required type="text" class="form-control" name="email" th:placeholder="#{association_add_page_label_phone}">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="card-footer text-right">
+                          <button class="btn btn-primary">
+                            <span th:text="#{association_add_page_button_save}"></span>
+                          </button>
+                        </div>
+
+                      </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="phones" role="tabpanel" aria-labelledby="phone-tab2">
+                      <form method="post" th:action="@{/backend/association/update_phoneNumber}" class="needs-validation">
+
+                        <input type="hidden" th:value="${association.id}" name="id">
+
+                        <div class="card-header">
+                          <h4 th:text="#{association_detail_page_tab_change_phone_desc}"></h4>
+                        </div>
+
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="form-group col-md-12 col-12">
+                              <label>
+                                <span th:text="#{association_detail_page_tab_change_phone_old}"></span>
+                              </label>
+                              <input disabled type="text" class="form-control" th:placeholder="${association.phoneNumber}">
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="form-group col-md-12 col-12">
+                              <label>
+                                <span th:text="#{association_detail_page_tab_change_phone_new}"></span>
+                              </label>
+                              <input required type="text" class="form-control" name="phoneNumber" th:placeholder="#{association_add_page_label_phone}">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="card-footer text-right">
+                          <button class="btn btn-primary">
+                            <span th:text="#{association_add_page_button_save}"></span>
+                          </button>
+                        </div>
+
+                      </form>
+                    </div>
+
                   </div>
                 </div>
               </div>
