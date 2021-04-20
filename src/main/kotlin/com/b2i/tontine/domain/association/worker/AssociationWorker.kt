@@ -36,20 +36,18 @@ class AssociationWorker : AssociationDomain {
             errors["acronym"] = "association_acronym_empty"
         }
 
-        if (association.email.isEmpty()) {
-            errors["email"] = "association_email_empty"
-        }
-
-        if (association.phoneNumber.isEmpty()) {
-            errors["phoneNumber"] = "association_phoneNumber_empty"
-        }
-
         if (errors.isEmpty()) {
             val optionalAssociationEmail = associationRepository.findByEmail(association.email)
             val optionalAssociationPhoneNumber = associationRepository.findByPhoneNumber(association.phoneNumber)
 
             if (association.id == -1L) {
                 when {
+                    association.email.isEmpty() -> {
+                        errors["email"] = "association_email_empty"
+                    }
+                    association.phoneNumber.isEmpty() -> {
+                        errors["phoneNumber"] = "association_phoneNumber_empty"
+                    }
                     optionalAssociationEmail.isPresent -> {
                         errors["error"] = "association_email_already_exist"
                     }

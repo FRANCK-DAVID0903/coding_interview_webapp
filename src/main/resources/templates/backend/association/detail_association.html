@@ -129,6 +129,43 @@
             </div>
 
             <div class="col-12 col-md-12 col-lg-8">
+
+              <div class="card">
+                <div class="card-header">
+                  <h4 th:text="#{association_detail_page_action}"></h4>
+                </div>
+                <div class="card-body">
+                  <p>
+                    <button class="btn btn-primary" type="button" data-toggle="collapse"
+                            data-target="#collapseMembers" aria-expanded="false" aria-controls="collapseMembers"
+                            th:text="#{association_detail_page_action_members}">
+                    </button>
+                    <button class="btn btn-primary" type="button" data-toggle="collapse"
+                            data-target="#collapseTontines" aria-expanded="false" aria-controls="collapseTontines"
+                            th:text="#{association_detail_page_action_tontines}">
+                    </button>
+                  </p>
+
+                  <div class="collapse" id="collapseMembers">
+                    <p th:text="#{association_detail_page_action_members_desc}"></p>
+                    <p>
+                      <a class="nav-link" th:href="@{/backend/association/members/list_members}">
+                        <span th:text="#{association_detail_page_action_link}"></span>
+                      </a>
+                    </p>
+                  </div>
+                  <div class="collapse" id="collapseTontines">
+                    <p th:text="#{association_detail_page_action_tontines_desc}"></p>
+                    <p>
+                      <a class="nav-link" th:href="@{/backend/tontine/list_tontines}">
+                        <span th:text="#{association_detail_page_action_link}"></span>
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+
               <div class="card">
                 <div class="padding-20">
 
@@ -218,7 +255,7 @@
                               <label>
                                 <span th:text="#{association_detail_page_tab_change_email_new}"></span>
                               </label>
-                              <input required type="text" class="form-control" name="email" th:placeholder="#{association_add_page_label_phone}">
+                              <input required type="text" class="form-control" name="email" th:placeholder="#{association_add_page_label_mail}">
                             </div>
                           </div>
                         </div>
@@ -273,6 +310,7 @@
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
 

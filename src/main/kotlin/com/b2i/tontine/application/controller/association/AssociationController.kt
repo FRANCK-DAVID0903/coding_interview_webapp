@@ -115,7 +115,7 @@ class AssociationController(
                           @RequestParam("description") description: String,
                           locale: Locale) : String {
 
-        var url = ""
+        var url = "detail_association"
 
         when {
             name.isEmpty() -> {
@@ -152,7 +152,7 @@ class AssociationController(
                     ControlForm.verifyHashMapRedirect(
                         redirectAttributes,
                         err,
-                        messageSource.getMessage("association_save_success", null, locale)
+                        messageSource.getMessage("association_update_success", null, locale)
                     )
                 ) {
                     url = "detail_association/$id"
@@ -161,7 +161,7 @@ class AssociationController(
             }
         }
 
-        return url
+        return redirectTo(url)
     }
 
     @PostMapping("/update_mail")
@@ -170,7 +170,7 @@ class AssociationController(
                                @RequestParam("email") email: String,
                                locale: Locale) : String {
 
-        var url = ""
+        var url = "detail_association"
 
         when {
             email.isEmpty() -> {
@@ -194,7 +194,7 @@ class AssociationController(
                     ControlForm.verifyHashMapRedirect(
                         redirectAttributes,
                         err,
-                        messageSource.getMessage("association_save_success", null, locale)
+                        messageSource.getMessage("association_update_success", null, locale)
                     )
                 ) {
                     url = "detail_association/$id"
@@ -203,7 +203,7 @@ class AssociationController(
             }
         }
 
-        return  url
+        return  redirectTo(url)
     }
 
     @PostMapping("/update_phoneNumber")
@@ -212,7 +212,7 @@ class AssociationController(
                                @RequestParam("phoneNumber") phoneNumber: String,
                                locale: Locale) : String {
 
-        var url = ""
+        var url = "detail_association"
 
         when {
             phoneNumber.isEmpty() -> {
@@ -236,7 +236,7 @@ class AssociationController(
                     ControlForm.verifyHashMapRedirect(
                         redirectAttributes,
                         err,
-                        messageSource.getMessage("association_save_success", null, locale)
+                        messageSource.getMessage("association_update_success", null, locale)
                     )
                 ) {
                     url = "detail_association/$id"
@@ -245,7 +245,7 @@ class AssociationController(
             }
         }
 
-        return  url
+        return  redirectTo(url)
     }
 
     @GetMapping("/list_associations")
