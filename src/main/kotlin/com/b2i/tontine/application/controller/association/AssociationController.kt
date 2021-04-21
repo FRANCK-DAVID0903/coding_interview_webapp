@@ -4,6 +4,8 @@ import com.b2i.tontine.application.controlForm.ControlForm
 import com.b2i.tontine.application.controlForm.Color
 import com.b2i.tontine.application.controller.BaseController
 import com.b2i.tontine.application.controller.ControllerEndpoint
+import com.b2i.tontine.application.facade.AuthenticationFacade
+import com.b2i.tontine.domain.account.port.UserDomain
 import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.association.port.AssociationDomain
 import com.b2i.tontine.utils.OperationResult
@@ -24,11 +26,15 @@ import java.util.*
 @RequestMapping(value = [ControllerEndpoint.BACKEND_ASSOCIATION])
 class AssociationController(
     private val associationDomain: AssociationDomain,
-    private val messageSource: MessageSource
+    private val messageSource: MessageSource,
+    private val authenticationFacade: AuthenticationFacade,
+    private val userDomain: UserDomain
 ) : BaseController(ControllerEndpoint.BACKEND_ASSOCIATION) {
 
     @GetMapping("/create")
     fun goToCreateAssociation(model: Model): String {
+        val user = authenticationFacade.getAuthenticatedUser().get()
+        model.addAttribute("userData",user)
         return forwardTo("add_association")
     }
 
@@ -251,6 +257,8 @@ class AssociationController(
     @GetMapping("/list_associations")
     fun listOfAssociations(model: Model): String {
         val associations = associationDomain.findAllAssociations()
+        val user = authenticationFacade.getAuthenticatedUser().get()
+        model.addAttribute("userData",user)
         model.addAttribute("associations", associations)
 
         return forwardTo("list_association")
@@ -264,6 +272,8 @@ class AssociationController(
         if (association == null) {
             page = "list_association"
         } else {
+            val user = authenticationFacade.getAuthenticatedUser().get()
+            model.addAttribute("userData",user)
             model.addAttribute("association", association)
         }
 
