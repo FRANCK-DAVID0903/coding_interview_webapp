@@ -7,6 +7,7 @@ import com.b2i.tontine.infrastructure.db.repository.UserRepository
 import com.b2i.tontine.utils.OperationResult
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import java.util.*
 
 
 /**
@@ -39,4 +40,20 @@ class MemberWorker: MemberDomain {
         }
         return OperationResult(data,errors)
     }
+
+    override fun updateInfosMember(member: Member): OperationResult<Member> {
+
+        val errors :MutableMap<String,String> = mutableMapOf()
+        var data:Member?=null
+
+        if(errors.isEmpty()){
+            data = memberRepository.save(member)
+        }
+        return OperationResult(data,errors)
+    }
+
+    override fun findById(id: Long): Optional<Member> {
+        return memberRepository.findById(id)
+    }
+
 }

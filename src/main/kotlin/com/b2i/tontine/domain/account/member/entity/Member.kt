@@ -16,7 +16,5 @@ import javax.persistence.Entity
 @DiscriminatorValue(UserType.ASSOCIATION_MEMBER)
 class Member() : User() {
 
-    var photo : String= ""
-
     var birthday : Date = Date(2000, 1, 1)
 }

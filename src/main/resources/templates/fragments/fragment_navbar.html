@@ -80,8 +80,8 @@
 
             <li class="dropdown">
                 <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                    <img alt="image" th:if="${userData.photo !=''}" th:src="${'/'+rootLocation+'/members/'+userData.photo}" class="user-img-radious-style">
-                    <img alt="image" th:if="${userData.photo ==''}" th:src="${'/'+rootLocation+'/members/user_a.png'}" class="user-img-radious-style">
+                    <img alt="image" th:if="${user.photo !=''}" th:src="${'/'+rootLocation+'/members/'+user.photo}" class="user-img-radious-style">
+                    <img alt="image" th:if="${user.photo ==''}" th:src="${'/'+rootLocation+'/members/user_a.png'}" class="user-img-radious-style">
                     <span class="d-sm-none d-lg-inline-block"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right pullDown">

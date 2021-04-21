@@ -27,6 +27,8 @@ open class User : BaseTableEntity, UserDetails {
 
     var firstname: String? = ""
 
+    var photo : String= ""
+
     @Column(nullable = false)
     open var locked = false
 

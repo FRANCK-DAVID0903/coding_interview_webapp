@@ -20,6 +20,8 @@ object UserProfiler {
 
         val fullname = "$firstname $lastname"
 
+        var photo = user.photo
+
         val isEnabled = user.isEnabled
 
         var actuator: Boolean = false

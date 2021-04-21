@@ -5,6 +5,7 @@ import com.b2i.tontine.application.controlForm.Color
 import com.b2i.tontine.application.controller.BaseController
 import com.b2i.tontine.application.controller.ControllerEndpoint
 import com.b2i.tontine.application.facade.AuthenticationFacade
+import com.b2i.tontine.domain.account.entity.UserType
 import com.b2i.tontine.domain.account.port.UserDomain
 import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.association.port.AssociationDomain
@@ -25,16 +26,14 @@ import java.util.*
 @Controller
 @RequestMapping(value = [ControllerEndpoint.BACKEND_ASSOCIATION])
 class AssociationController(
-    private val associationDomain: AssociationDomain,
-    private val messageSource: MessageSource,
-    private val authenticationFacade: AuthenticationFacade,
-    private val userDomain: UserDomain
+        private val associationDomain: AssociationDomain,
+        private val messageSource: MessageSource,
+        private val authenticationFacade: AuthenticationFacade,
+        private val userDomain: UserDomain
 ) : BaseController(ControllerEndpoint.BACKEND_ASSOCIATION) {
 
     @GetMapping("/create")
     fun goToCreateAssociation(model: Model): String {
-        val user = authenticationFacade.getAuthenticatedUser().get()
-        model.addAttribute("userData",user)
         return forwardTo("add_association")
     }
 
@@ -256,12 +255,29 @@ class AssociationController(
 
     @GetMapping("/list_associations")
     fun listOfAssociations(model: Model): String {
-        val associations = associationDomain.findAllAssociations()
-        val user = authenticationFacade.getAuthenticatedUser().get()
-        model.addAttribute("userData",user)
-        model.addAttribute("associations", associations)
 
-        return forwardTo("list_association")
+        val user = authenticationFacade.getAuthenticatedUser().get()
+
+        return when (userDomain.findTypeBy(user.id))
+        {
+
+            UserType.ASSOCIATION_MEMBER -> {
+                val associations = associationDomain.findAllAssociations()
+                model.addAttribute("associations", associations)
+                return forwardTo("member_list_association")
+            }
+
+            UserType.ACTUATOR -> {
+
+                val associations = associationDomain.findAllAssociations()
+                model.addAttribute("associations", associations)
+                return forwardTo("list_association")
+            }
+
+
+            else -> return forwardTo("list_association")
+        }
+
     }
 
     @GetMapping(value = ["/detail_association/{id}"])
@@ -272,8 +288,6 @@ class AssociationController(
         if (association == null) {
             page = "list_association"
         } else {
-            val user = authenticationFacade.getAuthenticatedUser().get()
-            model.addAttribute("userData",user)
             model.addAttribute("association", association)
         }
 

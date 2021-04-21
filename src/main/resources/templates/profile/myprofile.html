@@ -30,7 +30,8 @@
                         <div class="col-12 col-md-12 col-lg-4">
                             <div class="card author-box">
                                 <div class="card-body">
-                                    <div class="author-box-center"<img alt="image" th:if="${userData.photo ==''}"
+                                    <div class="author-box-center">
+                                        <img alt="image" th:if="${userData.photo ==''}"
                                              th:src="${'/'+rootLocation+'/members/user_a.png'}"
                                              class="rounded-circle author-box-picture">
                                         <img alt="image" th:if="${userData.photo !=''}"
@@ -143,15 +144,15 @@
                                     <ul class="nav nav-tabs" id="myTab2" role="tablist">
                                         <li class="nav-item">
                                             <a class="nav-link active" id="home-tab2" data-toggle="tab" href="#about"
-                                               role="tab" aria-selected="true" th:text="${profile_my_associations}"></a>
+                                               role="tab" aria-selected="true" th:text="#{profile_my_associations}"></a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#settings"
-                                               role="tab" aria-selected="false" th:text="${profile_my_tontines}"></a>
+                                               role="tab" aria-selected="false" th:text="#{profile_my_tontines}"></a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="profile-tab3" data-toggle="tab" href="#settings"
-                                               role="tab" aria-selected="false" th:text="${profile_update_info}"></a>
+                                            <a class="nav-link" id="profile-tab3" data-toggle="tab" href="#updateInfo"
+                                               role="tab" aria-selected="false" th:text="#{profile_update_info}"></a>
                                         </li>
                                     </ul>
                                     <div class="tab-content tab-bordered" id="myTab3Content">
@@ -177,7 +178,7 @@
                                                                     </thead>
 
                                                                     <tbody>
-                                                                    <tr th:each="association : ${allMyAssociations}">
+                                                                    <!--<tr th:each="association : ${allMyAssociations}">
 
                                                                         <td th:text="${association.id}"></td>
 
@@ -194,7 +195,7 @@
 
                                                                         <td class="text-center"><a href="#" class="btn btn-primary">Detail</a></td>
 
-                                                                    </tr>
+                                                                    </tr>-->
                                                                     </tbody>
 
                                                                 </table>
@@ -207,190 +208,139 @@
                                         </div>
                                         <div class="tab-pane fade" id="settings" role="tabpanel"
                                              aria-labelledby="profile-tab2">
-                                            <form method="post" class="needs-validation">
-                                                <div class="card-header">
-                                                    <h4>Edit Profile</h4>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="form-group col-md-6 col-12">
-                                                            <label>First Name</label>
-                                                            <input type="text" class="form-control" value="John">
-                                                            <div class="invalid-feedback">
-                                                                Please fill in the first name
-                                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h4 th:text="#{association_list_page_table_name}"></h4>
                                                         </div>
-                                                        <div class="form-group col-md-6 col-12">
-                                                            <label>Last Name</label>
-                                                            <input type="text" class="form-control" value="Deo">
-                                                            <div class="invalid-feedback">
-                                                                Please fill in the last name
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="form-group col-md-7 col-12">
-                                                            <label>Email</label>
-                                                            <input type="email" class="form-control"
-                                                                   value="test@example.com">
-                                                            <div class="invalid-feedback">
-                                                                Please fill in the email
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group col-md-5 col-12">
-                                                            <label>Phone</label>
-                                                            <input type="tel" class="form-control" value="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="form-group col-12">
-                                                            <label>Bio</label>
-                                                            <textarea class="form-control summernote-simple"
-                                                                      style="display: none;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur voluptatum alias molestias minus quod dignissimos.</textarea>
-                                                            <div class="note-editor note-frame card">
-                                                                <div class="note-dropzone">
-                                                                    <div class="note-dropzone-message"></div>
-                                                                </div>
-                                                                <div class="note-toolbar-wrapper" style="height: 0px;">
-                                                                    <div class="note-toolbar card-header"
-                                                                         style="position: relative; top: 0px; width: 100%;">
-                                                                        <div class="note-btn-group btn-group note-style">
-                                                                            <button type="button"
-                                                                                    class="note-btn btn btn-light btn-sm note-btn-bold"
-                                                                                    tabindex="-1" title=""
-                                                                                    data-original-title="Bold (⌘+B)"><i
-                                                                                    class="note-icon-bold"></i></button>
-                                                                            <button type="button"
-                                                                                    class="note-btn btn btn-light btn-sm note-btn-italic"
-                                                                                    tabindex="-1" title=""
-                                                                                    data-original-title="Italic (⌘+I)">
-                                                                                <i class="note-icon-italic"></i>
-                                                                            </button>
-                                                                            <button type="button"
-                                                                                    class="note-btn btn btn-light btn-sm note-btn-underline"
-                                                                                    tabindex="-1" title=""
-                                                                                    data-original-title="Underline (⌘+U)">
-                                                                                <i class="note-icon-underline"></i>
-                                                                            </button>
-                                                                            <button type="button"
-                                                                                    class="note-btn btn btn-light btn-sm"
-                                                                                    tabindex="-1" title=""
-                                                                                    data-original-title="Remove Font Style (⌘+\)">
-                                                                                <i class="note-icon-eraser"></i>
-                                                                            </button>
-                                                                        </div>
-                                                                        <div class="note-btn-group btn-group note-font">
-                                                                            <button type="button"
-                                                                                    class="note-btn btn btn-light btn-sm note-btn-strikethrough"
-                                                                                    tabindex="-1" title=""
-                                                                                    data-original-title="Strikethrough (⌘+⇧+S)">
-                                                                                <i class="note-icon-strikethrough"></i>
-                                                                            </button>
-                                                                        </div>
-                                                                        <div class="note-btn-group btn-group note-para">
-                                                                            <div class="note-btn-group btn-group">
-                                                                                <button type="button"
-                                                                                        class="note-btn btn btn-light btn-sm dropdown-toggle"
-                                                                                        tabindex="-1"
-                                                                                        data-toggle="dropdown" title=""
-                                                                                        data-original-title="Paragraph">
-                                                                                    <i class="note-icon-align-left"></i>
-                                                                                </button>
-                                                                                <div class="dropdown-menu">
-                                                                                    <div class="note-btn-group btn-group note-align">
-                                                                                        <button type="button"
-                                                                                                class="note-btn btn btn-light btn-sm"
-                                                                                                tabindex="-1" title=""
-                                                                                                data-original-title="Align left (⌘+⇧+L)">
-                                                                                            <i class="note-icon-align-left"></i>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                                class="note-btn btn btn-light btn-sm"
-                                                                                                tabindex="-1" title=""
-                                                                                                data-original-title="Align center (⌘+⇧+E)">
-                                                                                            <i class="note-icon-align-center"></i>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                                class="note-btn btn btn-light btn-sm"
-                                                                                                tabindex="-1" title=""
-                                                                                                data-original-title="Align right (⌘+⇧+R)">
-                                                                                            <i class="note-icon-align-right"></i>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                                class="note-btn btn btn-light btn-sm"
-                                                                                                tabindex="-1" title=""
-                                                                                                data-original-title="Justify full (⌘+⇧+J)">
-                                                                                            <i class="note-icon-align-justify"></i>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div class="note-btn-group btn-group note-list">
-                                                                                        <button type="button"
-                                                                                                class="note-btn btn btn-light btn-sm"
-                                                                                                tabindex="-1" title=""
-                                                                                                data-original-title="Outdent (⌘+[)">
-                                                                                            <i class="note-icon-align-outdent"></i>
-                                                                                        </button>
-                                                                                        <button type="button"
-                                                                                                class="note-btn btn btn-light btn-sm"
-                                                                                                tabindex="-1" title=""
-                                                                                                data-original-title="Indent (⌘+])">
-                                                                                            <i class="note-icon-align-indent"></i>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="note-editing-area">
-                                                                    <div class="note-handle">
-                                                                        <div class="note-control-selection">
-                                                                            <div class="note-control-selection-bg"></div>
-                                                                            <div class="note-control-holder note-control-nw"></div>
-                                                                            <div class="note-control-holder note-control-ne"></div>
-                                                                            <div class="note-control-holder note-control-sw"></div>
-                                                                            <div class="note-control-sizing note-control-se"></div>
-                                                                            <div class="note-control-selection-info"></div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <textarea class="note-codable"></textarea>
-                                                                    <div class="note-editable card-block"
-                                                                         contenteditable="true"
-                                                                         style="min-height: 150px;">Lorem ipsum dolor
-                                                                        sit amet, consectetur adipisicing elit. Pariatur
-                                                                        voluptatum alias molestias minus quod
-                                                                        dignissimos.
-                                                                    </div>
-                                                                </div>
-                                                                <div class="note-statusbar">
-                                                                    <div class="note-resizebar">
-                                                                        <div class="note-icon-bar">
-                                                                            <div class="note-icon-bar">
-                                                                                <div class="note-icon-bar"></div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="form-group mb-0 col-12">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" name="remember"
-                                                                       class="custom-control-input" id="newsletter">
-                                                                <label class="custom-control-label" for="newsletter">Subscribe
-                                                                    to newsletter</label>
-                                                                <div class="text-muted form-text">
-                                                                    You will get new information about products, offers
-                                                                    and promotions
-                                                                </div>
+                                                        <div class="card-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-striped" id="table-1">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">#</th>
+                                                                        <th th:text="#{profile_association_name}"></th>
+                                                                        <th th:text="#{profile_association_title}"></th>
+                                                                        <th th:text="#{profile_association_status}"></th>
+                                                                        <th th:text="#{association_list_page_table_header_Action}"></th>
+                                                                    </tr>
+                                                                    </thead>
+
+                                                                    <tbody>
+                                                                    <!--<tr th:each="association : ${allMyAssociations}">
+
+                                                                        <td th:text="${association.id}"></td>
+
+                                                                        <td th:text="${association.association.name}"></td>
+
+                                                                        <td class="align-middle" th:text="${association.role}"></td>
+
+                                                                        <td class="text-center" th:if="${association.state==0}"><div class="badge badge-success badge-shadow" th:text="#{statut_activated}">Completed</div></td>
+                                                                        <td class="text-center" th:if="${association.state==1}"><div class="badge badge-success badge-shadow" th:text="#{statut_activated}">Completed</div></td>
+
+                                                                        <td class="text-center">
+                                                                            <div class="badge badge-success badge-shadow">Completed</div>
+                                                                        </td>
+
+                                                                        <td class="text-center"><a href="#" class="btn btn-primary">Detail</a></td>
+
+                                                                    </tr>-->
+                                                                    </tbody>
+
+                                                                </table>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card-footer text-right">
-                                                    <button class="btn btn-primary">Save Changes</button>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="updateInfo" role="tabpanel"
+                                             aria-labelledby="profile-tab2">
+                                            <form method="POST" th:action="@{/backend/profile/updateInfos}" enctype="multipart/form-data">
+                                                <div class="row">
+                                                    <div class="form-group col-6">
+                                                        <label for="lastname" th:text="#{member_lastname}"></label>
+                                                        <input id="lastname" type="text" class="form-control" th:value="${userData.lastname}" name="lastname">
+                                                    </div>
+                                                    <div class="form-group col-6">
+                                                        <label for="firstname" th:text="#{member_firstname}"></label>
+                                                        <input id="firstname" type="text" class="form-control" name="firstname" th:value="${userData.firstname}" autofocus>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-6">
+                                                        <label th:text="#{member_pictures}"></label>
+                                                        <input id="photo" name="photo" type="file" th:value="${userData.photo}" class="form-control">
+                                                    </div>
+                                                    <div class="form-group col-6">
+                                                        <label for="dateNaissance" th:text="#{member_birthday}"></label>
+                                                        <input id="dateNaissance" type="date" class="form-control" th:value="${#dates.format(userData.birthday, 'yyyy-MM-dd')}" name="dateNaissance">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-primary btn-lg btn-block" th:text="#{profile_validate}">
+
+                                                    </button>
+                                                </div>
+                                            </form>
+                                            <br>
+                                            <br>
+                                            <form method="POST" th:action="@{/profile/updateInfos}" enctype="multipart/form-data">
+                                                <h5 th:text="#{profile_change_email}"></h5>
+                                                <div class="row">
+                                                    <div class="form-group col-4">
+                                                        <label for="username" th:text="#{member_username}"></label>
+                                                        <input id="username" type="text" class="form-control" th:value="${userData.username}" name="username" disabled autofocus>
+                                                    </div>
+                                                    <div class="form-group col-6">
+                                                        <label for="tel" th:text="#{member_phone}"></label>
+                                                        <input id="tel" type="text" class="form-control" th:value="${userData.contact.mobile}" name="tel">
+                                                    </div>
+                                                    <div class="form-group col-12">
+                                                        <label for="email" th:text="#{member_email}"></label>
+                                                        <input id="email" type="email" class="form-control" th:value="${userData.contact.email}" name="email">
+                                                        <div class="invalid-feedback">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-primary btn-lg btn-block" th:text="#{profile_change_email}">
+
+                                                    </button>
+                                                </div>
+                                            </form>
+                                            <br>
+                                            <br>
+                                            <form method="POST" th:action="@{/profile/updateInfos}" enctype="multipart/form-data">
+                                                <h5 th:text="#{profile_change_password}"></h5>
+                                                <div class="row">
+
+                                                    <div class="form-group col-6">
+                                                        <label for="oldPassword" class="d-block" th:text="#{member_old_password}"></label>
+                                                        <input id="oldPassword" type="password" class="form-control" name="password2">
+                                                    </div>
+
+                                                    <div class="form-group col-6">
+                                                        <label for="password" class="d-block" th:text="#{member_password}"></label>
+                                                        <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator"
+                                                               name="password">
+                                                        <div id="pwindicator" class="pwindicator">
+                                                            <div class="bar"></div>
+                                                            <div class="label"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-6">
+                                                        <label for="password2" class="d-block" th:text="#{member_password_confirm}"></label>
+                                                        <input id="password2" type="password" class="form-control" name="password2">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-primary btn-lg btn-block" th:text="#{profile_change_password}">
+
+                                                    </button>
                                                 </div>
                                             </form>
                                         </div>
