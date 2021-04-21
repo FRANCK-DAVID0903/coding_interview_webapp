@@ -1,0 +1,29 @@
+<div class="modal-dialog modal-dialog-centered" role="document"
+     xmlns:th="http://www.thymeleaf.org" th:fragment="fragment_delete_modal (title, deleteUrl)">
+
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <h5 class="modal-title" id="deleteModalLabel" th:text="${title}"></h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <form class="" th:action="@{${deleteUrl}}" method="post">
+
+      <div class="modal-body">
+        <input type="hidden" class="model-id" name="id" value="-1">
+      </div>
+
+      <div class="modal-footer bg-whitesmoke br">
+        <button class="btn btn-primary" type="submit">Enregistrer</button>
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Fermer
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

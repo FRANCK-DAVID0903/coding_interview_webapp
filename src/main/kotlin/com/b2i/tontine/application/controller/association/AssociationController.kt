@@ -248,6 +248,35 @@ class AssociationController(
         return  redirectTo(url)
     }
 
+    @PostMapping("/update_state")
+    fun changeAssociationState(redirectAttributes: RedirectAttributes,
+                               @RequestParam("id") id: String,
+                               locale: Locale) : String {
+
+        var url = "detail_association"
+
+        val result: OperationResult<Boolean> = associationDomain.changeAssociationState(id.toLong())
+
+        val err: MutableMap<String, String> = mutableMapOf()
+        if (result.errors!!.isNotEmpty()) {
+            result.errors.forEach {
+                    (key, value) -> err[key] = messageSource.getMessage(value, null, locale)
+            }
+        }
+
+        if (
+            ControlForm.verifyHashMapRedirect(
+                redirectAttributes,
+                err,
+                messageSource.getMessage("association_update_success", null, locale)
+            )
+        ) {
+            url = "list_associations"
+        }
+
+        return  redirectTo(url)
+    }
+
     @GetMapping("/list_associations")
     fun listOfAssociations(model: Model): String {
         val associations = associationDomain.findAllAssociations()
@@ -258,13 +287,16 @@ class AssociationController(
 
     @GetMapping(value = ["/detail_association/{id}"])
     fun associationDetail(model: Model, @PathVariable("id") id: String): String {
-        var page: String = "detail_association"
+        var page = "detail_association"
         val association: Association? = associationDomain.findAssociationById(id.toLong()).orElse(null)
 
         if (association == null) {
             page = "list_association"
         } else {
+            val initial = stringInitialHelper.getStringWordsInitials(association.name)
+
             model.addAttribute("association", association)
+            model.addAttribute("initial", initial)
         }
 
         return forwardTo(page)
