@@ -30,12 +30,15 @@ object UserProfiler {
 
         var basicUser: Boolean = false
 
+        var member: Boolean = false
+
         init {
             val roles = user.roles
             actuator = roles!!.any { it.name == UserType.ACTUATOR }
             superAdmin = roles.any { it.name == UserType.BACKOFFICE_SUPER_ADMIN }
             admin = roles.any { it.name == UserType.BACKOFFICE_ADMIN }
             basicUser = roles.any { it.name == UserType.BACKOFFICE_BASIC_USER }
+            member = roles.any { it.name == UserType.ASSOCIATION_MEMBER }
         }
     }
 }

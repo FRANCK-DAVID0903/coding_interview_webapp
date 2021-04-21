@@ -6,5 +6,5 @@ package com.b2i.tontine.domain.contribution.port
  * @Date: 2021/04/13
  * @Time: 11:24
  */
-interface ContributionDomain {
+interface ContributionDomain: IManageContribution {
 }
