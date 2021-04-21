@@ -10,10 +10,7 @@ import com.b2i.tontine.utils.OperationResult
 import org.springframework.context.MessageSource
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
 import java.util.*
 
@@ -110,6 +107,147 @@ class AssociationController(
         return redirectTo(url)
     }
 
+    @PostMapping("/update")
+    fun updateAssociation(redirectAttributes: RedirectAttributes,
+                          @RequestParam("id") id: String,
+                          @RequestParam("name") name: String,
+                          @RequestParam("acronym") acronym: String,
+                          @RequestParam("description") description: String,
+                          locale: Locale) : String {
+
+        var url = "detail_association"
+
+        when {
+            name.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("association_name_empty", null, locale),
+                    Color.red
+                )
+            }
+            acronym.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("association_acronym_empty", null, locale),
+                    Color.red
+                )
+            }
+            else -> {
+                val association = Association()
+                association.id = id.toLong()
+                association.name = name
+                association.acronym = acronym
+                association.description = description
+
+                val result: OperationResult<Association> = associationDomain.saveAssociation(association)
+
+                val err: MutableMap<String, String> = mutableMapOf()
+                if (result.errors!!.isNotEmpty()) {
+                    result.errors.forEach {
+                            (key, value) -> err[key] = messageSource.getMessage(value, null, locale)
+                    }
+                }
+
+                if (
+                    ControlForm.verifyHashMapRedirect(
+                        redirectAttributes,
+                        err,
+                        messageSource.getMessage("association_update_success", null, locale)
+                    )
+                ) {
+                    url = "detail_association/$id"
+                }
+
+            }
+        }
+
+        return redirectTo(url)
+    }
+
+    @PostMapping("/update_mail")
+    fun changeAssociationEmail(redirectAttributes: RedirectAttributes,
+                               @RequestParam("id") id: String,
+                               @RequestParam("email") email: String,
+                               locale: Locale) : String {
+
+        var url = "detail_association"
+
+        when {
+            email.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("association_email_empty", null, locale),
+                    Color.red
+                )
+            }
+            else -> {
+                val result: OperationResult<Association> = associationDomain.updateAssociationEmail(id.toLong(), email)
+
+                val err: MutableMap<String, String> = mutableMapOf()
+                if (result.errors!!.isNotEmpty()) {
+                    result.errors.forEach {
+                            (key, value) -> err[key] = messageSource.getMessage(value, null, locale)
+                    }
+                }
+
+                if (
+                    ControlForm.verifyHashMapRedirect(
+                        redirectAttributes,
+                        err,
+                        messageSource.getMessage("association_update_success", null, locale)
+                    )
+                ) {
+                    url = "detail_association/$id"
+                }
+
+            }
+        }
+
+        return  redirectTo(url)
+    }
+
+    @PostMapping("/update_phoneNumber")
+    fun changeAssociationPhoneNumber(redirectAttributes: RedirectAttributes,
+                               @RequestParam("id") id: String,
+                               @RequestParam("phoneNumber") phoneNumber: String,
+                               locale: Locale) : String {
+
+        var url = "detail_association"
+
+        when {
+            phoneNumber.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("association_phoneNumber_empty", null, locale),
+                    Color.red
+                )
+            }
+            else -> {
+                val result: OperationResult<Association> = associationDomain.updateAssociationPhoneNumber(id.toLong(), phoneNumber)
+
+                val err: MutableMap<String, String> = mutableMapOf()
+                if (result.errors!!.isNotEmpty()) {
+                    result.errors.forEach {
+                            (key, value) -> err[key] = messageSource.getMessage(value, null, locale)
+                    }
+                }
+
+                if (
+                    ControlForm.verifyHashMapRedirect(
+                        redirectAttributes,
+                        err,
+                        messageSource.getMessage("association_update_success", null, locale)
+                    )
+                ) {
+                    url = "detail_association/$id"
+                }
+
+            }
+        }
+
+        return  redirectTo(url)
+    }
+
     @GetMapping("/list_associations")
     fun listOfAssociations(model: Model): String {
         val associations = associationDomain.findAllAssociations()
@@ -117,5 +255,33 @@ class AssociationController(
 
         return forwardTo("list_association")
     }
+
+    @GetMapping(value = ["/detail_association/{id}"])
+    fun associationDetail(model: Model, @PathVariable("id") id: String): String {
+        var page: String = "detail_association"
+        val association: Association? = associationDomain.findAssociationById(id.toLong()).orElse(null)
+
+        if (association == null) {
+            page = "list_association"
+        } else {
+            model.addAttribute("association", association)
+        }
+
+        return forwardTo(page)
+    }
+
+//    fun injectDependance(model: Model){
+//        val userC = authenticationFacade.getAuthenticatedUser().get()
+//        val profil = UserProfiler.profile(userC)
+//
+//        if (profil.pfAdmin) {
+//            model.addAttribute("allProject", projectWorker.findAllProjectByFocalPoint(userC.id))
+//        } else{
+//            model.addAttribute("allProject", projectWorker.findAllProject())
+//        }
+//
+//        model.addAttribute("contacts", contactsDomain.findAllContacts().first())
+//        model.addAttribute("regions", regionWorker.findAllRegion())
+//    }
 
 }
