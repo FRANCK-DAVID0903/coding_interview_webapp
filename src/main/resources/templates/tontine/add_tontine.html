@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!--Header
+============================================= -->
+<th:block th:replace="fragments/fragment_head('Home')" />
+
+<!--<body onload="ChangeLanguage()">-->
+<body>
+
+<!-- Loader ============================================= -->
+<th:block th:replace="fragments/fragment_loader" />
+
+<div id="app">
+
+    <div class="main-wrapper main-wrapper-1">
+
+        <!-- Navbar ============================================= -->
+        <th:block th:replace="fragments/fragment_navbar" />
+
+        <!-- Sidebar ============================================= -->
+        <th:block th:replace="fragments/fragment_sidebar" />
+
+
+        <!-- Main Content ============================================= -->
+        <div class="main-content">
+
+            <section class="section">
+
+                <div class="section-body">
+
+                    <div class="row">
+
+                        <div class="col-12 col-md-12 col-lg-12">
+
+                            <div class="card">
+
+                                <div class="card-header">
+                                    <h3>
+                                        <span th:text="#{sidebar_association_create}"></span>
+                                    </h3>
+                                </div>
+
+                                <form method="post" th:action="@{/backend/association/create}">
+
+                                    <div class="card-body">
+
+                                        <input type="hidden" value="-1" name="id">
+
+                                        <div class="form-row">
+
+                                            <div class="form-group col-md-6">
+                                                <label>
+                                                    <span th:text="#{association_add_page_label_name}"></span>
+                                                </label>
+                                                <input required type="text" class="form-control" name="name" th:placeholder="#{association_add_page_label_name}">
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>
+                                                    <span th:text="#{association_add_page_label_acronym}"></span>
+                                                </label>
+                                                <input required type="text" class="form-control" name="acronym" th:placeholder="#{association_add_page_label_acronym}">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-row">
+
+                                            <div class="form-group col-md-6">
+                                                <label>
+                                                    <span th:text="#{association_add_page_label_mail}"></span>
+                                                </label>
+                                                <input required type="email" max="20"  class="form-control" name="email" th:placeholder="#{association_add_page_label_mail}">
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label>
+                                                    <span th:text="#{association_add_page_label_phone}"></span>
+                                                </label>
+                                                <input required type="text" max="20"  class="form-control" name="phoneNumber" th:placeholder="#{association_add_page_label_phone}">
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label>Description</label>
+                                                <textarea required  name="description" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="card-footer">
+                                        <button class="btn btn-primary">
+                                            <span th:text="#{association_add_page_button_save}"></span>
+                                        </button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        <!-- Footer ============================================= -->
+        <th:block th:replace="fragments/fragment_footer" />
+
+    </div>
+
+</div>
+
+<!-- Scripts ============================================= -->
+<script>
+    $(document).ready(function () {
+        $('#tontine').attr('class', 'active');
+        $('#tontine-add').attr('class', 'active');
+    });
+</script>
+
+</body>
+
+</html>

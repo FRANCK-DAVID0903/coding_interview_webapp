@@ -135,7 +135,7 @@ class AccountManagerController(
                 )
             }
             else -> {
-                roleDomain.findByName(UserType.ASSOCIATION_MEMBER).ifPresent{
+                roleDomain.findByName(UserType.ASSOCIATION_MEMBER).ifPresent{ role ->
 
                     member.firstname = firstname
                     member.lastname = lastname
@@ -144,6 +144,7 @@ class AccountManagerController(
                     member.birthday = SimpleDateFormat("YYYY-MM-dd").parse(dateNaissance)
                     member.username = username
                     member.password = password
+                    member.roles = Collections.singleton(role)
 
                     if (img.originalFilename != ""){
                         if(!storageService.storeMix(img,"", FolderSrc.SRC_MEMBER).first){

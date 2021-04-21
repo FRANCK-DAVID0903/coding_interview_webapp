@@ -1,9 +1,9 @@
 package com.b2i.tontine.application.controller.tontine
 
+import org.springframework.stereotype.Controller
 import com.b2i.tontine.application.controller.BaseController
 import com.b2i.tontine.application.controller.ControllerEndpoint
 import org.springframework.context.MessageSource
-import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping

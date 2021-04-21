@@ -37,6 +37,8 @@ class MainController(
         val user = authenticationFacade.getAuthenticatedUser().get()
         val userRoleId=authenticationFacade.getAuthenticatedUser().get().roleId()
 
+        model.addAttribute("userData",user)
+
         val userType = userDomain.findTypeBy(user.id)
 
         return when (userType)
@@ -53,6 +55,10 @@ class MainController(
 
             UserType.BACKOFFICE_BASIC_USER -> {
                 forwardTo("dashboard/dashboard_basic_user")
+            }
+
+            UserType.ASSOCIATION_MEMBER -> {
+                forwardTo("dashboard/dashboard_member")
             }
 
             UserType.BACKOFFICE_SUPER_ADMIN -> {

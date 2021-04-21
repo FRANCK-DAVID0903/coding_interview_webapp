@@ -8,6 +8,8 @@ object ControllerEndpoint {
 
     const val BACKEND_ASSOCIATION = "${BACKEND_DASHBOARD}/association"
 
+    const val BACKEND_PROFILE = "${BACKEND_DASHBOARD}/profile"
+
     const val BACKEND_ASSOCIATION_MEMBERS = "${BACKEND_ASSOCIATION}/members"
 
     const val BACKEND_TONTINE = "${BACKEND_DASHBOARD}/tontine"

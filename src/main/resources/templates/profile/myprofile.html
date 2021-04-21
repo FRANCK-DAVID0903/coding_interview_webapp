@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!--Header
+============================================= -->
+<th:block th:replace="fragments/fragment_head('Home')"/>
+
+<body>
+
+<!-- Loader ============================================= -->
+<th:block th:replace="fragments/fragment_loader"/>
+
+<div id="app">
+
+    <div class="main-wrapper main-wrapper-1">
+
+        <!-- Navbar ============================================= -->
+        <th:block th:replace="fragments/fragment_navbar"/>
+
+        <!-- Sidebar ============================================= -->
+        <th:block th:replace="fragments/fragment_sidebar"/>
+
+
+        <!-- Main Content ============================================= -->
+        <div class="main-content">
+
+            <section class="section">
+                <div class="section-body">
+                    <div class="row mt-sm-4">
+                        <div class="col-12 col-md-12 col-lg-4">
+                            <div class="card author-box">
+                                <div class="card-body">
+                                    <div class="author-box-center"<img alt="image" th:if="${userData.photo ==''}"
+                                             th:src="${'/'+rootLocation+'/members/user_a.png'}"
+                                             class="rounded-circle author-box-picture">
+                                        <img alt="image" th:if="${userData.photo !=''}"
+                                             th:src="${'/'+rootLocation+'/members/'+userData.photo}"
+                                             class="rounded-circle author-box-picture">
+                                        <div class="clearfix"></div>
+                                        <div class="author-box-name">
+                                            <a href="#" th:text="${userData.username}"></a>
+                                        </div>
+                                        <div class="author-box-job"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 th:text="#{personal_Details}"></h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="py-4">
+                                        <p class="clearfix">
+                                            <span class="float-left" th:text="#{member_lastname}">
+
+                                            </span>
+                                            <span class="float-right text-muted" th:text="${userData.lastname}">
+
+                                            </span>
+                                        </p>
+                                        <p class="clearfix">
+                                            <span class="float-left" th:text="#{member_firstname}">
+
+                                            </span>
+                                            <span class="float-right text-muted" th:text="${userData.firstname}">
+
+                                            </span>
+                                        </p>
+                                        <p class="clearfix">
+                                            <span class="float-left" th:text="#{profile_birthday}">
+
+                                            </span>
+                                            <span class="float-right text-muted" th:text="${#calendars.format(userData.birthday, 'dd-MM-yyyy')}">
+
+                                            </span>
+                                        </p>
+                                        <p class="clearfix">
+                                            <span class="float-left" th:text="#{profile_phone}">
+
+                                            </span>
+                                            <span class="float-right text-muted" th:text="${userData.contact.mobile}">
+
+                                            </span>
+                                        </p>
+                                        <p class="clearfix">
+                                            <span class="float-left" th:text="#{profile_mail}">
+
+                                            </span>
+                                            <span class="float-right text-muted">
+                                              <a href="#" th:text="${userData.contact.email}"></a>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="card">
+                                <div class="card-header">
+                                    <h4>Skills</h4>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-unstyled user-progress list-unstyled-border list-unstyled-noborder">
+                                        <li class="media">
+                                            <div class="media-body">
+                                                <div class="media-title">Java</div>
+                                            </div>
+                                            <div class="media-progressbar p-t-10">
+                                                <div class="progress" data-height="6" style="height: 6px;">
+                                                    <div class="progress-bar bg-primary" data-width="70%"
+                                                         style="width: 70%;"></div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="media">
+                                            <div class="media-body">
+                                                <div class="media-title">Web Design</div>
+                                            </div>
+                                            <div class="media-progressbar p-t-10">
+                                                <div class="progress" data-height="6" style="height: 6px;">
+                                                    <div class="progress-bar bg-warning" data-width="80%"
+                                                         style="width: 80%;"></div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="media">
+                                            <div class="media-body">
+                                                <div class="media-title">Photoshop</div>
+                                            </div>
+                                            <div class="media-progressbar p-t-10">
+                                                <div class="progress" data-height="6" style="height: 6px;">
+                                                    <div class="progress-bar bg-green" data-width="48%"
+                                                         style="width: 48%;"></div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>-->
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-8">
+                            <div class="card">
+                                <div class="padding-20">
+                                    <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="home-tab2" data-toggle="tab" href="#about"
+                                               role="tab" aria-selected="true" th:text="${profile_my_associations}"></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="profile-tab2" data-toggle="tab" href="#settings"
+                                               role="tab" aria-selected="false" th:text="${profile_my_tontines}"></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="profile-tab3" data-toggle="tab" href="#settings"
+                                               role="tab" aria-selected="false" th:text="${profile_update_info}"></a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content tab-bordered" id="myTab3Content">
+                                        <div class="tab-pane fade show active" id="about" role="tabpanel"
+                                             aria-labelledby="home-tab2">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h4 th:text="#{association_list_page_table_name}"></h4>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-striped" id="table-1">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">#</th>
+                                                                        <th th:text="#{profile_association_name}"></th>
+                                                                        <th th:text="#{profile_association_title}"></th>
+                                                                        <th th:text="#{profile_association_status}"></th>
+                                                                        <th th:text="#{association_list_page_table_header_Action}"></th>
+                                                                    </tr>
+                                                                    </thead>
+
+                                                                    <tbody>
+                                                                    <tr th:each="association : ${allMyAssociations}">
+
+                                                                        <td th:text="${association.id}"></td>
+
+                                                                        <td th:text="${association.association.name}"></td>
+
+                                                                        <td class="align-middle" th:text="${association.role}"></td>
+
+                                                                        <td class="text-center" th:if="${association.state==0}"><div class="badge badge-success badge-shadow" th:text="#{statut_activated}">Completed</div></td>
+                                                                        <td class="text-center" th:if="${association.state==1}"><div class="badge badge-success badge-shadow" th:text="#{statut_activated}">Completed</div></td>
+
+                                                                        <td class="text-center">
+                                                                            <div class="badge badge-success badge-shadow">Completed</div>
+                                                                        </td>
+
+                                                                        <td class="text-center"><a href="#" class="btn btn-primary">Detail</a></td>
+
+                                                                    </tr>
+                                                                    </tbody>
+
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="tab-pane fade" id="settings" role="tabpanel"
+                                             aria-labelledby="profile-tab2">
+                                            <form method="post" class="needs-validation">
+                                                <div class="card-header">
+                                                    <h4>Edit Profile</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6 col-12">
+                                                            <label>First Name</label>
+                                                            <input type="text" class="form-control" value="John">
+                                                            <div class="invalid-feedback">
+                                                                Please fill in the first name
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-md-6 col-12">
+                                                            <label>Last Name</label>
+                                                            <input type="text" class="form-control" value="Deo">
+                                                            <div class="invalid-feedback">
+                                                                Please fill in the last name
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-7 col-12">
+                                                            <label>Email</label>
+                                                            <input type="email" class="form-control"
+                                                                   value="test@example.com">
+                                                            <div class="invalid-feedback">
+                                                                Please fill in the email
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-md-5 col-12">
+                                                            <label>Phone</label>
+                                                            <input type="tel" class="form-control" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-12">
+                                                            <label>Bio</label>
+                                                            <textarea class="form-control summernote-simple"
+                                                                      style="display: none;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur voluptatum alias molestias minus quod dignissimos.</textarea>
+                                                            <div class="note-editor note-frame card">
+                                                                <div class="note-dropzone">
+                                                                    <div class="note-dropzone-message"></div>
+                                                                </div>
+                                                                <div class="note-toolbar-wrapper" style="height: 0px;">
+                                                                    <div class="note-toolbar card-header"
+                                                                         style="position: relative; top: 0px; width: 100%;">
+                                                                        <div class="note-btn-group btn-group note-style">
+                                                                            <button type="button"
+                                                                                    class="note-btn btn btn-light btn-sm note-btn-bold"
+                                                                                    tabindex="-1" title=""
+                                                                                    data-original-title="Bold (⌘+B)"><i
+                                                                                    class="note-icon-bold"></i></button>
+                                                                            <button type="button"
+                                                                                    class="note-btn btn btn-light btn-sm note-btn-italic"
+                                                                                    tabindex="-1" title=""
+                                                                                    data-original-title="Italic (⌘+I)">
+                                                                                <i class="note-icon-italic"></i>
+                                                                            </button>
+                                                                            <button type="button"
+                                                                                    class="note-btn btn btn-light btn-sm note-btn-underline"
+                                                                                    tabindex="-1" title=""
+                                                                                    data-original-title="Underline (⌘+U)">
+                                                                                <i class="note-icon-underline"></i>
+                                                                            </button>
+                                                                            <button type="button"
+                                                                                    class="note-btn btn btn-light btn-sm"
+                                                                                    tabindex="-1" title=""
+                                                                                    data-original-title="Remove Font Style (⌘+\)">
+                                                                                <i class="note-icon-eraser"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="note-btn-group btn-group note-font">
+                                                                            <button type="button"
+                                                                                    class="note-btn btn btn-light btn-sm note-btn-strikethrough"
+                                                                                    tabindex="-1" title=""
+                                                                                    data-original-title="Strikethrough (⌘+⇧+S)">
+                                                                                <i class="note-icon-strikethrough"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="note-btn-group btn-group note-para">
+                                                                            <div class="note-btn-group btn-group">
+                                                                                <button type="button"
+                                                                                        class="note-btn btn btn-light btn-sm dropdown-toggle"
+                                                                                        tabindex="-1"
+                                                                                        data-toggle="dropdown" title=""
+                                                                                        data-original-title="Paragraph">
+                                                                                    <i class="note-icon-align-left"></i>
+                                                                                </button>
+                                                                                <div class="dropdown-menu">
+                                                                                    <div class="note-btn-group btn-group note-align">
+                                                                                        <button type="button"
+                                                                                                class="note-btn btn btn-light btn-sm"
+                                                                                                tabindex="-1" title=""
+                                                                                                data-original-title="Align left (⌘+⇧+L)">
+                                                                                            <i class="note-icon-align-left"></i>
+                                                                                        </button>
+                                                                                        <button type="button"
+                                                                                                class="note-btn btn btn-light btn-sm"
+                                                                                                tabindex="-1" title=""
+                                                                                                data-original-title="Align center (⌘+⇧+E)">
+                                                                                            <i class="note-icon-align-center"></i>
+                                                                                        </button>
+                                                                                        <button type="button"
+                                                                                                class="note-btn btn btn-light btn-sm"
+                                                                                                tabindex="-1" title=""
+                                                                                                data-original-title="Align right (⌘+⇧+R)">
+                                                                                            <i class="note-icon-align-right"></i>
+                                                                                        </button>
+                                                                                        <button type="button"
+                                                                                                class="note-btn btn btn-light btn-sm"
+                                                                                                tabindex="-1" title=""
+                                                                                                data-original-title="Justify full (⌘+⇧+J)">
+                                                                                            <i class="note-icon-align-justify"></i>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="note-btn-group btn-group note-list">
+                                                                                        <button type="button"
+                                                                                                class="note-btn btn btn-light btn-sm"
+                                                                                                tabindex="-1" title=""
+                                                                                                data-original-title="Outdent (⌘+[)">
+                                                                                            <i class="note-icon-align-outdent"></i>
+                                                                                        </button>
+                                                                                        <button type="button"
+                                                                                                class="note-btn btn btn-light btn-sm"
+                                                                                                tabindex="-1" title=""
+                                                                                                data-original-title="Indent (⌘+])">
+                                                                                            <i class="note-icon-align-indent"></i>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="note-editing-area">
+                                                                    <div class="note-handle">
+                                                                        <div class="note-control-selection">
+                                                                            <div class="note-control-selection-bg"></div>
+                                                                            <div class="note-control-holder note-control-nw"></div>
+                                                                            <div class="note-control-holder note-control-ne"></div>
+                                                                            <div class="note-control-holder note-control-sw"></div>
+                                                                            <div class="note-control-sizing note-control-se"></div>
+                                                                            <div class="note-control-selection-info"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <textarea class="note-codable"></textarea>
+                                                                    <div class="note-editable card-block"
+                                                                         contenteditable="true"
+                                                                         style="min-height: 150px;">Lorem ipsum dolor
+                                                                        sit amet, consectetur adipisicing elit. Pariatur
+                                                                        voluptatum alias molestias minus quod
+                                                                        dignissimos.
+                                                                    </div>
+                                                                </div>
+                                                                <div class="note-statusbar">
+                                                                    <div class="note-resizebar">
+                                                                        <div class="note-icon-bar">
+                                                                            <div class="note-icon-bar">
+                                                                                <div class="note-icon-bar"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group mb-0 col-12">
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox" name="remember"
+                                                                       class="custom-control-input" id="newsletter">
+                                                                <label class="custom-control-label" for="newsletter">Subscribe
+                                                                    to newsletter</label>
+                                                                <div class="text-muted form-text">
+                                                                    You will get new information about products, offers
+                                                                    and promotions
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer text-right">
+                                                    <button class="btn btn-primary">Save Changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Footer ============================================= -->
+        <th:block th:replace="fragments/fragment_footer"/>
+
+    </div>
+
+</div>
+
+<!-- Scripts ============================================= -->
+<script>
+    $(document).ready(function () {
+        $('#association').attr('class', 'active');
+        $('#association-list').attr('class', 'active');
+    });
+</script>
+
+</body>
+
+</html>
