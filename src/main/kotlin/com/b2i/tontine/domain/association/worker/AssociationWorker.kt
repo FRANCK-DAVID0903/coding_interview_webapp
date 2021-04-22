@@ -5,7 +5,6 @@ import com.b2i.tontine.domain.association.port.AssociationDomain
 import com.b2i.tontine.infrastructure.db.repository.AssociationRepository
 import com.b2i.tontine.utils.OperationResult
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.MessageSource
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -17,9 +16,6 @@ import java.util.*
  */
 @Service
 class AssociationWorker : AssociationDomain {
-
-    @Autowired
-    lateinit var messageSource : MessageSource
 
     @Autowired
     lateinit var associationRepository: AssociationRepository

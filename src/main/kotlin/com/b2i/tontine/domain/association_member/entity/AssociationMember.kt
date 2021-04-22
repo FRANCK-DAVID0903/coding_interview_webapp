@@ -28,14 +28,14 @@ class AssociationMember() : AuditableEntity<String>() {
 
     @ManyToOne(targetEntity = User::class, optional = false)
     @MapsId("userId")
-    var user : User? = null
+    var member : User? = null
 
     var state:Int=0
 
     constructor(member : User, association : Association) : this() {
         this.associationMemberId = AssociationMemberId(association.id, member.id)
         this.association = association
-        this.user = member
+        this.member = member
     }
 
 }
