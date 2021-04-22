@@ -9,6 +9,8 @@ interface UserRepository : JpaRepository<User, Long> {
 
     fun findByUsername(username: String): Optional<User>
 
+    fun findByContactEmail(contact_email: String): Optional<User>
+
     fun countAllByUsername(username: String): Long
 
     fun countAllByContactEmail(email: String):Long

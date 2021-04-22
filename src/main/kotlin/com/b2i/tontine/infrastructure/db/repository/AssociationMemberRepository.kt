@@ -14,7 +14,7 @@ import java.util.*
  */
 interface AssociationMemberRepository : JpaRepository<AssociationMember, Long> {
 
-    fun findByAssociationAndMember(association: Association, member: User): Optional<AssociationMember>
+    fun findByAssociationAndUser(association: Association, member: User): Optional<AssociationMember>
 
     fun findAllByAssociation(association: Association): List<AssociationMember>
 

@@ -165,7 +165,7 @@
                                             <div class="collapse" id="collapseMembers">
                                                 <p th:text="#{association_detail_page_action_members_desc}"></p>
                                                 <p>
-                                                    <a class="nav-link" th:href="@{/backend/association/members/list_members}">
+                                                    <a class="nav-link" th:href="@{/backend/association/__${association.id}__/members}">
                                                         <span th:text="#{association_detail_page_action_link}"></span>
                                                     </a>
                                                 </p>

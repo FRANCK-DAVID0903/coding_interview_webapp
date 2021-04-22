@@ -29,12 +29,12 @@ class AssociationMemberWorker : AssociationMemberDomain {
     @Autowired
     lateinit var userRepository: UserRepository
 
-    override fun addMemberToAssociation(association: Association, member: Member): OperationResult<AssociationMember> {
+    override fun addMemberToAssociation(association_id: Long, member_id: Long): OperationResult<AssociationMember> {
         val errors: MutableMap<String, String> = mutableMapOf()
         var data: AssociationMember? = null
 
-        val optionalMember = userRepository.findById(member.id)
-        val optionalAssociation = associationRepository.findById(association.id)
+        val optionalMember = userRepository.findById(member_id)
+        val optionalAssociation = associationRepository.findById(association_id)
 
         if (!optionalMember.isPresent) {
             errors["not_found"] = "user_not_found"
@@ -44,14 +44,15 @@ class AssociationMemberWorker : AssociationMemberDomain {
         }
 
         if (errors.isEmpty()) {
-            val isMemberInAssociation = associationMemberRepository.findByAssociationAndMember(association, member)
+            val isMemberInAssociation =
+                associationMemberRepository.findByAssociationAndUser(optionalAssociation.get(), optionalMember.get())
 
             if (isMemberInAssociation.isPresent) {
                 errors["error"] = "association_member_exist"
             } else {
-                val associationMember = AssociationMember()
+                val associationMember = AssociationMember(optionalMember.get(), optionalAssociation.get())
                 associationMember.association = optionalAssociation.get()
-                associationMember.member = optionalMember.get()
+                associationMember.user = optionalMember.get()
 
                 data = associationMemberRepository.save(associationMember)
             }
