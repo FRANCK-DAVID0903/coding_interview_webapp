@@ -33,11 +33,11 @@
                                     <div class="author-box-center">
                                         <img alt="image" th:if="${userData.photo ==''}"
                                              th:src="${'/'+rootLocation+'/members/user_a.png'}"
-                                             class="rounded-circle author-box-picture">
+                                             class="rounded-circle author-box-picture" th:height="80px" th:width="100px">
                                         <img alt="image" th:if="${userData.photo !=''}"
                                              th:src="${'/'+rootLocation+'/members/'+userData.photo}"
-                                             class="rounded-circle author-box-picture">
-                                        <div class="clearfix"></div>
+                                             class="rounded-circle author-box-picture" th:height="80px" th:width="100px">
+                                        <div class="clearfix">
                                         <div class="author-box-name">
                                             <a href="#" th:text="${userData.username}"></a>
                                         </div>
@@ -151,6 +151,10 @@
                                                role="tab" aria-selected="false" th:text="#{profile_my_tontines}"></a>
                                         </li>
                                         <li class="nav-item">
+                                            <a class="nav-link" id="profile-tab4" data-toggle="tab" href="#transac"
+                                               role="tab" aria-selected="false" th:text="#{profile_my_transactions}"></a>
+                                        </li>
+                                        <li class="nav-item">
                                             <a class="nav-link" id="profile-tab3" data-toggle="tab" href="#updateInfo"
                                                role="tab" aria-selected="false" th:text="#{profile_update_info}"></a>
                                         </li>
@@ -212,7 +216,7 @@
                                                 <div class="col-12">
                                                     <div class="card">
                                                         <div class="card-header">
-                                                            <h4 th:text="#{association_list_page_table_name}"></h4>
+                                                            <h4 th:text="#{sidebar_tontine_list}"></h4>
                                                         </div>
                                                         <div class="card-body">
                                                             <div class="table-responsive">
@@ -220,9 +224,9 @@
                                                                     <thead>
                                                                     <tr>
                                                                         <th class="text-center">#</th>
-                                                                        <th th:text="#{profile_association_name}"></th>
-                                                                        <th th:text="#{profile_association_title}"></th>
-                                                                        <th th:text="#{profile_association_status}"></th>
+                                                                        <th th:text="#{profile_tontine_name}"></th>
+                                                                        <th th:text="#{profile_tontine_association}"></th>
+                                                                        <th th:text="#{profile_tontine_status}"></th>
                                                                         <th th:text="#{association_list_page_table_header_Action}"></th>
                                                                     </tr>
                                                                     </thead>
