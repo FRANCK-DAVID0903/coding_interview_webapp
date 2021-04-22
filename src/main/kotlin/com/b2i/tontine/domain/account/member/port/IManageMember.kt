@@ -10,5 +10,13 @@ interface IManageMember {
 
     fun updateInfosMember(member: Member):OperationResult<Member>
 
+    fun updatePhoneAndEmail(id:Long, tel: String, email:String):OperationResult<Member>
+
+    fun updatePassword(pswd: String):OperationResult<Member>
+
     fun findById(id:Long): Optional<Member>
+
+    fun findByContactEmail(email:String):Optional<Member>
+
+    fun findByContactMobile(tel:String):Optional<Member>
 }
