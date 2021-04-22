@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!--Header
+============================================= -->
+<th:block th:replace="fragments/fragment_head('Home')" />
+
+<body>
+
+<!-- Loader ============================================= -->
+<th:block th:replace="fragments/fragment_loader" />
+
+<div id="app">
+
+    <div class="main-wrapper main-wrapper-1">
+
+        <!-- Navbar ============================================= -->
+        <th:block th:replace="fragments/fragment_navbar" />
+
+        <!-- Sidebar ============================================= -->
+        <th:block th:replace="fragments/fragment_sidebar" />
+
+
+        <!-- Main Content ============================================= -->
+        <div class="main-content">
+
+            <section class="section">
+
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <div class="card">
+
+                            <div class="card-body">
+                                <form th:action="@{/backend/member/operator/event/search-schedule}" method="post">
+
+                                    <div class="row">
+                                        <div class="offset-1"></div>
+
+                                        <div class="col-lg-4">
+                                            <label th:text="#{association_member_list_page_search_by}"></label>
+                                            <select class="form-control select2" name="option">
+                                                <option>Choose an option</option>
+                                                <option th:value="'email'" th:text="#{association_member_list_page_search_option_mail}"></option>
+                                                <option th:value="'username'" th:text="#{association_member_list_page_search_option_username}"></option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <label>
+                                                <span th:text="#{association_member_list_page_search_field}"></span>
+                                            </label>
+                                            <input required type="text" class="form-control" name="value" th:placeholder="#{association_member_list_page_search_field_desc}">
+                                        </div>
+
+                                        <div class="col-lg-2">
+                                            <button type="submit"  class="btn btn-primary " style="margin-top: 31px" th:text="#{association_member_list_page_search_button}"></button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </section>
+
+        </div>
+
+        <!-- Footer ============================================= -->
+        <th:block th:replace="fragments/fragment_footer" />
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

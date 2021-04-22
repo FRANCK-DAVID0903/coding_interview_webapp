@@ -47,7 +47,7 @@ class AssociationMemberWorker : AssociationMemberDomain {
             val isMemberInAssociation = associationMemberRepository.findByAssociationAndMember(association, member)
 
             if (isMemberInAssociation.isPresent) {
-                errors["error"] = "member_exist"
+                errors["error"] = "association_member_exist"
             } else {
                 val associationMember = AssociationMember()
                 associationMember.association = optionalAssociation.get()
