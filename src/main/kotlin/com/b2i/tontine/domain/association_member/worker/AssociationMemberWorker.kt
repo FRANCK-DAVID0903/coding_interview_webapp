@@ -69,11 +69,11 @@ class AssociationMemberWorker : AssociationMemberDomain {
         return associationMemberRepository.countAllByAssociation(association)
     }
 
-    override fun findAllByMember(member: User): MutableList<AssociationMember> {
-        return associationMemberRepository.findAllByMember(member)
+    override fun findAllByUser(member: User): MutableList<AssociationMember> {
+        return associationMemberRepository.findAllByUser(member)
     }
 
-    override fun countAllByMember(member: User): Long {
-        return associationMemberRepository.countAllByMember(member)
+    override fun countAllByUser(member: User): Long {
+        return associationMemberRepository.countAllByUser(member)
     }
 }

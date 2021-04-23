@@ -20,8 +20,8 @@ interface AssociationMemberRepository : JpaRepository<AssociationMember, Long> {
 
     fun countAllByAssociation(association: Association) : Long
 
-    fun findAllByMember(member: User): MutableList<AssociationMember>
+    fun findAllByUser(member: User): MutableList<AssociationMember>
 
-    fun countAllByMember(member: User): Long
+    fun countAllByUser(member: User): Long
 
 }

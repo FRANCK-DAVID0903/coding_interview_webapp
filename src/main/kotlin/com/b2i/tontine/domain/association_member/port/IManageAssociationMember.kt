@@ -20,8 +20,8 @@ interface IManageAssociationMember {
 
     fun countAssociationMembers(association: Association): Long
 
-    fun findAllByMember(member: User): MutableList<AssociationMember>
+    fun findAllByUser(member: User): MutableList<AssociationMember>
 
-    fun countAllByMember(member: User): Long
+    fun countAllByUser(member: User): Long
 
 }

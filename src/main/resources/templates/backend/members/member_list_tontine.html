@@ -39,42 +39,27 @@
                                         <table class="table table-striped" id="table-1">
                                             <thead>
                                             <tr>
-                                                <th th:text="#{association_list_page_table_header_name}"></th>
-                                                <th th:text="#{association_list_page_table_header_acronym}"></th>
-                                                <th th:text="#{association_list_page_table_header_status}"></th>
+                                                <th class="text-center">#</th>
+                                                <th th:text="#{profile_tontine_name}"></th>
+                                                <th th:text="#{profile_tontine_association}"></th>
+                                                <th th:text="#{profile_tontine_amount}"></th>
+                                                <th th:text="#{profile_tontine_period}"></th>
+                                                <th th:text="#{profile_tontine_beginDate}"></th>
+                                                <th th:text="#{profile_tontine_end}"></th>
+                                                <th th:text="#{profile_tontine_status}"></th>
                                                 <th th:text="#{association_list_page_table_header_Action}"></th>
                                             </tr>
                                             </thead>
 
                                             <tbody>
-                                            <tr th:each="association : ${associations}">
-
-                                                <td th:text="${association.association.name}"></td>
-
-                                                <td class="align-middle" th:text="${association.association.acronym}"></td>
-
-                                                <td class="text-center">
-                                                    <a th:if="${association.association.state} == 0" class="btn btn-icon btn-light icon-right"
-                                                       type="button" data-toggle="modal" data-target="#changeStatusModal"
-                                                       th:data-entity="${stringHelper.clean(association.toJSON())}"
-                                                       onclick="onUpdate(this.getAttribute('data-entity'));">
-                                                        <span th:text="#{association_list_page_table_header_status_active}"></span>
-                                                        <i class="fas fa-toggle-on" style="color: #0ba83b"></i>
-                                                    </a>
-
-                                                    <a th:if="${association.association.state} == 1" class="btn btn-icon btn-light icon-right"
-                                                       type="button" data-toggle="modal" data-target="#changeStatusModal"
-                                                       th:data-entity="${stringHelper.clean(association.toJSON())}"
-                                                       onclick="onUpdate(this.getAttribute('data-entity'));">
-                                                        <span th:text="#{association_list_page_table_header_status_deactivated}"></span>
-                                                        <i class="fas fa-toggle-off" style="color: #a32b1c"></i>
-                                                    </a>
-                                                </td>
-
-                                                <td class="text-center">
-                                                    <a th:href="@{/backend/association/detail_association/__${association.id}__}" class="btn btn-primary" th:text="#{association_list_page_table_header_Action_detail}"></a>
-                                                </td>
-
+                                            <tr th:each="tont : ${tontinesValidated}">
+                                                <td th:text="${tont.tontine.name}"></td>
+                                                <td class="align-middle" th:text="${ton.tontine.association.name}"></td>
+                                                <td class="align-middle" th:text="${ton.tontine.contributionAmount}"></td>
+                                                <td class="align-middle" th:text="${ton.tontine.periodicity}"></td>
+                                                <td class="align-middle" th:text="${ton.tontine.startDate}"></td>
+                                                <td class="align-middle" th:text="${ton.tontine.endDate}"></td>
+                                                <td class="align-middle" th:text="${ton.tontine.isClosed}"></td>
                                             </tr>
                                             </tbody>
 
