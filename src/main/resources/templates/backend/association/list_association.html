@@ -3,7 +3,7 @@
 
 <!--Header
 ============================================= -->
-<th:block th:replace="fragments/fragment_head('Home')" />
+<th:block th:replace="fragments/fragment_head('All associaitions')" />
 
   <body>
 
@@ -104,7 +104,7 @@
                                        methodUrl='/backend/association/update_state',
                                        body = ~{ :: #modal_body})">
 
-              <div id="modal_body">
+              <div class="modal-body" id="modal_body">
                 <p th:text="#{association_detail_page_action_modal_desc}"></p>
               </div>
 
