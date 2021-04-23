@@ -72,8 +72,8 @@ class AssociationMemberController(
 
                 val err: MutableMap<String, String> = mutableMapOf()
                 if (result.errors!!.isNotEmpty()) {
-                    result.errors.forEach {
-                            (key, value) -> err[key] = messageSource.getMessage(value, null, locale)
+                    result.errors.forEach { (key, value) ->
+                        err[key] = messageSource.getMessage(value, null, locale)
                     }
                 }
 
@@ -137,7 +137,30 @@ class AssociationMemberController(
     }
 
     @GetMapping("/{association_id}/members")
-    fun listOfAssociationMembers(model: Model, @PathVariable association_id: String): String {
+    fun listOfAssociationMembers(
+        model: Model,
+        @PathVariable association_id: String,
+        locale: Locale
+    ): String {
+
+        when {
+            association_id.isEmpty() -> {
+                ControlForm.model(
+                    model,
+                    messageSource.getMessage("association_member_id_association_empty", null, locale),
+                    Color.red
+                )
+            }
+            else -> {
+                val association = associationDomain.findAssociationById(association_id.toLong())
+
+                if (association.isPresent) {
+                    val members = associationMemberDomain.findAllMembersInAssociation(association.get())
+                    model.addAttribute("association_members", members)
+                }
+            }
+        }
+
         injectAssociation(model, association_id)
 
         return forwardTo("list_association_member")
