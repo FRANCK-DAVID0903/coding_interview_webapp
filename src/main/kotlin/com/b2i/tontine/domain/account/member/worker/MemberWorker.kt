@@ -91,12 +91,31 @@ class MemberWorker: MemberDomain {
                                 errors["phone"] = "user_phoneNumber_already_exist"
                             }
                         }
+                        else{
+                            memberSave.contact.email = email
+                        }
 
                     }
                     else {
                         errors["phone"] = "user_phoneNumber_already_exist"
                     }
 
+                }
+                else{
+                    memberSave.contact.mobile = tel
+                    val optionalMemberEmail = memberRepository.findByContactEmail(email)
+                    if (optionalMemberEmail.isPresent){
+                        val memberEmail = optionalMemberEmail.get()
+                        if (memberEmail.id == memberSave.id){
+                            memberSave.contact.email = email
+                        }
+                        else {
+                            errors["phone"] = "user_phoneNumber_already_exist"
+                        }
+                    }
+                    else{
+                        memberSave.contact.email = email
+                    }
                 }
 
                 data = memberRepository.save(memberSave)
@@ -107,8 +126,14 @@ class MemberWorker: MemberDomain {
         return  OperationResult(data, errors)
     }
 
-    override fun updatePassword(pswd: String): OperationResult<Member> {
-        TODO("Not yet implemented")
+    override fun updatePassword(member: Member): OperationResult<Member> {
+        val errors :MutableMap<String,String> = mutableMapOf()
+        var data:Member?=null
+
+        if(errors.isEmpty()){
+            data = memberRepository.save(member)
+        }
+        return OperationResult(data,errors)
     }
 
     override fun findById(id: Long): Optional<Member> {

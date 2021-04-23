@@ -12,6 +12,8 @@ object ControllerEndpoint {
 
     const val BACKEND_TONTINE = "${BACKEND_DASHBOARD}/tontine"
 
+    const val BACKEND_MEMBERS = "${BACKEND_DASHBOARD}/members"
+
     const val BACKEND_DATA_EXTRACT = "${BACKEND_DASHBOARD}/extract"
 
     const val FRONTEND_BASE = "frontend"

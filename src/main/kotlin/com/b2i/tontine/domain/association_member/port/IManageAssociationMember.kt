@@ -1,5 +1,6 @@
 package com.b2i.tontine.domain.association_member.port
 
+import com.b2i.tontine.domain.account.entity.User
 import com.b2i.tontine.domain.account.member.entity.Member
 import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.association_member.entity.AssociationMember
@@ -18,5 +19,9 @@ interface IManageAssociationMember {
     fun findAllMembersInAssociation(association: Association): List<AssociationMember>
 
     fun countAssociationMembers(association: Association): Long
+
+    fun findAllByMember(member: User): MutableList<AssociationMember>
+
+    fun countAllByMember(member: User): Long
 
 }
