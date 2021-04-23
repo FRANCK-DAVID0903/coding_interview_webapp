@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <!--Header
+    ============================================= -->
+    <th:block th:replace="fragments/fragment_head('Home')" />
+
+    <body>
+
+    <!-- Loader ============================================= -->
+    <th:block th:replace="fragments/fragment_loader" />
+
+        <div id="app">
+
+            <div class="main-wrapper main-wrapper-1">
+
+                <!-- Navbar ============================================= -->
+                <th:block th:replace="fragments/fragment_navbar" />
+
+                <!-- Sidebar ============================================= -->
+                <th:block th:replace="fragments/fragment_sidebar" />
+
+
+                <!-- Main Content ============================================= -->
+                <div class="main-content">
+
+                    <section class="section">
+
+                        <div class="row">
+                            <div class="col-lg-12">
+
+                                <div class="card">
+
+                                    <div class="card-body">
+                                        <form th:action="@{/backend/association/__${association.id}__/members/search}" method="post">
+
+                                            <div class="row">
+                                                <div class="offset-1"></div>
+
+                                                <div class="col-lg-4">
+                                                    <label th:text="#{association_member_list_page_search_by}"></label>
+                                                    <select class="form-control select2" name="option" >
+                                                        <option th:value="'email'" th:text="#{association_member_list_page_search_option_mail}"></option>
+                                                        <option th:value="'username'" th:text="#{association_member_list_page_search_option_username}"></option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-lg-4">
+                                                    <label>
+                                                        <span th:text="#{association_member_list_page_search_field}"></span>
+                                                    </label>
+                                                    <input required type="text" class="form-control" name="value" th:placeholder="#{association_member_list_page_search_field_desc}">
+                                                </div>
+
+                                                <div class="col-lg-2">
+                                                    <button type="submit"  class="btn btn-primary " style="margin-top: 31px" th:text="#{association_member_list_page_search_button}"></button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+
+                                <div th:if="${userSearchNull == false}" class="card">
+                                    <div class="card-header">
+                                        <h4 th:text="#{association_member_list_page_result}"></h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <tr>
+                                                    <th th:text="#{association_member_list_page_result_name}"></th>
+                                                    <th th:text="#{association_member_list_page_result_username}"></th>
+                                                    <th th:text="#{association_member_list_page_result_email}"></th>
+                                                    <th th:text="#{association_member_list_page_result_action}"></th>
+                                                </tr>
+                                                <tr>
+                                                    <td th:text="${userSearch.firstname}"></td>
+
+                                                    <td class="align-middle" th:text="${userSearch.username}"></td>
+
+                                                    <td class="align-middle" th:text="${userSearch.contact.email}"></td>
+
+                                                    <td>
+                                                        <a class="btn btn-primary btn-action mr-1" th:title="#{association_member_list_page_result_action_desc}"
+                                                           type="button" data-toggle="modal" data-target="#changeStatusModal"
+                                                           th:data-entity="${stringHelper.clean(userSearch.toJSON())}"
+                                                           onclick="onUpdate(this.getAttribute('data-entity'));">
+                                                            <i class="fas fa-plus"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div th:if="${userSearchNull == true}" class="card">
+                                    <div class="card-header">
+                                        <h4 th:text="#{association_member_list_page_result}"></h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="align-center">
+                                            <p th:text="#{association_member_list_page_result_not_found}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </section>
+
+                    <!-- Vertically Center -->
+                    <div class="modal fade" id="changeStatusModal" tabindex="-1" role="dialog"
+                         aria-labelledby="changeStatusModalTitle" aria-hidden="true">
+
+                        <div th:insert="fragments/modal/fragment_add_modal ::
+                                       fragment_add_modal(title='Add user in association',
+                                       methodUrl='/backend/association/'+__${association.id}__+'/members/add_member',
+                                       body = ~{ :: #modal_body})">
+
+                            <div class="modal-body" id="modal_body">
+                                <p th:text="#{association_member_list_page_result_action_modal}"></p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                </div>
+
+                <!-- Footer ============================================= -->
+                <th:block th:replace="fragments/fragment_footer" />
+
+            </div>
+
+        </div>
+
+        <!-- Scripts ============================================= -->
+        <script>
+            $(document).ready(function () {
+                $('#association').attr('class', 'active');
+            });
+        </script>
+
+
+        <script type="application/javascript">
+
+            function onUpdate(json) {
+                var userS = jQuery.parseJSON(json.replace("'", "\\'"));
+                $('.model-id').val(userS.id);
+            }
+
+        </script>
+    </body>
+
+</html>

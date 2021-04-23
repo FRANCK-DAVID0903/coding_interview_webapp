@@ -14,7 +14,7 @@ import com.b2i.tontine.utils.OperationResult
  */
 interface IManageAssociationMember {
 
-    fun addMemberToAssociation(association: Association, member: Member): OperationResult<AssociationMember>
+    fun addMemberToAssociation(association_id: Long, member_id: Long): OperationResult<AssociationMember>
 
     fun findAllMembersInAssociation(association: Association): List<AssociationMember>
 

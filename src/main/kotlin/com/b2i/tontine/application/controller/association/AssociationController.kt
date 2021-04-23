@@ -287,9 +287,8 @@ class AssociationController(
 
         val user = authenticationFacade.getAuthenticatedUser().get()
 
-        return when (userDomain.findTypeBy(user.id))
+        when (userDomain.findTypeBy(user.id))
         {
-
             UserType.ASSOCIATION_MEMBER -> {
                 val associations = associationDomain.findAllAssociations()
                 model.addAttribute("associations", associations)
@@ -297,7 +296,6 @@ class AssociationController(
             }
 
             UserType.ACTUATOR -> {
-
                 val associations = associationDomain.findAllAssociations()
                 model.addAttribute("associations", associations)
                 return forwardTo("list_association")

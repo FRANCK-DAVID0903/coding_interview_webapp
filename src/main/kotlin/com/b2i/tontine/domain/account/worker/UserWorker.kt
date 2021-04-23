@@ -99,9 +99,7 @@ class UserWorker : UserDomain {
 
     override fun findByUsername(username: String): Optional<User> = userRepository.findByUsername(username)
 
-    override fun findByEmail(email: String): Optional<User> {
-        TODO("Not yet implemented")
-    }
+    override fun findByEmail(email: String): Optional<User> = userRepository.findByContactEmail(email)
 
     override fun findUserById(id: Long): Optional<User> = userRepository.findById(id)
 
