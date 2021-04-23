@@ -1,5 +1,6 @@
 package com.b2i.tontine.domain.association_member.worker
 
+import com.b2i.tontine.domain.account.entity.User
 import com.b2i.tontine.domain.account.member.entity.Member
 import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.association_member.entity.AssociationMember
@@ -65,5 +66,13 @@ class AssociationMemberWorker : AssociationMemberDomain {
 
     override fun countAssociationMembers(association: Association): Long {
         return associationMemberRepository.countAllByAssociation(association)
+    }
+
+    override fun findAllByMember(member: User): MutableList<AssociationMember> {
+        return associationMemberRepository.findAllByMember(member)
+    }
+
+    override fun countAllByMember(member: User): Long {
+        return associationMemberRepository.countAllByMember(member)
     }
 }

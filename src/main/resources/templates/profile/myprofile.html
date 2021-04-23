@@ -95,48 +95,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--<div class="card">
-                                <div class="card-header">
-                                    <h4>Skills</h4>
-                                </div>
-                                <div class="card-body">
-                                    <ul class="list-unstyled user-progress list-unstyled-border list-unstyled-noborder">
-                                        <li class="media">
-                                            <div class="media-body">
-                                                <div class="media-title">Java</div>
-                                            </div>
-                                            <div class="media-progressbar p-t-10">
-                                                <div class="progress" data-height="6" style="height: 6px;">
-                                                    <div class="progress-bar bg-primary" data-width="70%"
-                                                         style="width: 70%;"></div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="media">
-                                            <div class="media-body">
-                                                <div class="media-title">Web Design</div>
-                                            </div>
-                                            <div class="media-progressbar p-t-10">
-                                                <div class="progress" data-height="6" style="height: 6px;">
-                                                    <div class="progress-bar bg-warning" data-width="80%"
-                                                         style="width: 80%;"></div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="media">
-                                            <div class="media-body">
-                                                <div class="media-title">Photoshop</div>
-                                            </div>
-                                            <div class="media-progressbar p-t-10">
-                                                <div class="progress" data-height="6" style="height: 6px;">
-                                                    <div class="progress-bar bg-green" data-width="48%"
-                                                         style="width: 48%;"></div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>-->
+                            </div>
+
                         </div>
                         <div class="col-12 col-md-12 col-lg-8">
                             <div class="card">
@@ -259,8 +219,46 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="tab-pane fade" id="transac" role="tabpanel"
+                                             aria-labelledby="profile-tab4">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h4 th:text="#{sidebar_transactions_list}"></h4>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-striped" id="table-1">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">#</th>
+                                                                        <th th:text="#{table_transaction_amount}"></th>
+                                                                        <th th:text="#{table_transaction_operation}"></th>
+                                                                    </tr>
+                                                                    </thead>
+
+                                                                    <tbody>
+                                                                    <!--<tr th:each="association : ${allMyAssociations}">
+
+                                                                        <td th:text="${association.id}"></td>
+
+                                                                        <td th:text="${association.association.name}"></td>
+
+                                                                        <td th:text="${association.association.name}"></td>
+
+                                                                    </tr>-->
+                                                                    </tbody>
+
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="tab-pane fade" id="updateInfo" role="tabpanel"
-                                             aria-labelledby="profile-tab2">
+                                             aria-labelledby="profile-tab3">
                                             <form method="POST" th:action="@{/backend/profile/updateInfos}" enctype="multipart/form-data">
                                                 <div class="row">
                                                     <div class="form-group col-6">
@@ -291,7 +289,7 @@
                                             </form>
                                             <br>
                                             <br>
-                                            <form method="POST" th:action="@{/profile/updateInfos}" enctype="multipart/form-data">
+                                            <form method="POST" th:action="@{/backend/profile/updateTelEmail}" enctype="multipart/form-data">
                                                 <h5 th:text="#{profile_change_email}"></h5>
                                                 <div class="row">
                                                     <div class="form-group col-4">
@@ -318,27 +316,27 @@
                                             </form>
                                             <br>
                                             <br>
-                                            <form method="POST" th:action="@{/profile/updateInfos}" enctype="multipart/form-data">
+                                            <form method="POST" th:action="@{/backend/profile/updatePassword}" enctype="multipart/form-data">
                                                 <h5 th:text="#{profile_change_password}"></h5>
                                                 <div class="row">
-
+                                                    <input id="id" type="hidden" th:value="${userData.id}" class="form-control" name="id">
                                                     <div class="form-group col-6">
-                                                        <label for="oldPassword" class="d-block" th:text="#{member_old_password}"></label>
-                                                        <input id="oldPassword" type="password" class="form-control" name="password2">
+                                                        <label for="oldPwd" class="d-block" th:text="#{member_old_password}"></label>
+                                                        <input id="oldPwd" type="password" class="form-control" name="oldPwd">
                                                     </div>
 
                                                     <div class="form-group col-6">
-                                                        <label for="password" class="d-block" th:text="#{member_password}"></label>
-                                                        <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator"
-                                                               name="password">
+                                                        <label for="pwd" class="d-block" th:text="#{member_password}"></label>
+                                                        <input id="pwd" type="password" class="form-control pwstrength" data-indicator="pwindicator"
+                                                               name="pwd">
                                                         <div id="pwindicator" class="pwindicator">
                                                             <div class="bar"></div>
                                                             <div class="label"></div>
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-6">
-                                                        <label for="password2" class="d-block" th:text="#{member_password_confirm}"></label>
-                                                        <input id="password2" type="password" class="form-control" name="password2">
+                                                        <label for="pwd2" class="d-block" th:text="#{member_password_confirm}"></label>
+                                                        <input id="pwd2" type="password" class="form-control" name="pwd2">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">

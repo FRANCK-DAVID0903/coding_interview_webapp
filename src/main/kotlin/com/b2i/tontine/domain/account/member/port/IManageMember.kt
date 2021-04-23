@@ -12,7 +12,7 @@ interface IManageMember {
 
     fun updatePhoneAndEmail(id:Long, tel: String, email:String):OperationResult<Member>
 
-    fun updatePassword(pswd: String):OperationResult<Member>
+    fun updatePassword(member: Member):OperationResult<Member>
 
     fun findById(id:Long): Optional<Member>
 
