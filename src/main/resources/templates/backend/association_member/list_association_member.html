@@ -45,6 +45,53 @@
                                     </div>
                                 </div>
 
+
+
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 th:text="#{association_member_list_page_table_header}"></h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped" id="table-1">
+                                                <thead>
+                                                    <tr>
+                                                        <th th:text="#{association_member_list_page_result_name}"></th>
+                                                        <th th:text="#{association_member_list_page_result_username}"></th>
+                                                        <th th:text="#{association_member_list_page_result_email}"></th>
+                                                        <th th:text="#{association_member_list_page_result_phone}"></th>
+                                                        <th th:text="#{association_member_list_page_result_action}"></th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <tr th:each="association_member : ${association_members}">
+
+                                                        <td th:text="${association_member.user.firstname}"></td>
+
+                                                        <td th:text="${association_member.user.username}"></td>
+
+                                                        <td class="align-middle" th:text="${association_member.user.contact.email}"></td>
+
+                                                        <td class="align-middle" th:text="${association_member.user.contact.mobile}"></td>
+
+                                                        <td>
+                                                            <a class="btn tblEditBtn" data-toggle="tooltip" title="" data-original-title="Edit">
+                                                                <i class="material-icons">mode_edit</i>
+                                                            </a>
+                                                            <a class="btn tblDelBtn" data-toggle="tooltip" title="" data-original-title="Delete">
+                                                                <i class="material-icons">delete</i>
+                                                            </a>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
