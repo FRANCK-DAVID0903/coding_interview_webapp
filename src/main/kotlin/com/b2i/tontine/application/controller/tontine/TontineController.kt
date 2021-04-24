@@ -1,16 +1,20 @@
 package com.b2i.tontine.application.controller.tontine
 
+import com.b2i.tontine.application.controlForm.Color
+import com.b2i.tontine.application.controlForm.ControlForm
 import org.springframework.stereotype.Controller
 import com.b2i.tontine.application.controller.BaseController
 import com.b2i.tontine.application.controller.ControllerEndpoint
 import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.association.port.AssociationDomain
+import com.b2i.tontine.domain.tontine.entity.Tontine
 import com.b2i.tontine.domain.tontine.port.TontineDomain
+import com.b2i.tontine.utils.OperationResult
 import org.springframework.context.MessageSource
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.*
+import org.springframework.web.servlet.mvc.support.RedirectAttributes
+import java.util.*
 
 
 /**
@@ -34,8 +38,115 @@ class TontineController(
         return forwardTo("add_tontine")
     }
 
+    @PostMapping("/{association_id}/tontines/create")
+    fun createTontine(
+        redirectAttributes: RedirectAttributes,
+        @PathVariable association_id: String,
+        @RequestParam name: String,
+        @RequestParam type: String,
+        @RequestParam numberOfParticipant: String,
+        @RequestParam contributionAmount: String,
+        @RequestParam startDate: String,
+        @RequestParam endDate: String,
+        @RequestParam periodicity: String,
+        locale: Locale
+    ): String {
+        var url = "$association_id/tontines/create"
+
+        when {
+            association_id.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("association_member_id_association_empty", null, locale),
+                    Color.red
+                )
+            }
+            numberOfParticipant.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("tontine_participant_empty", null, locale),
+                    Color.red
+                )
+            }
+            contributionAmount.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("tontine_contribution_amount_empty", null, locale),
+                    Color.red
+                )
+            }
+            startDate.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("tontine_contribution_startDate_empty", null, locale),
+                    Color.red
+                )
+            }
+            endDate.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("tontine_contribution_endDate_empty", null, locale),
+                    Color.red
+                )
+            }
+            else -> {
+                val tontine = Tontine()
+                tontine.name = name
+                tontine.type = objectHelper.getTontineType(type)
+                tontine.numberOfParticipant = numberOfParticipant.toLong()
+                tontine.contributionAmount = contributionAmount.toDouble()
+                tontine.startDate = ControlForm.formatDate(startDate)
+                tontine.endDate = ControlForm.formatDate(endDate)
+
+                val result: OperationResult<Tontine> = tontineDomain.createTontine(tontine, association_id.toLong())
+
+                val err: MutableMap<String, String> = mutableMapOf()
+                if (result.errors!!.isNotEmpty()) {
+                    result.errors.forEach { (key, value) ->
+                        err[key] = messageSource.getMessage(value, null, locale)
+                    }
+                }
+
+                if (
+                    ControlForm.verifyHashMapRedirect(
+                        redirectAttributes,
+                        err,
+                        messageSource.getMessage("tontine_save_success", null, locale)
+                    )
+                ) {
+                    url = "$association_id/tontines"
+                }
+
+            }
+        }
+
+        return redirectTo(url)
+    }
+
     @GetMapping("/{association_id}/tontines")
-    fun listOfAssociationTontines(model: Model, @PathVariable association_id: String): String {
+    fun listOfAssociationTontines(
+        model: Model, @PathVariable association_id: String,
+        locale: Locale
+    ): String {
+
+        when {
+            association_id.isEmpty() -> {
+                ControlForm.model(
+                    model,
+                    messageSource.getMessage("association_member_id_association_empty", null, locale),
+                    Color.red
+                )
+            }
+            else -> {
+                val association = associationDomain.findAssociationById(association_id.toLong())
+
+                if (association.isPresent) {
+                    val tontines = tontineDomain.findAllTontinesByAssociation(association.get())
+                    model.addAttribute("association_tontines", tontines)
+                }
+            }
+        }
+
         injectAssociation(model, association_id)
 
         return forwardTo("list_tontine")

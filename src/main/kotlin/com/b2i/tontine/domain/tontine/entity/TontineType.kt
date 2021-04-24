@@ -1,6 +1,6 @@
 package com.b2i.tontine.domain.tontine.entity
 
-object Type {
+object TontineType {
 
     const val OPENED = "OPENED"
 

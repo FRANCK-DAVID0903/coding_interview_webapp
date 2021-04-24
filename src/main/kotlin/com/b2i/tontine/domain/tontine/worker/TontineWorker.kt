@@ -25,8 +25,35 @@ class TontineWorker : TontineDomain {
     @Autowired
     lateinit var associationRepository: AssociationRepository
 
-    override fun createTontine(association: Association): OperationResult<Tontine> {
-        TODO("Not yet implemented")
+    override fun createTontine(tontine: Tontine, association_id: Long): OperationResult<Tontine> {
+        val errors: MutableMap<String, String> = mutableMapOf()
+        var data: Tontine? = null
+
+        val optionalAssociation = associationRepository.findById(association_id)
+        if (!optionalAssociation.isPresent) {
+            errors["not_found"] = "association_not_found"
+        }
+
+        if (tontine.name.isEmpty()) {
+            errors["name"] = "tontine_name_empty"
+        }
+
+        if (tontine.numberOfParticipant <= 0) {
+            errors["numberOfParticipant"] = "tontine_participant_null"
+        }
+
+        if (tontine.contributionAmount <= 0.0) {
+            errors["numberOfParticipant"] = "tontine_contribution_amount_null"
+        }
+
+        if (errors.isEmpty()) {
+            tontine.association = optionalAssociation.get()
+            tontine.tontineGlobalAmount = tontine.numberOfParticipant * tontine.contributionAmount
+
+            data = tontineRepository.save(tontine)
+        }
+
+        return OperationResult(data, errors)
     }
 
     override fun findTontineById(id: Long): Optional<Tontine> = tontineRepository.findById(id)

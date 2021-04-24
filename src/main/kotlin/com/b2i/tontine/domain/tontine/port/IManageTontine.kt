@@ -7,7 +7,7 @@ import java.util.*
 
 interface IManageTontine {
 
-    fun createTontine(association: Association): OperationResult<Tontine>
+    fun createTontine(tontine: Tontine, association_id: Long): OperationResult<Tontine>
 
     fun findTontineById(id: Long): Optional<Tontine>
 
