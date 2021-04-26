@@ -11,6 +11,7 @@ import com.b2i.tontine.infrastructure.db.repository.UserRepository
 import com.b2i.tontine.utils.OperationResult
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.util.*
 
 
 /**
@@ -75,5 +76,53 @@ class AssociationMemberWorker : AssociationMemberDomain {
 
     override fun countAllByUser(member: User): Long {
         return associationMemberRepository.countAllByUser(member)
+    }
+
+    override fun findByAssociationAndUser(association: Association, member: User): Optional<AssociationMember> {
+        return associationMemberRepository.findByAssociationAndUser(association,member)
+    }
+
+    override fun updateRoleMember(associationMember: AssociationMember,role:String): OperationResult<AssociationMember> {
+
+        val errors: MutableMap<String, String> = mutableMapOf()
+        var data: AssociationMember? = null
+
+        val optionalMember = userRepository.findById(associationMember.user!!.id)
+        val optionalAssociation = associationRepository.findById(associationMember.association!!.id)
+
+        if (!optionalMember.isPresent) {
+            errors["not_found"] = "user_not_found"
+        }
+        if (!optionalAssociation.isPresent) {
+            errors["not_found"] = "association_not_found"
+        }
+
+        if (errors.isEmpty()) {
+            val isMemberInAssociation =
+                    associationMemberRepository.findByAssociationAndUser(optionalAssociation.get(), optionalMember.get())
+
+            if (isMemberInAssociation.isPresent) {
+                val associationMember = AssociationMember(optionalMember.get(), optionalAssociation.get())
+                associationMember.association = optionalAssociation.get()
+                associationMember.user = optionalMember.get()
+                associationMember.role = role
+
+                if (role != "MEMBER"){
+                    val allReadyBe = associationMemberRepository.findByRoleAndAssociation(role,optionalAssociation.get())
+                    if (allReadyBe.isPresent){
+                        errors["error"] = "association_member_does_exist"
+                    }
+                    else{
+                        data = associationMemberRepository.save(associationMember)
+                    }
+                }
+
+            } else {
+
+                errors["error"] = "association_member_does_exist"
+            }
+        }
+
+        return OperationResult(data, errors)
     }
 }

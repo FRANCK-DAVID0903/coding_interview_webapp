@@ -101,12 +101,38 @@
 
                         <div th:insert="fragments/modal/fragment_add_modal ::
                                        fragment_add_modal(title='Change role in association',
-                                       methodUrl='/backend/association/members/add_member',
+                                       methodUrl='/backend/association/'+__${association.id}__+'/members',
                                        body = ~{ :: #modal_body})">
 
                             <div class="modal-body" id="modal_body">
-                                <p th:text="#{association_member_list_page_result_action_modal}"></p>
-                                <p >okokoo</p>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <label>
+                                            <span th:text="#{member_lastname}"></span>
+                                        </label>
+                                        <input type="text" class=" form-control user_lastname" id="user_lastname" name="user_lastname"  disabled>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <label>
+                                            <span th:text="#{member_firstname}"></span>
+                                        </label>
+                                        <input type="text" class=" form-control user_firstname" id="user_firstname" name="user_firstname"  disabled>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <label th:text="#{member_role}"></label>
+                                        <select class="form-control select2" name="option" >
+                                            <option th:value="'president'" th:text="#{member_role_president}"></option>
+                                            <option th:value="'secretary'" th:text="#{member_role_secretary}"></option>
+                                            <option th:value="'treasurer'" th:text="#{member_role_treasurer}"></option>
+                                            <option th:value="'member'" th:text="#{member_role_member}"></option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+
                             </div>
 
                         </div>
@@ -139,6 +165,9 @@
     function onUpdate(json) {
         var assoMember = jQuery.parseJSON(json.replace("'", "\\'"));
         $('.model-id').val(assoMember.id);
+        $('.user_id').val(assoMember.id);
+        $('.user_firstname').val(assoMember.firstname);
+        $('.user_lastname').val(assoMember.lastname);
     }
 
 </script>

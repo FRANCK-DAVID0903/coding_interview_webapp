@@ -24,4 +24,6 @@ interface AssociationMemberRepository : JpaRepository<AssociationMember, Long> {
 
     fun countAllByUser(member: User): Long
 
+    fun findByRoleAndAssociation(role:String,association: Association):Optional<AssociationMember>
+
 }

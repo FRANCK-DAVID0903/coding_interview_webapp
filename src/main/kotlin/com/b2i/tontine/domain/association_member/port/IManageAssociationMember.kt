@@ -5,6 +5,7 @@ import com.b2i.tontine.domain.account.member.entity.Member
 import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.association_member.entity.AssociationMember
 import com.b2i.tontine.utils.OperationResult
+import java.util.*
 
 
 /**
@@ -23,5 +24,9 @@ interface IManageAssociationMember {
     fun findAllByUser(member: User): MutableList<AssociationMember>
 
     fun countAllByUser(member: User): Long
+
+    fun findByAssociationAndUser(association: Association, member: User): Optional<AssociationMember>
+
+    fun updateRoleMember(associationMember: AssociationMember,role:String): OperationResult<AssociationMember>
 
 }

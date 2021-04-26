@@ -5,6 +5,7 @@ import com.b2i.tontine.application.controlForm.ControlForm
 import com.b2i.tontine.application.controller.BaseController
 import com.b2i.tontine.application.controller.ControllerEndpoint
 import com.b2i.tontine.application.facade.AuthenticationFacade
+import com.b2i.tontine.domain.account.entity.AssociationRole
 import com.b2i.tontine.domain.account.entity.User
 import com.b2i.tontine.domain.account.port.UserDomain
 import com.b2i.tontine.domain.association.entity.Association
@@ -165,6 +166,87 @@ class AssociationMemberController(
 
         return forwardTo("list_association_member")
     }
+
+    @PostMapping("/{association_id}/members")
+    fun updateRoleMemberInAsso(
+            model: Model,
+            @PathVariable association_id: String,
+            @RequestParam option: String,
+            @RequestParam id: String,
+            redirectAttributes: RedirectAttributes,
+            locale: Locale
+    ): String {
+
+        when {
+            association_id.isEmpty() -> {
+                ControlForm.model(
+                        model,
+                        messageSource.getMessage("association_member_id_association_empty", null, locale),
+                        Color.red
+                )
+            }
+            else -> {
+                val association = associationDomain.findAssociationById(association_id.toLong())
+
+
+                if (association.isPresent) {
+                    val members = associationMemberDomain.findAllMembersInAssociation(association.get())
+                    val member = userDomain.findUserById(id.toLong())
+                    if (member.isPresent){
+                        val assoMember = associationMemberDomain.findByAssociationAndUser(association.get(),member.get()).orElse(null)
+
+                        if (assoMember !=null){
+                            var role = ""
+
+                            when (option) {
+                                "president" -> {
+                                    role = AssociationRole.PDG
+                                }
+                                "secretary" -> {
+                                    role = AssociationRole.SECRETARY
+                                }
+                                "treasurer" -> {
+                                    role = AssociationRole.TREASURER
+                                }
+                                "member" -> {
+                                    role = AssociationRole.MEMBER
+                                }
+                            }
+
+
+                            val result: OperationResult<AssociationMember> = associationMemberDomain.updateRoleMember(assoMember,role)
+                            val err: MutableMap<String, String> = mutableMapOf()
+                            if (result.errors!!.isNotEmpty()) {
+                                result.errors.forEach { (key, value) ->
+                                    err[key] = messageSource.getMessage(value, null, locale)
+                                }
+                            }
+
+                            if (
+                                    ControlForm.verifyHashMapRedirect(
+                                            redirectAttributes,
+                                            err,
+                                            messageSource.getMessage("association_member_role_update_success", null, locale)
+                                    )
+                            ) {
+
+                                model.addAttribute("association_members", members)
+                            }
+
+                        }
+
+
+                    }
+
+                }
+            }
+        }
+
+        injectAssociation(model, association_id)
+
+        return forwardTo("list_association_member")
+    }
+
 
     //Inject association in view
     fun injectAssociation(model: Model, id: String) {
