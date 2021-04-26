@@ -1,4 +1,4 @@
-package com.b2i.tontine.domain.bidding.entity
+package com.b2i.tontine.domain.tontine_bidding.entity
 
 import com.b2i.tontine.domain.account.member.entity.Member
 import com.b2i.tontine.domain.entity.common.BaseEntity
@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne
  * @Time: 11:23
  */
 @Entity
-class Bidding : BaseEntity() {
+class TontineBidding : BaseEntity() {
 
     var amount : Double = 0.0
 

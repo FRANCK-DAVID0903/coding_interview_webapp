@@ -50,7 +50,7 @@ class TontineRequestController(
         redirectAttributes: RedirectAttributes,
         @PathVariable association_id: String,
         @PathVariable tontine_id: String,
-        @RequestParam id: String,
+        @RequestParam member_id: String,
         locale: Locale
     ): String {
         var url = "$association_id/tontines"
@@ -70,9 +70,16 @@ class TontineRequestController(
                     Color.red
                 )
             }
+            member_id.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("user_not_found", null, locale),
+                    Color.red
+                )
+            }
             else -> {
                 val result: OperationResult<TontineRequest> =
-                    tontineRequestDomain.createTontineRequest(tontine_id.toLong(), id.toLong())
+                    tontineRequestDomain.createTontineRequest(tontine_id.toLong(), member_id.toLong())
 
                 val err: MutableMap<String, String> = mutableMapOf()
                 if (result.errors!!.isNotEmpty()) {

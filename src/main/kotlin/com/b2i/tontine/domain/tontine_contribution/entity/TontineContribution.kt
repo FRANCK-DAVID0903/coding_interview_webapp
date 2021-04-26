@@ -1,4 +1,4 @@
-package com.b2i.tontine.domain.tontine_request.entity
+package com.b2i.tontine.domain.tontine_contribution.entity
 
 import com.b2i.tontine.domain.account.member.entity.Member
 import com.b2i.tontine.domain.entity.common.BaseEntity
@@ -10,17 +10,20 @@ import javax.persistence.FetchType
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 
+
 /**
  * @Author: Ettien Kamenan
- * @Date: 2021/04/14
- * @Time: 15:44
+ * @Date: 2021/04/26
+ * @Time: 11:54
  */
 @Entity
-class TontineRequest() : BaseEntity() {
+class TontineContribution : BaseEntity() {
 
-    var approved : Boolean = false
+    var contributed : Boolean = false
 
-    var requestDate : Date? = null
+    var contributionAmount : Double = 0.0
+
+    var contributionDate : Date? = null
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
