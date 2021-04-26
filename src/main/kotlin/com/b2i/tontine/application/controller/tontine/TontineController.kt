@@ -9,6 +9,7 @@ import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.association.port.AssociationDomain
 import com.b2i.tontine.domain.tontine.entity.Tontine
 import com.b2i.tontine.domain.tontine.port.TontineDomain
+import com.b2i.tontine.domain.tontine_request.port.TontineRequestDomain
 import com.b2i.tontine.utils.OperationResult
 import org.springframework.context.MessageSource
 import org.springframework.ui.Model
@@ -27,6 +28,7 @@ import java.util.*
 class TontineController(
     private val tontineDomain: TontineDomain,
     private val associationDomain: AssociationDomain,
+    private val tontineRequestDomain: TontineRequestDomain,
     private val messageSource: MessageSource
 ) :
     BaseController("/backend/tontine/", ControllerEndpoint.BACKEND_ASSOCIATION) {
@@ -93,7 +95,7 @@ class TontineController(
                 val tontine = Tontine()
                 tontine.name = name
                 tontine.type = objectHelper.getTontineType(type)
-                tontine.numberOfParticipant = numberOfParticipant.toLong()
+                tontine.numberOfParticipantEstimated = numberOfParticipant.toLong()
                 tontine.contributionAmount = contributionAmount.toDouble()
                 tontine.startDate = ControlForm.formatDate(startDate)
                 tontine.endDate = ControlForm.formatDate(endDate)
@@ -150,6 +152,24 @@ class TontineController(
         injectAssociation(model, association_id)
 
         return forwardTo("list_tontine")
+    }
+
+    @GetMapping(value = ["/{association_id}/tontines/{tontine_id}"])
+    fun tontineDetail(model: Model, @PathVariable tontine_id: String, @PathVariable association_id: String): String {
+        var page = "detail_tontine"
+        val association: Association? = associationDomain.findAssociationById(association_id.toLong()).orElse(null)
+        val tontine: Tontine? = tontineDomain.findTontineById(tontine_id.toLong()).orElse(null)
+
+        if (association == null || tontine == null) {
+            page = "list_tontine"
+        } else {
+            model.addAttribute("tontineRequests", tontineRequestDomain.findAllByTontineAndStatus(tontine, false))
+            model.addAttribute("tontineMembers", tontineRequestDomain.findAllByTontineAndStatus(tontine, true))
+            model.addAttribute("association", association)
+            model.addAttribute("tontine", tontine)
+        }
+
+        return forwardTo(page)
     }
 
     //Inject association in view

@@ -55,21 +55,21 @@
                                                 </thead>
 
                                                 <tbody>
-                                                <tr th:each="association_member : ${association_members}">
+                                                    <tr th:each="association_member : ${association_members}">
 
-                                                    <td th:text="${association_member.user.firstname}"></td>
+                                                        <td th:text="${association_member.user.firstname}"></td>
 
-                                                    <td class="align-middle"
-                                                        th:text="${association_member.user.contact.email}"></td>
+                                                        <td class="align-middle"
+                                                            th:text="${association_member.user.contact.email}"></td>
 
-                                                    <td class="align-middle"
-                                                        th:text="${association_member.user.contact.mobile}"></td>
+                                                        <td class="align-middle"
+                                                            th:text="${association_member.user.contact.mobile}"></td>
 
-                                                    <td th:text="${association_member.role}"></td>
+                                                        <td th:text="${association_member.role}"></td>
 
 
 
-                                                </tr>
+                                                    </tr>
                                                 </tbody>
 
                                             </table>

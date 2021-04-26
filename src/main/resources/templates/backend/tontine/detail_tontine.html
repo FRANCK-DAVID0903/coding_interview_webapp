@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!--Header
+============================================= -->
+<th:block th:replace="fragments/fragment_head('Associaition detail')"/>
+
+<body>
+
+<!-- Loader ============================================= -->
+<th:block th:replace="fragments/fragment_loader"/>
+
+<div id="app">
+
+    <div class="main-wrapper main-wrapper-1">
+
+        <!-- Navbar ============================================= -->
+        <th:block th:replace="fragments/fragment_navbar"/>
+
+        <!-- Sidebar ============================================= -->
+        <th:block th:replace="fragments/fragment_sidebar"/>
+
+
+        <!-- Main Content ============================================= -->
+        <div class="main-content">
+
+            <section class="section">
+
+                <div class="section-body">
+
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon l-bg-green">
+                                    <i class="fas fa-dollar-sign"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="padding-20">
+                                        <div class="text-right">
+                                            <h3 class="font-light mb-0">
+                                                <i class="ti-arrow-up text-success"></i> 524
+                                            </h3>
+                                            <span class="text-muted"
+                                                  th:text="#{association_tontine_detail_page_participantNum}"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon l-bg-red">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="padding-20">
+                                        <div class="text-right">
+                                            <h3 class="font-light mb-0">
+                                                <i class="ti-arrow-up text-success"></i> 785
+                                            </h3>
+                                            <span class="text-muted"
+                                                  th:text="#{association_tontine_detail_page_amount}"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-sm-4">
+
+                        <div class="col-12 col-md-12 col-lg-12">
+
+                            <div class="card">
+                                <div class="padding-20">
+
+                                    <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="member-tab2" data-toggle="tab" href="#members"
+                                               role="tab"
+                                               aria-selected="true"
+                                               th:text="#{association_tontine_detail_page_tab_members}"></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="request-tab2" data-toggle="tab" href="#requests"
+                                               role="tab"
+                                               aria-selected="false"
+                                               th:text="#{association_tontine_detail_page_tab_member_request}"></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="update-tab2" data-toggle="tab" href="#update"
+                                               role="tab"
+                                               aria-selected="false"
+                                               th:text="#{association_tontine_detail_page_tab_update}"></a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="tab-content tab-bordered" id="myTab3Content">
+
+                                        <div class="tab-pane fade show active" id="members" role="tabpanel" aria-labelledby="member-tab2">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped" id="table-1">
+                                                    <thead>
+                                                        <tr>
+                                                            <th th:text="#{association_tontine_detail_page_table_name}"></th>
+                                                            <th th:text="#{association_tontine_detail_page_table_contributed}"></th>
+                                                            <th th:text="#{association_tontine_detail_page_table_contributionAmount}"></th>
+                                                            <th th:text="#{association_tontine_detail_page_table_contributionDate}"></th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <tr th:each="tontineMember : ${tontineMembers}">
+
+                                                            <td th:text="${tontineMember.beneficiary.firstname}"></td>
+
+                                                            <td class="align-middle" th:text="${tontineMember.contributed}"></td>
+
+                                                            <td class="align-middle" th:text="${tontineMember.contributionAmount}"></td>
+
+                                                            <td th:text="${#calendars.format(tontineMember.contributionDate, 'dd-MM-yyyy')}"></td>
+
+                                                        </tr>
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade show active" id="requests" role="tabpanel" aria-labelledby="request-tab2">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h4 th:text="#{association_tontine_detail_page_tab_member_request1}"></h4>
+                                                </div>
+                                                <div class="card-body p-0">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped" id="sortable-table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center">
+                                                                        <i class="fas fa-th"></i>
+                                                                    </th>
+                                                                    <th th:text="#{association_tontine_detail_page_table_name}"></th>
+                                                                    <th th:text="#{association_tontine_detail_page_table_RequestDate}"></th>
+                                                                    <th th:text="#{association_list_page_table_header_status}"></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr th:each="tontineRequest : ${tontineRequests}">
+                                                                    <td>
+                                                                        <div class="sort-handler">
+                                                                            <i class="fas fa-th"></i>
+                                                                        </div>
+                                                                    </td>
+
+                                                                    <td th:text="${tontineRequest.beneficiary.firstname}"></td>
+
+                                                                    <td th:text="${#calendars.format(tontineRequest.requestDate, 'dd-MM-yyyy')}"></td>
+
+                                                                    <td class="align-middle" th:text="${tontineRequest.isValidated}"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="tab-pane fade" id="update" role="tabpanel" aria-labelledby="update-tab2">
+                                            <form method="post" th:action="@{/backend/association/__${association.id}__/tontines/update}">
+
+                                                <div class="card-body">
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label>
+                                                                <span th:text="#{association_tontine_create_page_label_name}"></span>
+                                                            </label>
+                                                            <input required type="text" class="form-control" name="name" th:value="${tontine.name}">
+                                                        </div>
+
+                                                        <div class="form-group col-md-6">
+                                                            <label th:text="#{association_tontine_create_page_label_type}"></label>
+                                                            <select class="form-control select2" name="type" th:selected="${tontine.type}">
+                                                                <option th:value="'OPENED'" th:text="#{association_tontine_create_page_label_type_open}"></option>
+                                                                <option th:value="'CLOSED'" th:text="#{association_tontine_create_page_label_type_close}"></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label>
+                                                                <span th:text="#{association_tontine_create_page_label_participant}"></span>
+                                                            </label>
+                                                            <input required type="number" class="form-control number" name="numberOfParticipant" th:value="${tontine.numberOfParticipantEstimated}">
+                                                        </div>
+
+                                                        <div class="form-group col-md-6">
+                                                            <label>
+                                                                <span th:text="#{association_tontine_create_page_label_contribution}"></span>
+                                                            </label>
+                                                            <input required type="number" class="form-control number" name="contributionAmount" th:value="${tontine.contributionAmount}">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-6">
+                                                            <label th:text="#{association_tontine_create_page_label_periodicity}"></label>
+                                                            <select class="form-control select2" name="periodicity"  th:selected="${tontine.periodicity}">
+                                                                <option th:value="'WEEKLY'" th:text="#{association_tontine_create_page_label_periodicity_weekly}"></option>
+                                                                <option th:value="'MONTHLY'" th:text="#{association_tontine_create_page_label_periodicity_monthly}"></option>
+                                                                <option th:value="'ANNUAL'" th:text="#{association_tontine_create_page_label_periodicity_annual}"></option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="card-footer">
+                                                    <button class="btn btn-primary">
+                                                        <span th:text="#{association_add_page_button_save}"></span>
+                                                    </button>
+                                                </div>
+
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        <!-- Footer ============================================= -->
+        <th:block th:replace="fragments/fragment_footer"/>
+
+    </div>
+
+</div>
+
+<!-- BEGIN PAGE LEVEL JS-->
+<script>
+    $(document).ready(function () {
+        $('#association').attr('class', 'active');
+    });
+</script>
+<!-- END PAGE LEVEL JS-->
+
+</body>
+
+</html>

@@ -38,7 +38,7 @@ class TontineWorker : TontineDomain {
             errors["name"] = "tontine_name_empty"
         }
 
-        if (tontine.numberOfParticipant <= 0) {
+        if (tontine.numberOfParticipantEstimated <= 0) {
             errors["numberOfParticipant"] = "tontine_participant_null"
         }
 
@@ -48,7 +48,7 @@ class TontineWorker : TontineDomain {
 
         if (errors.isEmpty()) {
             tontine.association = optionalAssociation.get()
-            tontine.tontineGlobalAmount = tontine.numberOfParticipant * tontine.contributionAmount
+            tontine.tontineGlobalAmountEstimated = tontine.numberOfParticipantEstimated * tontine.contributionAmount
 
             data = tontineRepository.save(tontine)
         }

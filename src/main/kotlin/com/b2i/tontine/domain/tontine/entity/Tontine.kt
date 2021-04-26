@@ -26,7 +26,11 @@ class Tontine : BaseEntity() {
 
     var tontineGlobalAmount : Double = 0.0
 
+    var tontineGlobalAmountEstimated : Double = 0.0
+
     var numberOfParticipant : Long = 0
+
+    var numberOfParticipantEstimated : Long = 0
 
     var periodicity : String = TontinePeriodicity.MONTHLY
 
