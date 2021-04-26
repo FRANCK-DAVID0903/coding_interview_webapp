@@ -16,10 +16,7 @@ import com.b2i.tontine.utils.OperationResult
 import org.springframework.context.MessageSource
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
 import java.util.*
 
@@ -48,7 +45,7 @@ class TontineRequestController(
         return forwardTo("add_tontine")
     }
 
-    @GetMapping(value = ["/{association_id}/tontines/{tontine_id}/addMember"])
+    @PostMapping(value = ["/{association_id}/tontines/{tontine_id}/addMember"])
     fun createTontineRequest(
         redirectAttributes: RedirectAttributes,
         @PathVariable association_id: String,
