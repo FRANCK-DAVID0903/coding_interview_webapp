@@ -26,23 +26,77 @@
 
             <section class="section">
 
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="card card-statistic-1">
+                            <div class="card-icon l-bg-green">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="padding-20">
+                                    <div class="text-right">
+                                        <h3 class="font-light mb-0">
+                                            <i class="ti-arrow-up text-success"></i> 469 000
+                                        </h3>
+                                        <span class="text-muted">Total Montant Debité</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="card card-statistic-1">
+                            <div class="card-icon l-bg-red">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="card-wrap">
+                                <div class="padding-20">
+                                    <div class="text-right">
+                                        <h3 class="font-light mb-0">
+                                            <i class="ti-arrow-up text-success"></i> 785 000
+                                        </h3>
+                                        <span class="text-muted">Total Montant Crédité</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <a>
+                            <div class="card card-statistic-1">
+                                <div class="card-icon l-bg-orange">
+                                    <i class="fas fa-hiking"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="padding-20">
+                                        <div class="text-right">
+                                            <h3 class="font-light mb-0">
+                                                <i class="ti-arrow-up text-success"></i> 2 158 000
+                                            </h3>
+                                            <span class="text-muted">Solde du compte</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
                 <div class="section-body">
 
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 th:text="#{profile_my_tontines}"></h4>
+                                    <h4 th:text="#{sidebar_transactions_list}"></h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-striped" id="table-1">
                                             <thead>
                                             <tr>
-                                                <th th:text="#{association_list_page_table_header_name}"></th>
-                                                <th th:text="#{association_list_page_table_header_acronym}"></th>
-                                                <th th:text="#{association_list_page_table_header_status}"></th>
-                                                <th th:text="#{association_list_page_table_header_Action}"></th>
+                                                <th th:text="#{table_transaction_amount}"></th>
+                                                <th th:text="#{table_transaction_operation}"></th>
                                             </tr>
                                             </thead>
 
@@ -52,28 +106,6 @@
                                                 <td th:text="${association.association.name}"></td>
 
                                                 <td class="align-middle" th:text="${association.association.acronym}"></td>
-
-                                                <td class="text-center">
-                                                    <a th:if="${association.association.state} == 0" class="btn btn-icon btn-light icon-right"
-                                                       type="button" data-toggle="modal" data-target="#changeStatusModal"
-                                                       th:data-entity="${stringHelper.clean(association.toJSON())}"
-                                                       onclick="onUpdate(this.getAttribute('data-entity'));">
-                                                        <span th:text="#{association_list_page_table_header_status_active}"></span>
-                                                        <i class="fas fa-toggle-on" style="color: #0ba83b"></i>
-                                                    </a>
-
-                                                    <a th:if="${association.association.state} == 1" class="btn btn-icon btn-light icon-right"
-                                                       type="button" data-toggle="modal" data-target="#changeStatusModal"
-                                                       th:data-entity="${stringHelper.clean(association.toJSON())}"
-                                                       onclick="onUpdate(this.getAttribute('data-entity'));">
-                                                        <span th:text="#{association_list_page_table_header_status_deactivated}"></span>
-                                                        <i class="fas fa-toggle-off" style="color: #a32b1c"></i>
-                                                    </a>
-                                                </td>
-
-                                                <td class="text-center">
-                                                    <a th:href="@{/backend/association/detail_association/__${association.id}__}" class="btn btn-primary" th:text="#{association_list_page_table_header_Action_detail}"></a>
-                                                </td>
 
                                             </tr>
                                             </tbody>

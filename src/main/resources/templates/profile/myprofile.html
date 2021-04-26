@@ -133,33 +133,30 @@
                                                                 <table class="table table-striped" id="table-1">
                                                                     <thead>
                                                                     <tr>
-                                                                        <th class="text-center">#</th>
                                                                         <th th:text="#{profile_association_name}"></th>
                                                                         <th th:text="#{profile_association_title}"></th>
                                                                         <th th:text="#{profile_association_status}"></th>
-                                                                        <th th:text="#{association_list_page_table_header_Action}"></th>
+                                                                        <!--<th th:text="#{association_list_page_table_header_Action}"></th>-->
                                                                     </tr>
                                                                     </thead>
 
                                                                     <tbody>
-                                                                    <!--<tr th:each="association : ${allMyAssociations}">
-
-                                                                        <td th:text="${association.id}"></td>
+                                                                    <tr th:each="association : ${associations}">
 
                                                                         <td th:text="${association.association.name}"></td>
-
                                                                         <td class="align-middle" th:text="${association.role}"></td>
-
-                                                                        <td class="text-center" th:if="${association.state==0}"><div class="badge badge-success badge-shadow" th:text="#{statut_activated}">Completed</div></td>
-                                                                        <td class="text-center" th:if="${association.state==1}"><div class="badge badge-success badge-shadow" th:text="#{statut_activated}">Completed</div></td>
-
-                                                                        <td class="text-center">
-                                                                            <div class="badge badge-success badge-shadow">Completed</div>
+                                                                        <td class="align-middle" th:if="${association.association.state==0}">
+                                                                            <div class="badge badge-success" th:text="#{statut_activated}"></div>
+                                                                        </td>
+                                                                        <td class="align-middle" th:if="${association.association.state==1}">
+                                                                            <div class="badge badge-danger" th:text="#{statut_desactivated}"></div>
                                                                         </td>
 
-                                                                        <td class="text-center"><a href="#" class="btn btn-primary">Detail</a></td>
+                                                                        <!--<td class="text-center">
+                                                                            <a th:href="@{/backend/association/detail_association/__${association.association.id}__}" class="btn btn-primary" th:text="#{association_list_page_table_header_Action_detail}"></a>
+                                                                        </td>-->
 
-                                                                    </tr>-->
+                                                                    </tr>
                                                                     </tbody>
 
                                                                 </table>
@@ -192,24 +189,12 @@
                                                                     </thead>
 
                                                                     <tbody>
-                                                                    <!--<tr th:each="association : ${allMyAssociations}">
-
-                                                                        <td th:text="${association.id}"></td>
-
-                                                                        <td th:text="${association.association.name}"></td>
-
-                                                                        <td class="align-middle" th:text="${association.role}"></td>
-
-                                                                        <td class="text-center" th:if="${association.state==0}"><div class="badge badge-success badge-shadow" th:text="#{statut_activated}">Completed</div></td>
-                                                                        <td class="text-center" th:if="${association.state==1}"><div class="badge badge-success badge-shadow" th:text="#{statut_activated}">Completed</div></td>
-
-                                                                        <td class="text-center">
-                                                                            <div class="badge badge-success badge-shadow">Completed</div>
-                                                                        </td>
-
-                                                                        <td class="text-center"><a href="#" class="btn btn-primary">Detail</a></td>
-
-                                                                    </tr>-->
+                                                                    <tr th:each="tont : ${tontinesValidated}">
+                                                                        <td th:text="${tont.tontine.name}"></td>
+                                                                        <td class="align-middle" th:text="${ton.tontine.association.name}"></td>
+                                                                        <td class="align-middle" th:text="${ton.tontine.isClosed}"></td>
+                                                                        <td class="align-middle" th:text="${ton.tontine.contributionAmount}"></td>
+                                                                    </tr>
                                                                     </tbody>
 
                                                                 </table>

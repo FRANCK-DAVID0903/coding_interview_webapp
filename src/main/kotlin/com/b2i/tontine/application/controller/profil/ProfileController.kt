@@ -11,8 +11,11 @@ import com.b2i.tontine.domain.account.entity.UserType
 import com.b2i.tontine.domain.account.member.port.MemberDomain
 import com.b2i.tontine.domain.account.port.UserDomain
 import com.b2i.tontine.domain.association.entity.Association
+import com.b2i.tontine.domain.association.port.AssociationDomain
+import com.b2i.tontine.domain.association_member.port.AssociationMemberDomain
 import com.b2i.tontine.domain.contribution.port.ContributionDomain
 import com.b2i.tontine.domain.tontine.port.TontineDomain
+import com.b2i.tontine.domain.tontine_request.port.TontineRequestDomain
 import com.b2i.tontine.infrastructure.local.storage.StorageService
 import com.b2i.tontine.utils.OperationResult
 import org.springframework.context.MessageSource
@@ -34,10 +37,13 @@ class ProfileController(
         private val userDomain: UserDomain,
         private val authenticationFacade: AuthenticationFacade,
         private val tontineDomain: TontineDomain,
+        private val tontineRequestDomain: TontineRequestDomain,
         private val contributionDomain: ContributionDomain,
         private val memberDomain: MemberDomain,
         private val messageSource: MessageSource,
-        private val storageService: StorageService
+        private val storageService: StorageService,
+        private val associationDomain: AssociationDomain,
+        private val associationMemberDomain: AssociationMemberDomain
 ): BaseController(ControllerEndpoint.BACKEND_PROFILE) {
 
     @GetMapping(value = ["/myProfile", "/myProfile"])
@@ -59,9 +65,17 @@ class ProfileController(
         {
 
             UserType.ASSOCIATION_MEMBER -> {
+
+
+                val userConnected = authenticationFacade.getAuthenticatedUser().get()
+                val memberConnected = memberDomain.findById(userConnected.id)
+                val tontinesValidated = tontineRequestDomain.findAllByBeneficiaryAndState(memberConnected.get(),1)
+
+                val associations = associationMemberDomain.findAllByUser(user)
+                model.addAttribute("associations", associations)
                 model.addAttribute("userData",user)
                 model.addAttribute("allMyAssociations",associations)
-                model.addAttribute("allMyTontines",tontines)
+                model.addAttribute("tontinesValidated", tontinesValidated)
                 model.addAttribute("allMyContributions",contributions)
                 return "profile/myprofile"
             }

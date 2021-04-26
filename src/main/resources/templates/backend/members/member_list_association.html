@@ -41,6 +41,7 @@
                                             <tr>
                                                 <th th:text="#{association_list_page_table_header_name}"></th>
                                                 <th th:text="#{association_list_page_table_header_acronym}"></th>
+                                                <th th:text="#{profile_association_title}"></th>
                                                 <th th:text="#{association_list_page_table_header_status}"></th>
                                                 <th th:text="#{association_list_page_table_header_Action}"></th>
                                             </tr>
@@ -50,29 +51,17 @@
                                             <tr th:each="association : ${associations}">
 
                                                 <td th:text="${association.association.name}"></td>
-
                                                 <td class="align-middle" th:text="${association.association.acronym}"></td>
-
-                                                <td class="text-center">
-                                                    <a th:if="${association.association.state} == 0" class="btn btn-icon btn-light icon-right"
-                                                       type="button" data-toggle="modal" data-target="#changeStatusModal"
-                                                       th:data-entity="${stringHelper.clean(association.toJSON())}"
-                                                       onclick="onUpdate(this.getAttribute('data-entity'));">
-                                                        <span th:text="#{association_list_page_table_header_status_active}"></span>
-                                                        <i class="fas fa-toggle-on" style="color: #0ba83b"></i>
-                                                    </a>
-
-                                                    <a th:if="${association.association.state} == 1" class="btn btn-icon btn-light icon-right"
-                                                       type="button" data-toggle="modal" data-target="#changeStatusModal"
-                                                       th:data-entity="${stringHelper.clean(association.toJSON())}"
-                                                       onclick="onUpdate(this.getAttribute('data-entity'));">
-                                                        <span th:text="#{association_list_page_table_header_status_deactivated}"></span>
-                                                        <i class="fas fa-toggle-off" style="color: #a32b1c"></i>
-                                                    </a>
+                                                <td class="align-middle" th:text="${association.role}"></td>
+                                                <td class="align-middle" th:if="${association.association.state==0}">
+                                                    <div class="badge badge-success" th:text="#{statut_activated}"></div>
+                                                </td>
+                                                <td class="align-middle" th:if="${association.association.state==1}">
+                                                    <div class="badge badge-danger" th:text="#{statut_desactivated}"></div>
                                                 </td>
 
                                                 <td class="text-center">
-                                                    <a th:href="@{/backend/association/detail_association/__${association.id}__}" class="btn btn-primary" th:text="#{association_list_page_table_header_Action_detail}"></a>
+                                                    <a th:href="@{/backend/association/detail_association/__${association.association.id}__}" class="btn btn-primary" th:text="#{association_list_page_table_header_Action_detail}"></a>
                                                 </td>
 
                                             </tr>
@@ -104,16 +93,6 @@
         $('#association').attr('class', 'active');
         $('#association-list').attr('class', 'active');
     });
-</script>
-
-
-<script type="application/javascript">
-
-    function onUpdate(json) {
-        var association = jQuery.parseJSON(json.replace("'", "\\'"));
-        $('.model-id').val(association.id);
-    }
-
 </script>
 
 </body>

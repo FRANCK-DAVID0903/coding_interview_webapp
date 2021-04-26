@@ -76,11 +76,16 @@
                                                         <td class="align-middle" th:text="${association_member.user.contact.mobile}"></td>
 
                                                         <td>
-                                                            <a class="btn tblEditBtn" data-toggle="tooltip" title="" data-original-title="Edit">
-                                                                <i class="material-icons">mode_edit</i>
+                                                            <a class="btn btn-warning btn-action mr-1" title="" th:data-original-title="#{table_update}" data-toggle="modal" data-target="#changeStatusModal"
+                                                               th:data-entity="${stringHelper.clean(association_member.user.toJSON())}"
+                                                               onclick="onUpdate(this.getAttribute('data-entity'));">
+                                                                <i class="fas fa-pencil-alt"></i>
                                                             </a>
-                                                            <a class="btn tblDelBtn" data-toggle="tooltip" title="" data-original-title="Delete">
-                                                                <i class="material-icons">delete</i>
+                                                            <a class="btn btn-primary btn-action mr-1" title="" th:data-original-title="#{table_contribute}">
+                                                                <i class="fas fa-money-bill-wave-alt"></i>
+                                                            </a>
+                                                            <a class="btn btn-danger btn-action mr-1" title="" th:data-original-title="#{table_delete}">
+                                                                <i class="fas fa-trash"></i>
                                                             </a>
                                                         </td>
 
@@ -98,6 +103,24 @@
 
                     </section>
 
+                    <!-- Vertically Center -->
+                    <div class="modal fade" id="changeStatusModal" tabindex="-1" role="dialog"
+                         aria-labelledby="changeStatusModalTitle" aria-hidden="true">
+
+                        <div th:insert="fragments/modal/fragment_add_modal ::
+                                       fragment_add_modal(title='Change role in association',
+                                       methodUrl='/backend/association/members/add_member',
+                                       body = ~{ :: #modal_body})">
+
+                            <div class="modal-body" id="modal_body">
+                                <p th:text="#{association_member_list_page_result_action_modal}"></p>
+                                <p >okokoo</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
                 <!-- Footer ============================================= -->
@@ -110,3 +133,12 @@
     </body>
 
 </html>
+
+<script type="application/javascript">
+
+    function onUpdate(json) {
+        var assoMember = jQuery.parseJSON(json.replace("'", "\\'"));
+        $('.model-id').val(assoMember.id);
+    }
+
+</script>
