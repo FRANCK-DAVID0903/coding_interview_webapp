@@ -104,12 +104,10 @@
 
 
     <script type="application/javascript">
-
       function onUpdate(json) {
-        var userS = jQuery.parseJSON(json.replace("'", "\\'"));
-        $('.model-id').val(userS.id);
+        var tontineS = jQuery.parseJSON(json.replace("'", "\\'"));
+        $('.model-id').val(tontineS.id);
       }
-
     </script>
   </body>
 

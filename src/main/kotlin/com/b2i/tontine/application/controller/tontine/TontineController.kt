@@ -7,6 +7,8 @@ import com.b2i.tontine.application.controller.BaseController
 import com.b2i.tontine.application.controller.ControllerEndpoint
 import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.association.port.AssociationDomain
+import com.b2i.tontine.domain.association_member.entity.AssociationMember
+import com.b2i.tontine.domain.association_member.port.AssociationMemberDomain
 import com.b2i.tontine.domain.tontine.entity.Tontine
 import com.b2i.tontine.domain.tontine.port.TontineDomain
 import com.b2i.tontine.domain.tontine_request.port.TontineRequestDomain
@@ -28,6 +30,7 @@ import java.util.*
 class TontineController(
     private val tontineDomain: TontineDomain,
     private val associationDomain: AssociationDomain,
+    private val associationMemberDomain: AssociationMemberDomain,
     private val tontineRequestDomain: TontineRequestDomain,
     private val messageSource: MessageSource
 ) :
@@ -163,6 +166,9 @@ class TontineController(
         if (association == null || tontine == null) {
             page = "list_tontine"
         } else {
+            val associationMembers: List<AssociationMember> = associationMemberDomain.findAllMembersInAssociation(association)
+
+            model.addAttribute("associationMembers", associationMembers)
             model.addAttribute("tontineRequests", tontineRequestDomain.findAllByTontineAndStatus(tontine, false))
             model.addAttribute("tontineMembers", tontineRequestDomain.findAllByTontineAndStatus(tontine, true))
             model.addAttribute("association", association)

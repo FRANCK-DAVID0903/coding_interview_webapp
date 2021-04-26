@@ -1,5 +1,6 @@
 package com.b2i.tontine.domain.tontine_request.worker
 
+import com.b2i.tontine.application.controlForm.ControlForm
 import com.b2i.tontine.domain.account.member.entity.Member
 import com.b2i.tontine.domain.association_member.entity.AssociationMember
 import com.b2i.tontine.domain.tontine.entity.Tontine
@@ -12,6 +13,8 @@ import com.b2i.tontine.infrastructure.db.repository.TontineRequestRepository
 import com.b2i.tontine.utils.OperationResult
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.time.LocalDate
+import java.util.*
 
 
 /**
@@ -46,17 +49,26 @@ class TontineRequestWorker:TontineRequestDomain {
         }
 
         if (errors.isEmpty()) {
-            val isMemberInTontine = tontineRequestRepository.findByTontineAndBeneficiary(optionalTontine.get(), optionalMember.get())
+            val tontine = optionalTontine.get()
+            val isMemberInTontine = tontineRequestRepository.findByTontineAndBeneficiary(tontine, optionalMember.get())
 
             if (isMemberInTontine.isPresent) {
                 errors["error"] = "tontine_member_exist"
             } else {
                 val tontineRequest = TontineRequest()
                 tontineRequest.beneficiary = optionalMember.get()
-                tontineRequest.tontine = optionalTontine.get()
+                tontineRequest.tontine = tontine
 
-                if (optionalTontine.get().type == TontineType.OPENED) {
+                val requestDate = LocalDate.now()
+                tontineRequest.requestDate = ControlForm.formatDate(requestDate.toString())
+
+                if (tontine.type == TontineType.OPENED) {
                     tontineRequest.approved = true
+
+                    if (tontine.numberOfParticipantEstimated > tontine.numberOfParticipant) {
+                        tontine.numberOfParticipant += 1
+                        tontineRepository.save(tontine)
+                    }
                 }
 
                 data = tontineRequestRepository.save(tontineRequest)
