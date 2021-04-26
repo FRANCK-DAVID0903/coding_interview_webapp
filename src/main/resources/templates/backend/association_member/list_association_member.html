@@ -109,7 +109,7 @@
 
                         <div th:insert="fragments/modal/fragment_add_modal ::
                                        fragment_add_modal(title='Change role in association',
-                                       methodUrl='/backend/association/members/add_member',
+                                       methodUrl='/backend/association/'+__${assoMember.id}__+'/members/add_member',
                                        body = ~{ :: #modal_body})">
 
                             <div class="modal-body" id="modal_body">
