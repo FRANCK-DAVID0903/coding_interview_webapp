@@ -2,6 +2,7 @@ package com.b2i.tontine.application.controller
 
 import com.b2i.tontine.application.facade.AuthenticationFacade
 import com.b2i.tontine.utils.helper.DateHelper
+import com.b2i.tontine.utils.helper.ObjectHelper
 import com.b2i.tontine.utils.helper.StringInitialHelper
 import org.springframework.beans.factory.annotation.Autowired
 import java.time.format.DateTimeFormatter
@@ -16,6 +17,8 @@ abstract class BaseController(private val templateBaseDir: String, private val r
     protected val dateHelper = DateHelper()
 
     protected val stringInitialHelper = StringInitialHelper()
+
+    protected val objectHelper = ObjectHelper()
 
     constructor(templateBaseDir: String) : this(templateBaseDir, templateBaseDir)
 

@@ -6,5 +6,4 @@ package com.b2i.tontine.domain.tontine_request.port
  * @Date: 2021/04/14
  * @Time: 15:47
  */
-interface TontineRequestDomain : IManageTontineRequest{
-}
+interface TontineRequestDomain : IManageTontineRequest

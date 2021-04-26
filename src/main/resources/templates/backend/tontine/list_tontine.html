@@ -28,7 +28,64 @@
 
                         <div class="section-body">
 
-        Tontine
+                            <div class="row">
+                                <div class="col-lg-12">
+
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 th:text="#{association_tontine_list_page_table_name}"></h4>
+                                        </div>
+                                        <div class="card-body">
+
+                                            <div class="col-lg-8">
+                                                <a th:href="@{/backend/association/__${association.id}__/tontines/create}"
+                                                   class="btn btn-primary"
+                                                   th:text="#{association_tontine_create_page}"></a>
+                                            </div>
+                                            <br><br>
+
+                                            <div class="table-responsive">
+                                                <table class="table table-striped" id="table-1">
+                                                    <thead>
+                                                    <tr>
+                                                        <th th:text="#{association_member_list_page_result_name}"></th>
+                                                        <th th:text="#{association_tontine_list_page_table_type}"></th>
+                                                        <th th:text="#{association_tontine_list_page_table_participant}"></th>
+                                                        <th th:text="#{association_tontine_list_page_table_startDate}"></th>
+                                                        <th th:text="#{association_tontine_list_page_table_endDate}"></th>
+                                                        <th th:text="#{association_member_list_page_result_action}"></th>
+                                                    </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <tr th:each="tontine : ${association_tontines}">
+
+                                                            <td th:text="${tontine.name}"></td>
+
+                                                            <td class="align-middle" th:text="${tontine.type}"></td>
+
+                                                            <td class="align-middle" th:text="${tontine.numberOfParticipant}"></td>
+
+                                                            <td th:text="${#calendars.format(tontine.startDate, 'dd-MM-yyyy')}"></td>
+
+                                                            <td th:text="${#calendars.format(tontine.endDate, 'dd-MM-yyyy')}"></td>
+
+
+                                                            <td class="text-center">
+                                                                <a th:href="@{/backend/association/__${association.id}__/tontines/__${tontine.id}__}"
+                                                                   class="btn btn-primary" th:text="#{association_list_page_table_header_Action_detail}"></a>
+                                                            </td>
+
+                                                        </tr>
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
 
                         </div>
 

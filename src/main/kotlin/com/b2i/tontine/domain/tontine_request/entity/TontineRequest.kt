@@ -4,6 +4,7 @@ import com.b2i.tontine.domain.account.member.entity.Member
 import com.b2i.tontine.domain.entity.common.BaseEntity
 import com.b2i.tontine.domain.tontine.entity.Tontine
 import com.fasterxml.jackson.annotation.JsonBackReference
+import java.util.*
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.JoinColumn
@@ -17,7 +18,15 @@ import javax.persistence.ManyToOne
 @Entity
 class TontineRequest() : BaseEntity() {
 
-    var isValidated : Boolean = false
+    var approved : Boolean = false
+
+    var contributed : Boolean = false
+
+    var contributionAmount : Double = 0.0
+
+    var requestDate : Date? = null
+
+    var contributionDate : Date? = null
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)

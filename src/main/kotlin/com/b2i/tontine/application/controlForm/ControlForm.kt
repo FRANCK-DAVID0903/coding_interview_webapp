@@ -2,6 +2,8 @@ package com.b2i.tontine.application.controlForm
 
 import org.springframework.ui.Model
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
+import java.text.SimpleDateFormat
+import java.util.*
 
 object ControlForm {
 
@@ -135,6 +137,12 @@ object ControlForm {
 
     fun objectNotFound(ob:String):String{
         return "${ob} introuvable"
+    }
+
+    fun formatDate( date : String ) : Date {
+        val format = SimpleDateFormat( "yyyy-MM-dd" )
+
+        return format.parse( date )
     }
 
 }

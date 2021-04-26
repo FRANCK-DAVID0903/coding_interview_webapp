@@ -5,6 +5,7 @@ import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.entity.common.BaseEntity
 import com.fasterxml.jackson.annotation.JsonBackReference
 import java.time.LocalDate
+import java.util.*
 import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.JoinColumn
@@ -25,15 +26,19 @@ class Tontine : BaseEntity() {
 
     var tontineGlobalAmount : Double = 0.0
 
-    var numberOfParticipant : Int = 0
+    var tontineGlobalAmountEstimated : Double = 0.0
 
-    var periodicity : String = Periodicity.MONTHLY
+    var numberOfParticipant : Long = 0
 
-    var type : String = Type.OPENED
+    var numberOfParticipantEstimated : Long = 0
 
-    var startDate : LocalDate? = null
+    var periodicity : String = TontinePeriodicity.MONTHLY
 
-    var endDate : LocalDate? = null
+    var type : String = TontineType.OPENED
+
+    var startDate : Date? = null
+
+    var endDate : Date? = null
 
     var biddingAmount : Double = 0.0
 

@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-    <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
     <!--Header
     ============================================= -->
-    <th:block th:replace="fragments/fragment_head('Home')" />
+    <th:block th:replace="fragments/fragment_head('Association members')"/>
 
     <body>
 
         <!-- Loader ============================================= -->
-        <th:block th:replace="fragments/fragment_loader" />
+        <th:block th:replace="fragments/fragment_loader"/>
 
         <div id="app">
 
             <div class="main-wrapper main-wrapper-1">
 
                 <!-- Navbar ============================================= -->
-                <th:block th:replace="fragments/fragment_navbar" />
+                <th:block th:replace="fragments/fragment_navbar"/>
 
                 <!-- Sidebar ============================================= -->
-                <th:block th:replace="fragments/fragment_sidebar" />
+                <th:block th:replace="fragments/fragment_sidebar"/>
 
 
                 <!-- Main Content ============================================= -->
@@ -30,38 +30,28 @@
                             <div class="col-lg-12">
 
                                 <div class="card">
-
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="offset-1"></div>
-
-                                            <div class="col-lg-2">
-                                                <a th:href="@{/backend/association/__${association.id}__/members/add}" class="btn btn-primary"
-                                                   th:text="#{association_list_page_table_header_Action_detail}"></a>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
-
-                                <div class="card">
                                     <div class="card-header">
-                                        <h4 th:text="#{association_member_list_page_table_header}"></h4>
+                                        <h4 th:text="#{association_list_page_table_name}"></h4>
                                     </div>
                                     <div class="card-body">
+
+                                        <div class="col-lg-8">
+                                            <a th:href="@{/backend/association/__${association.id}__/members/add}"
+                                               class="btn btn-primary"
+                                               th:text="#{association_list_page_add_member}"></a>
+                                        </div>
+                                        <br><br>
+
                                         <div class="table-responsive">
                                             <table class="table table-striped" id="table-1">
                                                 <thead>
-                                                    <tr>
-                                                        <th th:text="#{association_member_list_page_result_name}"></th>
-                                                        <th th:text="#{association_member_list_page_result_username}"></th>
-                                                        <th th:text="#{association_member_list_page_result_email}"></th>
-                                                        <th th:text="#{association_member_list_page_result_phone}"></th>
-                                                        <th th:text="#{association_member_list_page_result_action}"></th>
-                                                    </tr>
+                                                <tr>
+                                                    <th th:text="#{association_member_list_page_result_name}"></th>
+                                                    <th th:text="#{association_member_list_page_result_email}"></th>
+                                                    <th th:text="#{association_member_list_page_result_phone}"></th>
+                                                    <th th:text="#{association_member_list_page_result_role}"></th>
+                                                    <th th:text="#{association_member_list_page_result_action}"></th>
+                                                </tr>
                                                 </thead>
 
                                                 <tbody>
@@ -69,11 +59,13 @@
 
                                                         <td th:text="${association_member.user.firstname}"></td>
 
-                                                        <td th:text="${association_member.user.username}"></td>
+                                                        <td class="align-middle"
+                                                            th:text="${association_member.user.contact.email}"></td>
 
-                                                        <td class="align-middle" th:text="${association_member.user.contact.email}"></td>
+                                                        <td class="align-middle"
+                                                            th:text="${association_member.user.contact.mobile}"></td>
 
-                                                        <td class="align-middle" th:text="${association_member.user.contact.mobile}"></td>
+                                                        <td th:text="${association_member.role}"></td>
 
                                                         <td>
                                                             <a class="btn btn-warning btn-action mr-1" title="" th:data-original-title="#{table_update}" data-toggle="modal" data-target="#changeStatusModal"
@@ -109,7 +101,7 @@
 
                         <div th:insert="fragments/modal/fragment_add_modal ::
                                        fragment_add_modal(title='Change role in association',
-                                       methodUrl='/backend/association/'+__${assoMember.id}__+'/members/add_member',
+                                       methodUrl='/backend/association/members/add_member',
                                        body = ~{ :: #modal_body})">
 
                             <div class="modal-body" id="modal_body">
@@ -124,11 +116,19 @@
                 </div>
 
                 <!-- Footer ============================================= -->
-                <th:block th:replace="fragments/fragment_footer" />
+                <th:block th:replace="fragments/fragment_footer"/>
 
             </div>
 
         </div>
+
+        <!-- BEGIN PAGE LEVEL JS-->
+        <script>
+            $(document).ready(function () {
+                $('#association').attr('class', 'active');
+            });
+        </script>
+        <!-- END PAGE LEVEL JS-->
 
     </body>
 
