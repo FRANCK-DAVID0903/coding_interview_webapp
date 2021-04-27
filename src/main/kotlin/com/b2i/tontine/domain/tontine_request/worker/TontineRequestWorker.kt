@@ -62,7 +62,7 @@ class TontineRequestWorker:TontineRequestDomain {
                 val requestDate = LocalDate.now()
                 tontineRequest.requestDate = ControlForm.formatDate(requestDate.toString())
 
-                if (tontine.type == TontineType.OPENED) {
+                if (tontine.type == TontineType.CLOSED) {
                     tontineRequest.approved = true
 
                     if (tontine.numberOfParticipantEstimated > tontine.numberOfParticipant) {

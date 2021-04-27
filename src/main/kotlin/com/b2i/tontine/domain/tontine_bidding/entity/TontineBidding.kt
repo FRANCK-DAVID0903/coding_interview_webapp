@@ -3,6 +3,7 @@ package com.b2i.tontine.domain.tontine_bidding.entity
 import com.b2i.tontine.domain.account.member.entity.Member
 import com.b2i.tontine.domain.entity.common.BaseEntity
 import com.b2i.tontine.domain.tontine.entity.Tontine
+import com.b2i.tontine.domain.tontine_periodicity.entity.TontinePeriodicity
 import com.fasterxml.jackson.annotation.JsonBackReference
 import java.time.LocalDate
 import javax.persistence.Entity
@@ -25,15 +26,13 @@ class TontineBidding : BaseEntity() {
 
     var interestByValue : Int = 0
 
-    var reimbursementDeadline : LocalDate? = null
-
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     var member : Member? = null
 
-    @ManyToOne(targetEntity = Tontine::class, optional = false)
-    var tontine : Tontine? = null
+    @ManyToOne(targetEntity = TontinePeriodicity::class, optional = false)
+    var tontinePeriodicity: TontinePeriodicity? = null
 
     var state : Int = 0
 }

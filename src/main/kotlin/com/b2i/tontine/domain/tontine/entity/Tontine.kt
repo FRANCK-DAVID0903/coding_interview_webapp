@@ -42,10 +42,9 @@ class Tontine : BaseEntity() {
 
     var biddingAmount : Double = 0.0
 
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    var beneficiary : Member? = null
+    var membershipState : String = TontineType.CLOSED
+
+    var membershipDeadline : Date? = null
 
     @ManyToOne(targetEntity = Association::class, optional = false)
     var association : Association? = null
