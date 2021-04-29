@@ -253,6 +253,9 @@ class AssociationMemberController(
         val association: Association? = associationDomain.findAssociationById(id.toLong()).orElse(null)
         if (association != null) {
             model.addAttribute("association", association)
+
+            val members = associationMemberDomain.findAllMembersInAssociation(association)
+            model.addAttribute("association_members", members)
         }
     }
 
