@@ -17,6 +17,7 @@ import org.springframework.context.MessageSource
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
+import java.time.LocalDate
 import java.util.*
 
 
@@ -54,6 +55,7 @@ class TontineController(
         @RequestParam startDate: String,
         @RequestParam endDate: String,
         @RequestParam periodicity: String,
+        @RequestParam membershipDeadline: String,
         locale: Locale
     ): String {
         var url = "$association_id/tontines/create"
@@ -98,10 +100,12 @@ class TontineController(
                 val tontine = Tontine()
                 tontine.name = name
                 tontine.type = objectHelper.getTontineType(type)
+                tontine.periodicity = objectHelper.getTontinePeriodicity(periodicity)
                 tontine.numberOfParticipantEstimated = numberOfParticipant.toLong()
                 tontine.contributionAmount = contributionAmount.toDouble()
                 tontine.startDate = ControlForm.formatDate(startDate)
                 tontine.endDate = ControlForm.formatDate(endDate)
+                tontine.membershipDeadline = ControlForm.formatDate(membershipDeadline)
 
                 val result: OperationResult<Tontine> = tontineDomain.createTontine(tontine, association_id.toLong())
 
@@ -160,6 +164,7 @@ class TontineController(
     @GetMapping(value = ["/{association_id}/tontines/{tontine_id}"])
     fun tontineDetail(model: Model, @PathVariable tontine_id: String, @PathVariable association_id: String): String {
         var page = "detail_tontine"
+        var isMembershipDeadline = false
         val association: Association? = associationDomain.findAssociationById(association_id.toLong()).orElse(null)
         val tontine: Tontine? = tontineDomain.findTontineById(tontine_id.toLong()).orElse(null)
 
@@ -168,10 +173,16 @@ class TontineController(
         } else {
             val associationMembers: List<AssociationMember> = associationMemberDomain.findAllMembersInAssociation(association)
 
+            val today = ControlForm.formatDate(LocalDate.now().toString())
+            if (tontine.membershipDeadline!!.before(today)) {
+                isMembershipDeadline = true
+            }
+
             model.addAttribute("associationMembers", associationMembers)
             model.addAttribute("tontineRequests", tontineRequestDomain.findAllByTontineAndStatus(tontine, false))
             model.addAttribute("tontineMembers", tontineRequestDomain.findAllByTontineAndStatus(tontine, true))
             model.addAttribute("association", association)
+            model.addAttribute("membershipDeadline", isMembershipDeadline)
             model.addAttribute("tontine", tontine)
         }
 

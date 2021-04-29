@@ -2,6 +2,7 @@ package com.b2i.tontine.domain.tontine.worker
 
 import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.tontine.entity.Tontine
+import com.b2i.tontine.domain.tontine.entity.TontineType
 import com.b2i.tontine.domain.tontine.port.TontineDomain
 import com.b2i.tontine.infrastructure.db.repository.AssociationRepository
 import com.b2i.tontine.infrastructure.db.repository.TontineRepository
@@ -50,10 +51,32 @@ class TontineWorker : TontineDomain {
             tontine.association = optionalAssociation.get()
             tontine.tontineGlobalAmountEstimated = tontine.numberOfParticipantEstimated * tontine.contributionAmount
 
+            if (tontine.type == TontineType.OPENED) {
+                tontine.openToMembership = true
+            }
+
             data = tontineRepository.save(tontine)
         }
 
         return OperationResult(data, errors)
+    }
+
+    override fun changeTontineMembershipState(id: Long): OperationResult<Tontine> {
+        val errors: MutableMap<String, String> = mutableMapOf()
+        var data: Tontine? = null
+
+        val optionalTontine = tontineRepository.findById(id)
+
+        if (!optionalTontine.isPresent) {
+            errors["not_found"] = "tontine_not_found"
+        } else {
+            val tontine = optionalTontine.get()
+            tontine.openToMembership = !tontine.openToMembership
+
+            data = tontineRepository.save(tontine)
+        }
+
+        return  OperationResult(data, errors)
     }
 
     override fun findTontineById(id: Long): Optional<Tontine> = tontineRepository.findById(id)

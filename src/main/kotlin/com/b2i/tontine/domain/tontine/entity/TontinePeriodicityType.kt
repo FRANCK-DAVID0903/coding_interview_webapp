@@ -1,6 +1,6 @@
 package com.b2i.tontine.domain.tontine.entity
 
-object TontinePeriodicity {
+object TontinePeriodicityType {
 
     const val WEEKLY = "WEEKLY"
 
