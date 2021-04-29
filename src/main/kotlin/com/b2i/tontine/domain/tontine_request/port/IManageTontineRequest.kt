@@ -9,6 +9,12 @@ interface IManageTontineRequest {
 
     fun createTontineRequest(tontine_id: Long, member_id: Long): OperationResult<TontineRequest>
 
+    fun approvedRequest(tontine_id: Long, member_id: Long): OperationResult<TontineRequest>
+
+    fun unapprovedRequest(tontine_id: Long, member_id: Long): OperationResult<Boolean>
+
+    fun findAllApprovedTontineMembers(tontine: Tontine, validated: Boolean, state: Int): MutableList<TontineRequest>
+
     fun findAllByBeneficiary(member: Member): MutableList<TontineRequest>
 
     fun countAllByBeneficiary(member: Member): Long

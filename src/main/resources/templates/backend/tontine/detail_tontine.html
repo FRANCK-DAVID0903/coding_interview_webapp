@@ -149,12 +149,12 @@
                                                                                  + ${#dates.format(tontine.membershipDeadline, 'dd-MM-yyyy')} + ')'"></div>
 
                                                                             <div th:if="${tontine.openToMembership == true}" class="text-success text-small font-600-bold">
+                                                                                <i class="fas fa-circle"></i>
                                                                                 <span th:text="#{association_tontine_detail_page_tab_member_request_state_open}"></span>
-                                                                                <i class="fas fa-circle"></i>
                                                                             </div>
-                                                                            <div th:if="${tontine.openToMembership == false}" class="text-muted text-small font-600-bold"
-                                                                                 th:text="#{association_tontine_detail_page_tab_member_request_state_close}">
+                                                                            <div th:if="${tontine.openToMembership == false}" class="text-muted text-small font-600-bold">
                                                                                 <i class="fas fa-circle"></i>
+                                                                                <span th:text="#{association_tontine_detail_page_tab_member_request_state_close}"></span>
                                                                             </div>
                                                                         </div>
 
@@ -184,7 +184,7 @@
                                                                 <table class="table table-striped" id="sortable-table">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th class="text-center">
+                                                                            <th>
                                                                                 <i class="fas fa-th"></i>
                                                                             </th>
                                                                             <th th:text="#{association_tontine_detail_page_table_name}"></th>
@@ -208,10 +208,13 @@
                                                                             <td class="align-middle" th:text="#{association_tontine_detail_page_table_approved}"></td>
 
                                                                             <td>
-                                                                                <a class="btn btn-primary btn-action mr-1" title="" th:data-original-title="#{table_contribute}">
+                                                                                <a class="btn btn-primary btn-action mr-1" type="button" data-toggle="modal" data-target="#approvedRequestModal"
+                                                                                   th:data-entity="${stringHelper.clean(tontineRequest.beneficiary.toJSON())}" onclick="onUpdateMember(this.getAttribute('data-entity'));">
                                                                                     <i class="fas fa-check-circle"></i>
                                                                                 </a>
-                                                                                <a class="btn btn-danger btn-action mr-1" title="" th:data-original-title="#{table_delete}">
+
+                                                                                <a class="btn btn-danger btn-action mr-1" type="button" data-toggle="modal" data-target="#unapprovedRequestModal"
+                                                                                   th:data-entity="${stringHelper.clean(tontineRequest.beneficiary.toJSON())}" onclick="onUpdateMember(this.getAttribute('data-entity'));">
                                                                                     <i class="fas fa-trash"></i>
                                                                                 </a>
                                                                             </td>
@@ -296,7 +299,7 @@
 
                     </section>
 
-                    <!-- Vertically Center -->
+                    <!-- Add member to tontine -->
                     <div class="modal fade" id="addMemberModal" tabindex="-1" role="dialog"
                          aria-labelledby="addMemberModalTitle" aria-hidden="true">
 
@@ -310,6 +313,38 @@
                                 <select class="form-control select2" name="member_id" >
                                     <option th:each="member :${associationMembers}" th:text="${member.user.firstname}+' '+ ${member.user.lastname}" th:value="${member.user.id}"></option>
                                 </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Approved member request -->
+                    <div class="modal fade" id="approvedRequestModal" tabindex="-1" role="dialog"
+                         aria-labelledby="addMemberModalTitle" aria-hidden="true">
+
+                        <div th:insert="fragments/modal/fragment_add_modal ::
+                                                   fragment_add_modal(title='Add member in tontine',
+                                                   methodUrl='/backend/association/'+__${association.id}__+'/tontines/'+__${tontine.id}__+'/approvedRequest',
+                                                   body = ~{ :: #approvedRequest_body})">
+
+                            <div class="modal-body" id="approvedRequest_body">
+                                <p th:text="#{association_tontine_detail_page_request_approved}"></p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Unapproved member request -->
+                    <div class="modal fade" id="unapprovedRequestModal" tabindex="-1" role="dialog"
+                         aria-labelledby="addMemberModalTitle" aria-hidden="true">
+
+                        <div th:insert="fragments/modal/fragment_add_modal ::
+                                                   fragment_add_modal(title='Add member in tontine',
+                                                   methodUrl='/backend/association/'+__${association.id}__+'/tontines/'+__${tontine.id}__+'/unapprovedRequest',
+                                                   body = ~{ :: #unapprovedRequest_body})">
+
+                            <div class="modal-body" id="unapprovedRequest_body">
+                                <p th:text="#{association_tontine_detail_page_request_unapproved}"></p>
                             </div>
 
                         </div>
@@ -370,6 +405,11 @@
             function onUpdate(json) {
                 var tontineS = jQuery.parseJSON(json.replace("'", "\\'"));
                 $('.model-id').val(tontineS.id);
+            }
+
+            function onUpdateMember(json) {
+                var memb = jQuery.parseJSON(json.replace("'", "\\'"));
+                $('.model-id').val(memb.id);
             }
         </script>
 

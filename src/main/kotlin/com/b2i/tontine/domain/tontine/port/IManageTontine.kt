@@ -9,7 +9,9 @@ interface IManageTontine {
 
     fun createTontine(tontine: Tontine, association_id: Long): OperationResult<Tontine>
 
-    fun changeTontineMembershipState(id: Long): OperationResult<Tontine>
+    fun extendTontineMembershipDeadline(id: Long, membershipDeadline: String): OperationResult<Tontine>
+
+    fun closeTontineMembership(id: Long): OperationResult<Tontine>
 
     fun findTontineById(id: Long): Optional<Tontine>
 

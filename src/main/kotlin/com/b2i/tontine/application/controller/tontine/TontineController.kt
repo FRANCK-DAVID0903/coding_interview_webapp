@@ -132,6 +132,81 @@ class TontineController(
         return redirectTo(url)
     }
 
+    @PostMapping(value = ["/{association_id}/tontines/{tontine_id}/extendMembership"])
+    fun extendTontineMembership(
+        redirectAttributes: RedirectAttributes,
+        @PathVariable association_id: String,
+        @PathVariable tontine_id: String,
+        @RequestParam membershipDeadline: String,
+        locale: Locale
+    ): String {
+        var url = "$association_id/tontines"
+
+        when {
+            membershipDeadline.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("tontine_membership_deadline", null, locale),
+                    Color.red
+                )
+            }
+            else -> {
+                val result: OperationResult<Tontine> =
+                    tontineDomain.extendTontineMembershipDeadline(tontine_id.toLong(), membershipDeadline)
+
+                val err: MutableMap<String, String> = mutableMapOf()
+                if (result.errors!!.isNotEmpty()) {
+                    result.errors.forEach { (key, value) ->
+                        err[key] = messageSource.getMessage(value, null, locale)
+                    }
+                }
+
+                if (
+                    ControlForm.verifyHashMapRedirect(
+                        redirectAttributes,
+                        err,
+                        messageSource.getMessage("tontine_save_success", null, locale)
+                    )
+                ) {
+                    url = "$association_id/tontines/$tontine_id"
+                }
+            }
+        }
+        return redirectTo(url)
+    }
+
+    @PostMapping(value = ["/{association_id}/tontines/{tontine_id}/closeMembership"])
+    fun closeTontineMembership(
+        redirectAttributes: RedirectAttributes,
+        @PathVariable association_id: String,
+        @PathVariable tontine_id: String,
+        locale: Locale
+    ): String {
+        var url = "$association_id/tontines"
+
+        val result: OperationResult<Tontine> =
+            tontineDomain.closeTontineMembership(tontine_id.toLong())
+
+        val err: MutableMap<String, String> = mutableMapOf()
+        if (result.errors!!.isNotEmpty()) {
+            result.errors.forEach { (key, value) ->
+                err[key] = messageSource.getMessage(value, null, locale)
+            }
+        }
+
+        if (
+            ControlForm.verifyHashMapRedirect(
+                redirectAttributes,
+                err,
+                messageSource.getMessage("tontine_save_success", null, locale)
+            )
+        ) {
+            url = "$association_id/tontines/$tontine_id"
+        }
+
+        return redirectTo(url)
+    }
+
     @GetMapping("/{association_id}/tontines")
     fun listOfAssociationTontines(
         model: Model, @PathVariable association_id: String,
@@ -171,7 +246,8 @@ class TontineController(
         if (association == null || tontine == null) {
             page = "list_tontine"
         } else {
-            val associationMembers: List<AssociationMember> = associationMemberDomain.findAllMembersInAssociation(association)
+            val associationMembers: List<AssociationMember> =
+                associationMemberDomain.findAllMembersInAssociation(association)
 
             val today = ControlForm.formatDate(LocalDate.now().toString())
             if (tontine.membershipDeadline!!.before(today)) {
@@ -179,8 +255,8 @@ class TontineController(
             }
 
             model.addAttribute("associationMembers", associationMembers)
-            model.addAttribute("tontineRequests", tontineRequestDomain.findAllByTontineAndStatus(tontine, false))
-            model.addAttribute("tontineMembers", tontineRequestDomain.findAllByTontineAndStatus(tontine, true))
+            model.addAttribute("tontineRequests", tontineRequestDomain.findAllApprovedTontineMembers(tontine, false, 0))
+            model.addAttribute("tontineMembers", tontineRequestDomain.findAllApprovedTontineMembers(tontine, true, 0))
             model.addAttribute("association", association)
             model.addAttribute("membershipDeadline", isMembershipDeadline)
             model.addAttribute("tontine", tontine)
