@@ -1,6 +1,6 @@
 package com.b2i.tontine.utils.helper
 
-import com.b2i.tontine.domain.tontine.entity.TontinePeriodicity
+import com.b2i.tontine.domain.tontine.entity.TontinePeriodicityType
 import com.b2i.tontine.domain.tontine.entity.TontineType
 
 
@@ -21,10 +21,10 @@ class ObjectHelper {
 
     fun getTontinePeriodicity(str: String): String {
         return when (str) {
-            "WEEKLY" -> TontinePeriodicity.WEEKLY
-            "MONTHLY" -> TontinePeriodicity.MONTHLY
-            "ANNUAL" -> TontinePeriodicity.ANNUAL
-            else -> TontinePeriodicity.MONTHLY
+            "WEEKLY" -> TontinePeriodicityType.WEEKLY
+            "MONTHLY" -> TontinePeriodicityType.MONTHLY
+            "ANNUAL" -> TontinePeriodicityType.ANNUAL
+            else -> TontinePeriodicityType.MONTHLY
         }
     }
 

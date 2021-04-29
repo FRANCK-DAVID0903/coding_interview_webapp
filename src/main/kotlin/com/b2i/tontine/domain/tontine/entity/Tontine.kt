@@ -1,14 +1,9 @@
 package com.b2i.tontine.domain.tontine.entity
 
-import com.b2i.tontine.domain.account.member.entity.Member
 import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.entity.common.BaseEntity
-import com.fasterxml.jackson.annotation.JsonBackReference
-import java.time.LocalDate
 import java.util.*
 import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 
 
@@ -32,7 +27,7 @@ class Tontine : BaseEntity() {
 
     var numberOfParticipantEstimated : Long = 0
 
-    var periodicity : String = TontinePeriodicity.MONTHLY
+    var periodicity : String = TontinePeriodicityType.MONTHLY
 
     var type : String = TontineType.OPENED
 
@@ -40,9 +35,7 @@ class Tontine : BaseEntity() {
 
     var endDate : Date? = null
 
-    var biddingAmount : Double = 0.0
-
-    var membershipState : String = TontineType.CLOSED
+    var openToMembership: Boolean = false
 
     var membershipDeadline : Date? = null
 
