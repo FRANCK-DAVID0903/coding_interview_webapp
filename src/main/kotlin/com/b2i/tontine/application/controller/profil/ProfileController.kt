@@ -69,7 +69,7 @@ class ProfileController(
 
                 val userConnected = authenticationFacade.getAuthenticatedUser().get()
                 val memberConnected = memberDomain.findById(userConnected.id)
-                val tontinesValidated = tontineRequestDomain.findAllByBeneficiaryAndState(memberConnected.get(),1)
+                val tontinesValidated = tontineRequestDomain.findAllByBeneficiaryAndState(memberConnected.get(),0)
 
                 val associations = associationMemberDomain.findAllByUser(user)
                 model.addAttribute("associations", associations)

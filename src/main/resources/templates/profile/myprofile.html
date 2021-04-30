@@ -180,20 +180,19 @@
                                                                 <table class="table table-striped" id="table-1">
                                                                     <thead>
                                                                     <tr>
-                                                                        <th class="text-center">#</th>
                                                                         <th th:text="#{profile_tontine_name}"></th>
                                                                         <th th:text="#{profile_tontine_association}"></th>
-                                                                        <th th:text="#{profile_tontine_status}"></th>
-                                                                        <th th:text="#{association_list_page_table_header_Action}"></th>
+                                                                        <th th:text="#{profile_tontine_amount}"></th>
+                                                                        <th th:text="#{association_tontine_list_page_table_endDate}"></th>
                                                                     </tr>
                                                                     </thead>
 
                                                                     <tbody>
-                                                                    <tr th:each="tont : ${tontinesValidated}">
-                                                                        <td th:text="${tont.tontine.name}"></td>
+                                                                    <tr th:each="ton : ${tontinesValidated}">
+                                                                        <td th:text="${ton.tontine.name}"></td>
                                                                         <td class="align-middle" th:text="${ton.tontine.association.name}"></td>
-                                                                        <td class="align-middle" th:text="${ton.tontine.isClosed}"></td>
                                                                         <td class="align-middle" th:text="${ton.tontine.contributionAmount}"></td>
+                                                                        <td th:text="${#dates.format(ton.tontine.endDate, 'dd-MM-yyyy')}"></td>
                                                                     </tr>
                                                                     </tbody>
 

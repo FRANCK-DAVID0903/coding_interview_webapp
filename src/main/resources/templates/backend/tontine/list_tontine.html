@@ -66,9 +66,9 @@
 
                                                             <td class="align-middle" th:text="${tontine.numberOfParticipant}"></td>
 
-                                                            <td th:text="${#calendars.format(tontine.startDate, 'dd-MM-yyyy')}"></td>
+                                                            <td th:text="${#dates.format(tontine.startDate, 'dd-MM-yyyy')}"></td>
 
-                                                            <td th:text="${#calendars.format(tontine.endDate, 'dd-MM-yyyy')}"></td>
+                                                            <td th:text="${#dates.format(tontine.endDate, 'dd-MM-yyyy')}"></td>
 
                                                             <td class="text-center">
                                                                 <a th:href="@{/backend/association/__${association.id}__/tontines/__${tontine.id}__}"

@@ -46,7 +46,7 @@ class MemberController(
         val memberConnected = memberDomain.findById(userConnected.id)
 
         val tontines = tontineRequestDomain.findAllByBeneficiary(memberConnected.get())
-        val tontinesValidated = tontineRequestDomain.findAllByBeneficiaryAndState(memberConnected.get(),1)
+        val tontinesValidated = tontineRequestDomain.findAllByBeneficiaryAndState(memberConnected.get(),0)
 
         model.addAttribute("tontines", tontines)
         model.addAttribute("tontinesValidated", tontinesValidated)

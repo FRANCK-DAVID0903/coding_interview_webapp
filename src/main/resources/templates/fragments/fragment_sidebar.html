@@ -74,6 +74,13 @@
             <li class="dropdown" th:if="${user.member}">
                 <a th:href="@{/backend/members/my_transactions}" class="nav-link">
                     <i data-feather="monitor"></i>
+                    <span th:text="#{sidebar_myCotisations}"></span>
+                </a>
+            </li>
+
+            <li class="dropdown" th:if="${user.member}">
+                <a th:href="@{/backend/members/my_transactions}" class="nav-link">
+                    <i data-feather="monitor"></i>
                     <span th:text="#{sidebar_myTransactions}"></span>
                 </a>
             </li>
