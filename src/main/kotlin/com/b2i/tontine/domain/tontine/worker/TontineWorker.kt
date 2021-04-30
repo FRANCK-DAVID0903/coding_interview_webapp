@@ -1,5 +1,6 @@
 package com.b2i.tontine.domain.tontine.worker
 
+import com.b2i.tontine.application.controlForm.ControlForm
 import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.tontine.entity.Tontine
 import com.b2i.tontine.domain.tontine.entity.TontineType
@@ -61,7 +62,7 @@ class TontineWorker : TontineDomain {
         return OperationResult(data, errors)
     }
 
-    override fun changeTontineMembershipState(id: Long): OperationResult<Tontine> {
+    override fun extendTontineMembershipDeadline(id: Long, membershipDeadline: String): OperationResult<Tontine> {
         val errors: MutableMap<String, String> = mutableMapOf()
         var data: Tontine? = null
 
@@ -71,11 +72,33 @@ class TontineWorker : TontineDomain {
             errors["not_found"] = "tontine_not_found"
         } else {
             val tontine = optionalTontine.get()
-            tontine.openToMembership = !tontine.openToMembership
+
+            if (ControlForm.formatDate(membershipDeadline).before(tontine.membershipDeadline)) {
+                errors["date_error"] = "tontine_update_date_error"
+            } else {
+                tontine.membershipDeadline = ControlForm.formatDate(membershipDeadline)
+                tontine.openToMembership = true
+            }
 
             data = tontineRepository.save(tontine)
         }
 
+        return  OperationResult(data, errors)
+    }
+
+    override fun closeTontineMembership(id: Long): OperationResult<Tontine> {
+        val errors: MutableMap<String, String> = mutableMapOf()
+        var data: Tontine? = null
+
+        val optionalTontine = tontineRepository.findById(id)
+
+        if (!optionalTontine.isPresent) {
+            errors["not_found"] = "tontine_not_found"
+        } else {
+            val tontine = optionalTontine.get()
+            tontine.openToMembership = false
+            data = tontineRepository.save(tontine)
+        }
         return  OperationResult(data, errors)
     }
 

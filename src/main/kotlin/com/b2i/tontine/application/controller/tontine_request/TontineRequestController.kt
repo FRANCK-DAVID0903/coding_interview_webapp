@@ -37,9 +37,11 @@ class TontineRequestController(
 ) : BaseController("/backend/tontine/", ControllerEndpoint.BACKEND_ASSOCIATION) {
 
     @GetMapping("/{association_id}/tontines/{tontine_id}/addMember")
-    fun goToCreateTontineRequest(model: Model,
-                                 @PathVariable association_id: String,
-                                 @PathVariable tontine_id: String,): String {
+    fun goToCreateTontineRequest(
+        model: Model,
+        @PathVariable association_id: String,
+        @PathVariable tontine_id: String,
+    ): String {
         injectValues(model, association_id, tontine_id)
 
         return forwardTo("add_tontine")
@@ -104,6 +106,122 @@ class TontineRequestController(
         return redirectTo(url)
     }
 
+    @PostMapping(value = ["/{association_id}/tontines/{tontine_id}/approvedRequest"])
+    fun approvedTontineRequest(
+        redirectAttributes: RedirectAttributes,
+        @PathVariable association_id: String,
+        @PathVariable tontine_id: String,
+        @RequestParam id: String,
+        locale: Locale
+    ): String {
+        var url = "$association_id/tontines"
+
+        when {
+            association_id.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("association_member_id_association_empty", null, locale),
+                    Color.red
+                )
+            }
+            tontine_id.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("tontine_id_empty", null, locale),
+                    Color.red
+                )
+            }
+            id.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("user_not_found", null, locale),
+                    Color.red
+                )
+            }
+            else -> {
+                val result: OperationResult<TontineRequest> =
+                    tontineRequestDomain.approvedRequest(tontine_id.toLong(), id.toLong())
+
+                val err: MutableMap<String, String> = mutableMapOf()
+                if (result.errors!!.isNotEmpty()) {
+                    result.errors.forEach { (key, value) ->
+                        err[key] = messageSource.getMessage(value, null, locale)
+                    }
+                }
+
+                if (
+                    ControlForm.verifyHashMapRedirect(
+                        redirectAttributes,
+                        err,
+                        messageSource.getMessage("tontine_request_approved", null, locale)
+                    )
+                ) {
+                    url = "$association_id/tontines/$tontine_id"
+                }
+            }
+        }
+
+        return redirectTo(url)
+    }
+
+    @PostMapping(value = ["/{association_id}/tontines/{tontine_id}/unapprovedRequest"])
+    fun unapprovedTontineRequest(
+        redirectAttributes: RedirectAttributes,
+        @PathVariable association_id: String,
+        @PathVariable tontine_id: String,
+        @RequestParam id: String,
+        locale: Locale
+    ): String {
+        var url = "$association_id/tontines"
+
+        when {
+            association_id.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("association_member_id_association_empty", null, locale),
+                    Color.red
+                )
+            }
+            tontine_id.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("tontine_id_empty", null, locale),
+                    Color.red
+                )
+            }
+            id.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("user_not_found", null, locale),
+                    Color.red
+                )
+            }
+            else -> {
+                val result: OperationResult<Boolean> =
+                    tontineRequestDomain.unapprovedRequest(tontine_id.toLong(), id.toLong())
+
+                val err: MutableMap<String, String> = mutableMapOf()
+                if (result.errors!!.isNotEmpty()) {
+                    result.errors.forEach { (key, value) ->
+                        err[key] = messageSource.getMessage(value, null, locale)
+                    }
+                }
+
+                if (
+                    ControlForm.verifyHashMapRedirect(
+                        redirectAttributes,
+                        err,
+                        messageSource.getMessage("tontine_request_unapproved", null, locale)
+                    )
+                ) {
+                    url = "$association_id/tontines/$tontine_id"
+                }
+            }
+        }
+
+        return redirectTo(url)
+    }
+
 
     //Inject association in view
     fun injectValues(model: Model, association_id: String, tontine_id: String) {
@@ -111,7 +229,8 @@ class TontineRequestController(
         val tontine: Tontine? = tontineDomain.findTontineById(tontine_id.toLong()).orElse(null)
 
         if (association != null && tontine != null) {
-            val associationMembers: List<AssociationMember> = associationMemberDomain.findAllMembersInAssociation(association)
+            val associationMembers: List<AssociationMember> =
+                associationMemberDomain.findAllMembersInAssociation(association)
 
             model.addAttribute("associationMembers", associationMembers)
             model.addAttribute("association", association)

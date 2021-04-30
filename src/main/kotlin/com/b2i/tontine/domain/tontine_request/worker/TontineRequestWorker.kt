@@ -65,17 +65,84 @@ class TontineRequestWorker:TontineRequestDomain {
                 if (tontine.type == TontineType.CLOSED) {
                     tontineRequest.approved = true
 
-                    if (tontine.numberOfParticipantEstimated > tontine.numberOfParticipant) {
-                        tontine.numberOfParticipant += 1
-                        tontineRepository.save(tontine)
-                    }
+                    tontine.numberOfParticipant += 1
+                    tontineRepository.save(tontine)
                 }
-
                 data = tontineRequestRepository.save(tontineRequest)
             }
         }
-
         return OperationResult(data, errors)
+    }
+
+    override fun approvedRequest(tontine_id: Long, member_id: Long): OperationResult<TontineRequest> {
+        val errors: MutableMap<String, String> = mutableMapOf()
+        var data: TontineRequest? = null
+
+        val optionalTontine = tontineRepository.findById(tontine_id)
+        val optionalMember = memberRepository.findById(member_id)
+
+        if (!optionalMember.isPresent) {
+            errors["not_found"] = "user_not_found"
+        }
+        if (!optionalTontine.isPresent) {
+            errors["not_found"] = "tontine_not_found"
+        }
+
+        if (errors.isEmpty()) {
+            val tontine = optionalTontine.get()
+            val memberRequest = tontineRequestRepository.findByTontineAndBeneficiary(tontine, optionalMember.get()).orElse(null)
+
+            if (memberRequest == null) {
+                errors["error"] = "tontine_member_not_exist"
+            } else {
+                memberRequest.approved = true
+                tontine.numberOfParticipant += 1
+
+                tontineRepository.save(tontine)
+                data = tontineRequestRepository.save(memberRequest)
+            }
+        }
+        return OperationResult(data, errors)
+    }
+
+    override fun unapprovedRequest(tontine_id: Long, member_id: Long): OperationResult<Boolean> {
+        val errors: MutableMap<String, String> = mutableMapOf()
+        var data: Boolean? = null
+
+        val optionalTontine = tontineRepository.findById(tontine_id)
+        val optionalMember = memberRepository.findById(member_id)
+
+        if (!optionalMember.isPresent) {
+            errors["not_found"] = "user_not_found"
+        }
+        if (!optionalTontine.isPresent) {
+            errors["not_found"] = "tontine_not_found"
+        }
+
+        if (errors.isEmpty()) {
+            val tontine = optionalTontine.get()
+            val memberRequest = tontineRequestRepository.findByTontineAndBeneficiary(tontine, optionalMember.get()).orElse(null)
+
+            if (memberRequest == null) {
+                errors["error"] = "tontine_member_not_exist"
+            } else {
+                if (tontine.numberOfParticipant > 0) {
+                    tontine.numberOfParticipant -= 1
+                    tontineRepository.save(tontine)
+                }
+                tontineRequestRepository.delete(memberRequest)
+                data = true
+            }
+        }
+        return OperationResult(data, errors)
+    }
+
+    override fun findAllApprovedTontineMembers(
+        tontine: Tontine,
+        validated: Boolean,
+        state: Int
+    ): MutableList<TontineRequest> {
+        return tontineRequestRepository.findAllByTontineAndApprovedAndState(tontine, validated, state)
     }
 
     override fun findAllByBeneficiary(member: Member): MutableList<TontineRequest> {

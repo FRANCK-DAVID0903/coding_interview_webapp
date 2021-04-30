@@ -32,7 +32,7 @@ interface TontineRequestRepository : JpaRepository<TontineRequest, Long> {
 
     fun findAllByTontineAndApproved(tontine: Tontine, approved: Boolean): MutableList<TontineRequest>
 
-//    fun findAllByTontineAndIs(tontine: Tontine, validated: Boolean): MutableList<TontineRequest>
+    fun findAllByTontineAndApprovedAndState(tontine: Tontine, approved: Boolean, state: Int): MutableList<TontineRequest>
 
     fun countAllByTontineAndState(tontine: Tontine, state: Int) : Long
 }
