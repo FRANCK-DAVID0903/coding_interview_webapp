@@ -35,7 +35,7 @@
                                     </div>
                                     <div class="card-body">
 
-                                        <div class="col-lg-8">
+                                        <div class="col-lg-8" th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}">
                                             <a th:href="@{/backend/association/__${association.id}__/members/add}"
                                                class="btn btn-primary"
                                                th:text="#{association_list_page_add_member}"></a>
@@ -50,7 +50,8 @@
                                                     <th th:text="#{association_member_list_page_result_email}"></th>
                                                     <th th:text="#{association_member_list_page_result_phone}"></th>
                                                     <th th:text="#{association_member_list_page_result_role}"></th>
-                                                    <th th:text="#{association_member_list_page_result_action}"></th>
+                                                    <th th:text="#{association_member_list_page_result_action}"
+                                                        th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}"></th>
                                                 </tr>
                                                 </thead>
 
@@ -67,7 +68,7 @@
 
                                                         <td th:text="${association_member.role}"></td>
 
-                                                        <td>
+                                                        <td th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}">
                                                             <a class="btn btn-warning btn-action mr-1" title="" th:data-original-title="#{table_update}" data-toggle="modal" data-target="#changeStatusModal"
                                                                th:data-entity="${stringHelper.clean(association_member.user.toJSON())}"
                                                                onclick="onUpdate(this.getAttribute('data-entity'));">

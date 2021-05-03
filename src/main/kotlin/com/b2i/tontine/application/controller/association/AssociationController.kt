@@ -9,6 +9,7 @@ import com.b2i.tontine.domain.account.entity.UserType
 import com.b2i.tontine.domain.account.port.UserDomain
 import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.association.port.AssociationDomain
+import com.b2i.tontine.domain.association_member.port.AssociationMemberDomain
 import com.b2i.tontine.utils.OperationResult
 import org.springframework.context.MessageSource
 import org.springframework.stereotype.Controller
@@ -26,10 +27,11 @@ import java.util.*
 @Controller
 @RequestMapping(value = [ControllerEndpoint.BACKEND_ASSOCIATION])
 class AssociationController(
-        private val associationDomain: AssociationDomain,
-        private val messageSource: MessageSource,
-        private val authenticationFacade: AuthenticationFacade,
-        private val userDomain: UserDomain
+    private val associationDomain: AssociationDomain,
+    private val associationMemberDomain: AssociationMemberDomain,
+    private val messageSource: MessageSource,
+    private val authenticationFacade: AuthenticationFacade,
+    private val userDomain: UserDomain
 ) : BaseController(ControllerEndpoint.BACKEND_ASSOCIATION) {
 
     @GetMapping("/create")
@@ -318,9 +320,29 @@ class AssociationController(
             val initial = stringInitialHelper.getStringWordsInitials(association.name)
             model.addAttribute("association", association)
             model.addAttribute("initial", initial)
+            getConnectedAssociationMember(model, association)
         }
 
         return forwardTo(page)
+    }
+
+    fun getConnectedAssociationMember(model: Model, association: Association) {
+        val user = authenticationFacade.getAuthenticatedUser().get()
+        var connectedUser = "actuator"
+
+        when (userDomain.findTypeBy(user.id)) {
+            UserType.ASSOCIATION_MEMBER -> {
+                val member = associationMemberDomain.findByAssociationAndUser(association, user)
+                if (member.isPresent) {
+                    connectedUser = member.get().role
+                    model.addAttribute("connectedUser", connectedUser)
+                }
+            }
+
+            UserType.ACTUATOR -> {
+                model.addAttribute("connectedUser", connectedUser)
+            }
+        }
     }
 
 //    fun injectDependance(model: Model){
