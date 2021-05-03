@@ -32,4 +32,6 @@ interface IManageTontineRequest {
     fun findAllByTontineAndStatus(tontine: Tontine, validated: Boolean): MutableList<TontineRequest>
 
     fun countAllByTontineAndState(tontine: Tontine, state: Int) : Long
+
+    fun countAllByTontineAndApproved(tontine: Tontine, approved: Boolean): Long
 }

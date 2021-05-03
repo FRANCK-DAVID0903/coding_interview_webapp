@@ -94,6 +94,12 @@
                                                        th:text="#{association_tontine_detail_page_tab_member_request}"></a>
                                                 </li>
                                                 <li class="nav-item">
+                                                    <a class="nav-link" id="periodicities-tab2" data-toggle="tab" href="#periodicities"
+                                                       role="tab"
+                                                       aria-selected="false"
+                                                       th:text="#{association_tontine_detail_page_tab_periodicities}"></a>
+                                                </li>
+                                                <li class="nav-item">
                                                     <a class="nav-link" id="update-tab2" data-toggle="tab" href="#update"
                                                        role="tab"
                                                        aria-selected="false"
@@ -219,6 +225,76 @@
                                                                                 </a>
                                                                             </td>
                                                                         </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="tab-pane fade" id="periodicities" role="tabpanel" aria-labelledby="periodicities-tab2">
+
+                                                    <div class="row">
+                                                        <div class="media-body">
+                                                            <div class="card-body">
+                                                                <ul class="list-unstyled list-unstyled-border">
+                                                                    <li class="media">
+
+                                                                        <div class="col-lg-8">
+                                                                            <a class="btn btn-primary" type="button" data-toggle="modal"
+                                                                               data-target="#generatePeriodicitiesModal" th:data-entity="${stringHelper.clean(tontine.toJSON())}" onclick="onUpdate(this.getAttribute('data-entity'));"
+                                                                               th:text="#{association_tontine_detail_page_tab_generate_periodicities}"></a>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <br>
+
+                                                    <div th:if="${tontine.type == 'OPENED'}" class="card">
+                                                        <div class="card-header">
+                                                            <h4 th:text="#{association_tontine_detail_page_tab_periodicities}"></h4>
+                                                        </div>
+                                                        <div class="card-body p-0">
+                                                            <div class="table-responsive">
+                                                                <table class="table table-striped" id="sortable-table">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            <i class="fas fa-th"></i>
+                                                                        </th>
+                                                                        <th th:text="#{association_tontine_detail_page_table_StartDate}"></th>
+                                                                        <th th:text="#{association_tontine_detail_page_table_Endate}"></th>
+                                                                        <th th:text="#{association_list_page_table_header_status}"></th>
+                                                                        <th th:text="#{association_member_list_page_result_action}"></th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr th:each="tontineRequest : ${tontineRequests}">
+                                                                        <td>
+                                                                            <div class="sort-handler">
+                                                                                <i class="fas fa-th"></i>
+                                                                            </div>
+                                                                        </td>
+
+                                                                        <td th:text="${#calendars.format(tontineRequest.requestDate, 'dd-MM-yyyy')}"></td>
+
+                                                                        <td class="align-middle" th:text="#{association_tontine_detail_page_table_approved}"></td>
+
+                                                                        <td>
+                                                                            <a class="btn btn-primary btn-action mr-1" type="button" data-toggle="modal" data-target="#approvedRequestModal"
+                                                                               th:data-entity="${stringHelper.clean(tontineRequest.beneficiary.toJSON())}" onclick="onUpdateMember(this.getAttribute('data-entity'));">
+                                                                                <i class="fas fa-check-circle"></i>
+                                                                            </a>
+
+                                                                            <a class="btn btn-danger btn-action mr-1" type="button" data-toggle="modal" data-target="#unapprovedRequestModal"
+                                                                               th:data-entity="${stringHelper.clean(tontineRequest.beneficiary.toJSON())}" onclick="onUpdateMember(this.getAttribute('data-entity'));">
+                                                                                <i class="fas fa-trash"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -380,6 +456,22 @@
 
                             <div class="modal-body" id="closeMembership_body">
                                 <p th:text="#{association_tontine_detail_page_tab_member_request_close_desc}"></p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Generate Periodicities Membership -->
+                    <div class="modal fade" id="generatePeriodicitiesModal" tabindex="-1" role="dialog"
+                         aria-labelledby="generatePeriodicitiesModalTitle" aria-hidden="true">
+
+                        <div th:insert="fragments/modal/fragment_add_modal ::
+                                                   fragment_add_modal(title='Close membership',
+                                                   methodUrl='/backend/association/'+__${association.id}__+'/tontines/'+__${tontine.id}__+'/generatePeriodicities',
+                                                   body = ~{ :: #generatePeriodicitiesModal_body})">
+
+                            <div class="modal-body" id="generatePeriodicitiesModal_body">
+                                <p th:text="#{association_tontine_detail_page_tab_member_generate_periodicities_desc}"></p>
                             </div>
 
                         </div>

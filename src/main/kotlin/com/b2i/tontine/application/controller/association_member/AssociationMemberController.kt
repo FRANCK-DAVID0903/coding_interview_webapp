@@ -7,17 +7,22 @@ import com.b2i.tontine.application.controller.ControllerEndpoint
 import com.b2i.tontine.application.facade.AuthenticationFacade
 import com.b2i.tontine.domain.account.entity.AssociationRole
 import com.b2i.tontine.domain.account.entity.User
+import com.b2i.tontine.domain.account.member.port.MemberDomain
 import com.b2i.tontine.domain.account.port.UserDomain
 import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.association.port.AssociationDomain
 import com.b2i.tontine.domain.association_member.entity.AssociationMember
 import com.b2i.tontine.domain.association_member.port.AssociationMemberDomain
+import com.b2i.tontine.domain.contribution.entity.Contribution
+import com.b2i.tontine.domain.contribution.port.ContributionDomain
 import com.b2i.tontine.utils.OperationResult
 import org.springframework.context.MessageSource
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
 import java.util.*
 
 
@@ -32,7 +37,9 @@ class AssociationMemberController(
     private val associationMemberDomain: AssociationMemberDomain,
     private val associationDomain: AssociationDomain,
     private val userDomain: UserDomain,
+    private val memberDomain: MemberDomain,
     private val messageSource: MessageSource,
+    private val contributionDomain: ContributionDomain,
     private val authenticationFacade: AuthenticationFacade
 ) :
     BaseController("/backend/association_member/", ControllerEndpoint.BACKEND_ASSOCIATION) {
@@ -240,6 +247,62 @@ class AssociationMemberController(
 
                 }
             }
+        }
+
+        injectAssociation(model, association_id)
+
+        return forwardTo("list_association_member")
+    }
+
+    @PostMapping("/{association_id}/members/cotisations")
+    fun cotisationMemberInAsso(
+            model: Model,
+            @PathVariable association_id: String,
+            @RequestParam("id")id:Long,
+            @RequestParam("mois")mois:Int,
+            @RequestParam("dateCota")dateCota:String,
+            @RequestParam("montant")montant:Double,
+            redirectAttributes: RedirectAttributes,
+            locale: Locale
+    ): String {
+
+        val userC = authenticationFacade.getAuthenticatedUser().get()
+        val memberChoose = memberDomain.findById(id)
+        //val profil = UserProfiler.profile(userC)
+
+        if (mois in 13..0){
+            ControlForm.model(model,"Choississez un mois qui existe dans la liste proposée",Color.red)
+        }
+
+        if (montant < 0){
+            ControlForm.model(model,"Vous cotisez pour un montant inférieur à 0",Color.red)
+        }
+
+        if( dateCota.isEmpty() ) {
+            ControlForm.model(model, "Veuillez renseigner la date de cotisation", Color.red )
+        }
+
+        if (memberChoose==null){
+            ControlForm.model(model,"Aucun membre trouvé",Color.red)
+        }
+        else{
+            var cota = Contribution()
+            cota.contributionDate = SimpleDateFormat("YYYY-MM-dd").parse(dateCota)
+            cota.monthNumber = mois
+            cota.amount = montant
+            memberChoose.ifPresent(){
+                cota.user = it
+                model.addAttribute("allCotisations",contributionDomain.findAllByUser(it))
+                model.addAttribute("sumAllCotisations",contributionDomain.findAllByUser(it).sumByDouble { it.amount })
+
+                val monthNumber = LocalDateTime.now().monthValue
+                model.addAttribute("allCotisationsByMonth",contributionDomain.findAllByUserAndMonthNumber(it,monthNumber))
+                model.addAttribute("sumAllCotisationsByMonth",contributionDomain.findAllByUserAndMonthNumber(it,monthNumber).sumByDouble { it.amount })
+
+            }
+            contributionDomain.saveContribution(cota)
+            ControlForm.model(model, "Opération effectué avec succès", Color.green)
+
         }
 
         injectAssociation(model, association_id)

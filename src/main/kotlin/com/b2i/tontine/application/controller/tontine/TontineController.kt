@@ -11,6 +11,8 @@ import com.b2i.tontine.domain.association_member.entity.AssociationMember
 import com.b2i.tontine.domain.association_member.port.AssociationMemberDomain
 import com.b2i.tontine.domain.tontine.entity.Tontine
 import com.b2i.tontine.domain.tontine.port.TontineDomain
+import com.b2i.tontine.domain.tontine_periodicity.entity.TontinePeriodicity
+import com.b2i.tontine.domain.tontine_periodicity.port.TontinePeriodicityDomain
 import com.b2i.tontine.domain.tontine_request.port.TontineRequestDomain
 import com.b2i.tontine.utils.OperationResult
 import org.springframework.context.MessageSource
@@ -33,6 +35,7 @@ class TontineController(
     private val associationDomain: AssociationDomain,
     private val associationMemberDomain: AssociationMemberDomain,
     private val tontineRequestDomain: TontineRequestDomain,
+    private val tontinePeriodicityDomain: TontinePeriodicityDomain,
     private val messageSource: MessageSource
 ) :
     BaseController("/backend/tontine/", ControllerEndpoint.BACKEND_ASSOCIATION) {
@@ -207,6 +210,59 @@ class TontineController(
         return redirectTo(url)
     }
 
+    @PostMapping(value = ["/{association_id}/tontines/{tontine_id}/generatePeriodicities"])
+    fun tontineGeneratePeriodicities(
+            redirectAttributes: RedirectAttributes,
+            @PathVariable association_id: String,
+            @PathVariable tontine_id: String,
+            locale: Locale
+    ): String {
+        var url = "$association_id/tontines"
+
+        //get tontine by id
+        val tontineSelected = tontineDomain.findTontineById(tontine_id.toLong())
+
+        //find the number of tontine members request validate
+        val numberPeriodities = tontineRequestDomain.countAllByTontineAndApproved(tontineSelected.get(),true)
+        var decompte = 0L
+
+        val nb = tontinePeriodicityDomain.countAllByTontine(tontineSelected.get())
+
+        if (nb <= 0L)
+        {
+            while (decompte < numberPeriodities) {
+                var period = TontinePeriodicity()
+
+                decompte += 1
+                period.periodicityNumber =decompte
+                period!!.tontine =tontineSelected.get()
+                //period!!.periodicityNumber =decompte
+                val result: OperationResult<TontinePeriodicity> =
+                        tontinePeriodicityDomain.saveTontinePeriodicity(period)
+
+            }
+
+            ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("tontinePeriodities_save_success", null, locale),
+                    Color.green
+            )
+            url = "$association_id/tontines/$tontine_id"
+
+        }
+        else{
+
+            ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("tontinePeriodities_allReady_generated", null, locale),
+                    Color.red
+            )
+        }
+
+        return redirectTo(url)
+    }
+
+
     @GetMapping("/{association_id}/tontines")
     fun listOfAssociationTontines(
         model: Model, @PathVariable association_id: String,
@@ -257,6 +313,7 @@ class TontineController(
             model.addAttribute("associationMembers", associationMembers)
             model.addAttribute("tontineRequests", tontineRequestDomain.findAllApprovedTontineMembers(tontine, false, 0))
             model.addAttribute("tontineMembers", tontineRequestDomain.findAllApprovedTontineMembers(tontine, true, 0))
+            model.addAttribute("tontinePeriodicity", tontinePeriodicityDomain.findAllByTontine(tontine))
             model.addAttribute("association", association)
             model.addAttribute("membershipDeadline", isMembershipDeadline)
             model.addAttribute("tontine", tontine)

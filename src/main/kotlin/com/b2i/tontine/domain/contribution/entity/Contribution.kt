@@ -5,6 +5,7 @@ import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.entity.common.BaseEntity
 import com.fasterxml.jackson.annotation.JsonBackReference
 import java.time.LocalDate
+import java.util.*
 import javax.persistence.*
 
 
@@ -18,12 +19,14 @@ class Contribution : BaseEntity() {
 
     var amount : Double = 0.0
 
-    var contributionDate : LocalDate? = null
+    var contributionDate : Date? = null
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "association_id")
     var association : Association? = null
+
+    var monthNumber : Int = 0
 
     @ManyToOne(targetEntity = User::class, optional = false)
     var user : User? = null

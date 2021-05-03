@@ -22,7 +22,7 @@ class TontinePeriodicity: BaseEntity() {
 
     var periodicityNumber: Long = 0
 
-    var periodicityState : String = TontineType.OPENED
+    var periodicityState : String = TontineType.CLOSED
 
     var contributionStartDate: Date? = null
 

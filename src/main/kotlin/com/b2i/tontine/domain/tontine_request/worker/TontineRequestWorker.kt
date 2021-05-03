@@ -180,4 +180,8 @@ class TontineRequestWorker:TontineRequestDomain {
     override fun countAllByTontineAndState(tontine: Tontine, state: Int): Long {
         return tontineRequestRepository.countAllByTontineAndState(tontine,state)
     }
+
+    override fun countAllByTontineAndApproved(tontine: Tontine, approved: Boolean): Long {
+        return tontineRequestRepository.countAllByTontineAndApproved(tontine,approved)
+    }
 }
