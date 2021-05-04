@@ -7,6 +7,7 @@ import com.b2i.tontine.application.controller.ControllerEndpoint
 import com.b2i.tontine.application.facade.AuthenticationFacade
 import com.b2i.tontine.domain.account.entity.AssociationRole
 import com.b2i.tontine.domain.account.entity.User
+import com.b2i.tontine.domain.account.entity.UserType
 import com.b2i.tontine.domain.account.member.port.MemberDomain
 import com.b2i.tontine.domain.account.port.UserDomain
 import com.b2i.tontine.domain.association.entity.Association
@@ -319,6 +320,24 @@ class AssociationMemberController(
 
             val members = associationMemberDomain.findAllMembersInAssociation(association)
             model.addAttribute("association_members", members)
+
+
+            val user = authenticationFacade.getAuthenticatedUser().get()
+            var connectedUser = "actuator"
+
+            when (userDomain.findTypeBy(user.id)) {
+                UserType.ASSOCIATION_MEMBER -> {
+                    val member = associationMemberDomain.findByAssociationAndUser(association, user)
+                    if (member.isPresent) {
+                        connectedUser = member.get().role
+                        model.addAttribute("connectedUser", connectedUser)
+                    }
+                }
+
+                UserType.ACTUATOR -> {
+                    model.addAttribute("connectedUser", connectedUser)
+                }
+            }
         }
     }
 

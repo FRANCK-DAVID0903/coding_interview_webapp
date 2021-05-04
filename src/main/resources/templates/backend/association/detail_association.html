@@ -150,39 +150,16 @@
                                         </div>
                                         <div class="card-body">
                                             <p>
-                                                <button class="btn btn-primary" type="button" data-toggle="collapse"
-                                                        data-target="#collapseMembers" aria-expanded="false"
-                                                        aria-controls="collapseMembers"
-                                                        th:text="#{association_detail_page_action_members}">
-                                                </button>
-                                                <button class="btn btn-primary" type="button" data-toggle="collapse"
-                                                        data-target="#collapseTontines" aria-expanded="false"
-                                                        aria-controls="collapseTontines"
-                                                        th:text="#{association_detail_page_action_tontines}">
-                                                </button>
+                                                <a th:href="@{/backend/association/__${association.id}__/members}" class="btn btn-primary"
+                                                        th:text="#{association_detail_page_action_members}"></a>
+                                                <a th:href="@{/backend/association/__${association.id}__/tontines}" class="btn btn-primary"
+                                                        th:text="#{association_detail_page_action_tontines}"></a>
                                             </p>
-
-                                            <div class="collapse" id="collapseMembers">
-                                                <p th:text="#{association_detail_page_action_members_desc}"></p>
-                                                <p>
-                                                    <a class="nav-link" th:href="@{/backend/association/__${association.id}__/members}">
-                                                        <span th:text="#{association_detail_page_action_link}"></span>
-                                                    </a>
-                                                </p>
-                                            </div>
-                                            <div class="collapse" id="collapseTontines">
-                                                <p th:text="#{association_detail_page_action_tontines_desc}"></p>
-                                                <p>
-                                                    <a class="nav-link" th:href="@{/backend/association/__${association.id}__/tontines}">
-                                                        <span th:text="#{association_detail_page_action_link}"></span>
-                                                    </a>
-                                                </p>
-                                            </div>
                                         </div>
                                     </div>
 
 
-                                    <div class="card">
+                                    <div class="card" th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}">
                                         <div class="padding-20">
 
                                             <ul class="nav nav-tabs" id="myTab2" role="tablist">
