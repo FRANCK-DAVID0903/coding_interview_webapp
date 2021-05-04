@@ -74,8 +74,9 @@
                                                                 <a th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}" th:href="@{/backend/association/__${association.id}__/tontines/__${tontine.id}__}"
                                                                    class="btn btn-primary" th:text="#{association_list_page_table_header_action_detail}"></a>
 
-                                                                <a th:href="@{/backend/association/__${association.id}__/tontines/__${tontine.id}__/addMember}"
-                                                                   class="btn btn-primary" th:text="#{association_list_page_table_header_action_join}"></a>
+                                                                <a class="btn btn-primary" type="button" data-toggle="modal" data-target="#addMemberModal"
+                                                                   th:data-entity="${stringHelper.clean(tontine.toJSON())}" onclick="onUpdate(this.getAttribute('data-entity'));"
+                                                                   th:text="#{association_list_page_table_header_action_join}"></a>
                                                             </td>
 
                                                         </tr>
@@ -93,6 +94,23 @@
 
                     </section>
 
+                    <!-- Add member to tontine -->
+                    <div class="modal fade" id="addMemberModal" tabindex="-1" role="dialog"
+                         aria-labelledby="addMemberModalTitle" aria-hidden="true">
+
+                        <div th:insert="fragments/modal/fragment_add_modal ::
+                                                   fragment_add_modal(title='Add member in tontine',
+                                                   methodUrl='/backend/association/'+__${association.id}__+'/tontines/addMember',
+                                                   body = ~{ :: #modal_body})">
+
+                            <div class="modal-body" id="modal_body">
+                                <input type="hidden" name="member_id" th:value="${connectedUserId}">
+                                <p th:text="#{association_list_page_modal_desc}"></p>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
 
                 <!-- Footer ============================================= -->
@@ -101,6 +119,13 @@
             </div>
 
         </div>
+
+        <script type="application/javascript">
+            function onUpdate(json) {
+                var tontineS = jQuery.parseJSON(json.replace("'", "\\'"));
+                $('.model-id').val(tontineS.id);
+            }
+        </script>
 
     </body>
 
