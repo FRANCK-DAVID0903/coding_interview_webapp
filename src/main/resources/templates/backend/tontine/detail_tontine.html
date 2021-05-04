@@ -292,9 +292,9 @@
                                                                                 <i class="fas fa-check-circle"></i>
                                                                             </a>
 
-                                                                            <a class="btn btn-danger btn-action mr-1" type="button" data-toggle="modal" data-target="#unapprovedRequestModal"
+                                                                            <a class="btn btn-danger btn-action mr-1" type="button" data-toggle="modal" data-target="#closePeriodicityModal"
                                                                                th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
-                                                                                <i class="fas fa-trash"></i>
+                                                                                <i class="fas fa-times"></i>
                                                                             </a>
                                                                         </td>
                                                                     </tr>
@@ -471,9 +471,9 @@
                         <div th:insert="fragments/modal/fragment_add_modal ::
                                                    fragment_add_modal(title='Update Periodicity',
                                                    methodUrl='/backend/association/'+__${association.id}__+'/tontines/'+__${tontine.id}__+'/updatePeriodicity',
-                                                   body = ~{ :: #generatePeriodicitiesModal_body})">
+                                                   body = ~{ :: #updatePeriodicityModal_body})">
 
-                            <div class="modal-body" id="generatePeriodicitiesModal_body">
+                            <div class="modal-body" id="updatePeriodicityModal_body">
 
                                 <div class="row">
 
@@ -508,6 +508,50 @@
 
                             <div class="modal-body" id="generatePeriodicitiesModal_body">
                                 <p th:text="#{association_tontine_detail_page_tab_member_generate_periodicities_desc}"></p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Closed periodicity -->
+                    <div class="modal fade" id="closePeriodicityModal" tabindex="-1" role="dialog"
+                         aria-labelledby="closePeriodicityModalTitle" aria-hidden="true">
+
+                        <div th:insert="fragments/modal/fragment_add_modal ::
+                                                   fragment_add_modal(title='Close periodicity',
+                                                   methodUrl='/backend/association/'+__${association.id}__+'/tontines/'+__${tontine.id}__+'/generatePeriodicities',
+                                                   body = ~{ :: #closePeriodicityModal_body})">
+
+                            <div class="modal-body" id="closePeriodicityModal_body">
+
+                                <div class="form-group col-12">
+                                    <p th:text="#{association_tontine_detail_page_tab_member_close_periodicity_desc}"></p>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Add beneficiary periodicity -->
+                    <div class="modal fade" id="addBenefPeriodicityModal" tabindex="-1" role="dialog"
+                         aria-labelledby="addBenefPeriodicityModalTitle" aria-hidden="true">
+
+                        <div th:insert="fragments/modal/fragment_add_modal ::
+                                                   fragment_add_modal(title='Close periodicity',
+                                                   methodUrl='/backend/association/'+__${association.id}__+'/tontines/'+__${tontine.id}__+'/generatePeriodicities',
+                                                   body = ~{ :: #addBenefPeriodicityModal_body})">
+
+                            <div class="modal-body" id="addBenefPeriodicityModal_body">
+
+                                <div class="form-group col-12">
+                                    <label for="endDate" th:text="#{association_tontine_detail_page_table_Endate}"></label>
+                                    <select name="benef" id="benef">
+                                        <option th:each="tontineMember : ${tontineMembers}" th:value="${tontineMember.beneficiary.id}" th:text="${tontineMember.beneficiary.firstname} +' '+ ${tontineMember.beneficiary.lastname}"></option>
+                                    </select>
+
+                                </div>
+
                             </div>
 
                         </div>

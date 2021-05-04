@@ -373,7 +373,7 @@ class TontineController(
             model.addAttribute("associationMembers", associationMembers)
             model.addAttribute("tontineRequests", tontineRequestDomain.findAllApprovedTontineMembers(tontine, false, 0))
             model.addAttribute("tontineMembers", tontineRequestDomain.findAllApprovedTontineMembers(tontine, true, 0))
-            model.addAttribute("tontinePeriodicities", tontinePeriodicityDomain.findAllByTontine(tontine).sortBy { it.id })
+            model.addAttribute("tontinePeriodicities", tontinePeriodicityDomain.findAllByTontine(tontine).sortedBy { it.periodicityNumber })
             model.addAttribute("association", association)
             model.addAttribute("membershipDeadline", isMembershipDeadline)
             model.addAttribute("tontine", tontine)
