@@ -321,7 +321,6 @@ class AssociationMemberController(
             val members = associationMemberDomain.findAllMembersInAssociation(association)
             model.addAttribute("association_members", members)
 
-
             val user = authenticationFacade.getAuthenticatedUser().get()
             var connectedUser = "actuator"
 

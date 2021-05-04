@@ -5,6 +5,9 @@ import com.b2i.tontine.application.controlForm.ControlForm
 import org.springframework.stereotype.Controller
 import com.b2i.tontine.application.controller.BaseController
 import com.b2i.tontine.application.controller.ControllerEndpoint
+import com.b2i.tontine.application.facade.AuthenticationFacade
+import com.b2i.tontine.domain.account.entity.UserType
+import com.b2i.tontine.domain.account.port.UserDomain
 import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.association.port.AssociationDomain
 import com.b2i.tontine.domain.association_member.entity.AssociationMember
@@ -38,13 +41,19 @@ class TontineController(
     private val associationMemberDomain: AssociationMemberDomain,
     private val tontineRequestDomain: TontineRequestDomain,
     private val tontinePeriodicityDomain: TontinePeriodicityDomain,
+    private val authenticationFacade: AuthenticationFacade,
+    private val userDomain: UserDomain,
     private val messageSource: MessageSource
 ) :
     BaseController("/backend/tontine/", ControllerEndpoint.BACKEND_ASSOCIATION) {
 
     @GetMapping("/{association_id}/tontines/create")
     fun goToCreateTontine(model: Model, @PathVariable association_id: String): String {
-        injectAssociation(model, association_id)
+        val association: Association? = associationDomain.findAssociationById(association_id.toLong()).orElse(null)
+
+        if (association != null) {
+            injectAssociation(model, association)
+        }
 
         return forwardTo("add_tontine")
     }
@@ -343,11 +352,10 @@ class TontineController(
                 if (association.isPresent) {
                     val tontines = tontineDomain.findAllTontinesByAssociation(association.get())
                     model.addAttribute("association_tontines", tontines)
+                    injectAssociation(model ,association.get())
                 }
             }
         }
-
-        injectAssociation(model, association_id)
 
         return forwardTo("list_tontine")
     }
@@ -374,19 +382,31 @@ class TontineController(
             model.addAttribute("tontineRequests", tontineRequestDomain.findAllApprovedTontineMembers(tontine, false, 0))
             model.addAttribute("tontineMembers", tontineRequestDomain.findAllApprovedTontineMembers(tontine, true, 0))
             model.addAttribute("tontinePeriodicities", tontinePeriodicityDomain.findAllByTontine(tontine).sortBy { it.id })
-            model.addAttribute("association", association)
             model.addAttribute("membershipDeadline", isMembershipDeadline)
             model.addAttribute("tontine", tontine)
+            injectAssociation(model, association)
         }
 
         return forwardTo(page)
     }
 
     //Inject association in view
-    fun injectAssociation(model: Model, id: String) {
-        val association: Association? = associationDomain.findAssociationById(id.toLong()).orElse(null)
-        if (association != null) {
-            model.addAttribute("association", association)
+    fun injectAssociation(model: Model, association: Association) {
+        model.addAttribute("association", association)
+        val user = authenticationFacade.getAuthenticatedUser().get()
+        var connectedUser = "actuator"
+
+        when (userDomain.findTypeBy(user.id)) {
+            UserType.ASSOCIATION_MEMBER -> {
+                val member = associationMemberDomain.findByAssociationAndUser(association, user)
+                if (member.isPresent) {
+                    connectedUser = member.get().role
+                    model.addAttribute("connectedUser", connectedUser)
+                }
+            }
+            UserType.ACTUATOR -> {
+                model.addAttribute("connectedUser", connectedUser)
+            }
         }
     }
 

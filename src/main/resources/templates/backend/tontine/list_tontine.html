@@ -71,8 +71,11 @@
                                                             <td th:text="${#dates.format(tontine.endDate, 'dd-MM-yyyy')}"></td>
 
                                                             <td class="text-center">
-                                                                <a th:href="@{/backend/association/__${association.id}__/tontines/__${tontine.id}__}"
-                                                                   class="btn btn-primary" th:text="#{association_list_page_table_header_Action_detail}"></a>
+                                                                <a th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}" th:href="@{/backend/association/__${association.id}__/tontines/__${tontine.id}__}"
+                                                                   class="btn btn-primary" th:text="#{association_list_page_table_header_action_detail}"></a>
+
+                                                                <a th:href="@{/backend/association/__${association.id}__/tontines/__${tontine.id}__/addMember}"
+                                                                   class="btn btn-primary" th:text="#{association_list_page_table_header_action_join}"></a>
                                                             </td>
 
                                                         </tr>
