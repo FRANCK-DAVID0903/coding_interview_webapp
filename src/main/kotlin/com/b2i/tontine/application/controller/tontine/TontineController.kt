@@ -10,6 +10,7 @@ import com.b2i.tontine.domain.association.port.AssociationDomain
 import com.b2i.tontine.domain.association_member.entity.AssociationMember
 import com.b2i.tontine.domain.association_member.port.AssociationMemberDomain
 import com.b2i.tontine.domain.tontine.entity.Tontine
+import com.b2i.tontine.domain.tontine.entity.TontineType
 import com.b2i.tontine.domain.tontine.port.TontineDomain
 import com.b2i.tontine.domain.tontine_periodicity.entity.TontinePeriodicity
 import com.b2i.tontine.domain.tontine_periodicity.port.TontinePeriodicityDomain
@@ -19,6 +20,7 @@ import org.springframework.context.MessageSource
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
 
@@ -262,6 +264,64 @@ class TontineController(
         return redirectTo(url)
     }
 
+    @PostMapping(value = ["/{association_id}/tontines/{tontine_id}/updatePeriodicity"])
+    fun updatePeriodicity(
+            redirectAttributes: RedirectAttributes,
+            @PathVariable association_id: String,
+            @PathVariable tontine_id: String,
+            @RequestParam("id") id : String,
+            @RequestParam("startDate") startDate : String,
+            @RequestParam("endDate") endDate : String,
+            @RequestParam("issueDate") issueDate : String,
+            locale: Locale
+    ): String {
+        var url = "$association_id/tontines"
+
+        if (startDate.isEmpty()){
+                    ControlForm.redirectAttribute(
+                            redirectAttributes,
+                            messageSource.getMessage("association_member_id_association_empty", null, locale),
+                            Color.red)
+                }
+        else if (endDate.isEmpty()){
+            ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("association_member_id_association_empty", null, locale),
+                    Color.red)
+        }
+        //get tontinePeriodicity by id
+        val periodicity = tontinePeriodicityDomain.findById(id.toLong()).orElse(null)
+
+        if (periodicity != null){
+            periodicity.biddingDeadline = SimpleDateFormat("yyyy-MM-dd").parse(issueDate)
+            periodicity.contributionStartDate = SimpleDateFormat("yyyy-MM-dd").parse(startDate)
+            periodicity.contributionEndDate = SimpleDateFormat("yyyy-MM-dd").parse(endDate)
+            periodicity.periodicityState = TontineType.OPENED
+
+            val result = tontinePeriodicityDomain.updateTontine(periodicity)
+
+            val err: MutableMap<String, String> = mutableMapOf()
+            if (result.errors!!.isNotEmpty()) {
+                result.errors.forEach {
+                    (key, value) -> err[key] = messageSource.getMessage(value, null, locale)
+                }
+            }
+
+            if (
+                    ControlForm.verifyHashMapRedirect(
+                            redirectAttributes,
+                            err,
+                            messageSource.getMessage("association_update_success", null, locale)
+                    )
+            ) {
+                url = "$association_id/tontines/$tontine_id"
+            }
+        }
+
+
+        return redirectTo(url)
+    }
+
 
     @GetMapping("/{association_id}/tontines")
     fun listOfAssociationTontines(
@@ -313,7 +373,7 @@ class TontineController(
             model.addAttribute("associationMembers", associationMembers)
             model.addAttribute("tontineRequests", tontineRequestDomain.findAllApprovedTontineMembers(tontine, false, 0))
             model.addAttribute("tontineMembers", tontineRequestDomain.findAllApprovedTontineMembers(tontine, true, 0))
-            model.addAttribute("tontinePeriodicity", tontinePeriodicityDomain.findAllByTontine(tontine))
+            model.addAttribute("tontinePeriodicities", tontinePeriodicityDomain.findAllByTontine(tontine).sortBy { it.id })
             model.addAttribute("association", association)
             model.addAttribute("membershipDeadline", isMembershipDeadline)
             model.addAttribute("tontine", tontine)

@@ -23,4 +23,6 @@ interface IManageTontinePeriodicity {
     fun addBeneficiary(member: Member,id:Long): OperationResult<TontinePeriodicity>
 
     fun findById(id: Long):Optional<TontinePeriodicity>
+
+    fun updateTontine(tontinePeriodicity: TontinePeriodicity):OperationResult<TontinePeriodicity>
 }

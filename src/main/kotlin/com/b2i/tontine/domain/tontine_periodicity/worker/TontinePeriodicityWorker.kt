@@ -72,4 +72,28 @@ class TontinePeriodicityWorker: TontinePeriodicityDomain {
     override fun findById(id: Long): Optional<TontinePeriodicity> {
         return tontinePeriodicityRepository.findById(id)
     }
+
+    override fun updateTontine(tontinePeriodicity: TontinePeriodicity): OperationResult<TontinePeriodicity> {
+
+        var errors: MutableMap<String, String> = mutableMapOf()
+        var data= tontinePeriodicity
+
+
+        if (tontinePeriodicity.contributionStartDate!!.before(tontinePeriodicity.contributionEndDate)){
+
+            if (tontinePeriodicity.contributionEndDate!!.before(tontinePeriodicity.biddingDeadline)){
+                data = tontinePeriodicityRepository.save(tontinePeriodicity)
+            }
+            else{
+                errors["date"] = "dateTake_inf_dateBegin"
+            }
+
+        }
+        else{
+            errors["date"] = "dateEnd_inf_dateBegin"
+        }
+
+        return OperationResult(data,errors)
+
+    }
 }

@@ -253,7 +253,7 @@
                                                     </div>
                                                     <br>
 
-                                                    <div th:if="${tontine.type == 'OPENED'}" class="card">
+                                                    <div class="card">
                                                         <div class="card-header">
                                                             <h4 th:text="#{association_tontine_detail_page_tab_periodicities}"></h4>
                                                         </div>
@@ -267,30 +267,33 @@
                                                                         </th>
                                                                         <th th:text="#{association_tontine_detail_page_table_StartDate}"></th>
                                                                         <th th:text="#{association_tontine_detail_page_table_Endate}"></th>
+                                                                        <th th:text="#{association_tontine_detail_page_issue_date}"></th>
                                                                         <th th:text="#{association_list_page_table_header_status}"></th>
+                                                                        <th th:text="#{association_tontine_detail_page_table_beneficiary}"></th>
                                                                         <th th:text="#{association_member_list_page_result_action}"></th>
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                    <tr th:each="tontineRequest : ${tontineRequests}">
+                                                                    <tr th:each="periode : ${tontinePeriodicities}">
+                                                                        <td th:text="${periode.periodicityNumber}"></td>
+
+
+                                                                        <td th:text="${#calendars.format(periode.contributionStartDate, 'dd-MM-yyyy')}"></td>
+                                                                        <td th:text="${#calendars.format(periode.contributionEndDate, 'dd-MM-yyyy')}"></td>
+                                                                        <td th:text="${#calendars.format(periode.biddingDeadline, 'dd-MM-yyyy')}"></td>
+
+                                                                        <td class="align-middle" th:text="${periode.periodicityState}"></td>
+                                                                        <td class="align-middle" th:if="${periode.beneficiary != null}" th:text="${periode.beneficiary.firstname}"></td>
+                                                                        <td class="align-middle" th:if="${periode.beneficiary == null}" ></td>
+
                                                                         <td>
-                                                                            <div class="sort-handler">
-                                                                                <i class="fas fa-th"></i>
-                                                                            </div>
-                                                                        </td>
-
-                                                                        <td th:text="${#calendars.format(tontineRequest.requestDate, 'dd-MM-yyyy')}"></td>
-
-                                                                        <td class="align-middle" th:text="#{association_tontine_detail_page_table_approved}"></td>
-
-                                                                        <td>
-                                                                            <a class="btn btn-primary btn-action mr-1" type="button" data-toggle="modal" data-target="#approvedRequestModal"
-                                                                               th:data-entity="${stringHelper.clean(tontineRequest.beneficiary.toJSON())}" onclick="onUpdateMember(this.getAttribute('data-entity'));">
+                                                                            <a class="btn btn-primary btn-action mr-1" type="button" data-toggle="modal" data-target="#updatePeriodicityModal"
+                                                                               th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
                                                                                 <i class="fas fa-check-circle"></i>
                                                                             </a>
 
                                                                             <a class="btn btn-danger btn-action mr-1" type="button" data-toggle="modal" data-target="#unapprovedRequestModal"
-                                                                               th:data-entity="${stringHelper.clean(tontineRequest.beneficiary.toJSON())}" onclick="onUpdateMember(this.getAttribute('data-entity'));">
+                                                                               th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
                                                                                 <i class="fas fa-trash"></i>
                                                                             </a>
                                                                         </td>
@@ -461,6 +464,39 @@
                         </div>
                     </div>
 
+                    <!-- Update periodicities -->
+                    <div class="modal fade" id="updatePeriodicityModal" tabindex="-1" role="dialog"
+                         aria-labelledby="updatePeriodicityModalTitle" aria-hidden="true">
+
+                        <div th:insert="fragments/modal/fragment_add_modal ::
+                                                   fragment_add_modal(title='Update Periodicity',
+                                                   methodUrl='/backend/association/'+__${association.id}__+'/tontines/'+__${tontine.id}__+'/updatePeriodicity',
+                                                   body = ~{ :: #generatePeriodicitiesModal_body})">
+
+                            <div class="modal-body" id="generatePeriodicitiesModal_body">
+
+                                <div class="row">
+
+                                    <div class="form-group col-4">
+                                        <label for="startDate" th:text="#{association_tontine_detail_page_table_StartDate}"></label>
+                                        <input id="startDate" type="date" class="form-control" name="startDate">
+                                    </div>
+
+                                    <div class="form-group col-4">
+                                        <label for="endDate" th:text="#{association_tontine_detail_page_table_Endate}"></label>
+                                        <input id="endDate" type="date" class="form-control" name="endDate">
+                                    </div>
+
+                                    <div class="form-group col-4">
+                                        <label for="issueDate" th:text="#{association_tontine_detail_page_issue_date}"></label>
+                                        <input id="issueDate" type="date" class="form-control" name="issueDate">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                     <!-- Generate Periodicities Membership -->
                     <div class="modal fade" id="generatePeriodicitiesModal" tabindex="-1" role="dialog"
                          aria-labelledby="generatePeriodicitiesModalTitle" aria-hidden="true">
@@ -502,6 +538,11 @@
             function onUpdateMember(json) {
                 var memb = jQuery.parseJSON(json.replace("'", "\\'"));
                 $('.model-id').val(memb.id);
+            }
+
+            function onActivatedPer(json) {
+                var per = jQuery.parseJSON(json.replace("'", "\\'"));
+                $('.model-id').val(per.id);
             }
         </script>
 
