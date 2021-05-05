@@ -289,12 +289,11 @@
                                                                         <td class="align-middle" th:if="${periode.beneficiary != null}" th:text="${periode.beneficiary.firstname}"></td>
                                                                         <td class="align-middle" th:if="${periode.beneficiary == null}" ></td>
 
-                                                                        <td>
+                                                                        <td th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}">
                                                                             <a class="btn btn-primary btn-action mr-1" type="button" th:if="${periode.periodicityState == 'CLOSED' && periode.biddingDeadline == null}" data-toggle="modal" data-target="#updatePeriodicityModal"
                                                                                th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
                                                                                 <i class="fas fa-check-circle"></i>
                                                                             </a>
-                                                                        <td th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}">
                                                                             <a class="btn btn-primary btn-action mr-1" type="button" data-toggle="modal" data-target="#updatePeriodicityModal"
                                                                                th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
                                                                                 <i class="fas fa-check-circle"></i>
@@ -309,7 +308,7 @@
                                                                                th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
                                                                                 <i class="fas fa-money-bill"></i>
                                                                             </a>
-                                                                        </td>
+
                                                                     </tr>
                                                                     </tbody>
                                                                 </table>
