@@ -26,6 +26,8 @@ class TontineBidding : BaseEntity() {
 
     var interestByValue : Int = 0
 
+    var firstBidding : Boolean = false
+
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

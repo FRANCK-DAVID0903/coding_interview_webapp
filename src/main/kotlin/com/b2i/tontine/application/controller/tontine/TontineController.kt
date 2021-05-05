@@ -331,6 +331,44 @@ class TontineController(
         return redirectTo(url)
     }
 
+    @PostMapping(value = ["/{association_id}/tontines/{tontine_id}/closePeriodicity"])
+    fun closePeriodicity(
+            redirectAttributes: RedirectAttributes,
+            @PathVariable association_id: String,
+            @PathVariable tontine_id: String,
+            @RequestParam("id")id: String,
+            locale: Locale
+    ): String {
+        var url = "$association_id/tontines"
+
+        //get periodicity by id
+
+        var period = tontinePeriodicityDomain.findById(id.toLong()).orElse(null)
+
+        if(period == null){
+            ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("Periodicity_not_found", null, locale),
+                    Color.green
+            )
+        }
+        else{
+            period.periodicityState = TontineType.CLOSED
+            period.biddingState = TontineType.OPENED
+
+            val result: OperationResult<TontinePeriodicity> = tontinePeriodicityDomain.saveTontinePeriodicity(period)
+
+            ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("tontinePeriodities_save_success", null, locale),
+                    Color.green
+            )
+            url = "$association_id/tontines/$tontine_id"
+        }
+
+        return redirectTo(url)
+    }
+
 
     @GetMapping("/{association_id}/tontines")
     fun listOfAssociationTontines(

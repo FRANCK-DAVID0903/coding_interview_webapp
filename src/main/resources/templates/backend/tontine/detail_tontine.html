@@ -287,14 +287,19 @@
                                                                         <td class="align-middle" th:if="${periode.beneficiary == null}" ></td>
 
                                                                         <td>
-                                                                            <a class="btn btn-primary btn-action mr-1" type="button" data-toggle="modal" data-target="#updatePeriodicityModal"
+                                                                            <a class="btn btn-primary btn-action mr-1" type="button" th:if="${periode.periodicityState == 'CLOSED' && periode.biddingDeadline == null}" data-toggle="modal" data-target="#updatePeriodicityModal"
                                                                                th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
                                                                                 <i class="fas fa-check-circle"></i>
                                                                             </a>
 
-                                                                            <a class="btn btn-danger btn-action mr-1" type="button" data-toggle="modal" data-target="#closePeriodicityModal"
+                                                                            <a class="btn btn-danger btn-action mr-1" type="button" th:if="${periode.periodicityState == 'OPENED'}" data-toggle="modal" data-target="#closePeriodicityModal"
                                                                                th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
                                                                                 <i class="fas fa-times"></i>
+                                                                            </a>
+
+                                                                            <a class="btn btn-primary btn-action mr-1" type="button" th:if="${periode.periodicityState != 'OPENED' && periode.biddingDeadline != null}" data-toggle="modal" data-target="#closePeriodicityModal"
+                                                                               th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
+                                                                                <i class="fas fa-money-bill"></i>
                                                                             </a>
                                                                         </td>
                                                                     </tr>
@@ -519,7 +524,7 @@
 
                         <div th:insert="fragments/modal/fragment_add_modal ::
                                                    fragment_add_modal(title='Close periodicity',
-                                                   methodUrl='/backend/association/'+__${association.id}__+'/tontines/'+__${tontine.id}__+'/generatePeriodicities',
+                                                   methodUrl='/backend/association/'+__${association.id}__+'/tontines/'+__${tontine.id}__+'/closePeriodicity',
                                                    body = ~{ :: #closePeriodicityModal_body})">
 
                             <div class="modal-body" id="closePeriodicityModal_body">
