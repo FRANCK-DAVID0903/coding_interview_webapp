@@ -32,6 +32,8 @@ class TontinePeriodicity: BaseEntity() {
 
     var biddingDeadline : Date? = null
 
+    var biddingAmount : Long = 0
+
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
