@@ -83,7 +83,7 @@ class TontineWorker : TontineDomain {
             data = tontineRepository.save(tontine)
         }
 
-        return  OperationResult(data, errors)
+        return OperationResult(data, errors)
     }
 
     override fun closeTontineMembership(id: Long): OperationResult<Tontine> {
@@ -99,7 +99,7 @@ class TontineWorker : TontineDomain {
             tontine.openToMembership = false
             data = tontineRepository.save(tontine)
         }
-        return  OperationResult(data, errors)
+        return OperationResult(data, errors)
     }
 
     override fun findTontineById(id: Long): Optional<Tontine> = tontineRepository.findById(id)
@@ -108,6 +108,9 @@ class TontineWorker : TontineDomain {
 
     override fun findAllTontinesByAssociation(association: Association): List<Tontine> =
         tontineRepository.findAllByAssociation(association)
+
+    override fun findAllTontinesByAssociationAndType(association: Association, type: String): List<Tontine> =
+        tontineRepository.findAllByAssociationAndType(association, type)
 
     override fun countAllTontinesByAssociation(association: Association): Long {
         return tontineRepository.countAllByAssociation(association)

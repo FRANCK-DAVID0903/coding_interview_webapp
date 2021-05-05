@@ -106,6 +106,65 @@ class TontineRequestController(
         return redirectTo(url)
     }
 
+    @PostMapping(value = ["/{association_id}/tontines/addMember"])
+    fun createTontineRequestForMember(
+        redirectAttributes: RedirectAttributes,
+        @PathVariable association_id: String,
+        @RequestParam member_id: String,
+        @RequestParam id: String,
+        locale: Locale
+    ): String {
+        var url = "$association_id/tontines"
+
+        when {
+            association_id.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("association_member_id_association_empty", null, locale),
+                    Color.red
+                )
+            }
+            id.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("tontine_id_empty", null, locale),
+                    Color.red
+                )
+            }
+            member_id.isEmpty() -> {
+                ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("user_not_found", null, locale),
+                    Color.red
+                )
+            }
+            else -> {
+                val result: OperationResult<TontineRequest> =
+                    tontineRequestDomain.createTontineRequest(id.toLong(), member_id.toLong())
+
+                val err: MutableMap<String, String> = mutableMapOf()
+                if (result.errors!!.isNotEmpty()) {
+                    result.errors.forEach { (key, value) ->
+                        err[key] = messageSource.getMessage(value, null, locale)
+                    }
+                }
+
+                if (
+                    ControlForm.verifyHashMapRedirect(
+                        redirectAttributes,
+                        err,
+                        messageSource.getMessage("tontine_request_success", null, locale)
+                    )
+                ) {
+                    url = "$association_id/tontines"
+                }
+
+            }
+        }
+
+        return redirectTo(url)
+    }
+
     @PostMapping(value = ["/{association_id}/tontines/{tontine_id}/approvedRequest"])
     fun approvedTontineRequest(
         redirectAttributes: RedirectAttributes,

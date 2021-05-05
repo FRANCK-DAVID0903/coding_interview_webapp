@@ -17,6 +17,8 @@ interface TontineRepository : JpaRepository<Tontine, Long> {
 
     fun findAllByAssociation(association: Association): List<Tontine>
 
+    fun findAllByAssociationAndType(association: Association, type: String): List<Tontine>
+
     fun countAllByAssociation(association: Association): Long
 
 }

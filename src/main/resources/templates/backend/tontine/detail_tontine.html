@@ -70,7 +70,7 @@
                             <div class="row mt-sm-4">
 
                                 <div class="col-12 col-md-12 col-lg-12">
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-8" th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}">
                                         <a class="btn btn-primary" type="button" data-toggle="modal" data-target="#addMemberModal"
                                            th:data-entity="${stringHelper.clean(tontine.toJSON())}"
                                            onclick="onUpdate(this.getAttribute('data-entity'));"
@@ -87,7 +87,7 @@
                                                        aria-selected="true"
                                                        th:text="#{association_tontine_detail_page_tab_members}"></a>
                                                 </li>
-                                                <li th:if="${tontine.type == 'OPENED'}" class="nav-item">
+                                                <li th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}" class="nav-item">
                                                     <a class="nav-link" id="request-tab2" data-toggle="tab" href="#requests"
                                                        role="tab"
                                                        aria-selected="false"
@@ -99,7 +99,7 @@
                                                        aria-selected="false"
                                                        th:text="#{association_tontine_detail_page_tab_periodicities}"></a>
                                                 </li>
-                                                <li class="nav-item">
+                                                <li th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}" class="nav-item">
                                                     <a class="nav-link" id="update-tab2" data-toggle="tab" href="#update"
                                                        role="tab"
                                                        aria-selected="false"
@@ -109,6 +109,7 @@
 
                                             <div class="tab-content tab-bordered" id="myTab3Content">
 
+                                                <!-- Tontine members list -->
                                                 <div class="tab-pane fade show active" id="members" role="tabpanel" aria-labelledby="member-tab2">
                                                     <div class="table-responsive">
                                                         <table class="table table-striped" id="table-1">
@@ -116,7 +117,7 @@
                                                                 <tr>
                                                                     <th th:text="#{association_tontine_detail_page_table_name}"></th>
                                                                     <th th:text="#{association_tontine_detail_page_table_acquisition_date}"></th>
-                                                                    <th th:text="#{association_detail_page_action}"></th>
+                                                                    <th th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}" th:text="#{association_detail_page_action}"></th>
                                                                 </tr>
                                                             </thead>
 
@@ -127,7 +128,7 @@
 
                                                                     <td th:text="${tontineMember.beneficiary.firstname}"></td>
 
-                                                                    <td>
+                                                                    <td th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}">
                                                                         <a class="btn btn-primary btn-action mr-1" title="" th:data-original-title="#{table_contribute}">
                                                                             <i class="fas fa-check-circle"></i>
                                                                         </a>
@@ -142,7 +143,8 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="tab-pane fade" id="requests" role="tabpanel" aria-labelledby="request-tab2">
+                                                <!-- Tontine membership request list -->
+                                                <div th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}" class="tab-pane fade" id="requests" role="tabpanel" aria-labelledby="request-tab2">
 
                                                     <div class="row">
                                                         <div class="media-body">
@@ -232,9 +234,10 @@
                                                     </div>
                                                 </div>
 
+                                                <!-- Tontine periodicities list -->
                                                 <div class="tab-pane fade" id="periodicities" role="tabpanel" aria-labelledby="periodicities-tab2">
 
-                                                    <div class="row">
+                                                    <div th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}" class="row">
                                                         <div class="media-body">
                                                             <div class="card-body">
                                                                 <ul class="list-unstyled list-unstyled-border">
@@ -270,7 +273,7 @@
                                                                         <th th:text="#{association_tontine_detail_page_issue_date}"></th>
                                                                         <th th:text="#{association_list_page_table_header_status}"></th>
                                                                         <th th:text="#{association_tontine_detail_page_table_beneficiary}"></th>
-                                                                        <th th:text="#{association_member_list_page_result_action}"></th>
+                                                                        <th th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}" th:text="#{association_member_list_page_result_action}"></th>
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -288,6 +291,11 @@
 
                                                                         <td>
                                                                             <a class="btn btn-primary btn-action mr-1" type="button" th:if="${periode.periodicityState == 'CLOSED' && periode.biddingDeadline == null}" data-toggle="modal" data-target="#updatePeriodicityModal"
+                                                                               th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
+                                                                                <i class="fas fa-check-circle"></i>
+                                                                            </a>
+                                                                        <td th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}">
+                                                                            <a class="btn btn-primary btn-action mr-1" type="button" data-toggle="modal" data-target="#updatePeriodicityModal"
                                                                                th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
                                                                                 <i class="fas fa-check-circle"></i>
                                                                             </a>
@@ -310,7 +318,8 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="tab-pane fade" id="update" role="tabpanel" aria-labelledby="update-tab2">
+                                                <!-- Tontine update -->
+                                                <div th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}" class="tab-pane fade" id="update" role="tabpanel" aria-labelledby="update-tab2">
                                                     <form method="post" th:action="@{/backend/association/__${association.id}__/tontines/update}">
 
                                                         <div class="card-body">

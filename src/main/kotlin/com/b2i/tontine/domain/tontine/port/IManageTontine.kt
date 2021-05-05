@@ -19,6 +19,8 @@ interface IManageTontine {
 
     fun findAllTontinesByAssociation(association: Association): List<Tontine>
 
+    fun findAllTontinesByAssociationAndType(association: Association, type: String): List<Tontine>
+
     fun countAllTontinesByAssociation(association: Association): Long
 
     fun countAllTontines(): Long
