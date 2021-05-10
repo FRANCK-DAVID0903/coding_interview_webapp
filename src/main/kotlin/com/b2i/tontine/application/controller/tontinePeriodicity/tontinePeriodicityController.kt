@@ -50,15 +50,67 @@ class tontinePeriodicityController(
         val tontinePeriodicity = tontinePeriodicityDomain.findById(id.toLong()).orElse(null)
 
         if (tontinePeriodicity != null){
-            model.addAttribute("tontinePeriodicityMembers", tontinePeriodicity.tontine?.let { tontineRequestDomain.findAllApprovedTontineMembers(it, true, 0) })
+            model.addAttribute("tontinePeriodicityMembers", tontineContributionDomain.findAllByTontinePeriodicity(tontinePeriodicity))
             model.addAttribute("periodicity_id",id)
         }
 
         return forwardTo("list_contributions")
     }
 
-    @PostMapping(value = ["/periodicity/details/{periodicity_id}/contribute"])
-    fun updatePeriodicity(
+    @PostMapping(value = ["/details/{periodicity_id}/contribute"])
+    fun addContribution(
+            redirectAttributes: RedirectAttributes,
+            @PathVariable periodicity_id: String,
+            @RequestParam id: String,
+            @RequestParam payementMethod: String,
+            @RequestParam contributionDate: String,
+            locale: Locale
+    ): String {
+        var url = "periodicity/details/$periodicity_id"
+
+
+        //get tontinePeriodicity by id
+        val periodicity = tontinePeriodicityDomain.findById(periodicity_id.toLong()).orElse(null)
+        val member = memberDomain.findById(id.toLong()).get()
+        val tontine = tontineDomain.findTontineById(periodicity.tontine!!.id)
+
+        if (periodicity != null){
+
+            val contribution = tontineContributionDomain.findByTontinePeriodicityAndMemberAndTontine(periodicity,member,tontine.get()).orElse(null)
+
+            if (contribution != null){
+                contribution.contributed = true
+                contribution.contributionAmount = periodicity.tontine!!.contributionAmount
+                contribution.contributionDate = SimpleDateFormat("yyyy-MM-dd").parse(contributionDate)
+                contribution.paymentMethod = payementMethod
+
+                val result = tontineContributionDomain.saveContribution(contribution)
+
+                val err: MutableMap<String, String> = mutableMapOf()
+                if (result.errors!!.isNotEmpty()) {
+                    result.errors.forEach {
+                        (key, value) -> err[key] = messageSource.getMessage(value, null, locale)
+                    }
+                }
+
+                if (
+                        ControlForm.verifyHashMapRedirect(
+                                redirectAttributes,
+                                err,
+                                messageSource.getMessage("association_update_success", null, locale)
+                        )
+                ) {
+                    url = "/$periodicity_id"
+                }
+            }
+
+
+        }
+        return redirectTo(url)
+    }
+
+    @PostMapping(value = ["/details/{periodicity_id}/price"])
+    fun pricePeriodicity(
             redirectAttributes: RedirectAttributes,
             @PathVariable periodicity_id: String,
             @RequestParam id: String,

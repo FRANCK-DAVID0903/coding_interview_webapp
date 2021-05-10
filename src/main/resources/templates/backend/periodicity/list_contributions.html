@@ -112,13 +112,46 @@
                                                     <tbody>
                                                     <tr th:each="tontineMember : ${tontinePeriodicityMembers}">
 
-                                                        <td th:text="${tontineMember.beneficiary.firstname} +' '+ ${tontineMember.beneficiary.lastname}"></td>
+                                                        <td th:text="${tontineMember.member.firstname} +' '+ ${tontineMember.member.lastname}"></td>
 
-                                                        <td></td>
+                                                        <td th:if="${tontineMember.contributed == true}" th:text="#{periodicity_tontine_contribution_done}"></td>
+                                                        <td th:if="${tontineMember.contributed != true}" th:text="#{periodicity_tontine_contribution_not_done}"></td>
 
                                                         <td>
-                                                            <a class="btn btn-primary btn-action mr-1" title="" th:data-original-title="#{table_contribute}" type="button" data-toggle="modal" data-target="#addCotisationModal"
-                                                               th:data-entity="${stringHelper.clean(tontineMember.beneficiary.toJSON())}" onclick="onUpdate(this.getAttribute('data-entity'));">
+                                                            <a th:if="${tontineMember.contributed == false}" class="btn btn-primary btn-action mr-1" title="" th:data-original-title="#{table_contribute}" type="button" data-toggle="modal" data-target="#addCotisationModal"
+                                                               th:data-entity="${stringHelper.clean(tontineMember.member.toJSON())}" onclick="onUpdate(this.getAttribute('data-entity'));">
+                                                                <i class="fas fa-money-bill"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade show active" id="requests" role="tabpanel" aria-labelledby="request-tab2">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped" id="table-2">
+                                                    <thead>
+                                                    <tr>
+                                                        <th th:text="#{periodicity_tontine_table_list_members_name}"></th>
+                                                        <th th:text="#{periodicity_tontine_table_list_have_contribute}"></th>
+                                                        <th th:text="#{periodicity_tontine_table_list_actions}"></th>
+                                                    </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                    <tr th:each="tontineMember : ${tontinePeriodicityMembers}">
+
+                                                        <td th:text="${tontineMember.member.firstname} +' '+ ${tontineMember.member.lastname}"></td>
+
+                                                        <td th:if="${tontineMember.contributed == true}" th:text="#{periodicity_tontine_contribution_done}"></td>
+                                                        <td th:if="${tontineMember.contributed != true}" th:text="#{periodicity_tontine_contribution_not_done}"></td>
+
+                                                        <td>
+                                                            <a th:if="${tontineMember.contributed == false}" class="btn btn-primary btn-action mr-1" title="" th:data-original-title="#{table_contribute}" type="button" data-toggle="modal" data-target="#addCotisationModal"
+                                                               th:data-entity="${stringHelper.clean(tontineMember.member.toJSON())}" onclick="onUpdate(this.getAttribute('data-entity'));">
                                                                 <i class="fas fa-money-bill"></i>
                                                             </a>
                                                         </td>
@@ -147,7 +180,7 @@
 
                 <div th:insert="fragments/modal/fragment_add_modal ::
                                                    fragment_add_modal(title='Contribute for periodicity',
-                                                   methodUrl='/periodicity/details/'+__${periodicity_id}__,
+                                                   methodUrl='/backend/periodicity/details/'+__${periodicity_id}__+'/contribute',
                                                    body = ~{ :: #modal_body})">
 
                     <div class="modal-body" id="modal_body">
@@ -155,18 +188,36 @@
 
                         <div class="row">
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-5">
                                 <label>
                                     <span th:text="#{member_lastname}"></span>
                                 </label>
                                 <input type="text" class=" form-control user_lastname" id="user_lastname" name="user_lastname"  disabled>
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-7">
                                 <label>
                                     <span th:text="#{member_firstname}"></span>
                                 </label>
                                 <input type="text" class=" form-control user_firstname" id="user_firstname" name="user_firstname"  disabled>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <label>
+                                    <span th:text="#{member_firstname}"></span>
+                                </label>
+                                <input type="date" class=" form-control" id="contributionDate" name="contributionDate">
+                            </div>
+
+                            <div class="col-lg-6">
+                                <label>
+                                    <span th:text="#{member_firstname}"></span>
+                                </label>
+                                <select class=" form-control" name="payementMethod" id="payementMethod">
+                                    <option value="ESPECES">ESPECES</option>
+                                    <option value="VIREMENT">VIREMENT</option>
+                                    <option value="CHEQUE">CHEQUE</option>
+                                </select>
                             </div>
 
                         </div>

@@ -4,6 +4,7 @@ import com.b2i.tontine.domain.account.member.entity.Member
 import com.b2i.tontine.domain.tontine.entity.Tontine
 import com.b2i.tontine.domain.tontine_contribution.entity.TontineContribution
 import com.b2i.tontine.domain.tontine_contribution.port.TontineContributionDomain
+import com.b2i.tontine.domain.tontine_periodicity.entity.TontinePeriodicity
 import com.b2i.tontine.infrastructure.db.repository.TontineContributionRepository
 import com.b2i.tontine.utils.OperationResult
 import org.springframework.beans.factory.annotation.Autowired
@@ -31,5 +32,13 @@ class TontineContributionWorker: TontineContributionDomain {
 
     override fun findAllByMemberAndTontine(member: Member, tontine: Tontine): MutableList<TontineContribution> {
         return tontineContributionRepository.findAllByMemberAndTontine(member,tontine)
+    }
+
+    override fun findAllByTontinePeriodicity(tontinePeriodicity: TontinePeriodicity): MutableList<TontineContribution> {
+        return tontineContributionRepository.findAllByTontinePeriodicity(tontinePeriodicity)
+    }
+
+    override fun findByTontinePeriodicityAndMemberAndTontine(tontinePeriodicity: TontinePeriodicity, member: Member, tontine: Tontine): Optional<TontineContribution> {
+        return tontineContributionRepository.findByTontinePeriodicityAndMemberAndTontine(tontinePeriodicity,member,tontine)
     }
 }

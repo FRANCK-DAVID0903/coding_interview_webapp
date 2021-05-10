@@ -23,12 +23,12 @@ class TontinePeriodicityWorker: TontinePeriodicityDomain {
 
     override fun saveTontinePeriodicity(tontinePeriodicity: TontinePeriodicity): OperationResult<TontinePeriodicity> {
 
-        var errors: MutableMap<String, String> = mutableMapOf()
-        var data: TontinePeriodicity? = null
+            var errors: MutableMap<String, String> = mutableMapOf()
+            var data: TontinePeriodicity? = null
 
-        data = tontinePeriodicityRepository.save(tontinePeriodicity)
+            data = tontinePeriodicityRepository.save(tontinePeriodicity)
 
-        return OperationResult(data,errors)
+            return OperationResult(data,errors)
     }
 
     override fun countAllTontinePeriodicity(): Long {

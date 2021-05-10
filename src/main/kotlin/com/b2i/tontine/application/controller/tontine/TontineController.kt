@@ -7,6 +7,8 @@ import com.b2i.tontine.application.controller.BaseController
 import com.b2i.tontine.application.controller.ControllerEndpoint
 import com.b2i.tontine.application.facade.AuthenticationFacade
 import com.b2i.tontine.domain.account.entity.UserType
+import com.b2i.tontine.domain.account.member.entity.Member
+import com.b2i.tontine.domain.account.member.port.MemberDomain
 import com.b2i.tontine.domain.account.port.UserDomain
 import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.association.port.AssociationDomain
@@ -15,6 +17,8 @@ import com.b2i.tontine.domain.association_member.port.AssociationMemberDomain
 import com.b2i.tontine.domain.tontine.entity.Tontine
 import com.b2i.tontine.domain.tontine.entity.TontineType
 import com.b2i.tontine.domain.tontine.port.TontineDomain
+import com.b2i.tontine.domain.tontine_contribution.entity.TontineContribution
+import com.b2i.tontine.domain.tontine_contribution.port.TontineContributionDomain
 import com.b2i.tontine.domain.tontine_periodicity.entity.TontinePeriodicity
 import com.b2i.tontine.domain.tontine_periodicity.port.TontinePeriodicityDomain
 import com.b2i.tontine.domain.tontine_request.port.TontineRequestDomain
@@ -43,7 +47,9 @@ class TontineController(
     private val tontinePeriodicityDomain: TontinePeriodicityDomain,
     private val authenticationFacade: AuthenticationFacade,
     private val userDomain: UserDomain,
-    private val messageSource: MessageSource
+    private val messageSource: MessageSource,
+    private val memberDomain: MemberDomain,
+    private val tontineContributionDomain: TontineContributionDomain
 ) :
     BaseController("/backend/tontine/", ControllerEndpoint.BACKEND_ASSOCIATION) {
 
@@ -301,12 +307,30 @@ class TontineController(
                     Color.red)
         }
         //get tontinePeriodicity by id
-        val periodicity = tontinePeriodicityDomain.findById(id.toLong()).orElse(null)
+        var periodicity = tontinePeriodicityDomain.findById(id.toLong()).orElse(null)
 
         if (periodicity != null){
             periodicity.contributionStartDate = SimpleDateFormat("yyyy-MM-dd").parse(startDate)
             periodicity.contributionEndDate = SimpleDateFormat("yyyy-MM-dd").parse(endDate)
             periodicity.periodicityState = TontineType.OPENED
+
+            //On genere les ligne de paiements des membres de la tontine pour la periodicité ouverte
+            //On recupere la tontine
+            val tontine = tontineDomain.findTontineById(tontine_id.toLong()).get()
+            //Listes des membres de la tontine
+            val listMember = tontineRequestDomain.findAllApprovedTontineMembers(tontine, true, 0)
+
+            listMember.forEach{ member ->
+
+                val memberFinder = memberDomain.findById(member.beneficiary!!.id).get()
+                val contribution = TontineContribution()
+
+                contribution.member = memberFinder
+                contribution.tontine = tontine
+                contribution.tontinePeriodicity = periodicity
+
+                tontineContributionDomain.saveContribution(contribution)
+            }
 
             val result = tontinePeriodicityDomain.updateTontine(periodicity)
 
