@@ -1,7 +1,10 @@
 package com.b2i.tontine.infrastructure.db.repository
 
+import com.b2i.tontine.domain.account.member.entity.Member
 import com.b2i.tontine.domain.tontine_bidding.entity.TontineBidding
+import com.b2i.tontine.domain.tontine_periodicity.entity.TontinePeriodicity
 import org.springframework.data.jpa.repository.JpaRepository
+import java.util.*
 
 
 /**
@@ -10,4 +13,9 @@ import org.springframework.data.jpa.repository.JpaRepository
  * @Time: 14:24
  */
 interface TontineBiddingRepository : JpaRepository<TontineBidding, Long> {
+
+    fun findAllByTontinePeriodicity(tontinePeriodicity: TontinePeriodicity): MutableList<TontineBidding>
+
+    fun findAllByTontinePeriodicityAndMember(tontinePeriodicity: TontinePeriodicity, member: Member): MutableList<TontineBidding>
+
 }

@@ -20,11 +20,11 @@ import javax.persistence.ManyToOne
 @Entity
 class TontineBidding : BaseEntity() {
 
-    var amount : Double = 0.0
-
     var interestByPercentage : Int = 0
 
-    var interestByValue : Int = 0
+    var interestByValue : Double = 0.0
+
+    var biddingApproved : Boolean = false
 
     var firstBidding : Boolean = false
 

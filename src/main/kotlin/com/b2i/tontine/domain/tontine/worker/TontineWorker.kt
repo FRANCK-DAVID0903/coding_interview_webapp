@@ -45,7 +45,7 @@ class TontineWorker : TontineDomain {
         }
 
         if (tontine.contributionAmount <= 0.0) {
-            errors["numberOfParticipant"] = "tontine_contribution_amount_null"
+            errors["contributionAmount"] = "tontine_contribution_amount_null"
         }
 
         if (errors.isEmpty()) {
