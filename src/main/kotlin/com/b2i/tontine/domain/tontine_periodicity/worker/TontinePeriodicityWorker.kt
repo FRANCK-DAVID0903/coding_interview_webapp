@@ -81,13 +81,13 @@ class TontinePeriodicityWorker: TontinePeriodicityDomain {
 
         if (tontinePeriodicity.contributionStartDate!!.before(tontinePeriodicity.contributionEndDate)){
 
-            if (tontinePeriodicity.contributionEndDate!!.before(tontinePeriodicity.biddingDeadline)){
+            /*if (tontinePeriodicity.contributionEndDate!!.before(tontinePeriodicity.biddingDeadline)){
                 data = tontinePeriodicityRepository.save(tontinePeriodicity)
             }
             else{
                 errors["date"] = "dateTake_inf_dateBegin"
-            }
-
+            }*/
+            data = tontinePeriodicityRepository.save(tontinePeriodicity)
         }
         else{
             errors["date"] = "dateEnd_inf_dateBegin"

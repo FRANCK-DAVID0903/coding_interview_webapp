@@ -280,7 +280,6 @@
                                                                     <tr th:each="periode : ${tontinePeriodicities}">
                                                                         <td th:text="${periode.periodicityNumber}"></td>
 
-
                                                                         <td th:text="${#calendars.format(periode.contributionStartDate, 'dd-MM-yyyy')}"></td>
                                                                         <td th:text="${#calendars.format(periode.contributionEndDate, 'dd-MM-yyyy')}"></td>
                                                                         <td th:text="${#calendars.format(periode.biddingDeadline, 'dd-MM-yyyy')}"></td>
@@ -290,23 +289,18 @@
                                                                         <td class="align-middle" th:if="${periode.beneficiary == null}" ></td>
 
                                                                         <td th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}">
-                                                                            <a class="btn btn-primary btn-action mr-1" type="button" th:if="${periode.periodicityState == 'CLOSED' && periode.biddingDeadline == null}" data-toggle="modal" data-target="#updatePeriodicityModal"
-                                                                               th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
-                                                                                <i class="fas fa-check-circle"></i>
-                                                                            </a>
-                                                                            <a class="btn btn-primary btn-action mr-1" type="button" data-toggle="modal" data-target="#updatePeriodicityModal"
+                                                                            <a class="btn btn-primary btn-action mr-1" type="button" th:if="${periode.nextPeriodicity == true}" data-toggle="modal" data-target="#updatePeriodicityModal"
                                                                                th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
                                                                                 <i class="fas fa-check-circle"></i>
                                                                             </a>
 
-                                                                            <a class="btn btn-danger btn-action mr-1" type="button" th:if="${periode.periodicityState == 'OPENED'}" data-toggle="modal" data-target="#closePeriodicityModal"
+                                                                            <!--<a class="btn btn-danger btn-action mr-1" type="button" th:if="${periode.periodicityState == 'OPENED'}" data-toggle="modal" data-target="#closePeriodicityModal"
                                                                                th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
                                                                                 <i class="fas fa-times"></i>
-                                                                            </a>
+                                                                            </a>-->
 
-                                                                            <a class="btn btn-primary btn-action mr-1" type="button" th:if="${periode.periodicityState != 'OPENED' && periode.biddingDeadline != null}" data-toggle="modal" data-target="#closePeriodicityModal"
-                                                                               th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
-                                                                                <i class="fas fa-money-bill"></i>
+                                                                            <a class="btn btn-primary btn-action mr-1" type="button" th:if="${periode.contributionStartDate != null && periode.contributionEndDate != null}" th:href="@{/backend/periodicity/details/__${periode.id}__}" >
+                                                                                <span>voir cotisations</span>
                                                                             </a>
 
                                                                     </tr>
@@ -490,20 +484,20 @@
 
                                 <div class="row">
 
-                                    <div class="form-group col-4">
+                                    <div class="form-group col-6">
                                         <label for="startDate" th:text="#{association_tontine_detail_page_table_StartDate}"></label>
                                         <input id="startDate" type="date" class="form-control" name="startDate">
                                     </div>
 
-                                    <div class="form-group col-4">
+                                    <div class="form-group col-6">
                                         <label for="endDate" th:text="#{association_tontine_detail_page_table_Endate}"></label>
                                         <input id="endDate" type="date" class="form-control" name="endDate">
                                     </div>
 
-                                    <div class="form-group col-4">
+                                    <!--<div class="form-group col-4">
                                         <label for="issueDate" th:text="#{association_tontine_detail_page_issue_date}"></label>
                                         <input id="issueDate" type="date" class="form-control" name="issueDate">
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
 

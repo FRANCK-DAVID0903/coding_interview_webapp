@@ -246,6 +246,9 @@ class TontineController(
 
                 decompte += 1
                 period.periodicityNumber =decompte
+                if (decompte == 1L){
+                    period.nextPeriodicity = true
+                }
                 period!!.tontine =tontineSelected.get()
                 //period!!.periodicityNumber =decompte
                 val result: OperationResult<TontinePeriodicity> =
@@ -281,7 +284,6 @@ class TontineController(
             @RequestParam("id") id : String,
             @RequestParam("startDate") startDate : String,
             @RequestParam("endDate") endDate : String,
-            @RequestParam("issueDate") issueDate : String,
             locale: Locale
     ): String {
         var url = "$association_id/tontines"
@@ -302,7 +304,6 @@ class TontineController(
         val periodicity = tontinePeriodicityDomain.findById(id.toLong()).orElse(null)
 
         if (periodicity != null){
-            periodicity.biddingDeadline = SimpleDateFormat("yyyy-MM-dd").parse(issueDate)
             periodicity.contributionStartDate = SimpleDateFormat("yyyy-MM-dd").parse(startDate)
             periodicity.contributionEndDate = SimpleDateFormat("yyyy-MM-dd").parse(endDate)
             periodicity.periodicityState = TontineType.OPENED

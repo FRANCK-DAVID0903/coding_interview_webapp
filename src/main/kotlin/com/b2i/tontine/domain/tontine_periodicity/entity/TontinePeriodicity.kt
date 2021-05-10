@@ -32,7 +32,9 @@ class TontinePeriodicity: BaseEntity() {
 
     var biddingDeadline : Date? = null
 
-    var biddingAmount : Long = 0
+    var biddingAmount : Double = 0.0
+
+    var nextPeriodicity: Boolean = false
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
