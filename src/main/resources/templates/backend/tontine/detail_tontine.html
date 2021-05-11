@@ -273,7 +273,7 @@
                                                                         <th th:text="#{association_tontine_detail_page_issue_date}"></th>
                                                                         <th th:text="#{association_list_page_table_header_status}"></th>
                                                                         <th th:text="#{association_tontine_detail_page_table_beneficiary}"></th>
-                                                                        <th th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}" th:text="#{association_member_list_page_result_action}"></th>
+                                                                        <th th:text="#{association_member_list_page_result_action}"></th>
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody>
@@ -288,8 +288,9 @@
                                                                         <td class="align-middle" th:if="${periode.beneficiary != null}" th:text="${periode.beneficiary.firstname}"></td>
                                                                         <td class="align-middle" th:if="${periode.beneficiary == null}" ></td>
 
-                                                                        <td th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}">
-                                                                            <a class="btn btn-primary btn-action mr-1" type="button" th:if="${periode.nextPeriodicity == true}" data-toggle="modal" data-target="#updatePeriodicityModal"
+                                                                        <td>
+                                                                            <a th:if="${(connectedUser == 'actuator' || connectedUser == 'PDG') && (periode.nextPeriodicity == true)}"
+                                                                               class="btn btn-primary btn-action mr-1" type="button" data-toggle="modal" data-target="#updatePeriodicityModal"
                                                                                th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
                                                                                 <i class="fas fa-check-circle"></i>
                                                                             </a>
@@ -299,9 +300,16 @@
                                                                                 <i class="fas fa-times"></i>
                                                                             </a>-->
 
-                                                                            <a class="btn btn-primary btn-action mr-1" type="button" th:if="${periode.contributionStartDate != null && periode.contributionEndDate != null}" th:href="@{/backend/periodicity/details/__${periode.id}__}" >
+                                                                            <a th:if="${(connectedUser == 'actuator' || connectedUser == 'PDG') && (periode.contributionStartDate != null && periode.contributionEndDate != null)}"
+                                                                               class="btn btn-primary btn-action mr-1" type="button" th:href="@{/backend/periodicity/details/__${periode.id}__}" >
                                                                                 <span>voir cotisations</span>
                                                                             </a>
+
+                                                                            <a th:if="${periode.periodicityState == 'OPENED'}" class="btn btn-primary btn-action mr-1" type="button" data-toggle="modal" data-target="#makeBiddingModal"
+                                                                               th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
+                                                                                <span th:text="#{tontine_bidding_make}"></span>
+                                                                            </a>
+                                                                        </td>
 
                                                                     </tr>
                                                                     </tbody>
@@ -562,6 +570,40 @@
                             </div>
 
                         </div>
+                    </div>
+
+                    <!-- Make bidding Modal -->
+                    <div class="modal fade" id="makeBiddingModal" tabindex="-1" role="dialog"
+                         aria-labelledby="makeBiddingModalTitle" aria-hidden="true">
+
+                        <div th:insert="fragments/modal/fragment_add_modal ::
+                                       fragment_add_modal(title='Make an offer for this periodicity',
+                                       methodUrl='/backend/association/'+__${association.id}__+'/tontines/'+__${tontine.id}__+'/periodicity/bidding',
+                                       body = ~{ :: #makeBiddingModal_body})">
+
+                            <div class="modal-body" id="makeBiddingModal_body">
+
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label th:text="#{association_tontine_periodicity_interest_type}"></label>
+                                        <select class="form-control select2" name="interestType" >
+                                            <option th:value="'value'" th:text="#{association_tontine_periodicity_interest_type_value}"></option>
+                                            <option th:value="'percent'" th:text="#{association_tontine_periodicity_interest_type_percent}"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label>
+                                            <span th:text="#{association_tontine_periodicity_interest_value}"></span>
+                                        </label>
+                                        <input required type="number" class="form-control number" name="interest" placeholder="0">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>

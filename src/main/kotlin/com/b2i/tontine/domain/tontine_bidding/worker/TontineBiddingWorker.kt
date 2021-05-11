@@ -42,7 +42,7 @@ class TontineBiddingWorker : TontineBiddingDomain {
             errors["not_found"] = "tontine_periodicity_not_found"
         }
 
-        if (tontineBidding.interestByValue <= 0.0) {
+        if (tontineBidding.interestByValue < 0.0) {
             errors["contributionAmount"] = "tontine_contribution_amount_null"
         }
 

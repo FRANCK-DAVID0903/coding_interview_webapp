@@ -43,13 +43,12 @@ class TontineBiddingController(
     private val messageSource: MessageSource
 ) : BaseController("/backend/tontine/", ControllerEndpoint.BACKEND_ASSOCIATION) {
 
-    @PostMapping(value = ["/{association_id}/tontines/{tontine_id}/periodicity/{periodicity_id}/bidding"])
+    @PostMapping(value = ["/{association_id}/tontines/{tontine_id}/periodicity/bidding"])
     fun memberMakingBidding(
         redirectAttributes: RedirectAttributes,
         @PathVariable association_id: String,
         @PathVariable tontine_id: String,
-        @PathVariable periodicity_id: String,
-        @RequestParam member_id: String,
+        @RequestParam id: String,
         @RequestParam interestType: String,
         @RequestParam interest: String,
         locale: Locale
@@ -71,13 +70,6 @@ class TontineBiddingController(
                     Color.red
                 )
             }
-            member_id.isEmpty() -> {
-                ControlForm.redirectAttribute(
-                    redirectAttributes,
-                    messageSource.getMessage("user_not_found", null, locale),
-                    Color.red
-                )
-            }
             else -> {
                 val user = authenticationFacade.getAuthenticatedUser().get()
                 val tontine = tontineDomain.findTontineById(tontine_id.toLong()).orElse(null)
@@ -93,11 +85,15 @@ class TontineBiddingController(
                         } else if (interestType == "value") {
                             interestValue = interest.toDouble()
                         }
-
                         tontineBidding.interestByValue = interestValue
 
+                        val memb = memberDomain.findById(user.id).orElse(null)
+                        if (memb != null) {
+                            tontineBidding.member = memb
+                        }
+
                         val result: OperationResult<TontineBidding> =
-                            tontineBiddingDomain.makeBidding(tontineBidding, periodicity_id.toLong())
+                            tontineBiddingDomain.makeBidding(tontineBidding, id.toLong())
 
                         val err: MutableMap<String, String> = mutableMapOf()
                         if (result.errors!!.isNotEmpty()) {
@@ -113,7 +109,7 @@ class TontineBiddingController(
                                 messageSource.getMessage("tontine_bidding_created", null, locale)
                             )
                         ) {
-                            url = "$association_id/tontines/$tontine_id/periodicity/$periodicity_id"
+                            url = "$association_id/tontines/$tontine_id/periodicity/$id"
                         }
                     }
                 }
