@@ -38,15 +38,35 @@
                                     <div class="padding-20">
                                         <div class="text-right">
                                             <h3 class="font-light mb-0">
-                                                <i class="ti-arrow-up text-success"></i> 524
+                                                <i class="ti-arrow-up text-success" th:text="${periodicity.biddingAmount}"></i>
                                             </h3>
                                             <span class="text-muted"
-                                                  th:text="#{association_tontine_detail_page_participantNum}"></span>
+                                                  th:text="#{periodicity_tontine_contribution_close_actual_bidding_amount}"></span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon l-bg-green">
+                                    <i class="fas fa-calendar-check"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="padding-20">
+                                        <div class="text-right">
+                                            <h3 class="font-light mb-0">
+                                                <i class="ti-arrow-up text-success" th:text="${#dates.format(periodicity.biddingDeadline, 'dd-MM-yyyy')}" ></i>
+                                            </h3>
+                                            <span class="text-muted"
+                                                  th:text="#{periodicity_tontine_contribution_last_delay_bidding_amount}"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                             <div class="card card-statistic-1">
                                 <div class="card-icon l-bg-red">
@@ -70,12 +90,13 @@
                     <div class="row mt-sm-4">
 
                         <div class="col-12 col-md-12 col-lg-12">
-                            <div class="col-lg-8" th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}">
-                                <a class="btn btn-primary" type="button" data-toggle="modal" data-target="#addMemberModal"
-                                   th:data-entity="${stringHelper.clean(tontine.toJSON())}"
-                                   onclick="onUpdate(this.getAttribute('data-entity'));"
-                                   th:text="#{association_list_page_add_member}"></a>
-                            </div><br>
+
+                            <a class="btn btn-primary btn-action mr-1" title="" th:text="#{periodicity_tontine_contribution_close}" th:if="${periodicity.biddingState == 'OPENED'}" th:data-original-title="#{table_contribute}" type="button" data-toggle="modal" data-target="#closePeriodicityModal"
+                               th:data-entity="${stringHelper.clean(periodicity.toJSON())}" onclick="onUpdatePeriodicity(this.getAttribute('data-entity'));">
+                            </a>
+
+                            <br>
+                            <br>
 
                             <div class="card">
                                 <div class="padding-20">
@@ -130,7 +151,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="tab-pane fade show active" id="requests" role="tabpanel" aria-labelledby="request-tab2">
+                                        <div class="tab-pane fade show" id="requests" role="tabpanel" aria-labelledby="request-tab2">
                                             <div class="table-responsive">
                                                 <table class="table table-striped" id="table-2">
                                                     <thead>
@@ -146,14 +167,11 @@
 
                                                         <td th:text="${tontineMember.member.firstname} +' '+ ${tontineMember.member.lastname}"></td>
 
-                                                        <td th:if="${tontineMember.contributed == true}" th:text="#{periodicity_tontine_contribution_done}"></td>
-                                                        <td th:if="${tontineMember.contributed != true}" th:text="#{periodicity_tontine_contribution_not_done}"></td>
+                                                        <td ></td>
+                                                        <td ></td>
 
                                                         <td>
-                                                            <a th:if="${tontineMember.contributed == false}" class="btn btn-primary btn-action mr-1" title="" th:data-original-title="#{table_contribute}" type="button" data-toggle="modal" data-target="#addCotisationModal"
-                                                               th:data-entity="${stringHelper.clean(tontineMember.member.toJSON())}" onclick="onUpdate(this.getAttribute('data-entity'));">
-                                                                <i class="fas fa-money-bill"></i>
-                                                            </a>
+
                                                         </td>
                                                     </tr>
                                                     </tbody>
@@ -174,7 +192,7 @@
 
             </section>
 
-            <!-- Add member to tontine -->
+            <!-- Cotisation Member in periodicity -->
             <div class="modal fade" id="addCotisationModal" tabindex="-1" role="dialog"
                  aria-labelledby="addCotisationModalitle" aria-hidden="true">
 
@@ -218,6 +236,51 @@
                                     <option value="VIREMENT">VIREMENT</option>
                                     <option value="CHEQUE">CHEQUE</option>
                                 </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Cotisation Member in periodicity -->
+            <div class="modal fade" id="closePeriodicityModal" tabindex="-1" role="dialog"
+                 aria-labelledby="closePeriodicityModalitle" aria-hidden="true">
+
+                <div th:insert="fragments/modal/fragment_add_modal ::
+                                                   fragment_add_modal(title='Close  periodicity',
+                                                   methodUrl='/backend/periodicity/details/'+__${periodicity_id}__+'/close',
+                                                   body = ~{ :: #modal_bodyClose})">
+
+                    <div class="modal-body" id="modal_bodyClose">
+                        <p th:text="#{periodicity_tontine_contribution_close}"></p>
+
+                        <div class="row">
+
+                            <div class="col-lg-6">
+                                <label>
+                                    <span th:text="#{periodicity_tontine_contribution_close_date}"></span>
+                                </label>
+                                <input type="date" class=" form-control" id="deadlineDate" name="deadlineDate">
+                            </div>
+
+                            <div class="col-lg-6">
+                                <label>
+                                    <span th:text="#{periodicity_tontine_contribution_close_typeProposition}"></span>
+                                </label>
+                                <select class=" form-control" name="type" id="type">
+                                    <option value="POURCENTAGE">POURCENTAGE</option>
+                                    <option value="EN VALEUR">EN VALEUR</option>
+                                </select>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <label>
+                                    <span th:text="#{periodicity_tontine_contribution_close_bidding_amount}"></span>
+                                </label>
+                                <input type="number" min="0" class=" form-control" id="biddingAmount" name="biddingAmount">
                             </div>
 
                         </div>

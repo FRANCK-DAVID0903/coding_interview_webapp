@@ -51,6 +51,7 @@ class tontinePeriodicityController(
 
         if (tontinePeriodicity != null){
             model.addAttribute("tontinePeriodicityMembers", tontineContributionDomain.findAllByTontinePeriodicity(tontinePeriodicity))
+            model.addAttribute("periodicity", tontinePeriodicity)
             model.addAttribute("periodicity_id",id)
         }
 
@@ -109,13 +110,14 @@ class tontinePeriodicityController(
         return redirectTo(url)
     }
 
-    @PostMapping(value = ["/details/{periodicity_id}/price"])
-    fun pricePeriodicity(
+    @PostMapping(value = ["/details/{periodicity_id}/close"])
+    fun closePeriodicity(
             redirectAttributes: RedirectAttributes,
             @PathVariable periodicity_id: String,
             @RequestParam id: String,
-            @RequestParam payementMethod: String,
-            @RequestParam contributionDate: String,
+            @RequestParam deadlineDate: String,
+            @RequestParam biddingAmount: String,
+            @RequestParam type: String,
             locale: Locale
     ): String {
         var url = "periodicity/details/$periodicity_id"
@@ -126,17 +128,18 @@ class tontinePeriodicityController(
 
         if (periodicity != null){
 
-            val contribution = TontineContribution()
+            periodicity.biddingState = TontineType.OPENED
+            periodicity.biddingDeadline = SimpleDateFormat("yyyy-MM-dd").parse(deadlineDate)
 
-            contribution.tontine = periodicity.tontine
-            contribution.member = memberDomain.findById(id.toLong()).get()
-            contribution.contributed = true
-            contribution.tontinePeriodicity = periodicity
-            contribution.contributionAmount = periodicity.tontine!!.contributionAmount
-            contribution.contributionDate = SimpleDateFormat("yyyy-MM-dd").parse(contributionDate)
-            contribution.paymentMethod = payementMethod
+            if(type == "EN VALEUR"){
 
-            val result = tontineContributionDomain.saveContribution(contribution)
+                periodicity.biddingAmount = biddingAmount.toDouble()
+            }else{
+
+                periodicity.biddingAmount = (periodicity.tontine!!.contributionAmount*periodicity.tontine!!.numberOfParticipant) * (biddingAmount.toDouble()/100)
+            }
+
+            val result = tontinePeriodicityDomain.saveTontinePeriodicity(periodicity)
 
             val err: MutableMap<String, String> = mutableMapOf()
             if (result.errors!!.isNotEmpty()) {
@@ -149,10 +152,10 @@ class tontinePeriodicityController(
                     ControlForm.verifyHashMapRedirect(
                             redirectAttributes,
                             err,
-                            messageSource.getMessage("association_update_success", null, locale)
+                            messageSource.getMessage("periodicity_tontine_contribution_close_done", null, locale)
                     )
             ) {
-                url = "periodicity/details/$periodicity_id"
+                url = "details/$periodicity_id"
             }
 
         }

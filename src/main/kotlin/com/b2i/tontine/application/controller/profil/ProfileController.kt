@@ -131,7 +131,7 @@ class ProfileController(
 
                     member.firstname = firstname
                     member.lastname = lastname
-                    member.birthday = SimpleDateFormat("YYYY-MM-dd").parse(dateNaissance)
+                    member.birthday = SimpleDateFormat("yyyy-MM-dd").parse(dateNaissance)
 
                     if (photo.originalFilename != ""){
                         if(!storageService.storeMix(photo,"", FolderSrc.SRC_MEMBER).first){
