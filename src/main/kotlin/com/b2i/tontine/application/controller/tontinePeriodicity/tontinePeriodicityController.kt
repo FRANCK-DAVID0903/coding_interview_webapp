@@ -130,6 +130,7 @@ class tontinePeriodicityController(
 
             periodicity.biddingState = TontineType.OPENED
             periodicity.biddingDeadline = SimpleDateFormat("yyyy-MM-dd").parse(deadlineDate)
+            periodicity.nextPeriodicity = false
 
             if(type == "EN VALEUR"){
 
@@ -138,6 +139,13 @@ class tontinePeriodicityController(
 
                 periodicity.biddingAmount = (periodicity.tontine!!.contributionAmount*periodicity.tontine!!.numberOfParticipant) * (biddingAmount.toDouble()/100)
             }
+
+            //On trouve la prochaine periodicité pour la mettre a jour
+            val nextP = tontinePeriodicityDomain.findByPeriodicityNumberAndTontine((periodicity.periodicityNumber+1),periodicity.tontine!!).orElse(null)
+            if (nextP != null){
+                nextP.nextPeriodicity = true
+            }
+            //Fin de la mise a jour de la prochaine périodicité
 
             val result = tontinePeriodicityDomain.saveTontinePeriodicity(periodicity)
 

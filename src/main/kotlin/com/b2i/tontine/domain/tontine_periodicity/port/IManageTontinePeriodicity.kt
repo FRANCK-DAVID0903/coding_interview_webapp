@@ -25,4 +25,7 @@ interface IManageTontinePeriodicity {
     fun findById(id: Long):Optional<TontinePeriodicity>
 
     fun updateTontine(tontinePeriodicity: TontinePeriodicity):OperationResult<TontinePeriodicity>
+
+    fun findByPeriodicityNumberAndTontine(number:Long,tontine: Tontine): Optional<TontinePeriodicity>
+
 }

@@ -96,4 +96,8 @@ class TontinePeriodicityWorker: TontinePeriodicityDomain {
         return OperationResult(data,errors)
 
     }
+
+    override fun findByPeriodicityNumberAndTontine(number: Long, tontine: Tontine): Optional<TontinePeriodicity> {
+        return tontinePeriodicityRepository.findByPeriodicityNumberAndTontine(number,tontine)
+    }
 }
