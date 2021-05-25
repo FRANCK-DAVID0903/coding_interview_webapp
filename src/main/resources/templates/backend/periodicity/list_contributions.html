@@ -41,7 +41,7 @@
                                                 <i class="ti-arrow-up text-success" th:text="${periodicity.biddingAmount}"></i>
                                             </h3>
                                             <span class="text-muted"
-                                                  th:text="#{periodicity_tontine_contribution_close_actual_bidding_amount}"></span>
+                                                  th:text="#{periodicity_tontine_contribution_close_actual_interest_amount}"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -69,17 +69,17 @@
 
                         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                             <div class="card card-statistic-1">
-                                <div class="card-icon l-bg-red">
-                                    <i class="fas fa-chart-line"></i>
+                                <div class="card-icon l-bg-green">
+                                    <i class="fas fa-calendar-check"></i>
                                 </div>
                                 <div class="card-wrap">
                                     <div class="padding-20">
                                         <div class="text-right">
                                             <h3 class="font-light mb-0">
-                                                <i class="ti-arrow-up text-success"></i> 785
+                                                <i class="ti-arrow-up text-success" th:text="${periodicity.tontine.tontineGlobalAmountEstimated}" ></i>
                                             </h3>
                                             <span class="text-muted"
-                                                  th:text="#{association_tontine_detail_page_amount}"></span>
+                                                  th:text="#{periodicity_tontine_contribution_close_actual_bidding_amount}"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -157,21 +157,23 @@
                                                     <thead>
                                                     <tr>
                                                         <th th:text="#{periodicity_tontine_table_list_members_name}"></th>
-                                                        <th th:text="#{periodicity_tontine_table_list_have_contribute}"></th>
+                                                        <th th:text="#{periodicity_tontine_table_list_member_offer}"></th>
                                                         <th th:text="#{periodicity_tontine_table_list_actions}"></th>
                                                     </tr>
                                                     </thead>
 
                                                     <tbody>
-                                                    <tr th:each="tontineMember : ${tontinePeriodicityMembers}">
+                                                    <tr th:each="tontineBidding : ${tontinePeriodicityBidding}">
 
-                                                        <td th:text="${tontineMember.member.firstname} +' '+ ${tontineMember.member.lastname}"></td>
+                                                        <td th:text="${tontineBidding.member.firstname} +' '+ ${tontineBidding.member.lastname}"></td>
 
-                                                        <td ></td>
-                                                        <td ></td>
+                                                        <td th:text="${tontineBidding.interestByValue}" ></td>
 
                                                         <td>
-
+                                                            <a th:if="${tontineBidding.biddingApproved == false}" class="btn btn-primary btn-action mr-1" title="" th:data-original-title="#{table_contribute}" type="button" data-toggle="modal" data-target="#addCotisationModal"
+                                                               th:data-entity="${stringHelper.clean(tontineBidding.toJSON())}" onclick="onUpdateBidding(this.getAttribute('data-entity'));">
+                                                                <i class="fas fa-check"></i>
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                     </tbody>

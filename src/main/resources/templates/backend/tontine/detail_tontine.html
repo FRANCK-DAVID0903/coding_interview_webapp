@@ -270,9 +270,11 @@
                                                                         </th>
                                                                         <th th:text="#{association_tontine_detail_page_table_StartDate}"></th>
                                                                         <th th:text="#{association_tontine_detail_page_table_Endate}"></th>
-                                                                        <th th:text="#{association_tontine_detail_page_issue_date}"></th>
                                                                         <th th:text="#{association_list_page_table_header_status}"></th>
+                                                                        <th th:text="#{association_tontine_detail_page_table_biddingState}"></th>
+                                                                        <th th:text="#{association_tontine_detail_page_table_biddingAmount}"></th>
                                                                         <th th:text="#{association_tontine_detail_page_table_beneficiary}"></th>
+                                                                        <th th:text="#{association_tontine_detail_page_last_time}"></th>
                                                                         <th th:text="#{association_member_list_page_result_action}"></th>
                                                                     </tr>
                                                                     </thead>
@@ -282,11 +284,14 @@
 
                                                                         <td th:text="${#calendars.format(periode.contributionStartDate, 'dd-MM-yyyy')}"></td>
                                                                         <td th:text="${#calendars.format(periode.contributionEndDate, 'dd-MM-yyyy')}"></td>
-                                                                        <td th:text="${#calendars.format(periode.biddingDeadline, 'dd-MM-yyyy')}"></td>
+                                                                        <td th:text="${periode.biddingState}"></td>
+                                                                        <td th:text="${periode.biddingAmount}"></td>
 
                                                                         <td class="align-middle" th:text="${periode.periodicityState}"></td>
                                                                         <td class="align-middle" th:if="${periode.beneficiary != null}" th:text="${periode.beneficiary.firstname}"></td>
                                                                         <td class="align-middle" th:if="${periode.beneficiary == null}" ></td>
+
+                                                                        <td th:text="${#calendars.format(periode.biddingDeadline, 'dd-MM-yyyy')}"></td>
 
                                                                         <td>
                                                                             <a th:if="${(connectedUser == 'actuator' || connectedUser == 'PDG') && (periode.nextPeriodicity == true)}"
@@ -584,12 +589,19 @@
                             <div class="modal-body" id="makeBiddingModal_body">
 
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <!--<div class="col-lg-6">
                                         <label th:text="#{association_tontine_periodicity_interest_type}"></label>
                                         <select class="form-control select2" name="interestType" >
                                             <option th:value="'value'" th:text="#{association_tontine_periodicity_interest_type_value}"></option>
                                             <option th:value="'percent'" th:text="#{association_tontine_periodicity_interest_type_percent}"></option>
                                         </select>
+                                    </div>-->
+
+                                    <div class="form-group col-md-6">
+                                        <label>
+                                            <span th:text="#{association_tontine_periodicity_interest_actual_value}"></span>
+                                        </label>
+                                        <input required type="number" class="form-control number oldValue" name="oldValue" id="oldValue" disabled>
                                     </div>
 
                                     <div class="form-group col-md-6">
@@ -636,6 +648,7 @@
             function onActivatedPer(json) {
                 var per = jQuery.parseJSON(json.replace("'", "\\'"));
                 $('.model-id').val(per.id);
+                $('.oldValue').val(per.biddingAmount);
             }
         </script>
 

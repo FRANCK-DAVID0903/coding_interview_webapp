@@ -49,7 +49,7 @@ class TontineBiddingController(
         @PathVariable association_id: String,
         @PathVariable tontine_id: String,
         @RequestParam id: String,
-        @RequestParam interestType: String,
+        //@RequestParam interestType: String,
         @RequestParam interest: String,
         locale: Locale
     ): String {
@@ -79,12 +79,8 @@ class TontineBiddingController(
                         var interestValue = 0.0
                         val tontineBidding = TontineBidding()
 
-                        if (interestType == "percent") {
-                            interestValue = ((tontine.tontineGlobalAmount * interest.toInt()) / 100)
-                            tontineBidding.interestByPercentage = interest.toInt()
-                        } else if (interestType == "value") {
-                            interestValue = interest.toDouble()
-                        }
+                        interestValue = interest.toDouble()
+
                         tontineBidding.interestByValue = interestValue
 
                         val memb = memberDomain.findById(user.id).orElse(null)
@@ -109,7 +105,8 @@ class TontineBiddingController(
                                 messageSource.getMessage("tontine_bidding_created", null, locale)
                             )
                         ) {
-                            url = "$association_id/tontines/$tontine_id/periodicity/$id"
+                            //url = "$association_id/tontines/$tontine_id/periodicity/$id"
+                            url = "$association_id/tontines/$tontine_id"
                         }
                     }
                 }

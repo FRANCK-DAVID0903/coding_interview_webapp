@@ -13,6 +13,7 @@ import com.b2i.tontine.domain.association.port.AssociationDomain
 import com.b2i.tontine.domain.association_member.port.AssociationMemberDomain
 import com.b2i.tontine.domain.tontine.entity.TontineType
 import com.b2i.tontine.domain.tontine.port.TontineDomain
+import com.b2i.tontine.domain.tontine_bidding.port.TontineBiddingDomain
 import com.b2i.tontine.domain.tontine_contribution.entity.TontineContribution
 import com.b2i.tontine.domain.tontine_contribution.port.TontineContributionDomain
 import com.b2i.tontine.domain.tontine_periodicity.port.TontinePeriodicityDomain
@@ -36,6 +37,7 @@ class tontinePeriodicityController(
         private val associationMemberDomain: AssociationMemberDomain,
         private val tontineRequestDomain: TontineRequestDomain,
         private val tontineContributionDomain: TontineContributionDomain,
+        private val tontineBiddingDomain: TontineBiddingDomain,
         private val tontineDomain: TontineDomain,
         private val messageSource: MessageSource
 
@@ -51,6 +53,7 @@ class tontinePeriodicityController(
 
         if (tontinePeriodicity != null){
             model.addAttribute("tontinePeriodicityMembers", tontineContributionDomain.findAllByTontinePeriodicity(tontinePeriodicity))
+            model.addAttribute("tontinePeriodicityBidding", tontineBiddingDomain.findAllBiddingByPeriodicity(tontinePeriodicity))
             model.addAttribute("periodicity", tontinePeriodicity)
             model.addAttribute("periodicity_id",id)
         }
