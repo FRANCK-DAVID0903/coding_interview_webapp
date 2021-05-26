@@ -173,4 +173,45 @@ class tontinePeriodicityController(
         return redirectTo(url)
     }
 
+    @PostMapping(value = ["/details/{periodicity_id}/approveOffer"])
+    fun validateOffer(
+            redirectAttributes: RedirectAttributes,
+            @PathVariable periodicity_id: String,
+            @RequestParam id: String,
+            locale: Locale
+    ): String {
+        var url = "periodicity/details/$periodicity_id"
+
+        //get tontinePeriodicity by id
+        val periodicity = tontinePeriodicityDomain.findById(periodicity_id.toLong()).orElse(null)
+
+        //get bidding selected by id
+        val bidding = tontineBiddingDomain.findBiddingById(id.toLong()).orElse(null)
+
+        if (bidding != null){
+
+                val result = tontineBiddingDomain.apprroveBidding(bidding)
+
+                val err: MutableMap<String, String> = mutableMapOf()
+                if (result.errors!!.isNotEmpty()) {
+                    result.errors.forEach {
+                        (key, value) -> err[key] = messageSource.getMessage(value, null, locale)
+                    }
+                }
+
+                if (
+                        ControlForm.verifyHashMapRedirect(
+                                redirectAttributes,
+                                err,
+                                messageSource.getMessage("periodicity_tontine_approve_interest_member_offer_done", null, locale)
+                        )
+                ) {
+                    url = "/$periodicity_id"
+                }
+
+
+        }
+        return redirectTo(url)
+    }
+
 }

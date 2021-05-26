@@ -27,6 +27,8 @@ class TontineRequest() : BaseEntity() {
     @JoinColumn(name = "member_id")
     var beneficiary : Member? = null
 
+    var hasTaken : Boolean = false
+
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tontine_id")

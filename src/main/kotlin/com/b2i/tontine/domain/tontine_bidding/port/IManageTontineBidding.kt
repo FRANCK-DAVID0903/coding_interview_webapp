@@ -24,4 +24,9 @@ interface IManageTontineBidding {
 
     fun findAllBiddingByPeriodicityAndMember(tontinePeriodicity: TontinePeriodicity, member: Member): MutableList<TontineBidding>
 
+    fun countAllByTontinePeriodicityAndBiddingApproved(tontinePeriodicity: TontinePeriodicity,state:Boolean): Long
+
+    fun findByTontinePeriodicityAndBiddingApproved(tontinePeriodicity: TontinePeriodicity,state:Boolean): Optional<TontineBidding>
+
+    fun apprroveBidding(tontineBidding: TontineBidding):OperationResult<TontineBidding>
 }

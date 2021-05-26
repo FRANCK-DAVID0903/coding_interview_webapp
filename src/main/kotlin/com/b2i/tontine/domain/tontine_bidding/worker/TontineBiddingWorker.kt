@@ -94,4 +94,37 @@ class TontineBiddingWorker : TontineBiddingDomain {
         member: Member
     ): MutableList<TontineBidding> =
         tontineBiddingRepository.findAllByTontinePeriodicityAndMember(tontinePeriodicity, member)
+
+    override fun countAllByTontinePeriodicityAndBiddingApproved(tontinePeriodicity: TontinePeriodicity, state: Boolean): Long {
+        return tontineBiddingRepository.countAllByTontinePeriodicityAndBiddingApproved(tontinePeriodicity,state)
+    }
+
+    override fun findByTontinePeriodicityAndBiddingApproved(tontinePeriodicity: TontinePeriodicity, state: Boolean): Optional<TontineBidding> {
+        return tontineBiddingRepository.findByTontinePeriodicityAndBiddingApproved(tontinePeriodicity,state)
+    }
+
+    override fun apprroveBidding(tontineBidding: TontineBidding): OperationResult<TontineBidding> {
+        val errors: MutableMap<String, String> = mutableMapOf()
+        var data: TontineBidding? = null
+
+        val optionalApproveBidding = tontineBidding?.tontinePeriodicity?.let { tontineBiddingRepository.findByTontinePeriodicityAndBiddingApproved(it,true) }
+
+        if (optionalApproveBidding != null) {
+
+            if (!optionalApproveBidding.isPresent) {
+                tontineBidding.biddingApproved = true
+            } else {
+                val bidding = optionalApproveBidding.get()
+
+                bidding.biddingApproved = false
+                tontineBidding.biddingApproved = true
+
+                tontineBiddingRepository.save(bidding)
+
+                data = tontineBiddingRepository.save(tontineBidding)
+            }
+        }
+
+        return OperationResult(data, errors)
+    }
 }
