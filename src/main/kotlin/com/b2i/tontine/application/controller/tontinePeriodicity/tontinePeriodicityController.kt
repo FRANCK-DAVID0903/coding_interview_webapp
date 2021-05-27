@@ -101,10 +101,10 @@ class tontinePeriodicityController(
                         ControlForm.verifyHashMapRedirect(
                                 redirectAttributes,
                                 err,
-                                messageSource.getMessage("association_update_success", null, locale)
+                                messageSource.getMessage("periodicity_contribution_save_success", null, locale)
                         )
                 ) {
-                    url = "/$periodicity_id"
+                    url = "details/$periodicity_id"
                 }
             }
 
@@ -206,7 +206,7 @@ class tontinePeriodicityController(
                                 messageSource.getMessage("periodicity_tontine_approve_interest_member_offer_done", null, locale)
                         )
                 ) {
-                    url = "/$periodicity_id"
+                    url = "details/$periodicity_id"
                 }
 
 

@@ -109,19 +109,33 @@ class TontineBiddingWorker : TontineBiddingDomain {
 
         val optionalApproveBidding = tontineBidding?.tontinePeriodicity?.let { tontineBiddingRepository.findByTontinePeriodicityAndBiddingApproved(it,true) }
 
-        if (optionalApproveBidding != null) {
+        val periodicity = tontineBidding.tontinePeriodicity
 
-            if (!optionalApproveBidding.isPresent) {
-                tontineBidding.biddingApproved = true
-            } else {
+        if (optionalApproveBidding != null) {
+            if (!optionalApproveBidding.isEmpty) {
+
                 val bidding = optionalApproveBidding.get()
 
                 bidding.biddingApproved = false
                 tontineBidding.biddingApproved = true
+                if (periodicity != null) {
+                    periodicity.biddingAmount = tontineBidding.interestByValue
+                    tontinePeriodicityRepository.save(periodicity)
+                }
 
                 tontineBiddingRepository.save(bidding)
 
                 data = tontineBiddingRepository.save(tontineBidding)
+
+            } else{
+                tontineBidding.biddingApproved = true
+                tontineBidding.biddingApproved = true
+                if (periodicity != null) {
+                    periodicity.biddingAmount = tontineBidding.interestByValue
+                    tontinePeriodicityRepository.save(periodicity)
+                }
+                data = tontineBiddingRepository.save(tontineBidding)
+
             }
         }
 
