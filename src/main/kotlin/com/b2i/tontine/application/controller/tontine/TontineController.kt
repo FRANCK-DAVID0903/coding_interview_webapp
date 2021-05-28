@@ -420,6 +420,14 @@ class TontineController(
                             injectAssociation(model ,association.get())
                         }
                     }
+                    UserType.ASSOCIATION_ADMIN -> {
+                        val association = associationDomain.findAssociationById(association_id.toLong())
+                        if (association.isPresent) {
+                            val tontines = tontineDomain.findAllTontinesByAssociation(association.get())
+                            model.addAttribute("association_tontines", tontines)
+                            injectAssociation(model ,association.get())
+                        }
+                    }
                     UserType.ASSOCIATION_MEMBER -> {
                         val association = associationDomain.findAssociationById(association_id.toLong()).orElse(null)
                         if (association != null) {
@@ -495,6 +503,10 @@ class TontineController(
                 }
             }
             UserType.ACTUATOR -> {
+                model.addAttribute("connectedUser", connectedUser)
+            }
+            UserType.ASSOCIATION_ADMIN -> {
+                connectedUser = "association_admin"
                 model.addAttribute("connectedUser", connectedUser)
             }
         }

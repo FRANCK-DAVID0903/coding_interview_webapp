@@ -9,6 +9,7 @@ import com.b2i.tontine.domain.tontine_periodicity.entity.TontinePeriodicity
 import com.b2i.tontine.infrastructure.db.repository.MemberRepository
 import com.b2i.tontine.infrastructure.db.repository.TontineBiddingRepository
 import com.b2i.tontine.infrastructure.db.repository.TontinePeriodicityRepository
+import com.b2i.tontine.infrastructure.db.repository.TontineRequestRepository
 import com.b2i.tontine.utils.OperationResult
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
@@ -32,6 +33,9 @@ class TontineBiddingWorker : TontineBiddingDomain {
 
     @Autowired
     lateinit var memberRepository: MemberRepository
+
+    @Autowired
+    lateinit var tontineRequestRepository: TontineRequestRepository
 
     override fun makeBidding(tontineBidding: TontineBidding, periodicity_id: Long): OperationResult<TontineBidding> {
         val errors: MutableMap<String, String> = mutableMapOf()
@@ -59,28 +63,53 @@ class TontineBiddingWorker : TontineBiddingDomain {
         return OperationResult(data, errors)
     }
 
-    override fun validateBidding(tontineBidding_id: Long): OperationResult<TontineBidding> {
+    override fun validateBidding(tontineBidding: TontineBidding): OperationResult<TontineBidding> {
         val errors: MutableMap<String, String> = mutableMapOf()
         var data: TontineBidding? = null
 
-        val optionalBidding = tontineBiddingRepository.findById(tontineBidding_id)
+        val periodicity = tontineBidding.tontinePeriodicity
 
-        if (!optionalBidding.isPresent) {
-            errors["not_found"] = "tontine_bidding_not_found"
-        } else {
-            val bidding = optionalBidding.get()
+        if (periodicity != null) {
 
-            val optionalPeriodicity = tontinePeriodicityRepository.findByIdOrNull(bidding.tontinePeriodicity!!.id)
-            if (optionalPeriodicity != null) {
-                optionalPeriodicity.biddingAmount = bidding.interestByValue
-                optionalPeriodicity.beneficiary = bidding.member
-                tontinePeriodicityRepository.save(optionalPeriodicity)
+            //Mettre a jour la periodicité
+            periodicity.biddingState = TontineType.CLOSED
+            periodicity.periodicityState = TontineType.CLOSED
+            periodicity.beneficiary = tontineBidding.member
+            tontinePeriodicityRepository.save(periodicity)
+
+            //Mettre a jour la tontine request maintenant
+                //On va trouver la ligne de la tontine request
+            //val tontineRequest = tontineBidding.member?.let { tontineRequestRepository.findByTontinePeriodicityAndBeneficiaryAndApproved(periodicity, it,true) }
+
+            val member = tontineBidding.member
+            val tontine = periodicity.tontine
+
+            var tontineRequest = member?.let {
+
+                if (tontine != null) {
+
+                    val tontineRequest = tontineRequestRepository.findByTontineAndBeneficiaryAndApproved(tontine,member,true)
+
+                    if (tontineRequest == null){
+                        errors["tontineRequest"] = "tontine_request_member_not_exist"
+                    }
+                    else{
+                        val saveOb = tontineRequest.get()
+                        saveOb.hasTaken = true
+                        tontineRequestRepository.save(saveOb)
+                    }
+                }
             }
 
-            data = tontineBiddingRepository.findByIdOrNull(bidding.id)
+            data = tontineBiddingRepository.save(tontineBidding)
+
+        }
+        else {
+            errors["not_found"] = "tontine_periodicity_not_found"
         }
 
         return OperationResult(data, errors)
+
     }
 
     override fun findBiddingById(bidding_id: Long): Optional<TontineBidding> =

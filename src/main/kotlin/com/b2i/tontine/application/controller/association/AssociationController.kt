@@ -6,6 +6,7 @@ import com.b2i.tontine.application.controller.BaseController
 import com.b2i.tontine.application.controller.ControllerEndpoint
 import com.b2i.tontine.application.facade.AuthenticationFacade
 import com.b2i.tontine.domain.account.entity.UserType
+import com.b2i.tontine.domain.account.port.RoleDomain
 import com.b2i.tontine.domain.account.port.UserDomain
 import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.association.port.AssociationDomain
@@ -31,7 +32,8 @@ class AssociationController(
     private val associationMemberDomain: AssociationMemberDomain,
     private val messageSource: MessageSource,
     private val authenticationFacade: AuthenticationFacade,
-    private val userDomain: UserDomain
+    private val userDomain: UserDomain,
+    private val roleDomain: RoleDomain
 ) : BaseController(ControllerEndpoint.BACKEND_ASSOCIATION) {
 
     @GetMapping("/create")
@@ -47,6 +49,8 @@ class AssociationController(
         @RequestParam("email") email: String,
         @RequestParam("phoneNumber") phoneNumber: String,
         @RequestParam("description") description: String,
+        @RequestParam("username") username: String,
+        @RequestParam("password") password: String,
         locale: Locale
     ): String {
 
@@ -83,11 +87,16 @@ class AssociationController(
             }
             else -> {
                 val association = Association()
-                association.name = name
-                association.acronym = acronym
-                association.email = email
-                association.phoneNumber = phoneNumber
-                association.description = description
+                roleDomain.findByName(UserType.ASSOCIATION_ADMIN).ifPresent { role ->
+                    association.name = name
+                    association.acronym = acronym
+                    association.contact.email = email
+                    association.contact.phone = phoneNumber
+                    association.description = description
+                    association.username = username
+                    association.password = password
+                    association.roles = Collections.singleton(role)
+                }
 
                 val result: OperationResult<Association> = associationDomain.saveAssociation(association)
 

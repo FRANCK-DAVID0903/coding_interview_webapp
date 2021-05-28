@@ -1,6 +1,7 @@
 package com.b2i.tontine.domain.association.entity
 
-import com.b2i.tontine.domain.entity.common.BaseEntity
+import com.b2i.tontine.domain.account.entity.User
+import com.b2i.tontine.domain.account.entity.UserType
 import javax.persistence.*
 
 
@@ -10,17 +11,12 @@ import javax.persistence.*
  * @Time: 11:22
  */
 @Entity
-class Association : BaseEntity() {
+@DiscriminatorValue(UserType.ASSOCIATION_ADMIN)
+class Association() : User(){
 
     var name : String = ""
 
     var acronym : String = ""
-
-    @Column(unique = true, nullable = false)
-    var email : String = ""
-
-    @Column(unique = true, nullable = false)
-    var phoneNumber : String = ""
 
     @Column(columnDefinition = "text")
     var description : String = ""

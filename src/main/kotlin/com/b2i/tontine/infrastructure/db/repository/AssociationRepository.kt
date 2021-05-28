@@ -14,8 +14,8 @@ interface AssociationRepository : JpaRepository<Association, Long> {
 
     fun findByName(name: String) : Optional<Association>
 
-    fun findByEmail(email: String) : Optional<Association>
+    fun findByContactEmail(email: String) : Optional<Association>
 
-    fun findByPhoneNumber(phoneNumber: String) : Optional<Association>
+    fun findByContactPhone(phoneNumber: String) : Optional<Association>
 
 }

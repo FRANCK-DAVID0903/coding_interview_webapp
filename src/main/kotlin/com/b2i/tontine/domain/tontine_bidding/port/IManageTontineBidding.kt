@@ -16,7 +16,7 @@ interface IManageTontineBidding {
 
     fun makeBidding(tontineBidding: TontineBidding, periodicity_id: Long): OperationResult<TontineBidding>
 
-    fun validateBidding(tontineBidding_id: Long): OperationResult<TontineBidding>
+    fun validateBidding(tontineBidding: TontineBidding): OperationResult<TontineBidding>
 
     fun findBiddingById(bidding_id: Long): Optional<TontineBidding>
 

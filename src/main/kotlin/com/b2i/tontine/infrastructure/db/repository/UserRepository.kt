@@ -17,4 +17,5 @@ interface UserRepository : JpaRepository<User, Long> {
 
     @Query(value = "SELECT U.user_type FROM user_account U WHERE U.id = ?1", nativeQuery = true)
     fun findTypeBy(id: Long): String
+
 }

@@ -14,6 +14,7 @@ object RoleBootstrap {
             domain.save(Role(UserType.BACKOFFICE_BASIC_USER, UserType.BACKOFFICE_BASIC_USER))
             domain.save(Role(UserType.BACKOFFICE_ADMIN, UserType.BACKOFFICE_ADMIN))
             domain.save(Role(UserType.ASSOCIATION_MEMBER, UserType.ASSOCIATION_MEMBER))
+            domain.save(Role(UserType.ASSOCIATION_ADMIN, UserType.ASSOCIATION_ADMIN))
         }
     }
 }

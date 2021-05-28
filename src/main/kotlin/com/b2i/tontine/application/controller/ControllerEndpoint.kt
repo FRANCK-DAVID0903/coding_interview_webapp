@@ -16,6 +16,8 @@ object ControllerEndpoint {
 
     const val BACKEND_PERIODICITY = "${BACKEND_DASHBOARD}/periodicity"
 
+    const val BACKEND_USERS = "${BACKEND_DASHBOARD}/users"
+
     const val BACKEND_DATA_EXTRACT = "${BACKEND_DASHBOARD}/extract"
 
     const val FRONTEND_BASE = "frontend"

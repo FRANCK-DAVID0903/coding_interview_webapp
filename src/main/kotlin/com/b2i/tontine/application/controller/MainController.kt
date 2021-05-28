@@ -61,6 +61,10 @@ class MainController(
                 forwardTo("dashboard/dashboard_member")
             }
 
+            UserType.ASSOCIATION_ADMIN -> {
+                forwardTo("dashboard/dashboard_admin_association")
+            }
+
             UserType.BACKOFFICE_SUPER_ADMIN -> {
                 return "account/home"
             }

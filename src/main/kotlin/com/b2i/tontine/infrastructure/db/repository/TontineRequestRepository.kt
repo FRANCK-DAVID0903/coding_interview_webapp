@@ -2,6 +2,7 @@ package com.b2i.tontine.infrastructure.db.repository
 
 import com.b2i.tontine.domain.account.member.entity.Member
 import com.b2i.tontine.domain.tontine.entity.Tontine
+import com.b2i.tontine.domain.tontine_periodicity.entity.TontinePeriodicity
 import com.b2i.tontine.domain.tontine_request.entity.TontineRequest
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
@@ -37,5 +38,7 @@ interface TontineRequestRepository : JpaRepository<TontineRequest, Long> {
     fun findAllByTontineAndApprovedAndState(tontine: Tontine, approved: Boolean, state: Int): MutableList<TontineRequest>
 
     fun countAllByTontineAndState(tontine: Tontine, state: Int) : Long
+
+    fun findByTontineAndBeneficiaryAndApproved(tontine: Tontine,member: Member, appr: Boolean): Optional<TontineRequest>
 
 }

@@ -57,7 +57,7 @@
                 </a>
             </li>-->
 
-            <li class="dropdown" th:if="${user.member}">
+            <li class="dropdown" th:if="${user.member }" >
                 <a th:href="@{/backend/members/my_associations}" class="nav-link">
                     <i data-feather="monitor"></i>
                     <span th:text="#{sidebar_myAssociation}"></span>
@@ -68,6 +68,20 @@
                 <a th:href="@{/backend/members/my_tontines}" class="nav-link">
                     <i data-feather="monitor"></i>
                     <span th:text="#{sidebar_myTontine}"></span>
+                </a>
+            </li>
+
+            <li class="dropdown" th:if="${user.associationAdmin}">
+                <a th:href="@{/backend/association/__${user.id}__/tontines}" class="nav-link">
+                    <i data-feather="monitor"></i>
+                    <span th:text="#{sidebar_theTontines}"></span>
+                </a>
+            </li>
+
+            <li class="dropdown" th:if="${user.associationAdmin}">
+                <a th:href="@{/backend/association/cotisations}" class="nav-link">
+                    <i data-feather="monitor"></i>
+                    <span th:text="#{sidebar_theCotisations}"></span>
                 </a>
             </li>
 
@@ -85,24 +99,24 @@
                 </a>
             </li>
 
-            <li id="tontine" class="dropdown" th:if="${user.actuator || user.superAdmin || user.admin}" >
+            <!--<li id="tontine" class="dropdown" th:if="${user.actuator || user.superAdmin || user.admin}" >
                 <a href="#" class="menu-toggle nav-link has-dropdown">
                     <i data-feather="briefcase"></i>
                     <span th:text="#{sidebar_tontine}"></span>
                 </a>
                 <ul class="dropdown-menu">
                     <li id="tontine-add">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" th:href="@{/backend/users/add-user}">
                             <span th:text="#{sidebar_tontine_create}"></span>
                         </a>
                     </li>
                     <li id="tontine-list">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" th:href="@{/backend/users/list-user}">
                             <span th:text="#{sidebar_tontine_list}"></span>
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li>-->
 
             <li class="dropdown" id="users">
                 <a href="#" class="menu-toggle nav-link has-dropdown" th:if="${user.actuator || user.superAdmin || user.admin}">
@@ -111,12 +125,12 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li id="users-add">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" th:href="@{/backend/users/add-user}">
                             <span th:text="#{sidebar_user_create}"></span>
                         </a>
                     </li>
                     <li id="users-list">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" th:href="@{/backend/users/list-user}">
                             <span th:text="#{sidebar_user_list}"></span>
                         </a>
                     </li>

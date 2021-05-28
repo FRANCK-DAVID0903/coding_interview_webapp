@@ -173,13 +173,13 @@
                                                         <td th:text="${tontineBidding.biddingApproved}" ></td>
 
                                                         <td>
-                                                            <a th:if="${tontineBidding.biddingApproved == false}" class="btn btn-warning btn-action mr-1" title="" th:data-original-title="#{table_approve_offer}" type="button" data-toggle="modal" data-target="#approveOfferModal"
+                                                            <a th:if="${tontineBidding.biddingApproved == false && periodicity.beneficiary == null}" class="btn btn-warning btn-action mr-1" title="" th:data-original-title="#{table_approve_offer}" type="button" data-toggle="modal" data-target="#approveOfferModal"
                                                                th:data-entity="${stringHelper.clean(tontineBidding.toJSON())}" onclick="onApproveOffer(this.getAttribute('data-entity'));">
                                                                 <i class="fas fa-check"></i>
                                                             </a>
 
-                                                            <a th:if="${tontineBidding.biddingApproved == true}" class="btn btn-primary btn-action mr-1" title="" th:data-original-title="#{table_approve_offer}" type="button" data-toggle="modal" data-target="#validateOfferModal"
-                                                               th:data-entity="${stringHelper.clean(tontineBidding.toJSON())}" onclick="onApproveOffer(this.getAttribute('data-entity'));">
+                                                            <a th:if="${tontineBidding.biddingApproved == true && periodicity.beneficiary == null}" class="btn btn-primary btn-action mr-1" title="" th:data-original-title="#{table_approve_offer}" type="button" data-toggle="modal" data-target="#validateOfferModal"
+                                                               th:data-entity="${stringHelper.clean(tontineBidding.toJSON())}" onclick="onValidateOffer(this.getAttribute('data-entity'));">
                                                                 <i class="fas fa-check"></i>
                                                             </a>
                                                         </td>

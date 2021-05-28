@@ -116,63 +116,6 @@ class TontineBiddingController(
         return redirectTo(url)
     }
 
-    @PostMapping(value = ["/{association_id}/tontines/{tontine_id}/periodicity/{periodicity_id}/bidding/{bidding_id}"])
-    fun validateBidding(
-        redirectAttributes: RedirectAttributes,
-        @PathVariable association_id: String,
-        @PathVariable tontine_id: String,
-        @PathVariable periodicity_id: String,
-        @PathVariable bidding_id: String,
-        locale: Locale
-    ): String {
-        var url = "$association_id/tontines/$tontine_id"
-
-        when {
-            association_id.isEmpty() -> {
-                ControlForm.redirectAttribute(
-                    redirectAttributes,
-                    messageSource.getMessage("association_member_id_association_empty", null, locale),
-                    Color.red
-                )
-            }
-            tontine_id.isEmpty() -> {
-                ControlForm.redirectAttribute(
-                    redirectAttributes,
-                    messageSource.getMessage("tontine_id_empty", null, locale),
-                    Color.red
-                )
-            }
-            bidding_id.isEmpty() -> {
-                ControlForm.redirectAttribute(
-                    redirectAttributes,
-                    messageSource.getMessage("tontine_bidding_not_found", null, locale),
-                    Color.red
-                )
-            }
-            else -> {
-                val result: OperationResult<TontineBidding> = tontineBiddingDomain.validateBidding(bidding_id.toLong())
-                val err: MutableMap<String, String> = mutableMapOf()
-                if (result.errors!!.isNotEmpty()) {
-                    result.errors.forEach { (key, value) ->
-                        err[key] = messageSource.getMessage(value, null, locale)
-                    }
-                }
-
-                if (
-                    ControlForm.verifyHashMapRedirect(
-                        redirectAttributes,
-                        err,
-                        messageSource.getMessage("tontine_bidding_validate", null, locale)
-                    )
-                ) {
-                    url = "$association_id/tontines/$tontine_id/periodicity/$periodicity_id"
-                }
-            }
-        }
-
-        return redirectTo(url)
-    }
-
     @GetMapping("/{association_id}/tontines/{tontine_id}/periodicity/{periodicity_id}/bidding")
     fun listOfPeriodicityBidding(
         model: Model,
