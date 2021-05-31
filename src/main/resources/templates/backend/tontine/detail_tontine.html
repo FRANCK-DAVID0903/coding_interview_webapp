@@ -87,7 +87,7 @@
                                                        aria-selected="true"
                                                        th:text="#{association_tontine_detail_page_tab_members}"></a>
                                                 </li>
-                                                <li th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}" class="nav-item">
+                                                <li th:if="${connectedUser == 'actuator' || connectedUser == 'PDG' || connectedUser == 'association_admin'}" class="nav-item">
                                                     <a class="nav-link" id="request-tab2" data-toggle="tab" href="#requests"
                                                        role="tab"
                                                        aria-selected="false"
@@ -99,7 +99,7 @@
                                                        aria-selected="false"
                                                        th:text="#{association_tontine_detail_page_tab_periodicities}"></a>
                                                 </li>
-                                                <li th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}" class="nav-item">
+                                                <li th:if="${connectedUser == 'actuator' || connectedUser == 'PDG' || connectedUser == 'association_admin'}" class="nav-item">
                                                     <a class="nav-link" id="update-tab2" data-toggle="tab" href="#update"
                                                        role="tab"
                                                        aria-selected="false"

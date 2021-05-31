@@ -269,6 +269,7 @@ class AssociationMemberController(
 
         val userC = authenticationFacade.getAuthenticatedUser().get()
         val memberChoose = memberDomain.findById(id)
+        val assoChoose = associationDomain.findAssociationById(association_id.toLong())
         //val profil = UserProfiler.profile(userC)
 
         if (mois in 13..0){
@@ -288,9 +289,10 @@ class AssociationMemberController(
         }
         else{
             var cota = Contribution()
-            cota.contributionDate = SimpleDateFormat("YYYY-MM-dd").parse(dateCota)
+            cota.contributionDate = SimpleDateFormat("yyyy-MM-dd").parse(dateCota)
             cota.monthNumber = mois
             cota.amount = montant
+            cota.association = assoChoose.get()
             memberChoose.ifPresent(){
                 cota.user = it
                 model.addAttribute("allCotisations",contributionDomain.findAllByUser(it))
@@ -301,6 +303,7 @@ class AssociationMemberController(
                 model.addAttribute("sumAllCotisationsByMonth",contributionDomain.findAllByUserAndMonthNumber(it,monthNumber).sumByDouble { it.amount })
 
             }
+
             contributionDomain.saveContribution(cota)
             ControlForm.model(model, "Opération effectué avec succès", Color.green)
 

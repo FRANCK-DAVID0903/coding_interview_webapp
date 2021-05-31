@@ -5,6 +5,7 @@ import com.b2i.tontine.application.controlForm.ControlForm
 import com.b2i.tontine.application.controller.BaseController
 import com.b2i.tontine.application.controller.ControllerEndpoint
 import com.b2i.tontine.application.facade.AuthenticationFacade
+import com.b2i.tontine.domain.account.entity.Admin
 import com.b2i.tontine.domain.account.entity.User
 import com.b2i.tontine.domain.account.entity.UserType
 import com.b2i.tontine.domain.account.port.RoleDomain
@@ -67,7 +68,7 @@ class userController(
                 )
             }
             else -> {
-                val user = User()
+                val user = Admin()
                 roleDomain.findByName(UserType.BACKOFFICE_ADMIN).ifPresent { role ->
                     user.lastname = name
                     user.firstname = firstname
@@ -99,7 +100,7 @@ class userController(
             }
         }
 
-        return forwardTo(url)
+        return redirectTo(url)
     }
 
     @GetMapping("/list-user")
