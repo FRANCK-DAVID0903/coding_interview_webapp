@@ -132,13 +132,12 @@ class AssociationMemberController(
                     user = userDomain.findByUsername(value)
                 }
 
-                if (user!!.isEmpty) {
+                if ( user == null || !user.isPresent) {
                     redirectAttributes.addFlashAttribute("userSearchNull", true)
                 } else {
                     redirectAttributes.addFlashAttribute("userSearchNull", false)
-                    if (user != null) {
-                        redirectAttributes.addFlashAttribute("userSearch", user.get())
-                    }
+                    redirectAttributes.addFlashAttribute("userSearch", user.get())
+
                 }
 
             }

@@ -141,7 +141,7 @@ class TontineBiddingWorker : TontineBiddingDomain {
         val periodicity = tontineBidding.tontinePeriodicity
 
         if (optionalApproveBidding != null) {
-            if (!optionalApproveBidding.isEmpty) {
+            if (optionalApproveBidding.isPresent) {
 
                 val bidding = optionalApproveBidding.get()
 
