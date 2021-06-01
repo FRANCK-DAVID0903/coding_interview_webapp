@@ -136,7 +136,9 @@ class AssociationMemberController(
                     redirectAttributes.addFlashAttribute("userSearchNull", true)
                 } else {
                     redirectAttributes.addFlashAttribute("userSearchNull", false)
-                    redirectAttributes.addFlashAttribute("userSearch", user.get())
+                    if (user != null) {
+                        redirectAttributes.addFlashAttribute("userSearch", user.get())
+                    }
                 }
 
             }
