@@ -1,0 +1,50 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="frontend_script">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script th:src="@{/assets/frontend/js/jquery.min.js}"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script th:src="@{/assets/frontend/js/bootstrap.min.js}"></script>
+
+    <!-- Header sticky -->
+    <script th:src="@{/assets/frontend/js/jquery.sticky.js}"></script>
+    <script th:src="@{/assets/frontend/js/sticky-header.js}"></script>
+
+    <!-- Header Nav Dropdown -->
+    <script th:src="@{/assets/frontend/js/nav.js}"></script>
+
+    <!-- Owl carousel -->
+    <script th:src="@{/assets/frontend/js/owl.carousel.min.js}"></script>
+
+    <!-- Others -->
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <script>
+        var myCenter=new google.maps.LatLng(23.0203458,72.5797426);
+
+        function initialize()
+        {
+            var mapProp = {
+                center:myCenter,
+                zoom:9,
+                scrollwheel: false,
+                mapTypeId:google.maps.MapTypeId.ROADMAP
+            };
+
+            var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+            var marker=new google.maps.Marker({
+                position:myCenter,
+
+                icon:'images/marker.png'
+            });
+
+            marker.setMap(map);
+            var infowindow = new google.maps.InfoWindow({
+                content:"Hello Address"
+            });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+</div>
