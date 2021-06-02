@@ -1,0 +1,106 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="frontend_header">
+
+    <div class="collapse search-block" id="collapseExample">
+        <div class="well-default">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search for..." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                    </div>
+                    <!-- /input-group -->
+                </div>
+                <!-- /.col-lg-6 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- navigation -->
+    <div class="navigation sticky-effect">
+        <!-- top bar -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 welcome-msg">
+                        Welcome to TONTINE
+                    </div>
+                    <!-- top bar links -->
+                    <div class="col-md-6 top-bar-links">
+                        <ul class="nospace listnone navbar-right">
+                            <li>
+                                Need help call : <strong> 123 456 789</strong>
+                            </li>
+                            <li>
+                                <a href="#">FREE CONSULTATION</a>
+                            </li>
+                            <li>
+                                <a role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                    <i class="fa fa-search"> </i>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-share-alt"> </i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="#" title="Case Study">
+                                            <i class="fa fa-facebook-square"></i> Facebook
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="Case Study Detail">
+                                            <i class="fa fa-twitter-square"></i> Twitter
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" title="Case Study Detail">
+                                            <i class="fa fa-linkedin-square"></i> Linked In
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fa fa-google-plus-square"></i> Google+
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- top bar links -->
+                </div>
+            </div>
+        </div>
+        <!-- /.top bar -->
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">
+                        <img th:src="@{/assets/frontend/images/logo.png}" alt="">
+                    </a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="index.html" title="Home">Accueil</a></li>
+                        <li><a href="contact.html" title="Contact us">Nous contacter</a></li>
+                        <li><a href="register.html" title="Register">S'inscrire</a></li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+    </div>
+    <!-- / navigation -->
+
+</div>
