@@ -5,220 +5,231 @@
     ============================================= -->
     <th:block th:replace="fragments/frontend_fragment_head('Home')" />
 
-    <body>
+    <body id="HomePage">
 
-    <!-- Header ============================================= -->
-    <th:block th:replace="fragments/frontend_fragment_header" />
+        <!-- Header ============================================= -->
+        <th:block th:replace="fragments/frontend_fragment_header" />
 
 
 
-    <!-- Content ============================================= -->
-    <!-- page-header -->
-    <div class="page-header">
-        <div class="container">
-            <div class="row page-section">
-                <div class="col-md-5 page-description">
-                    <h1 class="page-title">TONTINE</h1>
-                    <p>One morning, when Gregor Samsa woke from troubled dreams, he found himself transformed in his bed into a horrible vermin. </p>
+        <!-- Content ============================================= -->
+
+        <!-- page-header -->
+        <div class="page-header">
+            <div class="container">
+                <div class="row page-section">
+                    <div class="col-md-5 page-description">
+                        <h1 class="page-title">
+                            TONTINE, <i>la tontine en ligne</i>
+                        </h1>
+                        <p>
+                            Accessible sur smartphone, tablette ou pc, TONTINE.com vous permet de participer à des tontines via des associations en toute autonomie et sécurité. Gagnez du temps pour vous concentrer sur l’essentiel !
+                        </p>
+                    </div>
+                    <!-- quote block -->
+                    <div class="col-md-7 page-quote">
+                        <a th:href="@{/frontend-sign-up}" class="btn btn-secondary btn-lg">Cliquer ici pour vous inscrire</a>
+                    </div>
                 </div>
-                <div class="col-md-7 page-quote"><!-- quote block -->
-                    <a href="consultation-form.html" class="btn btn-secondary btn-lg">Cliquer ici pour vous inscrire</a> </div>
             </div>
         </div>
-    </div>
-    <!-- /.page-header -->
+        <!-- /.page-header -->
 
-    <!-- main container -->
-    <div class="main-container">
-        <div class="container">
+        <!-- main container -->
+        <div class="main-container">
+            <div class="container">
 
-            <div class="row">
-                <!-- section title -->
-                <div class="col-md-12 section-title">
-                    <h1 class="heading-line">Comment ça marche ?</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipiscin abitsa ut ipsum accumsan tincidunt.</p>
+                <div class="row">
+                    <!-- section title -->
+                    <div class="col-md-12 section-title">
+                        <h1 class="heading-line">Comment ça marche ?</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur adipiscin abitsa ut ipsum accumsan tincidunt.</p>
+                    </div>
+                    <!-- /.section title -->
                 </div>
-                <!-- /.section title -->
-            </div>
 
-            <!-- core value block -->
-            <div class="row core-value-block">
-                <div class="col-md-offset-1 col-md-5 core-info"><!-- core info -->
-                    <div class="number-feature-block btmspace60"> <span class="number">01</span>
-                        <div class="feature-content">
-                            <h1 class="heading-line">Expertise</h1>
-                            <p>We work together in cross-disciplinary teams because we know that a combined effort exceeds the sum of performances.</p>
+                <!-- core value block -->
+                <div class="row core-value-block">
+                    <!-- core info -->
+                    <div class="col-md-offset-1 col-md-5 core-info">
+                        <div class="number-feature-block btmspace60"> <span class="number">01</span>
+                            <div class="feature-content">
+                                <h1 class="heading-line">Inscription</h1>
+                                <p>
+                                    Remplisser un formulaire et créer votre compte en cliquant sur ce <a th:href="@{/frontend-sign-up}">lien</a>.<br/>
+                                    C'est simple et rapide.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.core info -->
+                    <div class="col-md-6">
+                        <div class="zoom-pic">
+                            <img th:src="@{/assets/frontend/images/value-1.jpg}" class="img-responsive" alt="" />
                         </div>
                     </div>
                 </div>
-                <!-- /.core info -->
-                <div class="col-md-6">
-                    <div class="zoom-pic"><img th:src="@{/assets/frontend/images/value-1.jpg}" class="img-responsive" alt=""></div>
-                </div>
-            </div>
-            <!-- /.core value block -->
+                <!-- /.core value block -->
 
-            <!-- core value block -->
-            <div class="row core-value-block">
-                <div class="col-md-6">
-                    <div class="zoom-pic"><img th:src="@{/assets/frontend/images/value-2.jpg}" class="img-responsive" alt=""></div>
+                <!-- core value block -->
+                <div class="row core-value-block">
+                    <div class="col-md-6">
+                        <div class="zoom-pic">
+                            <img th:src="@{/assets/frontend/images/value-2.jpg}" class="img-responsive" alt="" />
+                        </div>
+                    </div>
+                    <!-- core info -->
+                    <div class="col-md-offset-1 col-md-5 core-info">
+                        <div class="number-feature-block btmspace60"> <span class="number">02</span>
+                            <div class="feature-content">
+                                <h1 class="heading-line">Intégrer une association</h1>
+                                <p>
+                                    Demander à intégrer une association via les administrateurs
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.core info -->
                 </div>
-                <div class="col-md-offset-1 col-md-5 core-info"><!-- core info -->
-                    <div class="number-feature-block btmspace60"> <span class="number">02</span>
-                        <div class="feature-content">
-                            <h1 class="heading-line">Integirity</h1>
-                            <p>We expect our client relationships to be long-term, it is paramount that they be based on trust and integrity, these ideals influence decisions of the firm.</p>
+                <!-- /. core value block -->
+
+                <!-- core value block -->
+                <div class="row core-value-block">
+                    <!-- core info -->
+                    <div class="col-md-offset-1 col-md-5 core-info">
+                        <div class="number-feature-block btmspace60"> <span class="number">03</span>
+                            <div class="feature-content">
+                                <h1 class="heading-line">Participer</h1>
+                                <p>
+                                    Après avoir intégrer une association, il ne vous reste plus qu'a partciper aux tontines créée par votre association
+                                    et récupérer votre cagnote quand c'est a votre tour.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.core info -->
+                    <div class="col-md-6">
+                        <div class="zoom-pic">
+                            <img th:src="@{/assets/frontend/images/value-3.jpg}" class="img-responsive" alt="">`
                         </div>
                     </div>
                 </div>
-                <!-- /.core info -->
-            </div>
-            <!-- /. core value block -->
+                <!-- /.core value block -->
 
-            <!-- core value block -->
-            <div class="row core-value-block">
-                <div class="col-md-offset-1 col-md-5 core-info"><!-- core info -->
-                    <div class="number-feature-block btmspace60"> <span class="number">03</span>
-                        <div class="feature-content">
-                            <h1 class="heading-line">Passion</h1>
-                            <p>Our passion is a decisive driving force in our efforts to make a real difference; something that can be seen on the bottom line.</p>
+            </div>
+        </div>
+        <!-- /.main container -->
+
+        <!-- section color -->
+        <div class="section-space section-color-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 counter-block">
+                        <div class="counter-icon">
+                            <img th:src="@{/assets/frontend/images/hand-shake-white.png}" alt="" />
+                        </div>
+                        <div class="counter-info">
+                            <h1 class="counter-title">15+</h1>
+                            <h3 class="color-white">Tontines en cours</h3>
+                        </div>
+                    </div>
+                    <div class="col-md-4 counter-block">
+                        <div class="counter-icon">
+                            <img th:src="@{/assets/frontend/images/business-man-white.png}" alt="" />
+                        </div>
+                        <div class="counter-info">
+                            <h1 class="counter-title">100+</h1>
+                            <h3 class="color-white">Membres inscrits</h3> </div>
+                    </div>
+                    <div class="col-md-4 counter-block">
+                        <div class="counter-icon">
+                            <img th:src="@{/assets/frontend/images/bank-building-white.png}" alt="" />
+                        </div>
+                        <div class="counter-info">
+                            <h1 class="counter-title">25+</h1>
+                            <h3 class="color-white">Associations</h3>
                         </div>
                     </div>
                 </div>
-                <!-- /.core info -->
-                <div class="col-md-6">
-                    <div class="zoom-pic"><img th:src="@{/assets/frontend/images/value-3.jpg}" class="img-responsive" alt=""></div>
+            </div>
+        </div>
+        <!-- /.section color -->
+
+        <!-- why section space -->
+        <div class="why-section-space section-color">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 section-title"><!-- section title -->
+                        <h1 class="heading-line">Pourquoi choisir TONTINE ?</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur adipiscin abitsa ut ipsum accumsan tincidunt.</p>
+                    </div>
+                    <!-- /.section title -->
+                </div>
+                <div class="row">
+                    <!-- /.feature block -->
+                    <div class="col-md-4 feature-icon-block text-center"> <!-- feature block -->
+                        <div class="feature-icon">
+                            <img th:src="@{/assets/frontend/images/mobile-banking.png}" alt="" />
+                        </div>
+                        <h2>Une alternative au prêt bancaire</h2>
+                        <p>Pellentesque tortor dolor, tristique sed sapien sodales, sagittis tincidunt urna. Aenean eleifend et risus sit amet malesuada.</p>
+                    </div>
+
+                    <!-- /.feature block -->
+                    <div class="col-md-4 feature-icon-block text-center"><!-- feature block -->
+                        <div class="feature-icon">
+                            <img th:src="@{/assets/frontend/images/money-saving.png}" alt="" />
+                        </div>
+                        <h2>Une épargne collaborative et sécurisée</h2>
+                        <p>Vestibulum non gravida dui, eu porta sapien. Phasellus luctus ex libero, sit amet rutrum erats mi sit amet risus lacinia sodales.</p>
+                    </div>
+
+                    <!-- feature block -->
+                    <div class="col-md-4 feature-icon-block text-center">
+                        <div class="feature-icon">
+                            <img th:src="@{/assets/frontend/images/financial-report.png}" alt="" />
+                        </div>
+                        <h2>Une épargne solidaire ouverte à tous</h2>
+                        <p>Fusce facilisis, lorem a auctor varius, libero ex bibendum porta mi orci in enim. Phasellus pharetra nunc non convallis ultricies.</p>
+                    </div>
                 </div>
             </div>
-            <!-- /.core value block -->
+        </div>
+        <!-- why section space -->
 
-            <!-- core value block -->
-            <div class="row core-value-block">
-                <div class="col-md-6">
-                    <div class="zoom-pic"><img th:src="@{/assets/frontend/images/value-4.jpg}" class="img-responsive" alt=""></div>
-                </div>
-                <div class="col-md-offset-1 col-md-5 core-info"><!-- core info -->
-                    <div class="number-feature-block btmspace60"> <span class="number">04</span>
-                        <div class="feature-content">
-                            <h1 class="heading-line">Excellence</h1>
-                            <p>We strive for excellence in all aspects of our business. Our clients have come to expect and appreciate the quality, professionalism of our services.</p>
+        <!-- section space -->
+        <div class="section-space">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 section-title">
+                        <h1 class="heading-line">Vous voulez nous réjoindre ?</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur adipiscin abitsa ut ipsum accumsan tincidunt.</p>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="about-info">
+                            <p class="lead">We believe that future challenges cannot be solved by one expertise, where we have a objective to develop innovative solutions for our clients.</p>
+                            <p>Nullam elementum ipsum felis, sit amet convallisbibendum nec. Aliquam ut bibendum magnm elementum ipsum felis, sit amet convallis justoquam ut bibendum magna. </p>
+                            <h2>Send your resume or call us</h2>
+                            <a href="#">info@finacialadvisor.com</a> OR <a href="#">1-800-123-4567</a>
+                        </div>
+                    </div>
+                    <div class="col-md-offset-1 col-md-6">
+                        <div class="zoom-pic">
+                            <img th:src="@{/assets/frontend/images/career-post.jpg}" alt="" class="img-responsive " />
                         </div>
                     </div>
                 </div>
-                <!-- /.core info -->
-            </div>
-            <!-- /.core value block -->
-        </div>
-    </div>
-    <!-- /.main container -->
-
-    <!-- section color -->
-    <div class="section-space section-color-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 counter-block">
-                    <div class="counter-icon">
-                        <img th:src="@{/assets/frontend/images/hand-shake-white.png}" alt="" />
-                    </div>
-                    <div class="counter-info">
-                        <h1 class="counter-title">30</h1>
-                        <small>Winning awards</small> </div>
-                </div>
-                <div class="col-md-4 counter-block">
-                    <div class="counter-icon">
-                        <img th:src="@{/assets/frontend/images/business-man-white.png}" alt="" />
-                    </div>
-                    <div class="counter-info">
-                        <h1 class="counter-title">100+</h1>
-                        <small>Financial Advisors</small> </div>
-                </div>
-                <div class="col-md-4 counter-block">
-                    <div class="counter-icon">
-                        <img th:src="@{/assets/frontend/images/bank-building-white.png}" alt="" />
-                    </div>
-                    <div class="counter-info">
-                        <h1 class="counter-title">25+</h1>
-                        <small>our branches available</small>
-                    </div>
-                </div>
             </div>
         </div>
-    </div>
-    <!-- /.section color -->
-
-    <!-- why section space -->
-    <div class="why-section-space section-color">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 section-title"><!-- section title -->
-                    <h1 class="heading-line">Why choose us</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipiscin abitsa ut ipsum accumsan tincidunt.</p>
-                </div>
-                <!-- /.section title -->
-            </div>
-            <div class="row">
-                <div class="col-md-4 feature-icon-block text-center"><!-- feature block -->
-                    <div class="feature-icon">
-                        <img th:src="@{/assets/frontend/images/money-saving.png}" alt="" />
-                    </div>
-                    <h2>Trusted</h2>
-                    <p>Vestibulum non gravida dui, eu porta sapien. Phasellus luctus ex libero, sit amet rutrum erats mi sit amet risus lacinia sodales.</p>
-                </div>
-                <!-- /.feature block -->
-                <div class="col-md-4 feature-icon-block text-center"> <!-- feature block -->
-                    <div class="feature-icon">
-                        <img th:src="@{/assets/frontend/images/mobile-banking.png}" alt="" />
-                    </div>
-                    <h2>Mutual Help </h2>
-                    <p>Pellentesque tortor dolor, tristique sed sapien sodales, sagittis tincidunt urna. Aenean eleifend et risus sit amet malesuada.</p>
-                </div>
-                <!-- /.feature block -->
-                <div class="col-md-4 feature-icon-block text-center"> <!-- feature block -->
-                    <div class="feature-icon">
-                        <img th:src="@{/assets/frontend/images/financial-report.png}" alt="" />
-                    </div>
-                    <h2>Inspired</h2>
-                    <p>Fusce facilisis, lorem a auctor varius, libero ex bibendum porta mi orci in enim. Phasellus pharetra nunc non convallis ultricies.</p>
-                </div>
-                <!-- /. feature block -->
-            </div>
-        </div>
-    </div>
-    <!-- why section space -->
-
-    <!-- section space -->
-    <div class="section-space">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 section-title">
-                    <h1 class="heading-line">Want to join us ?</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipiscin abitsa ut ipsum accumsan tincidunt.</p>
-                </div>
-                <div class="col-md-5">
-                    <div class="about-info">
-                        <p class="lead">We believe that future challenges cannot be solved by one expertise, where we have a objective to develop innovative solutions for our clients.</p>
-                        <p>Nullam elementum ipsum felis, sit amet convallisbibendum nec. Aliquam ut bibendum magnm elementum ipsum felis, sit amet convallis justoquam ut bibendum magna. </p>
-                        <h2>Send your resume or call us</h2>
-                        <a href="#">info@finacialadvisor.com</a> OR <a href="#">1-800-123-4567</a>
-                    </div>
-                </div>
-                <div class="col-md-offset-1 col-md-6">
-                    <div class="zoom-pic">
-                        <img th:src="@{/assets/frontend/images/career-post.jpg}" alt="" class="img-responsive " />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /.section space -->
+        <!-- /.section space -->
 
 
+        <!-- Footer ============================================= -->
+        <th:block th:replace="fragments/frontend_fragment_footer" />
 
-    <!-- Footer ============================================= -->
-    <th:block th:replace="fragments/frontend_fragment_footer" />
+        <!-- Script ============================================= -->
+        <th:block th:replace="fragments/frontend_fragment_script" />
 
-    <!-- Script ============================================= -->
-    <th:block th:replace="fragments/frontend_fragment_script" />
 
     </body>
 

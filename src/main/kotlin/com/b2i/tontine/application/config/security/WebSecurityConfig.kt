@@ -44,6 +44,7 @@ constructor(
                 "/${RestControllerEndpoint.API_BASE_SECURED_URL}/**",
                 "/account/login",
                 "/account/register",
+                "/frontend-home","/frontend-contact-us","/frontend-sign-up",
             )
             .permitAll()
             .anyRequest()

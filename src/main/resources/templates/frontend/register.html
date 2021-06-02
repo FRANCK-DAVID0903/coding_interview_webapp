@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <!--Head
+    ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_head('Sign Up')" />
+
+    <body id="RegisterPage">
+
+        <!-- Header ============================================= -->
+        <!-- navigation -->
+        <div class="personal-nav-wrapper">
+            <div class="navigation">
+                <nav class="navbar navbar-default">
+                    <div class="container">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                            <a class="navbar-brand" th:href="@{/frontend-home}">
+                                <img th:src="@{/assets/frontend/images/logo.png}" alt="">
+                            </a>
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <a th:href="@{/frontend-home}" title="Home">Accueil</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/frontend-contact-us}" title="Contact us">Nous contacter</a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/frontend-sign-up}" title="Register">S'inscrire</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.navbar-collapse -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </nav>
+            </div>
+        </div>
+        <!-- / navigation -->
+
+
+        <!-- Content ============================================= -->
+
+        <!-- main container -->
+        <div class="main-container">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-offset-1 col-md-10">
+                        <div class="col-md-12">
+                            <h1>Formulaire d'inscription</h1>
+                            <p>Remplisser le formulaire ci-dessous pour procéder à votre inscription.</p>
+                        </div>
+                        <form id="form" method="post" action="http://jituchauhan.com/insight/green-version/consultation-form.php">
+                            <!-- Text input-->
+                            <div class="form-group col-md-6">
+                                <label class="control-label" for="fname">
+                                    Nom <span>*</span>
+                                </label>
+                                <input id="fname" name="firstname" type="text" placeholder="Entrer votre nom" class="form-control input-md" required>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group col-md-6">
+                                <label class="control-label" for="lname">
+                                    Prénoms <span>*</span>
+                                </label>
+                                <input id="lname" name="lastname" type="text" placeholder="Entrer votre/vos prénom(s)" class="form-control input-md" required>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group col-md-6">
+                                <label class="control-label" for="phone">
+                                    Contact <span>*</span>
+                                </label>
+                                <input id="phone" name="phone" type="text" placeholder="Entrer votre numéro de téléphone" class="form-control input-md" required>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group col-md-6">
+                                <label class="control-label" for="email">
+                                    Adresse mail <span>*</span>
+                                </label>
+                                <input id="email" name="email" type="text" placeholder="Entrer votre adresse mail" class="form-control input-md" required>
+                            </div>
+                            <div class="form-group col-md-12 mt-20 d-flex flex-row justify-content-center">
+                                <button type="submit" class="btn btn-default">Envoyer</button>
+                            </div>
+
+                            <!-- Multiple Checkboxes (inline)
+                            <div class="col-md-12 form-group">
+                                <div class="row">
+                                    <label class="col-md-12 control-label">
+                                        How you would like to be contacted?<span>*</span>
+                                    </label>
+                                    <div class="col-md-4">
+                                        <label class="checkbox-inline" for="checkboxes-0">
+                                            <input type="checkbox" name="checkboxes" id="checkboxes-0" value="Email">
+                                            Email
+                                        </label>
+                                        <label class="checkbox-inline" for="checkboxes-1">
+                                            <input type="checkbox" name="checkboxes" id="checkboxes-1" value="By Phone">
+                                            By Phone
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            -->
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.main container -->
+
+        <!-- Footer ============================================= -->
+        <th:block th:replace="fragments/frontend_fragment_footer" />
+
+        <!-- Script ============================================= -->
+        <th:block th:replace="fragments/frontend_fragment_script" />
+
+    </body>
+
+</html>

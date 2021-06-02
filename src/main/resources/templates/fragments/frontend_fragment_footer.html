@@ -5,47 +5,53 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 footer-widget"> <!-- footer widget -->
-                    <img src="images/logo.png" alt="">
-                    <p>Financial Advisor is a leading advise company. Our trademark is financial services that combine a high degree of professional with a deep understanding of our clients’ needs.</p>
+                    <img th:src="@{/assets/frontend/images/logo.png}" alt="">
+                    <p>
+                        TONTINE is a leading advise company. Lacus donec aliquam sodales orci eget convallis mauris tempor id leo massa euismod id nisl eu molestie erat.
+                    </p>
+                    <!--
                     <p>Lacus donec aliquam sodales orci eget convallis mauris tempor id leo massa euismod id nisl eu molestie erat.</p>
+                    -->
                 </div>
                 <!-- /.footer widget -->
                 <div class="col-md-3 footer-widget"><!-- footer widget -->
-                    <h3> Contact us</h3>
+                    <h3>Nous contacter</h3>
                     <ul class="listnone contact">
                         <li><i class="fa fa-map-marker"></i>
                             <address>
-                                Street Name &amp; Number, Town, Postcode/Zip
+                                Cocody Centre &amp; ABIDJAN, Côte d'ivoire, 225
                             </address>
                         </li>
-                        <li><i class="fa fa-phone"></i> +00 (123) 456 7890<br>
-                            +00 (123) 456 7890</li>
-                        <li><i class="fa fa-envelope-o"></i> info@financialadvisor.com</li>
+                        <li>
+                            <i class="fa fa-phone"></i> +00 (123) 456 7890
+                        </li>
+                        <li>
+                            <i class="fa fa-envelope-o"></i> info@tontinewebapp.com
+                        </li>
                     </ul>
                 </div>
                 <div class="col-md-2 footer-widget"><!-- footer widget -->
-                    <h3> Services</h3>
+                    <h3>Liens</h3>
                     <ul class="listnone">
-                        <li><a href="service-investment.html" title="Investment Planning">Investment Planning</a></li>
-                        <li><a href="service-financial-management.html" title="Financial Planing">Financial Planing</a></li>
-                        <li><a href="service-tax-planning.html" title="Tax Planning">Tax Planning</a></li>
-                        <li><a href="service-retirement.html" title="Retirement">Retirement</a></li>
-                        <li><a href="service-estate-planning.html" title="Estate Planning">Estate Planning</a></li>
-                        <li><a href="service-life-events.html" title="Life Events">Life Events</a></li>
+                        <li><a th:href="@{/frontend-home}" title="Home">Accueil</a></li>
+                        <li><a th:href="@{/frontend-contact-us}" title="Contact Us">Nous contacter</a></li>
+                        <li><a th:href="@{/frontend-sign-up}" title="Register">S'inscrire</a></li>
                     </ul>
                 </div>
                 <!-- /.footer widget -->
                 <div class="col-md-3 footer-widget"><!-- footer widget -->
-                    <h3>Free Financial Tips &amp; Hints</h3>
+                    <h3>Souscrire à notre newsletter</h3>
+                    <!--
                     <p>Would you like to receive an award winning <strong>FREE quarterly financial tips </strong> and hints newsletter? </p>
-                    <form class="newsletter-widget" action="http://jituchauhan.com/insight/green-version/newsletter.php" method="post">
+                    -->
+                    <form class="newsletter-widget" action="" method="post">
                         <div class="row">
                             <div class="col-md-12 form-group">
-                                <label for="newsletteremail" class="sr-only">Email address</label>
-                                <input type="email" class="form-control" id="newsletteremail" name="newsletteremail" placeholder="Email Address" required>
+                                <label for="newsletteremail" class="sr-only">Adresse mail</label>
+                                <input type="email" class="form-control" id="newsletteremail" name="newsletteremail" placeholder="Entrer votre adresse mail" required>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Souscrire</button>
                     </form>
                 </div>
                 <!-- /.footer widget -->
