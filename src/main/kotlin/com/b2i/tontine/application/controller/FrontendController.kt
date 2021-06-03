@@ -15,6 +15,14 @@ class FrontendController(
         private val storageService: StorageService
 ) {
 
+    @GetMapping("/")
+    fun Home(
+            model: Model,
+            redirectAttributes: RedirectAttributes
+    ) : String {
+        return "frontend/home"
+    }
+
     @GetMapping("/frontend-home")
     fun frontendHome(
             model: Model,

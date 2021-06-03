@@ -44,7 +44,7 @@ constructor(
                 "/${RestControllerEndpoint.API_BASE_SECURED_URL}/**",
                 "/account/login",
                 "/account/register",
-                "/frontend-home","/frontend-contact-us","/frontend-sign-up",
+                "/frontend-home","/frontend-contact-us","/frontend-sign-up","/",
             )
             .permitAll()
             .anyRequest()
@@ -61,7 +61,7 @@ constructor(
             .and()
             .logout()
             .logoutRequestMatcher(AntPathRequestMatcher("/account/logout"))
-            .logoutSuccessUrl("/account/login").permitAll()
+            .logoutSuccessUrl("/frontend-home").permitAll()
     }
 
     @Throws(Exception::class)
