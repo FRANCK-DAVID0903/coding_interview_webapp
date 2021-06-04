@@ -44,7 +44,7 @@ class EmailHelper( private val javaMailSender: JavaMailSender,
     {
 
         val msg = SimpleMailMessage()
-        msg.setTo("manycawe.info@gmail.com")
+        msg.setTo("maycmeezy@gmail.com")
         msg.setSubject("$subject")
         msg.setText("Mon nom est: $name \n" + "Mon adresse email est : $mail \n" + "MESSAGE: \n" +"$msgText")
         javaMailSender.send(msg)

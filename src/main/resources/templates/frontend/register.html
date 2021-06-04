@@ -52,44 +52,46 @@
         <div class="main-container">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-10">
-                        <div class="col-md-12">
+                    <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10">
+                        <div class="col-xs-12 col-sm-12 col-md-12 d-flex flex-column align-items-center">
                             <h1>Formulaire d'inscription</h1>
                             <p>Remplisser le formulaire ci-dessous pour procéder à votre inscription.</p>
                         </div>
-                        <form id="form" method="post" action="http://jituchauhan.com/insight/green-version/consultation-form.php">
-                            <!-- Text input-->
-                            <div class="form-group col-md-6">
-                                <label class="control-label" for="fname">
-                                    Nom <span>*</span>
-                                </label>
-                                <input id="fname" name="firstname" type="text" placeholder="Entrer votre nom" class="form-control input-md" required>
+                        <form id="form" method="post" action="">
+                            <div class="container-fluid d-flex flex-column align-items-center">
+                                <!-- Text input-->
+                                <div class="form-group col-xs-12 col-sm-12 col-md-9">
+                                    <label class="control-label" for="fname">
+                                        Nom <span>*</span>
+                                    </label>
+                                    <input id="fname" name="firstname" type="text" placeholder="Entrer votre nom" class="form-control input-md" required>
+                                </div>
+                                <!-- Text input-->
+                                <div class="form-group col-xs-12 col-sm-12 col-md-9">
+                                    <label class="control-label" for="lname">
+                                        Prénoms <span>*</span>
+                                    </label>
+                                    <input id="lname" name="lastname" type="text" placeholder="Entrer votre/vos prénom(s)" class="form-control input-md" required>
+                                </div>
+                                <!-- Text input-->
+                                <div class="form-group col-xs-12 col-sm-12 col-md-9">
+                                    <label class="control-label" for="phone">
+                                        Contact <span>*</span>
+                                    </label>
+                                    <input id="phone" name="phone" type="text" placeholder="Entrer votre numéro de téléphone" class="form-control input-md" required>
+                                </div>
+                                <!-- Text input-->
+                                <div class="form-group col-xs-12 col-sm-12 col-md-9">
+                                    <label class="control-label" for="email">
+                                        Adresse mail <span>*</span>
+                                    </label>
+                                    <input id="email" name="email" type="text" placeholder="Entrer votre adresse mail" class="form-control input-md" required>
+                                </div>
+                                <div class="form-group col-xs-12 col-sm-12 col-md-12 mt-20 d-flex flex-row justify-content-center">
+                                    <button type="submit" class="btn btn-default">Envoyer</button>
+                                </div>
+                                <p >Déjà enregistré? <a th:href="@{/account/login}">Connectez-vous</a></p>
                             </div>
-                            <!-- Text input-->
-                            <div class="form-group col-md-6">
-                                <label class="control-label" for="lname">
-                                    Prénoms <span>*</span>
-                                </label>
-                                <input id="lname" name="lastname" type="text" placeholder="Entrer votre/vos prénom(s)" class="form-control input-md" required>
-                            </div>
-                            <!-- Text input-->
-                            <div class="form-group col-md-6">
-                                <label class="control-label" for="phone">
-                                    Contact <span>*</span>
-                                </label>
-                                <input id="phone" name="phone" type="text" placeholder="Entrer votre numéro de téléphone" class="form-control input-md" required>
-                            </div>
-                            <!-- Text input-->
-                            <div class="form-group col-md-6">
-                                <label class="control-label" for="email">
-                                    Adresse mail <span>*</span>
-                                </label>
-                                <input id="email" name="email" type="text" placeholder="Entrer votre adresse mail" class="form-control input-md" required>
-                            </div>
-                            <div class="form-group col-md-12 mt-20 d-flex flex-row justify-content-center">
-                                <button type="submit" class="btn btn-default">Envoyer</button>
-                            </div>
-                            <p >Déjà enregistré? <a th:href="@{/account/login}">Connectez-vous</a></p>
 
                             <!-- Multiple Checkboxes (inline)
                             <div class="col-md-12 form-group">
@@ -110,7 +112,6 @@
                                 </div>
                             </div>
                             -->
-
                         </form>
                     </div>
                 </div>
