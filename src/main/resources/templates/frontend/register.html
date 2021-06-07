@@ -57,7 +57,7 @@
                             <h1>Formulaire d'inscription</h1>
                             <p>Remplisser le formulaire ci-dessous pour procéder à votre inscription.</p>
                         </div>
-                        <form id="form" method="post" action="">
+                        <form id="form" method="post" th:action="@{/frontend-sign-up}">
                             <div class="container-fluid d-flex flex-column align-items-center">
                                 <!-- Text input-->
                                 <div class="form-group col-xs-12 col-sm-12 col-md-9">
@@ -72,6 +72,20 @@
                                         Prénoms <span>*</span>
                                     </label>
                                     <input id="lname" name="lastname" type="text" placeholder="Entrer votre/vos prénom(s)" class="form-control input-md" required>
+                                </div>
+                                <!-- Text input-->
+                                <div class="form-group col-xs-12 col-sm-12 col-md-9">
+                                    <label class="control-label" for="username">
+                                        Username <span>*</span>
+                                    </label>
+                                    <input id="username" name="username" type="text" placeholder="Entrer username ou login pour votre connexion" class="form-control input-md" required>
+                                </div>
+                                <!-- Text input-->
+                                <div class="form-group col-xs-12 col-sm-12 col-md-9">
+                                    <label class="control-label" for="mdp">
+                                        Mot de passe <span>*</span>
+                                    </label>
+                                    <input id="mdp" name="mdp" type="text" placeholder="Entrer votre mot de passe" class="form-control input-md" required>
                                 </div>
                                 <!-- Text input-->
                                 <div class="form-group col-xs-12 col-sm-12 col-md-9">

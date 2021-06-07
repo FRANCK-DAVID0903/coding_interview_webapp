@@ -1,11 +1,8 @@
 package com.b2i.tontine.domain.account.entity
 
-object UserNonRegistered {
+class UserNonRegistered {
 
-    val fullname:String = ""
-
-    val email:String = ""
-
-    val msg:String = ""
-
+    var fullname:String?=""
+    var email:String?=""
+    var msg:String?=""
 }
