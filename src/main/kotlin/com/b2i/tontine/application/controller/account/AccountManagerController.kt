@@ -1,10 +1,10 @@
 package com.b2i.tontine.application.controller.account
 
 import com.b2i.tontine.application.controlForm.ControlForm
-import com.b2i.social.application.event.SendEmailEvent
 import com.b2i.tontine.application.controlForm.Color
 import com.b2i.tontine.application.controller.BaseController
 import com.b2i.tontine.application.controller.ControllerEndpoint
+import com.b2i.tontine.application.event.SendEmailEvent
 import com.b2i.tontine.application.facade.AuthenticationFacade
 import com.b2i.tontine.domain.account.entity.FolderSrc
 import com.b2i.tontine.domain.account.entity.UserType

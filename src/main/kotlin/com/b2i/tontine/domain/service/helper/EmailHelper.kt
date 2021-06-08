@@ -1,4 +1,4 @@
-package com.b2i.social.domain.service.helper
+package com.b2i.tontine.domain.service.helper
 
 import com.b2i.tontine.domain.service.helper.Mail
 import org.springframework.beans.factory.annotation.Autowired
@@ -44,7 +44,7 @@ class EmailHelper( private val javaMailSender: JavaMailSender,
     {
 
         val msg = SimpleMailMessage()
-        msg.setTo("maycmeezy@gmail.com")
+        msg.setTo("manycawe.info@gmail.com")
         msg.setSubject("$subject")
         msg.setText("Mon nom est: $name \n" + "Mon adresse email est : $mail \n" + "MESSAGE: \n" +"$msgText")
         javaMailSender.send(msg)

@@ -53,6 +53,9 @@
 	/*----- Home page -----*/
 
 #HomePage {}
+#HomePage .main-container {
+	margin-top: 65px;
+}
 #HomePage .section-title {
 	margin-top: 35px;
 }

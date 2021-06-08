@@ -1,7 +1,7 @@
-package com.b2i.social.application.listener
+package com.b2i.tontine.application.listener
 
-import com.b2i.social.domain.service.helper.EmailHelper
 import com.b2i.tontine.application.event.SendContactEmailEvent
+import com.b2i.tontine.domain.service.helper.EmailHelper
 import org.springframework.context.ApplicationListener
 import org.springframework.stereotype.Component
 
@@ -16,7 +16,11 @@ class SendContactEmailListener(private val emailHelper: EmailHelper) : Applicati
                 message = "Le contenu du message est vide."
             }
             if (!user.email.equals("") && !user.email.equals("null")){
-                emailHelper.sendMsg(user.fullname!!,"Demande d'information",user.email!!,message!!)
+                try {
+                    emailHelper.sendMsg(user.fullname!!,"Demande d'information",user.email!!,message!!)
+                } catch (e:Exception) {
+                    print(e.message!!)
+                }
             }
         }
     }

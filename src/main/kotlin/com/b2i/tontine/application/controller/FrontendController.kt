@@ -3,12 +3,14 @@ package com.b2i.tontine.application.controller
 import com.b2i.tontine.application.controlForm.Color
 import com.b2i.tontine.application.controlForm.ControlForm
 import com.b2i.tontine.application.event.SendContactEmailEvent
+import com.b2i.tontine.application.event.SendEmailEvent
 import com.b2i.tontine.application.facade.AuthenticationFacade
 import com.b2i.tontine.domain.account.entity.User
 import com.b2i.tontine.domain.account.entity.UserNonRegistered
 import com.b2i.tontine.domain.account.member.entity.Member
 import com.b2i.tontine.domain.account.member.port.MemberDomain
 import com.b2i.tontine.infrastructure.local.storage.StorageService
+import com.b2i.tontine.utils.OperationResult
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -168,22 +170,33 @@ class FrontendController(
                 user.password = mdp
                 user.contact.phone = phone
                 user.contact.email = email
-
+                var operationResult:OperationResult<Member>? = null
                 try {
-                    memberDomain.saveMember(user)
-                    ControlForm.redirectAttribute(
-                            redirectAttributes,
-                            "Opération effectuée avec succès, Votre compte a bien été enregistré !",
-                            Color.green
-                    )
-                    return "redirect:/frontend-home"
+                    operationResult = memberDomain.saveMember(user)
                 } catch (e:Exception) {
                     ControlForm.redirectAttribute(
                             redirectAttributes,
                             e.message!!,
                             Color.red
                     )
+                    return "redirect:/frontend-sign-up"
                 }
+                if(operationResult.isSuccess) {
+                    eventPublisher.publishEvent(SendEmailEvent(user))
+                    ControlForm.redirectAttribute(
+                            redirectAttributes,
+                            "Opération effectuée avec succès, votre compte a bien été enregistré. Un mail vous a été envoyé, veuillez consulter votre boite de réception.",
+                            Color.green
+                    )
+                    return "redirect:/frontend-home"
+                } else {
+                    ControlForm.redirectAttribute(
+                            redirectAttributes,
+                            operationResult.errors!!.values.first(),
+                            Color.red
+                    )
+                }
+
             }
         }
 
