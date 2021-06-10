@@ -33,7 +33,7 @@ class MemberWorker: MemberDomain {
         if (userRepository.countAllByContactEmail(member.contact.email)>0L) {
             errors["email"]="String_email_always_used"
         } else if (userRepository.countAllByUsername(member.username)>0L) {
-            errors["email"]="String_email_always_used"
+            errors["email"]="String_username_always_used"
         }
 
         if(errors.isEmpty()){

@@ -15,7 +15,7 @@ class SendEmailListener(private val emailHelper: EmailHelper):ApplicationListene
             if (!user.contact.email.equals("") && !user.contact.email.equals("null")){
 
                 try {
-                    emailHelper.sendEmail(user.contact.email,user.username,user.password)
+                    emailHelper.sendHtmlEmail(user.contact.email, user)
                 } catch (e:Exception) {
                     print(e.message!!)
                 }
