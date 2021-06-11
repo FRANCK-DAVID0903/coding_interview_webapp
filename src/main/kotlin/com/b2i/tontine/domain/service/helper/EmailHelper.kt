@@ -1,4 +1,4 @@
-package com.b2i.social.domain.service.helper
+package com.b2i.tontine.domain.service.helper
 
 import com.b2i.tontine.domain.service.helper.Mail
 import org.springframework.beans.factory.annotation.Autowired

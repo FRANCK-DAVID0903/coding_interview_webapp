@@ -1,8 +1,8 @@
-package com.b2i.social.application.listener
+package com.b2i.tontine.application.listener
 
-import com.b2i.social.application.event.SendEmailEvent
-import com.b2i.social.domain.service.helper.EmailHelper
+import com.b2i.tontine.application.event.SendEmailEvent
 import com.b2i.tontine.domain.account.entity.User
+import com.b2i.tontine.domain.service.helper.EmailHelper
 import org.springframework.context.ApplicationListener
 import org.springframework.stereotype.Component
 
@@ -14,7 +14,11 @@ class SendEmailListener(private val emailHelper: EmailHelper):ApplicationListene
 
             if (!user.contact.email.equals("") && !user.contact.email.equals("null")){
 
-                emailHelper.sendEmail(user.contact.email,user.username,user.password)
+                try {
+                    emailHelper.sendEmail(user.contact.email,user.username,user.password)
+                } catch (e:Exception) {
+                    print(e.message!!)
+                }
             }
         }
     }

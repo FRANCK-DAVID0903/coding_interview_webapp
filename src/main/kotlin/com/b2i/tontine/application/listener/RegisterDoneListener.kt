@@ -1,7 +1,7 @@
 package com.b2i.social.application.listener
 
 import com.b2i.social.application.event.RegisterDoneEvent
-import com.b2i.social.domain.service.helper.EmailHelper
+import com.b2i.tontine.domain.service.helper.EmailHelper
 import org.springframework.context.ApplicationListener
 
 class RegisterDoneListener(private val emailHelper: EmailHelper):ApplicationListener<RegisterDoneEvent> {

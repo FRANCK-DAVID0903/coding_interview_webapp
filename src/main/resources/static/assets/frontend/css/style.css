@@ -349,8 +349,6 @@ button.btn {
 	-ms-transition: all 0.25s ease-in-out;
 	transition: all 0.25s ease-in-out;
 	max-width: 100%;
-	width: 80%;
-	min-width: 80%;
 }
 	/*----- Element Block -----*/
 .well-default { background-color: #fff; padding: 40px;}
@@ -621,7 +619,7 @@ button.btn {
 	min-height: 320px;
 }
 .parallax-5 {
-	background-image: url();
+	/*background-image: url();*/
 	background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), rgba(0, 0, 0, 0.55) url("../images/parallax-5.jpg") no-repeat center;
 	background-size: cover;
 	color: #fff;
