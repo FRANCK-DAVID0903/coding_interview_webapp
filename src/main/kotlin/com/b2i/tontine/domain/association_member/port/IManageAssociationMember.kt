@@ -29,4 +29,6 @@ interface IManageAssociationMember {
 
     fun updateRoleMember(associationMember: AssociationMember,role:String): OperationResult<AssociationMember>
 
+    fun findByAssociationAndRole(association: Association,role: String):Optional<AssociationMember>
+
 }

@@ -1,7 +1,9 @@
 package com.b2i.tontine.domain.account.worker
 
+import com.b2i.tontine.domain.account.entity.Admin
 import com.b2i.tontine.domain.account.entity.User
 import com.b2i.tontine.domain.account.port.UserDomain
+import com.b2i.tontine.infrastructure.db.repository.AdminRepository
 import com.b2i.tontine.infrastructure.db.repository.UserRepository
 import com.b2i.tontine.utils.OperationResult
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,6 +19,9 @@ class UserWorker : UserDomain {
 
     @Autowired
     lateinit var userRepository: UserRepository
+
+    @Autowired
+    lateinit var adminRepository: AdminRepository
 
     override fun authenticateUser(username: String, password: String): OperationResult<User> {
         val errors: MutableMap<String, String> = mutableMapOf()
@@ -55,6 +60,10 @@ class UserWorker : UserDomain {
 
     override fun isTakenUserByUsername(username: String): Boolean {
         return userRepository.countAllByUsername(username) >0L
+    }
+
+    override fun findAllAdmin(): MutableList<Admin> {
+        return adminRepository.findAll()
     }
 
     override fun lock(username: String): OperationResult<Boolean> {

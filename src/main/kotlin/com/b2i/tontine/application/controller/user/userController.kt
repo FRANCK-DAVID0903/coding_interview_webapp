@@ -94,7 +94,7 @@ class userController(
                                 messageSource.getMessage("user_save_success", null, locale)
                         )
                 ) {
-                    url = "list-users"
+                    url = "list-user"
                 }
 
             }
@@ -108,7 +108,10 @@ class userController(
             model: Model,
             locale: Locale
     ): String {
-        return forwardTo("add_user")
+
+        val admins = userDomain.findAllAdmin()
+        model.addAttribute("admins",admins)
+        return forwardTo("list_user")
     }
 
 

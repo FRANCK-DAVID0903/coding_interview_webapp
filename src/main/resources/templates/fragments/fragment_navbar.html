@@ -29,25 +29,19 @@
                         </div>
                     </div>
                     <div class="dropdown-list-content dropdown-list-icons">
-                        <a href="#" class="dropdown-item dropdown-item-unread">
+
+                        <a th:each="notif : ${allsNotifs}" href="#" class="dropdown-item">
                             <span class="dropdown-item-icon l-bg-orange text-white">
-                                <i class="far fa-envelope"></i>
-                            </span>
-                            <span class="dropdown-item-desc"> You got new mail, please check.
-                                <span class="time">2 Min Ago</span>
-                            </span>
-                        </a>
-                        <a href="#" class="dropdown-item">
-                            <span class="dropdown-item-icon l-bg-purple text-white">
                                 <i class="fas fa-bell"></i>
                             </span>
-                            <span class="dropdown-item-desc"> Meeting with <b>John Deo</b> and <b>Sarah Smith </b> at 10:30 am
-                                <span class="time">10 Hours Ago</span>
+                                <span class="dropdown-item-desc"> Nouvel offre valide pour une périodicité sur la tontine
+                                <span class="time" th:text="${notif.tontine.name}"></span>
                             </span>
                         </a>
+
                     </div>
                     <div class="dropdown-footer text-center">
-                        <a href="#">View All <i class="fas fa-chevron-right"></i></a>
+                        <a href="#">Voir toute les tontine <i class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>
             </li>

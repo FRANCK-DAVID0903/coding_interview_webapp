@@ -125,4 +125,8 @@ class AssociationMemberWorker : AssociationMemberDomain {
 
         return OperationResult(data, errors)
     }
+
+    override fun findByAssociationAndRole(association: Association, role: String): Optional<AssociationMember> {
+        return associationMemberRepository.findByAssociationAndRole(association,role)
+    }
 }

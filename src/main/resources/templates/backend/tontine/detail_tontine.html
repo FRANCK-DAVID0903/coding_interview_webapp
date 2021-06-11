@@ -310,7 +310,7 @@
                                                                                 <span>voir cotisations</span>
                                                                             </a>
 
-                                                                            <a th:if="${periode.periodicityState == 'OPENED'}" class="btn btn-primary btn-action mr-1" type="button" data-toggle="modal" data-target="#makeBiddingModal"
+                                                                            <a th:if="${(periode.periodicityState == 'OPENED' && connectedUser != 'actuator')}" class="btn btn-primary btn-action mr-1" type="button" data-toggle="modal" data-target="#makeBiddingModal"
                                                                                th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
                                                                                 <span th:text="#{tontine_bidding_make}"></span>
                                                                             </a>

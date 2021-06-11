@@ -234,7 +234,7 @@ class TontineController(
             @PathVariable tontine_id: String,
             locale: Locale
     ): String {
-        var url = "$association_id/tontines"
+        var url = "$association_id/tontines/$tontine_id"
 
         //get tontine by id
         val tontineSelected = tontineDomain.findTontineById(tontine_id.toLong())
@@ -292,7 +292,7 @@ class TontineController(
             @RequestParam("endDate") endDate : String,
             locale: Locale
     ): String {
-        var url = "$association_id/tontines"
+        var url = "$association_id/tontines/$tontine_id"
 
         if (startDate.isEmpty()){
                     ControlForm.redirectAttribute(
@@ -320,16 +320,21 @@ class TontineController(
             //Listes des membres de la tontine
             val listMember = tontineRequestDomain.findAllApprovedTontineMembers(tontine, true, 0)
 
-            listMember.forEach{ member ->
+            val allReadyContributions = tontineContributionDomain.findAllByTontinePeriodicity(periodicity).count()
 
-                val memberFinder = memberDomain.findById(member.beneficiary!!.id).get()
-                val contribution = TontineContribution()
+            if (allReadyContributions <= 0){
 
-                contribution.member = memberFinder
-                contribution.tontine = tontine
-                contribution.tontinePeriodicity = periodicity
+                listMember.forEach{ member ->
 
-                tontineContributionDomain.saveContribution(contribution)
+                    val memberFinder = memberDomain.findById(member.beneficiary!!.id).get()
+                    val contribution = TontineContribution()
+
+                    contribution.member = memberFinder
+                    contribution.tontine = tontine
+                    contribution.tontinePeriodicity = periodicity
+
+                    tontineContributionDomain.saveContribution(contribution)
+                }
             }
 
             val result = tontinePeriodicityDomain.updateTontine(periodicity)
@@ -345,7 +350,7 @@ class TontineController(
                     ControlForm.verifyHashMapRedirect(
                             redirectAttributes,
                             err,
-                            messageSource.getMessage("association_update_success", null, locale)
+                            messageSource.getMessage("periodicity_update_success", null, locale)
                     )
             ) {
                 url = "$association_id/tontines/$tontine_id"

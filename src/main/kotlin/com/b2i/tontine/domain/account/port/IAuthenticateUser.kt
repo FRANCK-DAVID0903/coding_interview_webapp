@@ -1,5 +1,6 @@
 package com.b2i.tontine.domain.account.port
 
+import com.b2i.tontine.domain.account.entity.Admin
 import com.b2i.tontine.domain.account.entity.User
 import com.b2i.tontine.utils.OperationResult
 import java.util.*
@@ -24,5 +25,7 @@ interface IAuthenticateUser {
     fun isTakenUserByEmail(email: String):Boolean
 
     fun isTakenUserByUsername(username:String):Boolean
+
+    fun findAllAdmin():MutableList<Admin>
 
 }

@@ -5,6 +5,7 @@ import com.b2i.tontine.application.controlForm.Color
 import com.b2i.tontine.application.controller.BaseController
 import com.b2i.tontine.application.controller.ControllerEndpoint
 import com.b2i.tontine.application.facade.AuthenticationFacade
+import com.b2i.tontine.domain.account.entity.AssociationRole
 import com.b2i.tontine.domain.account.entity.UserType
 import com.b2i.tontine.domain.account.port.RoleDomain
 import com.b2i.tontine.domain.account.port.UserDomain
@@ -323,12 +324,35 @@ class AssociationController(
         var page = "detail_association"
         val association: Association? = associationDomain.findAssociationById(id.toLong()).orElse(null)
 
+
         if (association == null) {
             page = "list_association"
         } else {
             val initial = stringInitialHelper.getStringWordsInitials(association.name)
+            val presi = associationMemberDomain.findByAssociationAndRole(association,AssociationRole.PDG).orElse(null)
+            val secre = associationMemberDomain.findByAssociationAndRole(association,AssociationRole.SECRETARY).orElse(null)
+            val treso = associationMemberDomain.findByAssociationAndRole(association,AssociationRole.TREASURER).orElse(null)
+
             model.addAttribute("association", association)
             model.addAttribute("initial", initial)
+            if (presi != null){
+                model.addAttribute("presi", presi.user!!.firstname)
+            }else{
+                model.addAttribute("presi", "")
+            }
+
+            if (treso != null){
+                model.addAttribute("treso", treso.user!!.firstname)
+            }else{
+                model.addAttribute("treso", "")
+            }
+
+            if (secre != null){
+                model.addAttribute("secre", secre.user!!.firstname)
+            }else{
+                model.addAttribute("secre", "")
+            }
+
             getConnectedAssociationMember(model, association)
         }
 
