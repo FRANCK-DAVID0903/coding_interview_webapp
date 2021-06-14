@@ -9,124 +9,93 @@
 
         <!-- Header ============================================= -->
         <!-- navigation -->
-        <div class="personal-nav-wrapper">
-            <div class="navigation">
-                <nav class="navbar navbar-default">
-                    <div class="container">
-                        <!-- Brand and toggle get grouped for better mobile display -->
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                            <a class="navbar-brand" th:href="@{/frontend-home}">
-                                <img th:src="@{/assets/frontend/images/logo.png}" alt="">
-                            </a>
-                        </div>
-                        <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul class="nav navbar-nav navbar-right">
-                                <li>
-                                    <a th:href="@{/frontend-home}" title="Home">Accueil</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/frontend-contact-us}" title="Contact us">Nous contacter</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/frontend-sign-up}" title="Register">S'inscrire</a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/account/login}" title="Log in">Se connecter</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- /.navbar-collapse -->
-                    </div>
-                    <!-- /.container-fluid -->
-                </nav>
-            </div>
-        </div>
+        <th:block th:replace="fragments/frontend_fragment_header" />
         <!-- / navigation -->
 
 
         <!-- Content ============================================= -->
 
-        <!-- main container -->
-        <div class="main-container">
+        <!-- page-header -->
+        <div class="page-header">
             <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10">
-                        <div class="col-xs-12 col-sm-12 col-md-12 d-flex flex-column align-items-center">
-                            <h1>Formulaire d'inscription</h1>
-                            <p>Remplisser le formulaire ci-dessous pour procéder à votre inscription.</p>
-                        </div>
-                        <form id="form" method="post" th:action="@{/frontend-sign-up}">
-                            <div class="container-fluid d-flex flex-column align-items-center">
-                                <!-- Text input-->
-                                <div class="form-group col-xs-12 col-sm-12 col-md-9">
-                                    <label class="control-label" for="fname">
-                                        Nom <span>*</span>
-                                    </label>
-                                    <input id="fname" name="firstname" type="text" placeholder="Entrer votre nom" class="form-control input-md" required>
-                                </div>
-                                <!-- Text input-->
-                                <div class="form-group col-xs-12 col-sm-12 col-md-9">
-                                    <label class="control-label" for="lname">
-                                        Prénoms <span>*</span>
-                                    </label>
-                                    <input id="lname" name="lastname" type="text" placeholder="Entrer votre/vos prénom(s)" class="form-control input-md" required>
-                                </div>
-                                <!-- Text input-->
-                                <div class="form-group col-xs-12 col-sm-12 col-md-9">
-                                    <label class="control-label" for="email">
-                                        Adresse mail <span>*</span>
-                                    </label>
-                                    <input id="email" name="email" type="text" placeholder="Entrer votre adresse mail" class="form-control input-md" required>
-                                </div>
-                                <!-- Text input-->
-                                <div class="form-group col-xs-12 col-sm-12 col-md-9">
-                                    <label class="control-label" for="username">
-                                        Username <span>*</span>
-                                    </label>
-                                    <input id="username" name="username" type="text" placeholder="Entrer username ou login pour votre connexion" class="form-control input-md" required>
-                                </div>
-                                <!-- Text input-->
-                                <div class="form-group col-xs-12 col-sm-12 col-md-9">
-                                    <label class="control-label" for="mdp">
-                                        Mot de passe <span>*</span>
-                                    </label>
-                                    <input id="mdp" name="mdp" type="password" placeholder="Entrer votre mot de passe" class="form-control input-md" required>
-                                </div>
-                                <!-- Text input-->
-                                <div class="form-group col-xs-12 col-sm-12 col-md-9">
-                                    <label class="control-label" for="phone">
-                                        Contact <span>*</span>
-                                    </label>
-                                    <input id="phone" name="phone" type="text" placeholder="Entrer votre numéro de téléphone" class="form-control input-md" required>
-                                </div>
-                                <div class="form-group col-xs-12 col-sm-12 col-md-12 mt-20 d-flex flex-row justify-content-center">
-                                    <button type="submit" class="btn btn-default">Envoyer</button>
-                                </div>
-                                <p >Déjà enregistré? <a th:href="@{/account/login}">Connectez-vous</a></p>
-                            </div>
+                <div class="row page-section">
+                    <div class="col-md-5 page-description">
+                        <h1 class="page-title">
+                            TONTINE,
+                            <span class="text-transform-initial font-weight-500 font-size-25">La tontine en ligne</span>
+                        </h1>
+                        <p>
+                            Accessible sur smartphone, tablette ou pc, TONTINE.com vous permet de participer à des tontines via des associations en toute autonomie et sécurité. Gagnez du temps pour vous concentrer sur l’essentiel !
+                        </p>
+                    </div>
+                    <!-- quote block -->
+                    <div class="col-md-7 page-quote">
+                        <a href="#" class="btn btn-third btn-lg scroll-to-target" data-target="#signup-content">Cliquer ici pour vous inscrire</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.page-header -->
 
-                            <!-- Multiple Checkboxes (inline)
-                            <div class="col-md-12 form-group">
-                                <div class="row">
-                                    <label class="col-md-12 control-label">
-                                        How you would like to be contacted?<span>*</span>
-                                    </label>
-                                    <div class="col-md-4">
-                                        <label class="checkbox-inline" for="checkboxes-0">
-                                            <input type="checkbox" name="checkboxes" id="checkboxes-0" value="Email">
-                                            Email
-                                        </label>
-                                        <label class="checkbox-inline" for="checkboxes-1">
-                                            <input type="checkbox" name="checkboxes" id="checkboxes-1" value="By Phone">
-                                            By Phone
-                                        </label>
-                                    </div>
-                                </div>
+        <!-- main container -->
+        <div id="signup-content" class="main-container">
+            <div class="container d-flex flex-row justify-content-center">
+                <div class="signup-content">
+                    <div class="signup-form col-xs-12 col-md-7">
+                        <h2>Formulaire d'inscription</h2>
+                        <form id="form" class="row" method="post" th:action="@{/frontend-sign-up}">
+                            <!-- Text input-->
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                <label class="control-label" for="fname">
+                                    Nom <span>*</span>
+                                </label>
+                                <input id="fname" name="firstname" type="text" placeholder="Entrer votre nom" class="form-control input-md" required>
                             </div>
-                            -->
+                            <!-- Text input-->
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                <label class="control-label" for="lname">
+                                    Prénoms <span>*</span>
+                                </label>
+                                <input id="lname" name="lastname" type="text" placeholder="Entrer votre/vos prénom(s)" class="form-control input-md" required>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                <label class="control-label" for="username">
+                                    Username <span>*</span>
+                                </label>
+                                <input id="username" name="username" type="text" placeholder="Entrer username ou login pour votre connexion" class="form-control input-md" required>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                <label class="control-label" for="email">
+                                    Adresse mail <span>*</span>
+                                </label>
+                                <input id="email" name="email" type="text" placeholder="Entrer votre adresse mail" class="form-control input-md" required>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                <label class="control-label" for="mdp">
+                                    Mot de passe <span>*</span>
+                                </label>
+                                <input id="mdp" name="mdp" type="password" placeholder="Entrer votre mot de passe" class="form-control input-md" required>
+                            </div>
+                            <!-- Text input-->
+                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                <label class="control-label" for="phone">
+                                    Contact <span>*</span>
+                                </label>
+                                <input id="phone" name="phone" type="text" placeholder="Entrer votre numéro de téléphone" class="form-control input-md" required>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                <p style="margin-bottom:0px;">Déjà enregistré? <a th:href="@{/account/login}">Connectez-vous</a></p>
+                            </div>
+                            <div class="form-group col-xs-12 col-sm-12 col-md-12 mt-10 d-flex flex-row justify-content-start">
+                                <button type="submit" class="btn btn-default">S'inscrire</button>
+                            </div>
                         </form>
+                    </div>
+                    <div class="signup-image col-xs-12 col-md-5 d-flex flex-row justify-content-end">
+                        <img th:src="@{/assets/frontend/images/signup-image.jpg}" alt="sing up image">
                     </div>
                 </div>
             </div>

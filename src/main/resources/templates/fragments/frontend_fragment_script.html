@@ -12,7 +12,6 @@
 
     <!-- Header Nav Dropdown
     <script th:src="@{/assets/frontend/js/nav.js}"></script>
-
     -->
 
     <!-- Owl carousel -->
@@ -24,6 +23,22 @@
     <!-- Others -->
     <script src="http://maps.googleapis.com/maps/api/js"></script>
     <script>
+
+        // Scroll to a Specific Div
+        if($('.scroll-to-target').length){
+            // console.log($('.scroll-to-target'));
+            $(".scroll-to-target").on('click', function() {
+                console.log("Click on a scroll button")
+                var target = $(this).attr('data-target');
+                // animate
+                $('html, body').animate({
+                    scrollTop: $(target).offset().top-30
+                }, 1500);
+
+            });
+        }
+
+
         var myCenter=new google.maps.LatLng(23.0203458,72.5797426);
 
         function initialize()

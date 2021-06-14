@@ -6,6 +6,7 @@
 	/*----- General -----*/
 
 /* Spacing */
+.mt-10 { margin-top: 10px !important; }
 .mt-20 { margin-top: 20px !important; }
 /* Flex */
 .d-flex { display: flex !important; }
@@ -181,14 +182,55 @@
 	width: 250px;
 	height: auto;
 }
+#HomePage .why-join-us-section {
+	background-image: url("../images/bg-1.png");
+}
 
 	/*----- Contact Page -----*/
 
 #ContactPage {}
+#ContactPage .main-container {
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-top: 80px;
+	padding-bottom: 80px;
+	background-image: url("../images/bg-1.png");
+}
 
 	/*----- Register Page -----*/
 
 #RegisterPage {}
+#RegisterPage .main-container {
+	margin-top: 0;
+	margin-bottom: 0;
+	padding-top: 50px;
+	padding-bottom: 80px;
+	background-image: url("../images/bg-1.png");
+}
+#RegisterPage .signup-form .form-group {
+	margin-bottom: 10px;
+}
+#RegisterPage .signup-form .form-group input.form-control {
+	height: 45px;
+}
+#RegisterPage .main-container .signup-content {
+	width: 90%;
+	padding: 60px 40px 50px 40px;
+	background-color: #ffffff;
+	border-radius: 20px;
+	box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+	-webkit-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+	-o-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+	-ms-box-shadow: 0px 15px 16.83px 0.17px rgba(0, 0, 0, 0.05);
+}
+#RegisterPage .main-container .signup-content .signup-form {
+	padding: 0 15px;
+}
+#RegisterPage .main-container .signup-content .signup-image img {
+	width: 80%;
+	margin-top: 25px;
+}
 #RegisterPage > .personal-nav-wrapper {
 	z-index: 8;
 	width: 100vw;
@@ -197,7 +239,4 @@
 }
 #RegisterPage > .personal-nav-wrapper > .navigation {
 	background: rgba(0,0,0,0.9);
-}
-#RegisterPage > .main-container {
-	margin-top: 130px;
 }
