@@ -3,7 +3,7 @@
 
 <!--Header
 ============================================= -->
-<th:block th:replace="fragments/fragment_head('All associaitions')" />
+<th:block th:replace="fragments/fragment_head('Home')" />
 
 <body>
 
@@ -29,56 +29,37 @@
                 <div class="section-body">
 
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-lg-12">
+
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 th:text="#{association_list_page_table_name}"></h4>
+                                    <h4 th:text="#{association_tontine_list_page_table_name}"></h4>
                                 </div>
                                 <div class="card-body">
+
                                     <div class="table-responsive">
                                         <table class="table table-striped" id="table-1">
                                             <thead>
                                             <tr>
-                                                <th class="text-center">#</th>
-                                                <th th:text="#{association_list_page_table_header_name}"></th>
-                                                <th th:text="#{association_list_page_table_header_acronym}"></th>
-                                                <th th:text="#{association_list_page_table_header_createDate}"></th>
-                                                <th th:text="#{association_list_page_table_header_status}"></th>
-                                                <th th:text="#{association_list_page_table_header_Action}"></th>
+                                                <th th:text="#{association_member_list_page_result_name}"></th>
+                                                <th th:text="#{association_tontine_list_page_table_type}"></th>
+                                                <th th:text="#{association_tontine_list_page_table_participant}"></th>
                                             </tr>
                                             </thead>
 
                                             <tbody>
-                                            <tr th:each="association : ${associations}">
+                                            <tr th:each="ad : ${admins}">
 
-                                                <td th:text="${association.id}"></td>
+                                                <td th:text="${ad.firstname}"></td>
 
-                                                <td th:text="${association.name}"></td>
+                                                <td class="align-middle" th:text="${ad.username}"></td>
 
-                                                <td class="align-middle" th:text="${association.acronym}"></td>
-
-                                                <td class="text-center">2018-01-20</td>
+                                                <td class="align-middle" th:text="${ad.contact.email}"></td>
 
                                                 <td class="text-center">
-                                                    <a th:if="${association.state} == 0" class="btn btn-icon btn-light icon-right"
-                                                       type="button" data-toggle="modal" data-target="#changeStatusModal"
-                                                       th:data-entity="${stringHelper.clean(association.toJSON())}"
-                                                       onclick="onUpdate(this.getAttribute('data-entity'));">
-                                                        <span th:text="#{association_list_page_table_header_status_active}"></span>
-                                                        <i class="fas fa-toggle-on" style="color: #0ba83b"></i>
-                                                    </a>
+                                                    <a th:href=""
+                                                       class="btn btn-primary" th:text="#{association_list_page_table_header_action_detail}"></a>
 
-                                                    <a th:if="${association.state} == 1" class="btn btn-icon btn-light icon-right"
-                                                       type="button" data-toggle="modal" data-target="#changeStatusModal"
-                                                       th:data-entity="${stringHelper.clean(association.toJSON())}"
-                                                       onclick="onUpdate(this.getAttribute('data-entity'));">
-                                                        <span th:text="#{association_list_page_table_header_status_deactivated}"></span>
-                                                        <i class="fas fa-toggle-off" style="color: #a32b1c"></i>
-                                                    </a>
-                                                </td>
-
-                                                <td class="text-center">
-                                                    <a th:href="@{/backend/association/detail_association/__${association.id}__}" class="btn btn-primary" th:text="#{association_list_page_table_header_action_detail}"></a>
                                                 </td>
 
                                             </tr>
@@ -88,6 +69,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
 
@@ -95,22 +77,6 @@
 
             </section>
 
-            <!-- Vertically Center -->
-            <div class="modal fade" id="changeStatusModal" tabindex="-1" role="dialog"
-                 aria-labelledby="changeStatusModalTitle" aria-hidden="true">
-
-                <div th:insert="fragments/modal/fragment_add_modal ::
-                                       fragment_add_modal(title='Change association state',
-                                       methodUrl='/backend/association/update_state',
-                                       body = ~{ :: #modal_body})">
-
-                    <div class="modal-body" id="modal_body">
-                        <p th:text="#{association_detail_page_action_modal_desc}"></p>
-                    </div>
-
-                </div>
-
-            </div>
 
         </div>
 
@@ -121,21 +87,8 @@
 
 </div>
 
-<!-- Scripts ============================================= -->
-<script>
-    $(document).ready(function () {
-        $('#users').attr('class', 'active');
-        $('#users-list').attr('class', 'active');
-    });
-</script>
-
-
 <script type="application/javascript">
 
-    function onUpdate(json) {
-        var association = jQuery.parseJSON(json.replace("'", "\\'"));
-        $('.model-id').val(association.id);
-    }
 
 </script>
 

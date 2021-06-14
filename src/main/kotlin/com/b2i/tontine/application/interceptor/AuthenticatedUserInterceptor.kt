@@ -2,6 +2,7 @@ package com.b2i.tontine.application.interceptor
 
 import com.b2i.tontine.application.facade.AuthenticationFacade
 import com.b2i.tontine.domain.account.entity.UserProfiler
+import com.b2i.tontine.domain.notification.port.NotificationDomain
 import org.springframework.stereotype.Component
 import org.springframework.web.servlet.HandlerInterceptor
 import org.springframework.web.servlet.ModelAndView
@@ -13,7 +14,8 @@ import javax.servlet.http.HttpServletResponse
 
 @Component
 class AuthenticatedUserInterceptor constructor(
-    private val authenticationFacade: AuthenticationFacade
+    private val authenticationFacade: AuthenticationFacade,
+    private val notificationDomain: NotificationDomain
 ) : HandlerInterceptor {
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
@@ -36,6 +38,10 @@ class AuthenticatedUserInterceptor constructor(
             Optional.ofNullable(user).ifPresent {
                 val profile = UserProfiler.profile(it)
                 modelAndView.addObject("user", profile)
+
+                //On vas ajouter les notifications aux pages
+                val notifsUser = notificationDomain.findAllByUserAndState(user,0)
+                modelAndView.addObject("allsNotifs",notifsUser)
             }
         }
     }

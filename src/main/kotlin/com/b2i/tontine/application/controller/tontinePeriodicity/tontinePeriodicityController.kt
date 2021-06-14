@@ -11,6 +11,8 @@ import com.b2i.tontine.domain.account.port.UserDomain
 import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.association.port.AssociationDomain
 import com.b2i.tontine.domain.association_member.port.AssociationMemberDomain
+import com.b2i.tontine.domain.notification.entity.Notification
+import com.b2i.tontine.domain.notification.port.NotificationDomain
 import com.b2i.tontine.domain.tontine.entity.TontineType
 import com.b2i.tontine.domain.tontine.port.TontineDomain
 import com.b2i.tontine.domain.tontine_bidding.port.TontineBiddingDomain
@@ -39,7 +41,8 @@ class tontinePeriodicityController(
         private val tontineContributionDomain: TontineContributionDomain,
         private val tontineBiddingDomain: TontineBiddingDomain,
         private val tontineDomain: TontineDomain,
-        private val messageSource: MessageSource
+        private val messageSource: MessageSource,
+        private val notificationDomain: NotificationDomain
 
 ): BaseController(ControllerEndpoint.BACKEND_PERIODICITY) {
 
@@ -125,11 +128,14 @@ class tontinePeriodicityController(
     ): String {
         var url = "periodicity/details/$periodicity_id"
 
-
         //get tontinePeriodicity by id
         val periodicity = tontinePeriodicityDomain.findById(periodicity_id.toLong()).orElse(null)
 
         if (periodicity != null){
+
+            val tontine = periodicity.tontine
+
+            var listMember = tontine?.let { tontineRequestDomain.findAllApprovedTontineMembers(it, true, 0) }
 
             periodicity.biddingState = TontineType.OPENED
             periodicity.biddingDeadline = SimpleDateFormat("yyyy-MM-dd").parse(deadlineDate)
@@ -166,6 +172,19 @@ class tontinePeriodicityController(
                             messageSource.getMessage("periodicity_tontine_contribution_close_done", null, locale)
                     )
             ) {
+                listMember?.forEach{ member ->
+
+                    val memberFinder = memberDomain.findById(member.beneficiary!!.id).get()
+                    val notification = Notification()
+
+                    notification.tontine = tontine
+                    notification.user = member.beneficiary
+                    notification.periodicity = periodicity
+                    notification.association = tontine!!.association
+
+                    notificationDomain.saveNotification(notification)
+                }
+
                 url = "details/$periodicity_id"
             }
 
@@ -187,6 +206,10 @@ class tontinePeriodicityController(
 
         //get bidding selected by id
         val bidding = tontineBiddingDomain.findBiddingById(id.toLong()).orElse(null)
+        val tontine = periodicity.tontine
+
+        var listMember = tontine?.let { tontineRequestDomain.findAllApprovedTontineMembers(it, true, 0) }
+
 
         if (bidding != null){
 
@@ -206,6 +229,20 @@ class tontinePeriodicityController(
                                 messageSource.getMessage("periodicity_tontine_approve_interest_member_offer_done", null, locale)
                         )
                 ) {
+
+                    listMember?.forEach{ member ->
+
+                        val memberFinder = memberDomain.findById(member.beneficiary!!.id).get()
+                        val notification = Notification()
+
+                        notification.tontine = tontine
+                        notification.user = member.beneficiary
+                        notification.periodicity = periodicity
+                        notification.association = tontine!!.association
+
+                        notificationDomain.saveNotification(notification)
+                    }
+
                     url = "details/$periodicity_id"
                 }
 

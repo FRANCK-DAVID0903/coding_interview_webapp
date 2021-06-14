@@ -252,7 +252,7 @@
                                 <label>
                                     <span th:text="#{profile_tontine_amount}"></span>
                                 </label>
-                                <input type="number" class=" form-control amount" id="amount" name="amount">
+                                <input th:value="${periodicity.tontine.contributionAmount}" type="number" class=" form-control amount" id="amount" name="amount" disabled>
                             </div>
 
                         </div>

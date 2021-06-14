@@ -26,4 +26,6 @@ interface AssociationMemberRepository : JpaRepository<AssociationMember, Long> {
 
     fun findByRoleAndAssociation(role:String,association: Association):Optional<AssociationMember>
 
+    fun findByAssociationAndRole(association: Association,role: String):Optional<AssociationMember>
+
 }
