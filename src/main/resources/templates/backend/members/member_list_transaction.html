@@ -3,7 +3,7 @@
 
 <!--Header
 ============================================= -->
-<th:block th:replace="fragments/fragment_head('Mes associations')" />
+<th:block th:replace="fragments/fragment_head('Mes cotisations')" />
 
 <body>
 
@@ -30,15 +30,15 @@
                     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                         <div class="card card-statistic-1">
                             <div class="card-icon l-bg-green">
-                                <i class="fas fa-dollar-sign"></i>
+                                <i class="fas fa-money-bill"></i>
                             </div>
                             <div class="card-wrap">
                                 <div class="padding-20">
                                     <div class="text-right">
                                         <h3 class="font-light mb-0">
-                                            <i class="ti-arrow-up text-success"></i> 469 000
+                                            <i class="ti-arrow-up text-success" th:text="${currencyHelper.formatWithoutCurrency(allAmountContribute)}"></i>
                                         </h3>
-                                        <span class="text-muted">Total Montant Debité</span>
+                                        <span class="text-muted" th:text="#{total_amount_contributed}"></span>
                                     </div>
                                 </div>
                             </div>
@@ -46,16 +46,16 @@
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                         <div class="card card-statistic-1">
-                            <div class="card-icon l-bg-red">
-                                <i class="fas fa-chart-line"></i>
+                            <div class="card-icon l-bg-orange">
+                                <i class="fas fa-money-bill"></i>
                             </div>
                             <div class="card-wrap">
                                 <div class="padding-20">
                                     <div class="text-right">
                                         <h3 class="font-light mb-0">
-                                            <i class="ti-arrow-up text-success"></i> 785 000
+                                            <i class="ti-arrow-up text-success" th:text="${currencyHelper.formatWithoutCurrency(allAmountContributeTontine)}"></i>
                                         </h3>
-                                        <span class="text-muted">Total Montant Crédité</span>
+                                        <span class="text-muted" th:text="#{total_amount_paid_tontine}"></span>
                                     </div>
                                 </div>
                             </div>
@@ -64,16 +64,16 @@
                     <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                         <a>
                             <div class="card card-statistic-1">
-                                <div class="card-icon l-bg-orange">
-                                    <i class="fas fa-hiking"></i>
+                                <div class="card-icon l-bg-red">
+                                    <i class="fas fa-money-bill"></i>
                                 </div>
                                 <div class="card-wrap">
                                     <div class="padding-20">
                                         <div class="text-right">
                                             <h3 class="font-light mb-0">
-                                                <i class="ti-arrow-up text-success"></i> 2 158 000
+                                                <i class="ti-arrow-up text-success" th:text="${currencyHelper.formatWithoutCurrency(allAmountInterestPayed)}"></i>
                                             </h3>
-                                            <span class="text-muted">Solde du compte</span>
+                                            <span class="text-muted" th:text="#{total_interest_paid}"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -88,26 +88,33 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 th:text="#{sidebar_transactions_list}"></h4>
+                                    <h4 th:text="#{sidebar_transactions_list_by_association}"></h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-striped" id="table-1">
                                             <thead>
                                             <tr>
-                                                <th th:text="#{table_transaction_amount}"></th>
-                                                <th th:text="#{table_transaction_operation}"></th>
+                                                <th th:text="#{sidebar_myAssociation}"></th>
+                                                <th th:text="#{amount_contributed}"></th>
+                                                <th th:text="#{amount_paid_tontine}"></th>
+                                                <th th:text="#{interest_paid}"></th>
+                                                <th th:text="#{association_list_page_table_header_Action}"></th>
                                             </tr>
                                             </thead>
 
                                             <tbody>
-                                            <tr th:each="association : ${associations}">
+                                                <tr th:each="contr : ${allContributions}">
 
-                                                <td th:text="${association.association.name}"></td>
+                                                    <td th:text="${contr['key'].name}"></td>
+                                                    <td class="align-middle" th:text="${currencyHelper.formatWithoutCurrency(contr['value'].first)}"></td>
+                                                    <td class="align-middle" th:text="${currencyHelper.formatWithoutCurrency(contr['value'].second)}"></td>
+                                                    <td class="align-middle" th:text="${currencyHelper.formatWithoutCurrency(contr['value'].third)}"></td>
+                                                    <td class="align-right">
+                                                        <a th:href="@{/backend/members/my_transactions/detail_transactions/__${contr['key'].id}__}" class="btn btn-primary" th:text="#{association_list_page_table_header_action_detail}"></a>
+                                                    </td>
 
-                                                <td class="align-middle" th:text="${association.association.acronym}"></td>
-
-                                            </tr>
+                                                </tr>
                                             </tbody>
 
                                         </table>

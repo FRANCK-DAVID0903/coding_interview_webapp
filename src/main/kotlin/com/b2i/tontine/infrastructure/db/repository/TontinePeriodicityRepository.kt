@@ -1,6 +1,7 @@
 package com.b2i.tontine.infrastructure.db.repository
 
 import com.b2i.tontine.domain.account.member.entity.Member
+import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.tontine.entity.Tontine
 import com.b2i.tontine.domain.tontine_periodicity.entity.TontinePeriodicity
 import com.b2i.tontine.utils.OperationResult
@@ -18,4 +19,10 @@ interface TontinePeriodicityRepository:JpaRepository<TontinePeriodicity,Long> {
     fun findAllByTontine(tontine: Tontine): MutableList<TontinePeriodicity>
 
     fun findByPeriodicityNumberAndTontine(number:Long,tontine: Tontine): Optional<TontinePeriodicity>
+
+    fun findAllByBeneficiary(member: Member): MutableList<TontinePeriodicity>
+
+    fun findByBeneficiaryAndTontine(member: Member,tontine: Tontine): Optional<TontinePeriodicity>
+
+    fun findAllByBeneficiaryAndTontine_Association(member: Member,association: Association):MutableList<TontinePeriodicity>
 }

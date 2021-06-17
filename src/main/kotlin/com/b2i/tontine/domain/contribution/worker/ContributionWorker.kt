@@ -1,6 +1,7 @@
 package com.b2i.tontine.domain.contribution.worker
 
 import com.b2i.tontine.domain.account.entity.User
+import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.contribution.entity.Contribution
 import com.b2i.tontine.domain.contribution.port.ContributionDomain
 import com.b2i.tontine.domain.region.entity.Region
@@ -42,6 +43,18 @@ class ContributionWorker: ContributionDomain {
 
     override fun findAllByUserAndMonthNumber(member: User, month: Int): MutableList<Contribution> {
         return contributionRepository.findAllByUserAndMonthNumber(member,month)
+    }
+
+    override fun findAllByUserAndAssociation(user: User, association: Association): MutableList<Contribution> {
+        return contributionRepository.findAllByUserAndAssociation(user,association)
+    }
+
+    override fun findAllByUserAndAssociationAndState(user: User, association: Association, state: Int): MutableList<Contribution> {
+        return contributionRepository.findAllByUserAndAssociationAndState(user,association,state)
+    }
+
+    override fun findAllByUserAndState(user: User, state: Int): MutableList<Contribution> {
+        return contributionRepository.findAllByUserAndState(user,state)
     }
 
 }

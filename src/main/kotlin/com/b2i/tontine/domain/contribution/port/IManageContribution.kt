@@ -1,6 +1,7 @@
 package com.b2i.tontine.domain.contribution.port
 
 import com.b2i.tontine.domain.account.entity.User
+import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.contribution.entity.Contribution
 import com.b2i.tontine.domain.region.entity.Region
 import com.b2i.tontine.utils.OperationResult
@@ -16,4 +17,9 @@ interface IManageContribution {
 
     fun findAllByUserAndMonthNumber(member: User, month:Int): MutableList<Contribution>
 
+    fun findAllByUserAndAssociation(user: User,association: Association):MutableList<Contribution>
+
+    fun findAllByUserAndAssociationAndState(user: User,association: Association,state:Int): MutableList<Contribution>
+
+    fun findAllByUserAndState(user: User,state: Int): MutableList<Contribution>
 }

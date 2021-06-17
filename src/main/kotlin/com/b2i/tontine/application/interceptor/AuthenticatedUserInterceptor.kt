@@ -41,7 +41,9 @@ class AuthenticatedUserInterceptor constructor(
 
                 //On vas ajouter les notifications aux pages
                 val notifsUser = notificationDomain.findAllByUserAndState(user,0)
+                val nbNotif = notifsUser.count()
                 modelAndView.addObject("allsNotifs",notifsUser)
+                modelAndView.addObject("nbNotif",nbNotif)
             }
         }
     }

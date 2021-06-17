@@ -17,5 +17,7 @@ interface TontineContributionRepository: JpaRepository<TontineContribution,Long>
 
     fun findByTontinePeriodicityAndMemberAndTontine(tontinePeriodicity: TontinePeriodicity,member: Member, tontine: Tontine): Optional<TontineContribution>
 
+    fun findAllByMemberAndContributed(member: Member,contributed:Boolean):MutableList<TontineContribution>
+
 
 }

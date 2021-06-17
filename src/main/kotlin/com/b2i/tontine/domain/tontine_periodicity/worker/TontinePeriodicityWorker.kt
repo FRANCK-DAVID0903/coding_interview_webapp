@@ -1,6 +1,7 @@
 package com.b2i.tontine.domain.tontine_periodicity.worker
 
 import com.b2i.tontine.domain.account.member.entity.Member
+import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.tontine.entity.Tontine
 import com.b2i.tontine.domain.tontine_periodicity.entity.TontinePeriodicity
 import com.b2i.tontine.domain.tontine_periodicity.port.TontinePeriodicityDomain
@@ -99,5 +100,17 @@ class TontinePeriodicityWorker: TontinePeriodicityDomain {
 
     override fun findByPeriodicityNumberAndTontine(number: Long, tontine: Tontine): Optional<TontinePeriodicity> {
         return tontinePeriodicityRepository.findByPeriodicityNumberAndTontine(number,tontine)
+    }
+
+    override fun findAllByBeneficiary(member: Member): MutableList<TontinePeriodicity> {
+        return tontinePeriodicityRepository.findAllByBeneficiary(member)
+    }
+
+    override fun findByBeneficiaryAndTontine(member: Member, tontine: Tontine): Optional<TontinePeriodicity> {
+        return tontinePeriodicityRepository.findByBeneficiaryAndTontine(member,tontine)
+    }
+
+    override fun findAllByBeneficiaryAndTontine_Association(member: Member, association: Association): MutableList<TontinePeriodicity> {
+        return tontinePeriodicityRepository.findAllByBeneficiaryAndTontine_Association(member,association)
     }
 }

@@ -17,10 +17,11 @@
                 </a>
             </li>
 
-            <li class="dropdown dropdown-list-toggle">
+            <li class="dropdown dropdown-list-toggle" th:if="${nbNotif>0}">
                 <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg">
-                    <i data-feather="bell"></i>
+                    <i data-feather="bell" class="feather feather-mail mailAnim"></i>
                 </a>
+                <span class="badge headerBadge1"></span>
                 <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
                     <div class="dropdown-header">
                         Notifications

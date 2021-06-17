@@ -18,4 +18,7 @@ interface IManageTontineContribution {
     fun findAllByTontinePeriodicity(tontinePeriodicity: TontinePeriodicity): MutableList<TontineContribution>
 
     fun findByTontinePeriodicityAndMemberAndTontine(tontinePeriodicity: TontinePeriodicity,member: Member, tontine: Tontine): Optional<TontineContribution>
+
+    fun findAllByMemberAndContributed(member: Member,contributed:Boolean):MutableList<TontineContribution>
+
 }

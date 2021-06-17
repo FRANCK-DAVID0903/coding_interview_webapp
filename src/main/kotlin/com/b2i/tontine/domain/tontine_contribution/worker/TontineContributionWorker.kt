@@ -41,4 +41,8 @@ class TontineContributionWorker: TontineContributionDomain {
     override fun findByTontinePeriodicityAndMemberAndTontine(tontinePeriodicity: TontinePeriodicity, member: Member, tontine: Tontine): Optional<TontineContribution> {
         return tontineContributionRepository.findByTontinePeriodicityAndMemberAndTontine(tontinePeriodicity,member,tontine)
     }
+
+    override fun findAllByMemberAndContributed(member: Member, contributed: Boolean): MutableList<TontineContribution> {
+        return tontineContributionRepository.findAllByMemberAndContributed(member,contributed)
+    }
 }

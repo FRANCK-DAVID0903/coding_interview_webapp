@@ -31,6 +31,10 @@ class Contribution : BaseEntity() {
     @ManyToOne(targetEntity = User::class, optional = false)
     var user : User? = null
 
+    //state = 0 valide
+    //state = 1 proposé par le membre
+    //state = 2 annulé, supprimé
+
     var state : Int = 0
 
     // user
