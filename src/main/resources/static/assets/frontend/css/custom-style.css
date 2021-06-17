@@ -139,6 +139,14 @@
 	100% { transform: translateY(-700px) rotate(600deg); }
 }
 
+.page-header .particles-bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
 	/*----- Header -----*/
 
 .navigation .navbar-default .navbar-nav>li>a:hover {
@@ -164,6 +172,10 @@
 	margin-top: -81px;
 	position: relative;
 	background-position-y: -430px;
+}
+#HomePage .page-header .page-title {
+	font-size: 30px;
+	margin-bottom: 10px;
 }
 #HomePage .main-container {
 	padding-top: 65px;
