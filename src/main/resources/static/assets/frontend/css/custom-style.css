@@ -153,7 +153,18 @@
 
 	/*----- Home page -----*/
 
-#HomePage {}
+#HomePage .page-header {
+	background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), rgba(0, 0, 0, 0.55) url(../images/header_bg4.jpeg) no-repeat center;
+	background-size: cover;
+	color: #fff;
+	margin: 0;
+	padding: 15px 10px 15px;
+	min-height: 420px;
+	border: none;
+	margin-top: -81px;
+	position: relative;
+	background-position-y: -430px;
+}
 #HomePage .main-container {
 	padding-top: 65px;
 	padding-bottom: 80px;
@@ -200,6 +211,17 @@
 	/*----- Register Page -----*/
 
 #RegisterPage {}
+#RegisterPage .page-header {
+	background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), rgba(0, 0, 0, 0.55) url(../images/header_bg1.png) no-repeat center;
+	background-size: cover;
+	color: #fff;
+	margin: 0;
+	padding: 15px 10px 15px;
+	min-height: 420px;
+	border: none;
+	margin-top: -81px;
+	position: relative;
+}
 #RegisterPage .main-container {
 	margin-top: 0;
 	margin-bottom: 0;
