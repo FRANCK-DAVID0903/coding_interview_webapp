@@ -141,7 +141,8 @@
 
 .page-header .particles-bg {
 	position: absolute;
-	top: 0;
+	height: 80% !important;
+	top: 80px;
 	left: 0;
 	bottom: 0;
 	right: 0;
