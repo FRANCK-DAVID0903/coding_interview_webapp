@@ -55,10 +55,16 @@ class tontinePeriodicityController(
         val tontinePeriodicity = tontinePeriodicityDomain.findById(id.toLong()).orElse(null)
 
         if (tontinePeriodicity != null){
+            val asso = tontinePeriodicity.tontine!!.association
+
             model.addAttribute("tontinePeriodicityMembers", tontineContributionDomain.findAllByTontinePeriodicity(tontinePeriodicity))
             model.addAttribute("tontinePeriodicityBidding", tontineBiddingDomain.findAllBiddingByPeriodicity(tontinePeriodicity))
             model.addAttribute("periodicity", tontinePeriodicity)
             model.addAttribute("periodicity_id",id)
+
+            if (asso != null) {
+                injectAssociation(model, asso)
+            }
         }
 
         return forwardTo("list_contributions")
@@ -71,6 +77,7 @@ class tontinePeriodicityController(
             @RequestParam id: String,
             @RequestParam payementMethod: String,
             @RequestParam contributionDate: String,
+            @RequestParam forMe: String,
             locale: Locale
     ): String {
         var url = "periodicity/details/$periodicity_id"
@@ -86,6 +93,9 @@ class tontinePeriodicityController(
             val contribution = tontineContributionDomain.findByTontinePeriodicityAndMemberAndTontine(periodicity,member,tontine.get()).orElse(null)
 
             if (contribution != null){
+                if (forMe.toInt() == 1){
+                    contribution.state = 1
+                }
                 contribution.contributed = true
                 contribution.contributionAmount = periodicity.tontine!!.contributionAmount
                 contribution.contributionDate = SimpleDateFormat("yyyy-MM-dd").parse(contributionDate)
@@ -124,7 +134,8 @@ class tontinePeriodicityController(
             @RequestParam deadlineDate: String,
             @RequestParam biddingAmount: String,
             @RequestParam type: String,
-            locale: Locale
+            locale: Locale,
+            model: Model
     ): String {
         var url = "periodicity/details/$periodicity_id"
 
@@ -140,6 +151,8 @@ class tontinePeriodicityController(
             periodicity.biddingState = TontineType.OPENED
             periodicity.biddingDeadline = SimpleDateFormat("yyyy-MM-dd").parse(deadlineDate)
             periodicity.nextPeriodicity = false
+
+
 
             if(type == "EN VALEUR"){
 
@@ -186,6 +199,8 @@ class tontinePeriodicityController(
                 }
 
                 url = "details/$periodicity_id"
+
+
             }
 
         }
@@ -197,7 +212,8 @@ class tontinePeriodicityController(
             redirectAttributes: RedirectAttributes,
             @PathVariable periodicity_id: String,
             @RequestParam id: String,
-            locale: Locale
+            locale: Locale,
+            model: Model
     ): String {
         var url = "periodicity/details/$periodicity_id"
 
@@ -244,6 +260,7 @@ class tontinePeriodicityController(
                     }
 
                     url = "details/$periodicity_id"
+
                 }
 
 
@@ -290,6 +307,31 @@ class tontinePeriodicityController(
 
         }
         return redirectTo(url)
+    }
+
+    fun injectAssociation(model: Model, association: Association) {
+        model.addAttribute("association", association)
+        val user = authenticationFacade.getAuthenticatedUser().get()
+        var connectedUser = "actuator"
+
+        model.addAttribute("connectedUserId", user.id)
+
+        when (userDomain.findTypeBy(user.id)) {
+            UserType.ASSOCIATION_MEMBER -> {
+                val member = associationMemberDomain.findByAssociationAndUser(association, user)
+                if (member.isPresent) {
+                    connectedUser = member.get().role
+                    model.addAttribute("connectedUser", connectedUser)
+                }
+            }
+            UserType.ACTUATOR -> {
+                model.addAttribute("connectedUser", connectedUser)
+            }
+            UserType.ASSOCIATION_ADMIN -> {
+                connectedUser = "association_admin"
+                model.addAttribute("connectedUser", connectedUser)
+            }
+        }
     }
 
 }

@@ -31,7 +31,7 @@
                     </div>
                     <div class="dropdown-list-content dropdown-list-icons">
 
-                        <a th:each="notif : ${allsNotifs}" href="#" class="dropdown-item">
+                        <a th:each="notif : ${allsNotifs}" th:href="@{/backend/readNotification/__${notif.id}__}" class="dropdown-item">
                             <span class="dropdown-item-icon l-bg-orange text-white">
                                 <i class="fas fa-bell"></i>
                             </span>

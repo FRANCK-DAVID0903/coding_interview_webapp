@@ -1,6 +1,7 @@
 package com.b2i.tontine.domain.tontine_contribution.worker
 
 import com.b2i.tontine.domain.account.member.entity.Member
+import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.tontine.entity.Tontine
 import com.b2i.tontine.domain.tontine_contribution.entity.TontineContribution
 import com.b2i.tontine.domain.tontine_contribution.port.TontineContributionDomain
@@ -44,5 +45,9 @@ class TontineContributionWorker: TontineContributionDomain {
 
     override fun findAllByMemberAndContributed(member: Member, contributed: Boolean): MutableList<TontineContribution> {
         return tontineContributionRepository.findAllByMemberAndContributed(member,contributed)
+    }
+
+    override fun findAllByMemberAndContributedAndTontine_Association(member: Member, contributed: Boolean, association: Association): MutableList<TontineContribution> {
+        return tontineContributionRepository.findAllByMemberAndContributedAndTontine_Association(member,contributed,association)
     }
 }

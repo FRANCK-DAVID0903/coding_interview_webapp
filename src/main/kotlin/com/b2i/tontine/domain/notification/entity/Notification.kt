@@ -24,5 +24,7 @@ class Notification: BaseEntity() {
     @ManyToOne(targetEntity = TontinePeriodicity::class, optional = false)
     var periodicity : TontinePeriodicity? = null
 
+    // 0 = non lu
+    // 1 = lu
     var state: Int = 0
 }

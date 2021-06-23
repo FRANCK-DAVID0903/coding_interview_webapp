@@ -42,6 +42,8 @@ class TontineContribution : BaseEntity() {
     @ManyToOne(targetEntity = TontinePeriodicity::class, optional = false)
     var tontinePeriodicity: TontinePeriodicity? = null
 
+    //0 = Cotisation faite par le presi ou l'admin association
+    //1 = Cotisation faite par le membre en attente de validation
     var state : Int = 0
 
 }

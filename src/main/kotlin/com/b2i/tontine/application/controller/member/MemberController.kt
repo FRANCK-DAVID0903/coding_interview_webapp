@@ -85,7 +85,7 @@ class MemberController(
 
             val assoFinder : Association = associationDomain.findAssociationById(asso.association!!.id).orElse(null) ?: return@forEach
             val mtContribute = contributionDomain.findAllByUserAndAssociationAndState(userConnected,assoFinder,0).sumByDouble { it.amount }
-            val mtTontine = tontineContributionDomain.findAllByMemberAndContributed(memberConnected,true).sumByDouble { it.contributionAmount }
+            val mtTontine = tontineContributionDomain.findAllByMemberAndContributedAndTontine_Association(memberConnected,true, asso.association!!).sumByDouble { it.contributionAmount }
             val mtInterest = tontinePeriodicityDomain.findAllByBeneficiaryAndTontine_Association(memberConnected, asso.association!!).sumByDouble { it.biddingAmount }
             montants = Triple(mtContribute,mtTontine,mtInterest)
             dataMemberContribute.put(assoFinder,montants)
