@@ -14,6 +14,9 @@
     <script th:src="@{/assets/frontend/js/nav.js}"></script>
     -->
 
+    <!-- Particles JS -->
+    <script th:src="@{/assets/frontend/js/particles.min.js}"></script>
+
     <!-- Owl carousel -->
     <script th:src="@{/assets/frontend/js/owl.carousel.min.js}"></script>
 
@@ -24,7 +27,21 @@
     <script src="http://maps.googleapis.com/maps/api/js"></script>
     <script>
 
-        // Scroll to a Specific Div
+        /*--------------------------------------
+        Particles on background script
+        ---------------------------------------*/
+        Particles.init({
+            selector: '.particles-bg',
+            color: '#00cb8b',
+            maxParticles: 100,
+            sizeVariations: 4,
+            connectParticles: false
+        });
+
+
+        /*--------------------------------------
+        Scroll to a Specific Div script
+        ---------------------------------------*/
         if($('.scroll-to-target').length){
             // console.log($('.scroll-to-target'));
             $(".scroll-to-target").on('click', function() {
@@ -38,6 +55,10 @@
             });
         }
 
+
+        /*--------------------------------------
+        Google maps on Contact Page script
+        ---------------------------------------*/
 
         var myCenter=new google.maps.LatLng(23.0203458,72.5797426);
 
