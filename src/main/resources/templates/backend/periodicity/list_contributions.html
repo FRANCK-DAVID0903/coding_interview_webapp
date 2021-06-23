@@ -147,7 +147,7 @@
                                                                 <i class="fas fa-money-bill"></i>
                                                             </a>
 
-                                                            <a th:if="${tontineMember.contributed == true && tontineMember.member.id == connectedUserId && connectedUser != 'association_admin'}" class="btn btn-primary btn-action mr-1" title="" th:data-original-title="#{table_contribute}" type="button" data-toggle="modal" data-target="#addCotisationYourselfModal"
+                                                            <a th:if="${tontineMember.contributed == true && tontineMember.state == 0 && tontineMember.member.id == connectedUserId && connectedUser != 'association_admin'}" class="btn btn-primary btn-action mr-1" title="" th:data-original-title="#{table_contribute}" type="button" data-toggle="modal" data-target="#addCotisationYourselfModal"
                                                                th:data-entity="${stringHelper.clean(tontineMember.member.toJSON())}" onclick="onUpdate(this.getAttribute('data-entity'));" th:title="#{table_contribute_for_you}">
                                                                 <i class="fas fa-money-bill-wave"></i>
                                                             </a>
