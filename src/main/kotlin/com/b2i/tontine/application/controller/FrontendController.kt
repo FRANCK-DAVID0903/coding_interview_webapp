@@ -32,8 +32,26 @@ class FrontendController(
             model: Model,
             redirectAttributes: RedirectAttributes
     ) : String {
-        return "frontend/home"
+        return "frontend/new-home"
     }
+
+    @GetMapping("/frontend-how-it-works")
+    fun frontendHowItWorks(
+            model: Model,
+            redirectAttributes: RedirectAttributes
+    ) : String {
+        return "frontend/how-it-works"
+    }
+
+    @GetMapping("/frontend-faq")
+    fun frontendFaq(
+            model: Model,
+            redirectAttributes: RedirectAttributes
+    ) : String {
+        return "frontend/faq"
+    }
+
+
 
     @GetMapping("/frontend-home")
     fun frontendHome(
@@ -48,7 +66,7 @@ class FrontendController(
             model: Model,
             redirectAttributes: RedirectAttributes
     ) : String {
-        return "frontend/contact"
+        return "frontend/new-contact"
     }
 
     @PostMapping("/frontend-contact-us")

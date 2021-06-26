@@ -1,30 +1,71 @@
 <div xmlns:th="http://www.thymeleaf.org" th:fragment="frontend_script">
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script th:src="@{/assets/frontend/js/jquery.min.js}"></script>
+<!-- New template script ressources -->
 
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script th:src="@{/assets/frontend/js/bootstrap.min.js}"></script>
+    <!-- modernizr js -->
+    <script th:src="@{/assets/frontend/new_template/js/modernizr-2.8.3.min.js}"></script>
 
-    <!-- Header sticky -->
-    <script th:src="@{/assets/frontend/js/jquery.sticky.js}"></script>
-    <script th:src="@{/assets/frontend/js/sticky-header.js}"></script>
+    <!-- jquery latest version -->
+    <script th:src="@{/assets/frontend/new_template/js/jquery.min.js}"></script>
 
-    <!-- Header Nav Dropdown
-    <script th:src="@{/assets/frontend/js/nav.js}"></script>
-    -->
+    <!-- Bootstrap v4.4.1 js -->
+    <script th:src="@{/assets/frontend/new_template/js/bootstrap.min.js}"></script>
 
-    <!-- Particles JS -->
-    <script th:src="@{/assets/frontend/js/particles.min.js}"></script>
+    <!-- Menu js -->
+    <script th:src="@{/assets/frontend/new_template/js/rsmenu-main.js}"></script>
 
-    <!-- Owl carousel -->
-    <script th:src="@{/assets/frontend/js/owl.carousel.min.js}"></script>
+    <!-- op nav js -->
+    <script th:src="@{/assets/frontend/new_template/js/jquery.nav.js}"></script>
+
+    <!-- owl.carousel js -->
+    <script th:src="@{/assets/frontend/new_template/js/owl.carousel.min.js}"></script>
+
+    <!-- Slick js -->
+    <script th:src="@{/assets/frontend/new_template/js/slick.min.js}"></script>
+
+    <!-- isotope.pkgd.min js -->
+    <script th:src="@{/assets/frontend/new_template/js/isotope.pkgd.min.js}"></script>
+
+    <!-- imagesloaded.pkgd.min js -->
+    <script th:src="@{/assets/frontend/new_template/js/imagesloaded.pkgd.min.js}"></script>
+
+    <!-- wow js -->
+    <script th:src="@{/assets/frontend/new_template/js/wow.min.js}"></script>
+
+    <!-- aos js -->
+    <script th:src="@{/assets/frontend/new_template/js/aos.js}"></script>
+
+    <!-- Skill bar js -->
+    <script th:src="@{/assets/frontend/new_template/js/skill.bars.jquery.js}"></script>
+    <script th:src="@{/assets/frontend/new_template/js/jquery.counterup.min.js}"></script>
+
+    <!-- counter top js -->
+    <script th:src="@{/assets/frontend/new_template/js/waypoints.min.js}"></script>
+
+    <!-- video js -->
+    <script th:src="@{/assets/frontend/new_template/js/jquery.mb.YTPlayer.min.js}"></script>
+
+    <!-- magnific popup js -->
+    <script th:src="@{/assets/frontend/new_template/js/jquery.magnific-popup.min.js}"></script>
+
+    <!-- Nivo slider js -->
+    <script th:src="@{/assets/frontend/new_template/inc/custom-slider/js/jquery.nivo.slider.js}"></script>
+
+    <!-- plugins js -->
+    <script th:src="@{/assets/frontend/new_template/js/plugins.js}"></script>
+
+    <!-- contact form js -->
+    <script th:src="@{/assets/frontend/new_template/js/contact.form.js}"></script>
+
+    <!-- main js -->
+    <script th:src="@{/assets/frontend/new_template/js/main.js}"></script>
+
+
+<!-- End template script ressources -->
 
     <!-- Sweet alert -->
     <script th:src="@{/assets/js/sweetalert2.min.js}"></script>
 
-    <!-- Others -->
-    <script src="http://maps.googleapis.com/maps/api/js"></script>
     <script>
 
         /*--------------------------------------
@@ -259,5 +300,33 @@
             notifySuccess('Success', operationMessage)
         }
     </script>
+
+
+    <!--
+        --- Old template script ressources ---
+
+        -- jQuery (necessary for Bootstrap's JavaScript plugins) --
+        <script th:src="@{/assets/frontend/js/jquery.min.js}"></script>
+
+        -- Include all compiled plugins (below), or include individual files as needed --
+        <script th:src="@{/assets/frontend/js/bootstrap.min.js}"></script>
+
+        -- Header sticky --
+        <script th:src="@{/assets/frontend/js/jquery.sticky.js}"></script>
+        <script th:src="@{/assets/frontend/js/sticky-header.js}"></script>
+
+        -- Header Nav Dropdown --
+        <script th:src="@{/assets/frontend/js/nav.js}"></script>
+
+        -- Particles JS --
+        <script th:src="@{/assets/frontend/js/particles.min.js}"></script>
+
+        -- Owl carousel --
+        <script th:src="@{/assets/frontend/js/owl.carousel.min.js}"></script>
+
+        -- Others --
+        <script src="http://maps.googleapis.com/maps/api/js"></script>
+
+    -->
 
 </div>

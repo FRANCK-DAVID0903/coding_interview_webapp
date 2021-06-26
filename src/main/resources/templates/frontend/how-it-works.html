@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <!--Head ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_head('Home')" />
+
+    <body id="HowItWorksPage" class="theme-one">
+
+    <!-- Header ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_header" />
+
+
+    <!-- Content ============================================= -->
+
+    <div class="main-content">
+        <!-- Breadcrumbs Section Start -->
+        <div class="rs-breadcrumbs bg-1">
+            <div class="container">
+                <div class="content-part text-center">
+                    <h1 class="breadcrumbs-title white-color mb-0">Comment ça marche ?</h1>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumbs Section End -->
+
+        <!-- How it works Section Start -->
+        <div id="rs-services" class="rs-services style18 gray-bg6 pb-100 md-pb-70">
+            <div class="container">
+                <div class="sec-title4 text-center mb-60 md-mb-35">
+                    <h2 class="title">
+                        <span class="first-title">Comment ça marche ?</span>
+                    </h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mb-30">
+                        <div class="services-item">
+                            <div class="services-icon">
+                                <!--
+                                <img th:src="@{/assets/frontend/new_template/images/services/style12/icons/1.png}" alt="images">
+                                -->
+                                <span class="step-number">1</span>
+                            </div>
+                            <div class="text-area">
+                                <h3 class="title">Inscription</h3>
+                                <p class="services-txt">
+                                    Remplisser un formulaire et créer votre compte en cliquant sur ce <a th:href="@{/frontend-sign-up}">lien</a>.<br/>
+                                    C'est simple et rapide.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-30">
+                        <div class="services-item">
+                            <div class="services-icon">
+                                <span class="step-number">2</span>
+                            </div>
+                            <div class="text-area">
+                                <h3 class="title">Intégrer une association</h3>
+                                <p class="services-txt">
+                                    Demander à intégrer une ou plusieurs associations via les administrateurs des associations.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="services-item">
+                            <div class="services-icon">
+                                <span class="step-number">3</span>
+                            </div>
+                            <div class="text-area">
+                                <h3 class="title">Participer et gagner</h3>
+                                <p class="services-txt">
+                                    Après avoir intégrer une association, il ne vous reste plus qu'a partciper aux tontines
+                                    et récupérer la cagnote.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--
+            --- First idea ---
+            <div class="rs-how-it-works inner pt-80 lg-pt-90 md-pt-80 pb-100 md-pb-80">
+                <div class="container">
+                    <div class="row">
+                        <div class="container-fluid">
+                            <div class="sec-title mb-75 md-mb-30">
+                                <h2 class="title mb-0 text-center">Comment ça marche ?</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row part mt-10 mb-30">
+                        <div class="col-xs-12 col-sm-12 col-md-7">
+                            <div class="step">
+                                <span class="step-number">01</span>
+                                <p class="step-text">
+                                    Remplisser un formulaire et créer votre compte en cliquant sur ce <a th:href="@{/frontend-sign-up}">lien</a>.<br/>
+                                    C'est simple et rapide.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-5">
+                            <div class="img">
+                                <img th:src="@{/assets/frontend/new_template/images/icon_step1.png}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row part mt-10 mb-30">
+                        <div class="col-xs-12 col-sm-12 col-md-5">
+                            <div class="img">
+                                <img th:src="@{/assets/frontend/new_template/images/icon_step2.png}">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-7">
+                            <div class="step">
+                                <span class="step-number">02</span>
+                                <p class="step-text">
+                                    Demander à intégrer une ou plusieurs associations via les administrateurs des associations.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row part mt-10 mb-20">
+                        <div class="col-xs-12 col-sm-12 col-md-7">
+                            <div class="step">
+                                <span class="step-number">03</span>
+                                <p class="step-text">
+                                    Après avoir intégrer une association, il ne vous reste plus qu'a partciper aux tontines créée par votre association
+                                    et récupérer votre cagnote quand c'est a votre tour.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-5">
+                            <div class="img">
+                                <img th:src="@{/assets/frontend/new_template/images/icon_step3.png}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        -->
+        <!-- How it works Section End -->
+
+        <!-- Advantages Section Start -->
+        <div class="rs-advantages inner pt-50 md-pt-50 pb-100 md-pb-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 md-mb-30">
+                        <div class="sec-title mb-43">
+                            <div class="sub-title primary text-center">Pourquoi utiliser LUNGCASH</div>
+                            <h2 class="title mb-16 text-center">Quelques Avantages</h2>
+                        </div>
+                        <div id="accordion" class="accordion">
+                            <div class="row d-flex flex-row justify-content-between">
+                                <div class="card col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="card-header">
+                                        <a class="card-link text-center">Pour les associations</a>
+                                    </div>
+                                    <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <p>
+                                                - Installer une tontine dans l’association revient à doter la communauté associative d’un fond
+                                                de solidarité entre ses membres. De ce fait, l’association se dote de la capacité de distribuer
+                                                des micro-crédits à ses membres, selon des critères et des modalités qu’elle définit, ce qui
+                                                renforce les liens de confiance et de sécurité entre l’association et ses membres et permet aussi
+                                                d’assurer la longévité et le bon fonctionnement de l’association grâce aux liens formés entre
+                                                elle et ses membres.
+                                            </p>
+                                            <p>
+                                                - Elle renforce le lien social à l’intérieur de l’association. En introduisant la dimension de la
+                                                solidarité financière dans ses activités, l’association prend une véritable dimension sociale.
+                                                Cette dimension de solidarité financière augmente l’attractivité de l’association pour ses
+                                                membres, qui ne la voient plus comme un simple lieu de partage d’activités mais également
+                                                comme un organisme protecteur et bienveillant.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="card-header">
+                                        <a class="collapsed card-link text-center">Pour les membres</a>
+                                    </div>
+                                    <div id="collapseTwo" class="collapse show" data-parent="#accordion">
+                                        <div class="card-body">
+                                         <p>
+                                             - Avoir un accès au crédit beaucoup plus facilement car les créanciers sont
+                                             des proches qui se font parfaitement confiance. Entre proches, il n’y a pas de
+                                             formalités quand on se prête de l’argent, aucun justificatif de revenu n’est donc
+                                             demandé. Les tontines permettent aussi aux membres de savoir exactement où est
+                                             investi leur argent et comment il évolue.
+                                         </p>
+                                         <p>
+                                             - Avec les tontines, c’est plus facile de prêter à ses proches car le montant prêté est
+                                             réparti entre plusieurs personnes. Exemple : Sur un montant total d’une “Tontine”
+                                             de 100.000 FCFA sur 10 personnes, chaque personne ne va verser que 10.000 FCFA.
+                                             C’est plus facile pour tout le monde de verser 10.000 FCFA régulièrement qu’avoir une
+                                             seule personne qui prête 100.000 FCFA à une autre. En plus, tous les membres participants
+                                             à la tontine bénéficieront au moins une fois du montant total de la cotisation de la
+                                             tontine avant la fin de celle-ci. Des groupes d'amis, voisins ou collègues peuvent se
+                                             constituer afin de proposer, sur la base de la confiance, des aides à chacun des membres.
+                                         </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Advantages Section Start -->
+
+        <!-- Counter Section Start -->
+        <div class="rs-counter style1 modify bg21 pt-92 pb-100 md-pt-72 md-pb-80">
+            <div class="container">
+                <!--
+                <div class="sec-title text-center mb-52 md-mb-29">
+                    <div class="sub-title white-color">Fun Facts</div>
+                    <h2 class="title mb-0 white-color">Facts For Choosing Us</h2>
+                </div>
+                -->
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6 mb-30">
+                        <div class="couter-part plus">
+                            <div class="rs-count">15</div>
+                            <h5 class="title">Tontines en cours</h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6 mb-30">
+                        <div class="couter-part plus">
+                            <div class="rs-count">100</div>
+                            <h5 class="title">Membres inscrits</h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6 xs-mb-30">
+                        <div class="couter-part plus">
+                            <div class="rs-count">25</div>
+                            <h5 class="title">Associations</h5>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="couter-part thousand">
+                            <div class="rs-count">230</div>
+                            <h5 class="title">Portfolios</h5>
+                        </div>
+                    </div>
+                    -->
+                </div>
+            </div>
+        </div>
+        <!-- Counter Section End -->
+
+        <!-- Contact Section Start -->
+        <div class="rs-contact style1 gray-bg pt-100 pb-100 md-pt-80 md-pb-80">
+            <div class="container">
+                <div class="white-bg">
+                    <div class="row">
+                        <div class="col-lg-8 form-part">
+                            <div class="sec-title mb-35 md-mb-30">
+                                <h2 class="title mb-0">Ecrivez-nous !</h2>
+                            </div>
+                            <div id="form-messages"></div>
+                            <form id="contact-form" class="contact-form" method="post" action="https://rstheme.com/products/html/reobiz/mailer.php">
+                                <div class="row">
+                                    <div class="col-md-6 mb-30">
+                                        <div class="common-control">
+                                            <input type="text" name="name" placeholder="Nom et prénoms" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-30">
+                                        <div class="common-control">
+                                            <input type="email" name="email" placeholder="Adresse mail" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-30">
+                                        <div class="common-control">
+                                            <textarea name="message" placeholder="Votre message" required=""></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="submit-btn">
+                                            <button type="submit" class="readon">Soumettre</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-4 pl-0 md-pl-pr-15 md-order-first">
+                            <div class="contact-info">
+                                <h3 class="title">Informations</h3>
+                                <div class="info-wrap mb-20">
+                                    <div class="icon-part">
+                                        <i class="flaticon-location"></i>
+                                    </div>
+                                    <div class="content-part">
+                                        <h4>localisation</h4>
+                                        Cocody Corniche, ABIDJAN, Côte d'Ivoire.
+                                    </div>
+                                </div>
+                                <div class="info-wrap mb-20">
+                                    <div class="icon-part">
+                                        <i class="flaticon-call"></i>
+                                    </div>
+                                    <div class="content-part">
+                                        <h4>Telephone</h4>
+                                        <p>P: <a href="tel:+1235558888">(+123) 555 8888</a></p>
+                                    </div>
+                                </div>
+                                <div class="info-wrap mb-20">
+                                    <div class="icon-part">
+                                        <i class="flaticon-email"></i>
+                                    </div>
+                                    <div class="content-part">
+                                        <h4>Ecrivez-nous</h4>
+                                        <p>E: <a href="mailto:support@rstheme.com">lungcash@support.com</a></p>
+                                    </div>
+                                </div>
+                                <!--
+                                <div class="info-wrap">
+                                    <div class="icon-part">
+                                        <i class="flaticon-clock"></i>
+                                    </div>
+                                    <div class="content-part">
+                                        <h4>Opening Hours</h4>
+                                        <p>Mon-Fri: 10:00-18:00</p>
+                                        <p>Sat-Sun: 10:00-14:00</p>
+                                    </div>
+                                </div>
+                                -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Contact Section End -->
+    </div>
+
+
+    <!-- Footer ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_footer" />
+
+    <!-- Script ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_script" />
+
+
+    </body>
+
+</html>

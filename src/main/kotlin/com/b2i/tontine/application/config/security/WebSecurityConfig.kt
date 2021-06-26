@@ -45,6 +45,7 @@ constructor(
                 "/account/login",
                 "/account/register",
                 "/frontend-home","/frontend-contact-us","/frontend-sign-up","/",
+                "/frontend-how-it-works","/frontend-faq",
             )
             .permitAll()
             .anyRequest()

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <!--Head
+    ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_head('Home')" />
+
+    <body id="HomePage" class="theme-one">
+
+    <!-- Header ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_header" />
+
+
+    <!-- Content ============================================= -->
+
+    <div class="main-content">
+        <!-- Slider Start -->
+        <div id="rs-slider" class="rs-slider slider6">
+            <div class="slider-carousel owl-carousel">
+                <!-- Slide 1 -->
+                <div class="slider slide1">
+                    <div class="container">
+                        <div class="content-part">
+                            <div class="slider-des">
+                                <h1 class="sl-title mb-10">LUNGCASH</h1>
+                                <div class="sl-desc">La tontine en ligne, Accessible sur smartphone, tablette ou pc !</div>
+                            </div>
+                            <div class="slider-bottom mt-15">
+                                <ul>
+                                    <li>
+                                        <a th:href="@{/account/register}" class="readon sl style6">Cliquer ici pour vous inscrire</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Slider End -->
+
+        <!-- About Section Start -->
+        <div id="rs-about" class="rs-about style3 pb-100 md-pb-50">
+            <div class="container">
+                <div class="row d-flex flex-row align-items-start">
+                    <div class="col-lg-6 pr-85 lg-pr-50 md-pr-15">
+                        <div class="sec-title mb-15">
+                            <div class="sub-title green">A propos de LUNGCASH</div>
+                            <h2 class="title mb-15">La tontine en ligne</h2>
+                            <div class="desc">
+                                Une plateforme numérique Fiable, Sécurisé pour le renforcement de la solidarité financière et simple à utiliser.
+                            </div>
+                        </div>
+                        <ul class="listing-style mb-20">
+                            <li>Remplisser le formulaire d'inscription en cliquant sur ce <a th:href="@{/account/register}">lien</a></li>
+                            <li>Intégrer une association</li>
+                            <li>Participer aux tontines ou cotisations de votre association, puis remporter la cagnotte à votre tour</li>
+                        </ul>
+                        <div class="btn-part">
+                            <a class="readon" th:href="@{/frontend-how-it-works}">Comment ça marche ?</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 md-order-first md-mb-30">
+                        <div class="row gutter-20">
+                            <div class="col-6">
+                                <img th:src="@{/assets/frontend/new_template/images/about/home6/1.jpg}" alt="">
+                            </div>
+                            <div class="col-6 mt-30">
+                                <img class="mb-20" th:src="@{/assets/frontend/new_template/images/about/home6/2.jpg}" alt="">
+                                <img th:src="@{/assets/frontend/new_template/images/about/home6/3.jpg}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About Section End -->
+
+        <!-- Counter Section Start -->
+        <div class="rs-counter style1 modify bg21 pt-60 pb-70 md-pt-60 md-pb-70">
+            <div class="container">
+                <!--
+                <div class="sec-title text-center mb-52 md-mb-29">
+                    <div class="sub-title white-color">Fun Facts</div>
+                    <h2 class="title mb-0 white-color">Facts For Choosing Us</h2>
+                </div>
+                -->
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6 mb-30">
+                        <div class="couter-part plus">
+                            <div class="rs-count">15</div>
+                            <h5 class="title">Tontines en cours</h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6 mb-30">
+                        <div class="couter-part plus">
+                            <div class="rs-count">100</div>
+                            <h5 class="title">Membres inscrits</h5>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6 xs-mb-30">
+                        <div class="couter-part plus">
+                            <div class="rs-count">25</div>
+                            <h5 class="title">Associations</h5>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <div class="couter-part thousand">
+                            <div class="rs-count">230</div>
+                            <h5 class="title">Portfolios</h5>
+                        </div>
+                    </div>
+                    -->
+                </div>
+            </div>
+        </div>
+        <!-- Counter Section End -->
+
+        <!-- Services Mini Section Start -->
+        <div class="rs-services style1 pt-60 pb-60 md-pt-60 md-pb-60">
+            <div class="container">
+                <div class="sec-title text-center mb-47 md-mb-42">
+                    <h2 class="title mb-0">Une alternative au prêt bancaire</h2>
+                </div>
+                <div class="row gutter-16">
+                    <div class="col-lg-3 col-sm-6 mb-16">
+                        <div class="service-wrap">
+                            <div class="icon-part">
+                                <img th:src="@{/assets/frontend/new_template/images/services/icons/1.png}" alt="">
+                            </div>
+                            <div class="content-part">
+                                <h5 class="title">
+                                    <span>Sécurité</span>
+                                </h5>
+                                <div class="desc">
+                                    Les données et les transactions sont sécurisés.
+                                    La visibilité des données est hiérarchisée et par association.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 mb-16">
+                        <div class="service-wrap">
+                            <div class="icon-part">
+                                <img th:src="@{/assets/frontend/new_template/images/services/icons/2.png}" alt="">
+                            </div>
+                            <div class="content-part">
+                                <h5 class="title">
+                                    <a href="services-single.html">Cagnotte</a>
+                                </h5>
+                                <div class="desc">
+                                    Participez à une cagnotte transparente à tour de rôle
+                                    Optez pour la mise à prix de la cagnotte pour votre association
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 mb-16">
+                        <div class="service-wrap">
+                            <div class="icon-part">
+                                <img th:src="@{/assets/frontend/new_template/images/services/icons/3.png}" alt="">
+                            </div>
+                            <div class="content-part">
+                                <h5 class="title">
+                                    <span>Crédit</span>
+                                </h5>
+                                <div class="desc">
+                                    Les membres les plus actifs de Lung Cash se voient octroyer du crédit à des taux les plus bas avec les microfinances partenaires
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 mb-16">
+                        <div class="service-wrap">
+                            <div class="icon-part">
+                                <img th:src="@{/assets/frontend/new_template/images/services/icons/4.png}" alt="">
+                            </div>
+                            <div class="content-part">
+                                <h5 class="title">
+                                    <span>Finances</span>
+                                </h5>
+                                <div class="desc">
+                                    Tous les utilisateurs de la plateforme ont des états personnalisés sur leurs finances (tontines, cotisations, cagnotte)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Services Mini Section End -->
+
+        <!-- Contact Section Start -->
+        <div class="rs-contact style1 gray-bg pt-50 pb-50 md-pt-30 md-pb-30">
+            <div class="container">
+                <div class="white-bg">
+                    <div class="row">
+                        <div class="col-lg-8 form-part">
+                            <div class="sec-title mb-35 md-mb-30">
+                                <h2 class="title mb-0">Ecrivez-nous</h2>
+                            </div>
+                            <div id="form-messages"></div>
+                            <form id="contact-form" class="contact-form" method="post" action="https://rstheme.com/products/html/reobiz/mailer.php">
+                                <div class="row">
+                                    <div class="col-md-6 mb-30">
+                                        <div class="common-control">
+                                            <input type="text" name="name" placeholder="Nom et prénoms" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-30">
+                                        <div class="common-control">
+                                            <input type="email" name="email" placeholder="Adresse mail" required="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-30">
+                                        <div class="common-control">
+                                            <textarea name="message" placeholder="Votre message" required=""></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="submit-btn">
+                                            <button type="submit" class="readon">Envoyer</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-4 pl-0 md-pl-pr-15 md-order-first">
+                            <div class="contact-info">
+                                <h3 class="title">Informations</h3>
+                                <div class="info-wrap mb-20">
+                                    <div class="icon-part">
+                                        <i class="flaticon-location"></i>
+                                    </div>
+                                    <div class="content-part">
+                                        <h4>localisation</h4>
+                                        Cocody Corniche, ABIDJAN, Côte d'Ivoire.
+                                    </div>
+                                </div>
+                                <div class="info-wrap mb-20">
+                                    <div class="icon-part">
+                                        <i class="flaticon-call"></i>
+                                    </div>
+                                    <div class="content-part">
+                                        <h4>Telephone</h4>
+                                        <p>P: <a href="tel:+1235558888">(+123) 555 8888</a></p>
+                                    </div>
+                                </div>
+                                <div class="info-wrap mb-20">
+                                    <div class="icon-part">
+                                        <i class="flaticon-email"></i>
+                                    </div>
+                                    <div class="content-part">
+                                        <h4>Ecrivez-nous</h4>
+                                        <p>E: <a href="mailto:support@rstheme.com">lungcash@support.com</a></p>
+                                    </div>
+                                </div>
+                                <!--
+                                <div class="info-wrap">
+                                    <div class="icon-part">
+                                        <i class="flaticon-clock"></i>
+                                    </div>
+                                    <div class="content-part">
+                                        <h4>Opening Hours</h4>
+                                        <p>Mon-Fri: 10:00-18:00</p>
+                                        <p>Sat-Sun: 10:00-14:00</p>
+                                    </div>
+                                </div>
+                                -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Contact Section End -->
+    </div>
+
+
+
+    <!-- Footer ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_footer" />
+
+    <!-- Script ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_script" />
+
+
+    </body>
+
+</html>

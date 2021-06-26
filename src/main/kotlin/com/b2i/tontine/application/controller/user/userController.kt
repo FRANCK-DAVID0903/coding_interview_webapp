@@ -111,7 +111,7 @@ class userController(
 
         val admins = userDomain.findAllAdmin()
         model.addAttribute("admins",admins)
-        return forwardTo("list_user")
+        return forwardTo("list_users")
     }
 
 

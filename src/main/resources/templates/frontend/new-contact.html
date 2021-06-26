@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <!--Head
+    ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_head('Home')" />
+
+    <body id="ContactPage" class="theme-one">
+
+    <!-- Header ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_header" />
+
+
+    <!-- Content ============================================= -->
+
+    <div class="main-content">
+        <!-- Breadcrumbs Section Start -->
+        <div class="rs-breadcrumbs bg-6">
+            <div class="container">
+                <div class="content-part text-center">
+                    <h1 class="breadcrumbs-title white-color mb-0">Contact</h1>
+                </div>
+            </div>
+        </div>
+        <!-- Breadcrumbs Section End -->
+
+        <!-- Contact Section Start -->
+        <div id="rs-contact" class="rs-contact inner pt-100 md-pt-80">
+            <div class="container">
+                <div class="content-info-part mb-60">
+                    <div class="row gutter-16">
+                        <div class="col-lg-4 md-mb-30">
+                            <div class="info-item">
+                                <div class="icon-part">
+                                    <i class="fa fa-at"></i>
+                                </div>
+                                <div class="content-part">
+                                    <h4 class="title">Numéro de téléphone</h4>
+                                    <a href="tel:+088589-8745">(+225)27-27-27-27-27</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 md-mb-30">
+                            <div class="info-item">
+                                <div class="icon-part">
+                                    <i class="fa fa-map-o"></i>
+                                </div>
+                                <div class="content-part">
+                                    <h4 class="title">Localisation</h4>
+                                    <p>Cocody Corniche, ABIDJAN, Côte d'Ivoire</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="info-item">
+                                <div class="icon-part">
+                                    <i class="fa fa-envelope-o"></i>
+                                </div>
+                                <div class="content-part">
+                                    <h4 class="title">Adresse mail</h4>
+                                    <a href="mailto:support@rstheme.com">lungcash@support.com</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-part">
+                    <div class="row md-col-padding">
+                        <div class="col-md-5 custom1 pr-0">
+                            <div class="img-part"></div>
+                        </div>
+                        <div class="col-md-7 custom2 pl-0">
+                            <div id="form-messages"></div>
+                            <form id="contact-form" method="post" action="https://rstheme.com/products/html/reobiz/mailer.php">
+                                <div class="sec-title mb-53 md-mb-42">
+                                    <h2 class="title white-color mb-0">Ecrivez-nous !</h2>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" name="name" placeholder="Nom et prénoms" required="">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="email" name="email" placeholder="Adresse mail" required="">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <textarea name="message" placeholder="Votre message" required=""></textarea>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="readon modify">Envoyer</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="g-map mt-100 md-mt-80">
+                <iframe src="https://maps.google.com/maps?q=37.803467%2C%20-122.472369&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed"></iframe>
+            </div>
+        </div>
+        <!-- Contact Section End -->
+    </div>
+
+
+    <!-- Footer ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_footer" />
+
+    <!-- Script ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_script" />
+
+
+    </body>
+
+</html>
