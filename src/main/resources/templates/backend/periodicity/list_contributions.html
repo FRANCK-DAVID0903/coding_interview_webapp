@@ -70,7 +70,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                             <div class="card card-statistic-1">
                                 <div class="card-icon l-bg-green">
-                                    <i class="fas fa-calendar-check"></i>
+                                    <i class="fas fa-dollar-sign"></i>
                                 </div>
                                 <div class="card-wrap">
                                     <div class="padding-20">
@@ -78,8 +78,11 @@
                                             <h3 class="font-light mb-0">
                                                 <i class="ti-arrow-up text-success" th:text="${periodicity.tontine.tontineGlobalAmountEstimated}" ></i>
                                             </h3>
+                                            <span class="text-muted" th:text="${periodicity.tontine.tontineGlobalAmountEstimated}"></span>
+                                            <br>
                                             <span class="text-muted"
-                                                  th:text="#{periodicity_tontine_contribution_close_actual_bidding_amount}"></span>
+                                                  th:text="${connectedUser}"></span>
+                                            <br>
                                         </div>
                                     </div>
                                 </div>
@@ -140,8 +143,13 @@
 
                                                         <td>
                                                             <a th:if="${tontineMember.contributed == false}" class="btn btn-primary btn-action mr-1" title="" th:data-original-title="#{table_contribute}" type="button" data-toggle="modal" data-target="#addCotisationModal"
-                                                               th:data-entity="${stringHelper.clean(tontineMember.member.toJSON())}" onclick="onUpdate(this.getAttribute('data-entity'));">
+                                                               th:data-entity="${stringHelper.clean(tontineMember.member.toJSON())}" onclick="onUpdate(this.getAttribute('data-entity'));" th:title="#{table_contribute}">
                                                                 <i class="fas fa-money-bill"></i>
+                                                            </a>
+
+                                                            <a th:if="${tontineMember.contributed == true && tontineMember.state == 0 && tontineMember.member.id == connectedUserId && connectedUser != 'association_admin'}" class="btn btn-primary btn-action mr-1" title="" th:data-original-title="#{table_contribute}" type="button" data-toggle="modal" data-target="#addCotisationYourselfModal"
+                                                               th:data-entity="${stringHelper.clean(tontineMember.member.toJSON())}" onclick="onUpdate(this.getAttribute('data-entity'));" th:title="#{table_contribute_for_you}">
+                                                                <i class="fas fa-money-bill-wave"></i>
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -173,13 +181,13 @@
                                                         <td th:text="${tontineBidding.biddingApproved}" ></td>
 
                                                         <td>
-                                                            <a th:if="${tontineBidding.biddingApproved == false && periodicity.beneficiary == null}" class="btn btn-warning btn-action mr-1" title="" th:data-original-title="#{table_approve_offer}" type="button" data-toggle="modal" data-target="#approveOfferModal"
-                                                               th:data-entity="${stringHelper.clean(tontineBidding.toJSON())}" onclick="onApproveOffer(this.getAttribute('data-entity'));">
+                                                            <a th:if="${tontineBidding.biddingApproved == false && periodicity.beneficiary == null && connectedUser == 'association_admin'}" class="btn btn-warning btn-action mr-1" title="" th:data-original-title="#{table_approve_offer}" type="button" data-toggle="modal" data-target="#approveOfferModal"
+                                                               th:data-entity="${stringHelper.clean(tontineBidding.toJSON())}" onclick="onApproveOffer(this.getAttribute('data-entity'));" th:title="#{periodicity_tontine_approve_interest_member_offer}">
                                                                 <i class="fas fa-check"></i>
                                                             </a>
 
-                                                            <a th:if="${tontineBidding.biddingApproved == true && periodicity.beneficiary == null}" class="btn btn-primary btn-action mr-1" title="" th:data-original-title="#{table_approve_offer}" type="button" data-toggle="modal" data-target="#validateOfferModal"
-                                                               th:data-entity="${stringHelper.clean(tontineBidding.toJSON())}" onclick="onValidateOffer(this.getAttribute('data-entity'));">
+                                                            <a th:if="${tontineBidding.biddingApproved == true && periodicity.beneficiary == null && connectedUser == 'association_admin'}" class="btn btn-primary btn-action mr-1" title="" th:data-original-title="#{table_approve_offer}" type="button" data-toggle="modal" data-target="#validateOfferModal"
+                                                               th:data-entity="${stringHelper.clean(tontineBidding.toJSON())}" onclick="onValidateOffer(this.getAttribute('data-entity'));" th:title="#{periodicity_tontine_validate_interest_member_offer}">
                                                                 <i class="fas fa-check"></i>
                                                             </a>
                                                         </td>
@@ -215,7 +223,66 @@
                         <p th:text="#{periodicity_tontine_member_want_contribute}"></p>
 
                         <div class="row">
+                            <input type="hidden" name="forMe" id="forMe" value="0">
+                            <div class="col-lg-5">
+                                <label>
+                                    <span th:text="#{member_lastname}"></span>
+                                </label>
+                                <input type="text" class=" form-control user_lastname" id="user_lastname" name="user_lastname"  disabled>
+                            </div>
 
+                            <div class="col-lg-7">
+                                <label>
+                                    <span th:text="#{member_firstname}"></span>
+                                </label>
+                                <input type="text" class=" form-control user_firstname" id="user_firstname" name="user_firstname"  disabled>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <label>
+                                    <span th:text="#{member_date}"></span>
+                                </label>
+                                <input type="date" class=" form-control" id="contributionDate" name="contributionDate">
+                            </div>
+
+                            <div class="col-lg-6">
+                                <label>
+                                    <span th:text="#{member_paiement_type}"></span>
+                                </label>
+                                <select class=" form-control" name="payementMethod" id="payementMethod">
+                                    <option value="ESPECES">ESPECES</option>
+                                    <option value="VIREMENT">VIREMENT</option>
+                                    <option value="CHEQUE">CHEQUE</option>
+                                </select>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <label>
+                                    <span th:text="#{profile_tontine_amount}"></span>
+                                </label>
+                                <input th:value="${periodicity.tontine.contributionAmount}" type="number" class=" form-control amount" id="amount" name="amount" disabled>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Cotisation Member for yourself in periodicity -->
+            <div class="modal fade" id="addCotisationYourselfModal" tabindex="-1" role="dialog"
+                 aria-labelledby="addCotisationYourselfitle" aria-hidden="true">
+
+                <div th:insert="fragments/modal/fragment_add_modal ::
+                                                   fragment_add_modal(title='Contribute on periodicity for me',
+                                                   methodUrl='/backend/periodicity/details/'+__${periodicity_id}__+'/contribute',
+                                                   body = ~{ :: #modal_bodyYourself})">
+
+                    <div class="modal-body" id="modal_bodyYourself">
+
+                        <div class="row">
+                            <input type="hidden" name="forMe" id="forMe" value="1">
                             <div class="col-lg-5">
                                 <label>
                                     <span th:text="#{member_lastname}"></span>

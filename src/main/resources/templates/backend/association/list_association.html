@@ -39,7 +39,6 @@
                         <table class="table table-striped" id="table-1">
                           <thead>
                             <tr>
-                              <th class="text-center">#</th>
                               <th th:text="#{association_list_page_table_header_name}"></th>
                               <th th:text="#{association_list_page_table_header_acronym}"></th>
                               <th th:text="#{association_list_page_table_header_createDate}"></th>
@@ -50,8 +49,6 @@
 
                           <tbody>
                             <tr th:each="association : ${associations}">
-
-                              <td th:text="${association.id}"></td>
 
                               <td th:text="${association.name}"></td>
 

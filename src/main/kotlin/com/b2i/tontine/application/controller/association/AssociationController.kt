@@ -11,7 +11,9 @@ import com.b2i.tontine.domain.account.port.RoleDomain
 import com.b2i.tontine.domain.account.port.UserDomain
 import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.association.port.AssociationDomain
+import com.b2i.tontine.domain.association_member.entity.AssociationMember
 import com.b2i.tontine.domain.association_member.port.AssociationMemberDomain
+import com.b2i.tontine.domain.contribution.port.ContributionDomain
 import com.b2i.tontine.utils.OperationResult
 import org.springframework.context.MessageSource
 import org.springframework.stereotype.Controller
@@ -34,12 +36,43 @@ class AssociationController(
     private val messageSource: MessageSource,
     private val authenticationFacade: AuthenticationFacade,
     private val userDomain: UserDomain,
-    private val roleDomain: RoleDomain
+    private val roleDomain: RoleDomain,
+    private val contributionDomain: ContributionDomain
 ) : BaseController(ControllerEndpoint.BACKEND_ASSOCIATION) {
 
     @GetMapping("/create")
     fun goToCreateAssociation(model: Model): String {
         return forwardTo("add_association")
+    }
+
+    @GetMapping("/cotisations")
+    fun goToCotisationAssociation(model: Model): String {
+
+        val userCo = authenticationFacade.getAuthenticatedUser().get()
+
+        val association = associationDomain.findAssociationById(userCo.id)
+
+        if (association.isPresent) {
+            val members = associationMemberDomain.findAllMembersInAssociation(association.get())
+            model.addAttribute("association_members", members)
+
+            var dataMemberContribute = mutableMapOf<AssociationMember,Double>()
+
+            members.forEach{ member ->
+                val mtContribute = member.user?.let { contributionDomain.findAllByUserAndState(it,0).sumByDouble { it.amount } }
+
+                if (mtContribute != null) {
+                    dataMemberContribute.put(member,mtContribute)
+                }else{
+                    dataMemberContribute.put(member,0.0)
+                }
+
+            }
+            model.addAttribute("dataMemberContribute", dataMemberContribute)
+            getConnectedAssociationMember(model,association.get())
+        }
+
+        return forwardTo("cotisations_association")
     }
 
     @PostMapping("/create")

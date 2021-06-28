@@ -62,7 +62,8 @@
 
                                                             <td th:text="${tontine.name}"></td>
 
-                                                            <td class="align-middle" th:text="${tontine.type}"></td>
+                                                            <td class="align-middle" th:if="${tontine.type == 'OPENED'}" th:text="#{association_tontine_create_page_label_type_open}"></td>
+                                                            <td class="align-middle" th:if="${tontine.type == 'CLOSED'}" th:text="#{association_tontine_create_page_label_type_close}"></td>
 
                                                             <td class="align-middle" th:text="${tontine.numberOfParticipant}"></td>
 
@@ -119,6 +120,14 @@
             </div>
 
         </div>
+
+
+        <!-- Scripts ============================================= -->
+        <script>
+            $(document).ready(function () {
+                $('#tontine').attr('class', 'active');
+            });
+        </script>
 
         <script type="application/javascript">
             function onUpdate(json) {

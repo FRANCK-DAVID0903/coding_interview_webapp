@@ -12,7 +12,7 @@
             <li class="menu-header">
                 <span th:text="#{sidebar_menu}"></span>
             </li>
-            <li class="dropdown">
+            <li class="dropdown" th:if="${user.actuator || user.superAdmin || user.admin}">
                 <a href="#" class="nav-link">
                     <i data-feather="monitor"></i>
                     <span th:text="#{sidebar_dashboard}"></span>
@@ -57,35 +57,35 @@
                 </a>
             </li>-->
 
-            <li class="dropdown" th:if="${user.member }" >
+            <li id="myAssociation" class="dropdown" th:if="${user.member }" >
                 <a th:href="@{/backend/members/my_associations}" class="nav-link">
                     <i data-feather="monitor"></i>
                     <span th:text="#{sidebar_myAssociation}"></span>
                 </a>
             </li>
 
-            <li class="dropdown" th:if="${user.member}">
+            <li id="myTontine" class="dropdown" th:if="${user.member}">
                 <a th:href="@{/backend/members/my_tontines}" class="nav-link">
                     <i data-feather="monitor"></i>
                     <span th:text="#{sidebar_myTontine}"></span>
                 </a>
             </li>
 
-            <li class="dropdown" th:if="${user.associationAdmin}">
+            <li id="adminTontine" class="dropdown" th:if="${user.associationAdmin}">
                 <a th:href="@{/backend/association/__${user.id}__/tontines}" class="nav-link">
                     <i data-feather="monitor"></i>
                     <span th:text="#{sidebar_theTontines}"></span>
                 </a>
             </li>
 
-            <li class="dropdown" th:if="${user.associationAdmin}">
+            <li id="adminAssoCotisation" class="dropdown" th:if="${user.associationAdmin}">
                 <a th:href="@{/backend/association/cotisations}" class="nav-link">
                     <i data-feather="monitor"></i>
                     <span th:text="#{sidebar_theCotisations}"></span>
                 </a>
             </li>
 
-            <li class="dropdown" th:if="${user.member}">
+            <li id="cotisations" class="dropdown" th:if="${user.member}">
                 <a th:href="@{/backend/members/my_transactions}" class="nav-link">
                     <i data-feather="monitor"></i>
                     <span th:text="#{sidebar_myCotisations}"></span>

@@ -305,14 +305,19 @@
                                                                                 <i class="fas fa-times"></i>
                                                                             </a>-->
 
-                                                                            <a th:if="${(connectedUser == 'actuator' || connectedUser == 'PDG') && (periode.contributionStartDate != null && periode.contributionEndDate != null)}"
-                                                                               class="btn btn-primary btn-action mr-1" type="button" th:href="@{/backend/periodicity/details/__${periode.id}__}" >
-                                                                                <span>voir cotisations</span>
+                                                                            <!--<a th:if="${(connectedUser == 'actuator' || connectedUser == 'PDG') && (periode.contributionStartDate != null && periode.contributionEndDate != null)}"
+                                                                               class="btn btn-primary btn-action mr-1" type="button" th:href="@{/backend/periodicity/details/__${periode.id}__}" th:title="#{periodicity_tontine_see_more}">
+                                                                                <i class="fas fa-money-bill"></i>
+                                                                            </a>-->
+
+                                                                            <a th:if="${(periode.contributionStartDate != null && periode.contributionEndDate != null)}"
+                                                                               class="btn btn-primary btn-action mr-1" type="button" th:href="@{/backend/periodicity/details/__${periode.id}__}" th:title="#{periodicity_tontine_see_more}">
+                                                                                <i class="fas fa-money-bill"></i>
                                                                             </a>
 
                                                                             <a th:if="${(periode.periodicityState == 'OPENED' && connectedUser != 'actuator')}" class="btn btn-primary btn-action mr-1" type="button" data-toggle="modal" data-target="#makeBiddingModal"
-                                                                               th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
-                                                                                <span th:text="#{tontine_bidding_make}"></span>
+                                                                               th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));" th:title="#{tontine_bidding_make}">
+                                                                                <i class="fas fa-percent "></i>
                                                                             </a>
                                                                         </td>
 
@@ -341,8 +346,8 @@
                                                                     <label th:text="#{association_tontine_create_page_label_type}"></label>
                                                                     <select class="form-control select2" name="type">
                                                                         <option th:value="${tontine.type}" th:text="${tontine.type}"></option>
-                                                                        <option th:if="${tontine.type != 'OPENED'}" th:value="'OPENED'" th:text="#{association_tontine_create_page_label_type_open}"></option>
-                                                                        <option th:if="${tontine.type != 'CLOSED'}" th:value="'CLOSED'" th:text="#{association_tontine_create_page_label_type_close}"></option>
+                                                                        <option th:if="${tontine.type != 'OPENED'}" th:value="#{association_tontine_create_page_label_type_open}" th:text="#{association_tontine_create_page_label_type_open}"></option>
+                                                                        <option th:if="${tontine.type != 'CLOSED'}" th:value="#{association_tontine_create_page_label_type_close}" th:text="#{association_tontine_create_page_label_type_close}"></option>
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -630,7 +635,7 @@
         <!-- Scripts ============================================= -->
         <script>
             $(document).ready(function () {
-                $('#association').attr('class', 'active');
+                $('#tontine').attr('class', 'active');
             });
         </script>
 
