@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="theme-one">
 
     <!--Head ============================================= -->
     <th:block th:replace="fragments/frontend_fragment_head('Home')" />
 
-    <body id="HowItWorksPage" class="theme-one">
+    <body id="HowItWorksPage">
 
     <!-- Header ============================================= -->
     <th:block th:replace="fragments/frontend_fragment_header" />
@@ -26,11 +26,13 @@
         <!-- How it works Section Start -->
         <div id="rs-services" class="rs-services style18 gray-bg6 pb-100 md-pb-70">
             <div class="container">
-                <div class="sec-title4 text-center mb-60 md-mb-35">
-                    <h2 class="title">
-                        <span class="first-title">Comment ça marche ?</span>
-                    </h2>
-                </div>
+                <!--
+                    <div class="sec-title4 text-center mb-60 md-mb-35">
+                        <h2 class="title">
+                            <span class="first-title">Comment ça marche ?</span>
+                        </h2>
+                    </div>
+                -->
                 <div class="row">
                     <div class="col-lg-4 col-md-6 mb-30">
                         <div class="services-item">
@@ -143,7 +145,7 @@
         <!-- How it works Section End -->
 
         <!-- Advantages Section Start -->
-        <div class="rs-advantages inner pt-50 md-pt-50 pb-100 md-pb-80">
+        <div class="rs-advantages inner pt-50 md-pt-50 pb-50 md-pb-80">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12 md-mb-30">
@@ -152,8 +154,8 @@
                             <h2 class="title mb-16 text-center">Quelques Avantages</h2>
                         </div>
                         <div id="accordion" class="accordion">
-                            <div class="row d-flex flex-row justify-content-between">
-                                <div class="card col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="row d-flex flex-row justify-content-center">
+                                <div class="card col-xs-12 col-sm-11 col-md-10 col-lg-10">
                                     <div class="card-header">
                                         <a class="card-link text-center">Pour les associations</a>
                                     </div>
@@ -177,7 +179,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="card col-xs-12 col-sm-11 col-md-10 col-lg-10">
                                     <div class="card-header">
                                         <a class="collapsed card-link text-center">Pour les membres</a>
                                     </div>
@@ -212,7 +214,7 @@
         <!-- Advantages Section Start -->
 
         <!-- Counter Section Start -->
-        <div class="rs-counter style1 modify bg21 pt-92 pb-100 md-pt-72 md-pb-80">
+        <div class="rs-counter style1 modify bg21 pt-72 pb-80 md-pt-72 md-pb-80">
             <div class="container">
                 <!--
                 <div class="sec-title text-center mb-52 md-mb-29">
@@ -253,7 +255,7 @@
         <!-- Counter Section End -->
 
         <!-- Contact Section Start -->
-        <div class="rs-contact style1 gray-bg pt-100 pb-100 md-pt-80 md-pb-80">
+        <div class="rs-contact style1 gray-bg pt-50 pb-50 md-pt-30 md-pb-30">
             <div class="container">
                 <div class="white-bg">
                     <div class="row">
@@ -262,7 +264,7 @@
                                 <h2 class="title mb-0">Ecrivez-nous !</h2>
                             </div>
                             <div id="form-messages"></div>
-                            <form id="contact-form" class="contact-form" method="post" action="https://rstheme.com/products/html/reobiz/mailer.php">
+                            <form id="contact-form" class="contact-form" method="post" th:action="@{/frontend-contact-us}">
                                 <div class="row">
                                     <div class="col-md-6 mb-30">
                                         <div class="common-control">

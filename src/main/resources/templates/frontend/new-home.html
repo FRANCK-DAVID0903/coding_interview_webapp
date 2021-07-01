@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="theme-one">
 
     <!--Head
     ============================================= -->
     <th:block th:replace="fragments/frontend_fragment_head('Home')" />
 
-    <body id="HomePage" class="theme-one">
+    <body id="HomePage">
 
     <!-- Header ============================================= -->
     <th:block th:replace="fragments/frontend_fragment_header" />
@@ -22,8 +22,10 @@
                     <div class="container">
                         <div class="content-part">
                             <div class="slider-des">
-                                <h1 class="sl-title mb-10">LUNGCASH</h1>
-                                <div class="sl-desc">La tontine en ligne, Accessible sur smartphone, tablette ou pc !</div>
+                                <img th:src="@{/assets/img/logo_fond_blanc.png}">
+                                <div class="sl-desc color-secondary-color">
+                                    Une plateforme numérique Simple, Fiable, et Sécurisé pour le renforcement de la solidarité financière !
+                                </div>
                             </div>
                             <div class="slider-bottom mt-15">
                                 <ul>
@@ -45,14 +47,14 @@
                 <div class="row d-flex flex-row align-items-start">
                     <div class="col-lg-6 pr-85 lg-pr-50 md-pr-15">
                         <div class="sec-title mb-15">
-                            <div class="sub-title green">A propos de LUNGCASH</div>
+                            <div class="sub-title">A propos de LUNGCASH</div>
                             <h2 class="title mb-15">La tontine en ligne</h2>
                             <div class="desc">
                                 Une plateforme numérique Fiable, Sécurisé pour le renforcement de la solidarité financière et simple à utiliser.
                             </div>
                         </div>
                         <ul class="listing-style mb-20">
-                            <li>Remplisser le formulaire d'inscription en cliquant sur ce <a th:href="@{/account/register}">lien</a></li>
+                            <li>Remplisser le formulaire d'inscription en cliquant sur ce <a th:href="@{/account/register}" class="color-primary-color">lien</a></li>
                             <li>Intégrer une association</li>
                             <li>Participer aux tontines ou cotisations de votre association, puis remporter la cagnotte à votre tour</li>
                         </ul>
@@ -77,7 +79,7 @@
         <!-- About Section End -->
 
         <!-- Counter Section Start -->
-        <div class="rs-counter style1 modify bg21 pt-60 pb-70 md-pt-60 md-pb-70">
+        <div class="rs-counter style1 modify bg21 pt-72 pb-80 md-pt-72 md-pb-80">
             <div class="container">
                 <!--
                 <div class="sec-title text-center mb-52 md-mb-29">
@@ -147,7 +149,7 @@
                             </div>
                             <div class="content-part">
                                 <h5 class="title">
-                                    <a href="services-single.html">Cagnotte</a>
+                                    <span>Cagnotte</span>
                                 </h5>
                                 <div class="desc">
                                     Participez à une cagnotte transparente à tour de rôle
@@ -201,11 +203,11 @@
                                 <h2 class="title mb-0">Ecrivez-nous</h2>
                             </div>
                             <div id="form-messages"></div>
-                            <form id="contact-form" class="contact-form" method="post" action="https://rstheme.com/products/html/reobiz/mailer.php">
+                            <form id="contact-form" class="contact-form" method="post" th:action="@{/frontend-contact-us}">
                                 <div class="row">
                                     <div class="col-md-6 mb-30">
                                         <div class="common-control">
-                                            <input type="text" name="name" placeholder="Nom et prénoms" required="">
+                                            <input type="text" name="fullname" placeholder="Nom et prénoms" required="">
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-30">
@@ -276,7 +278,6 @@
         </div>
         <!-- Contact Section End -->
     </div>
-
 
 
     <!-- Footer ============================================= -->

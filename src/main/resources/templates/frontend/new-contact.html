@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="theme-one">
 
     <!--Head
     ============================================= -->
-    <th:block th:replace="fragments/frontend_fragment_head('Home')" />
+    <th:block th:replace="fragments/frontend_fragment_head('Contact')" />
 
-    <body id="ContactPage" class="theme-one">
+    <body id="ContactPage">
 
     <!-- Header ============================================= -->
     <th:block th:replace="fragments/frontend_fragment_header" />
@@ -25,7 +25,7 @@
         <!-- Breadcrumbs Section End -->
 
         <!-- Contact Section Start -->
-        <div id="rs-contact" class="rs-contact inner pt-100 md-pt-80">
+        <div id="rs-contact" class="rs-contact inner pt-50 pb-50 md-pt-30 md-pb-30">
             <div class="container">
                 <div class="content-info-part mb-60">
                     <div class="row gutter-16">
@@ -71,13 +71,13 @@
                         </div>
                         <div class="col-md-7 custom2 pl-0">
                             <div id="form-messages"></div>
-                            <form id="contact-form" method="post" action="https://rstheme.com/products/html/reobiz/mailer.php">
+                            <form id="contact-form" method="post" th:action="@{/frontend-contact-us}">
                                 <div class="sec-title mb-53 md-mb-42">
                                     <h2 class="title white-color mb-0">Ecrivez-nous !</h2>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <input type="text" name="name" placeholder="Nom et prénoms" required="">
+                                        <input type="text" name="fullname" placeholder="Nom et prénoms" required="">
                                     </div>
                                     <div class="col-md-6">
                                         <input type="email" name="email" placeholder="Adresse mail" required="">

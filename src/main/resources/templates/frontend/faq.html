@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="theme-one">
 
     <!--Head ============================================= -->
     <th:block th:replace="fragments/frontend_fragment_head('Home')" />
 
-    <body id="FaqPage" class="theme-one">
+    <body id="FaqPage">
 
     <!-- Header ============================================= -->
     <th:block th:replace="fragments/frontend_fragment_header" />
@@ -62,9 +62,21 @@
                             </div>
                             <div class="card">
                                 <div class="card-header">
-                                    <a class="collapsed card-link" data-toggle="collapse" href="#collapseFour">Comment récupérer la cagnotte d'une tontine ?</a>
+                                    <a class="collapsed card-link" data-toggle="collapse" href="#collapseFour">
+                                        Comment récupérer la cagnotte d'une tontine ?
+                                    </a>
                                 </div>
                                 <div id="collapseFour" class="collapse" data-parent="#accordion">
+                                    <div class="card-body">Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Impress clients new and existing with elite construction brochures. Impress clients new and existing with elite construction.</div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="collapsed card-link" data-toggle="collapse" href="#collapseFive">
+                                        Comment Bénéficier d'un financement ?
+                                    </a>
+                                </div>
+                                <div id="collapseFive" class="collapse" data-parent="#accordion">
                                     <div class="card-body">Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Impress clients new and existing with elite construction brochures. Impress clients new and existing with elite construction.</div>
                                 </div>
                             </div>
@@ -72,7 +84,7 @@
                     </div>
                     <div class="col-lg-4">
                         <form class="sidebar-form mt-8">
-                            <h3 class="title white-color mb-36">Vous avez d'autres questions ?</h3>
+                            <h3 class="title white-color mb-26">Vous avez d'autres questions ?</h3>
                             <input type="text" name="name" placeholder="Nom et prénoms" required>
                             <input type="email" name="email" placeholder="Adresse mail" required>
                             <textarea placeholder="Entrer votre question ici"></textarea>
@@ -85,7 +97,7 @@
         <!-- Faq Section End -->
 
         <!-- Contact Section Start -->
-        <div class="rs-contact style1 gray-bg pt-100 pb-100 md-pt-80 md-pb-80">
+        <div class="rs-contact style1 gray-bg pt-50 pb-50 md-pt-30 md-pb-30">
             <div class="container">
                 <div class="white-bg">
                     <div class="row">
@@ -94,11 +106,11 @@
                                 <h2 class="title mb-0">Ecrivez-nous !</h2>
                             </div>
                             <div id="form-messages"></div>
-                            <form id="contact-form" class="contact-form" method="post" action="https://rstheme.com/products/html/reobiz/mailer.php">
+                            <form id="contact-form" class="contact-form" method="post" th:action="@{/frontend-contact-us}">
                                 <div class="row">
                                     <div class="col-md-6 mb-30">
                                         <div class="common-control">
-                                            <input type="text" name="name" placeholder="Nom et prénoms" required="">
+                                            <input type="text" name="fullname" placeholder="Nom et prénoms" required="">
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-30">
