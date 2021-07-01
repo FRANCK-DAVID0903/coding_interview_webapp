@@ -40,7 +40,7 @@ class FrontendController(
             model: Model,
             redirectAttributes: RedirectAttributes
     ) : String {
-        return "frontend/new-home"
+        return "frontend/login"
     }
 
     @GetMapping("/frontend-how-it-works")
