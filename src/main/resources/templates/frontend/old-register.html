@@ -1,0 +1,156 @@
+<div xmlns:th="http://www.thymeleaf.org">
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+
+    <head>
+        <meta charset="UTF-8">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+        <title>Tontine - S'enregistrer</title>
+        <!-- General CSS Files -->
+        <link rel="stylesheet" th:href="@{/static/assets/css/app.min.css}">
+        <link rel="stylesheet" th:href="@{/static/assets/bundles/bootstrap-social/bootstrap-social.css}">
+        <!-- Template CSS -->
+        <link rel="stylesheet" th:href="@{/static/assets/css/style.css}">
+        <link rel="stylesheet" th:href="@{/static/assets/css/components.css}">
+        <!-- Custom style CSS -->
+        <link rel="stylesheet" th:href="@{/static/assets/css/custom.css}">
+        <link rel='shortcut icon' type='image/x-icon' th:href="@{/static/assets/img/favicon.ico}" />
+    </head>
+
+    <body>
+    <div class="loader"></div>
+    <div id="app">
+        <section class="section">
+            <li>
+                <!--<a ><span th:text="#{lang.change}"></span><i class="fa fa-caret-down"></i></a>-->
+                <ul class="lang-tooltip lang-action">
+                    <li>
+                        <a onclick="ChangeLanguage('fr');"
+                           class="current-lan"
+                           th:text="#{lang.fr}"
+                           th:style = "#{'Français'}">
+                        </a>
+                    </li>
+
+                    <li>
+                        <a onclick="ChangeLanguage('en');"
+                           th:text="#{lang.eng}"
+                           th:style = "#{'English'}">
+                        </a>
+                    </li>
+
+                </ul>
+
+            </li>
+            <div class="container mt-5">
+                <div class="row">
+                    <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h4 th:text="#{member_register}"></h4>
+                            </div>
+                            <div class="card-body">
+                                <form method="POST" th:action="@{/account/register}" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label for="lastname" th:text="#{member_lastname}"></label>
+                                            <input id="lastname" type="text" class="form-control" name="lastname">
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="firstname" th:text="#{member_firstname}"></label>
+                                            <input id="firstname" type="text" class="form-control" name="firstname" autofocus>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email" th:text="#{member_email}"></label>
+                                        <input id="email" type="email" class="form-control" name="email">
+                                        <div class="invalid-feedback">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label th:text="#{member_pictures}"></label>
+                                        <input id="img" name="img" type="file" class="form-control">
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-4">
+                                            <label for="username" th:text="#{member_username}"></label>
+                                            <input id="username" type="text" class="form-control" name="username" autofocus>
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <label for="tel" th:text="#{member_phone}"></label>
+                                            <input id="tel" type="text" class="form-control" name="tel">
+                                        </div>
+                                        <div class="form-group col-4">
+                                            <label for="dateNaissance" th:text="#{member_birthday}"></label>
+                                            <input id="dateNaissance" type="date" class="form-control" name="dateNaissance">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label for="password" class="d-block" th:text="#{member_password}"></label>
+                                            <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator"
+                                                   name="password">
+                                            <div id="pwindicator" class="pwindicator">
+                                                <div class="bar"></div>
+                                                <div class="label"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="password2" class="d-block" th:text="#{member_password_confirm}"></label>
+                                            <input id="password2" type="password" class="form-control" name="password2">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" name="agree" class="custom-control-input" id="agree">
+                                            <label class="custom-control-label" for="agree" th:text="#{member_accept_terms}"></label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block" th:text="#{member_register}">
+
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="mb-4 text-muted text-center">
+                                Déjà enregistré? <a th:href="@{/account/login}">Connexion</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script>
+        function ChangeLanguage(lang) {
+
+            //alert("The URL of this page is: " + window.location.href+"/?lang="+lang);
+            var newUrl = window.location.pathname+"?lang="+lang
+            window.location.replace(newUrl);
+
+        }
+    </script>
+    <!-- General JS Scripts -->
+    <script th:src="@{/static/assets/js/app.min.js}"></script>
+    <!-- JS Libraies -->
+
+    <script th:src="@{/static/assets/bundles/jquery-pwstrength/jquery.pwstrength.min.js}"></script>
+    <script th:src="@{/static/assets/bundles/jquery-selectric/jquery.selectric.min.js}"></script>
+    <!-- Page Specific JS File -->
+    <script th:src="@{/static/assets/js/page/auth-register.js}"></script>
+    <!-- Page Specific JS File -->
+    <!-- Template JS File -->
+    <script th:src="@{/static/assets/js/scripts.js}"></script>
+    <!-- Custom JS File -->
+    <script th:src="@{/static/assets/js/custom.js}"></script>
+    <!-- SweetAlert JS File -->
+    <script th:src="@{/static/assets/js/sweetalert2.min.js}"></script>
+    </body>
+
+
+    </html>
+
+</div>

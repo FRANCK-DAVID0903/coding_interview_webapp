@@ -1,106 +1,72 @@
-<div xmlns:th="http://www.thymeleaf.org">
-
 <!DOCTYPE html>
-<html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="theme-one">
+
+<!--Head
+============================================= -->
+<th:block th:replace="fragments/frontend_fragment_head('Register')" />
+
+<body id="LoginPage">
+
+<!-- Header ============================================= -->
+<th:block th:replace="fragments/frontend_fragment_header" />
 
 
-<!-- Mirrored from www.radixtouch.in/templates/admin/gati/source/light/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 04 Dec 2020 14:11:12 GMT -->
-<head>
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>Lung Cash - Connexion</title>
-  <!-- General CSS Files -->
-  <link rel="stylesheet" th:href="@{/assets/css/app.min.css}">
-  <link rel="stylesheet" th:href="@{/assets/bundles/bootstrap-social/bootstrap-social.css}">
-  <!-- Template CSS -->
-  <link rel="stylesheet" th:href="@{/assets/css/style.css}">
-  <link rel="stylesheet" th:href="@{/assets/css/components.css}">
-  <!-- Custom style CSS -->
-  <link rel="stylesheet" th:href="@{/assets/css/custom.css}">
-  <link rel='shortcut icon' type='image/x-icon' th:href="@{/assets/img/favicon.ico}" />
-</head>
-
-<body>
-<div class="loader"></div>
-<div id="app">
-  <section class="section">
-    <li>
-      <!--<a ><span th:text="#{lang.change}"></span><i class="fa fa-caret-down"></i></a>-->
-      <ul class="lang-tooltip lang-action">
-        <li>
-          <a onclick="ChangeLanguage('fr');"
-             class="current-lan"
-             th:text="#{lang.fr}"
-             th:style = "#{'Français'}">
-          </a>
-        </li>
-
-        <li>
-          <a onclick="ChangeLanguage('en');"
-             th:text="#{lang.eng}"
-             th:style = "#{'English'}">
-          </a>
-        </li>
-
-      </ul>
-
-    </li>
-    <div class="container mt-5">
-      <div class="row">
-        <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-          <div class="card card-primary">
-            <div class="card-header">
-              <h4 th:text="#{login_in}"></h4>
+<!-- Content ============================================= -->
+<div class="main-content">
+  <div class="rs-contact gray-bg pt-60 pb-50 md-pt-80 md-pb-80">
+    <div class="container">
+      <div class="row d-flex flex-row justify-content-center">
+        <div class="login-form white-bg col-xs-10 col-sm-7 col-md-5 col-lg-5">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <h3 class="text-center color-primary-color">Connexion</h3>
             </div>
-            <div class="card-body">
-              <form th:method="POST" th:action="@{/account/login}" class="needs-validation" novalidate="">
-                <div class="form-group">
-                  <label for="username" th:text="#{member_username}"></label>
-                  <input id="username" type="text" class="form-control" name="username" tabindex="1" required autofocus>
-                  <div class="invalid-feedback" th:text="#{member_username_empty}">
-                  </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <form method="POST" th:action="@{/account/login}">
+                <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                  <label class="control-label" for="username">
+                    <span th:text="#{member_username}"></span> *
+                  </label>
+                  <input id="username" name="username" type="text" placeholder="Entrer votre nom" class="form-control input-md" required>
                 </div>
-                <div class="form-group">
-                  <div class="d-block">
-                    <label for="password" class="control-label" th:text="#{member_password}"></label>
-                    <!--<div class="float-right">
-                      <a href="auth-forgot-password.html" class="text-small">
-                        Mot de passe oublié?
-                      </a>
-                    </div>-->
-                  </div>
-                  <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
-                  <div class="invalid-feedback" th:text="#{member_password_empty}">
-
-                  </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                  <label class="control-label" for="password">
+                    <span th:text="#{member_password}"></span> *
+                  </label>
+                  <input id="password" name="password" type="password" placeholder="Entrer votre mot de passe" class="form-control input-md" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group col-xs-12 col-sm-12 col-md-12">
                   <div class="custom-control custom-checkbox">
-                    <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
+                    <input type="checkbox" name="remember" class="custom-control-input" id="remember-me">
                     <label class="custom-control-label" for="remember-me" th:text="#{member_remember_me}"></label>
                   </div>
                 </div>
-                <div class="form-group">
-                  <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4" th:text="#{login_in}">
-
-                  </button>
+                <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                  <p style="margin-bottom:0px;">
+                    Pas encore enregistré? <a th:href="@{/account/register}" class="color-primary-color">Inscrivez-vous</a>
+                  </p>
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 mt-10 d-flex flex-row justify-content-center">
+                  <button type="submit" class="btn btn-default readon">Se Connecter</button>
                 </div>
               </form>
             </div>
           </div>
-          <div class="mt-5 text-muted text-center" th:text="#{dont_have_account}">
-          </div>
-          <div class="mt-5 text-muted text-center">
-            <a th:href="@{/account/register}" th:text="#{create_account}" th:align="center"> </a>
-          </div>
-
-
-
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </div>
+
+<!-- Footer ============================================= -->
+<th:block th:replace="fragments/frontend_fragment_footer" />
+
+<!-- Script ============================================= -->
+<th:block th:replace="fragments/frontend_fragment_script" />
+
+
 <script>
   function ChangeLanguage(lang) {
 
@@ -110,18 +76,7 @@
 
   }
 </script>
-<!-- General JS Scripts -->
-<script th:src="@{/assets/js/app.min.js}"></script>
-<!-- JS Libraies -->
-<!-- Page Specific JS File -->
-<!-- Template JS File -->
-<script th:src="@{/assets/js/scripts.js}"></script>
-<!-- Custom JS File -->
-<script th:src="@{/assets/js/custom.js}"></script>
+
 </body>
 
-
-<!-- Mirrored from www.radixtouch.in/templates/admin/gati/source/light/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 04 Dec 2020 14:11:12 GMT -->
 </html>
-
-</div>

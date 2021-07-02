@@ -215,6 +215,13 @@
 .theme-one .rs-footer .footer-bottom .copyright p {
     font-size: 15px;
 }
+.theme-one .rs-footer .footer-content .about-widget .logo-part {
+    margin-bottom: 20px;
+}
+.theme-one .rs-footer .footer-content .about-widget .logo-part a img {
+    height: 60px;
+    margin-left: -10px;
+}
 /* For color */
 .theme-one .rs-footer .footer-newsletter .newsletter-form button,
 .theme-one .rs-footer .footer-bottom .footer-social li a
@@ -231,11 +238,17 @@
 /***** END MAIN FOOTER STYLE *****/
 
 /***** HOME PAGE STYLE *****/
+/*
 .theme-one #HomePage .rs-slider.slider6 .slider.slide1 {
     height: 620px;
-    background-position-y: -15px;
+    background: url(../images/tontine-img11.jpg) !important;
+    background-position-x: center;
+    background-position-y: -165px;
+    background-size: cover;
+    background-repeat: no-repeat;
     padding-top: 90px;
 }
+*/
 .theme-one #HomePage .rs-slider.slider6 .slider.slide1 .content-part .sl-title {
     font-size: 40px;
     letter-spacing: 2px;
@@ -367,6 +380,11 @@
 /***** END FAQ PAGE STYLE *****/
 
 /***** CONTACT PAGE STYLE *****/
+.theme-one #ContactPage .rs-contact.inner .content-info-part .info-item {
+    padding: 30px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
 .theme-one #ContactPage .rs-contact.inner .content-info-part .info-item .icon-part i {
     font-size: 80px;
 }
@@ -374,8 +392,10 @@
     font-size: 18px;
     margin-bottom: 5px;
 }
-.theme-one #ContactPage .rs-contact.inner .content-info-part .info-item .content-part a {
-    font-size: 16px;
+.theme-one #ContactPage .rs-contact.inner .content-info-part .info-item .content-part a,
+.theme-one #ContactPage .rs-contact.inner .content-info-part .info-item .content-part p
+{
+    font-size: 15px;
 }
 /* For color */
 .theme-one #ContactPage .rs-contact.inner .content-info-part .info-item,
