@@ -271,7 +271,6 @@
                                                                         <th th:text="#{association_tontine_detail_page_table_StartDate}"></th>
                                                                         <th th:text="#{association_tontine_detail_page_table_Endate}"></th>
                                                                         <th th:text="#{association_list_page_table_header_status}"></th>
-                                                                        <th th:text="#{association_tontine_detail_page_table_biddingState}"></th>
                                                                         <th th:text="#{association_tontine_detail_page_table_biddingAmount}"></th>
                                                                         <th th:text="#{association_tontine_detail_page_table_beneficiary}"></th>
                                                                         <th th:text="#{association_tontine_detail_page_last_time}"></th>
@@ -286,8 +285,6 @@
                                                                         <td th:text="${#calendars.format(periode.contributionEndDate, 'dd-MM-yyyy')}"></td>
                                                                         <td th:text="${periode.biddingState}"></td>
                                                                         <td th:text="${periode.biddingAmount}"></td>
-
-                                                                        <td class="align-middle" th:text="${periode.periodicityState}"></td>
                                                                         <td class="align-middle" th:if="${periode.beneficiary != null}" th:text="${periode.beneficiary.firstname}"></td>
                                                                         <td class="align-middle" th:if="${periode.beneficiary == null}" ></td>
 

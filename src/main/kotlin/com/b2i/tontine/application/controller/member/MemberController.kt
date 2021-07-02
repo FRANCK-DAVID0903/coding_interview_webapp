@@ -9,9 +9,11 @@ import com.b2i.tontine.domain.association.entity.Association
 import com.b2i.tontine.domain.association.port.AssociationDomain
 import com.b2i.tontine.domain.association_member.port.AssociationMemberDomain
 import com.b2i.tontine.domain.contribution.port.ContributionDomain
+import com.b2i.tontine.domain.tontine.entity.TontineType
 import com.b2i.tontine.domain.tontine_contribution.port.TontineContributionDomain
 import com.b2i.tontine.domain.tontine_periodicity.entity.TontinePeriodicity
 import com.b2i.tontine.domain.tontine_periodicity.port.TontinePeriodicityDomain
+import com.b2i.tontine.domain.tontine_request.entity.TontineRequest
 import com.b2i.tontine.domain.tontine_request.port.TontineRequestDomain
 import org.springframework.context.MessageSource
 import org.springframework.stereotype.Controller
@@ -51,14 +53,25 @@ class MemberController(
     fun pageListTontines(model: Model): String {
 
         val userConnected = authenticationFacade.getAuthenticatedUser().get()
-
         val memberConnected = memberDomain.findById(userConnected.id)
+
+        var dataMemberTontine = mutableMapOf<TontineRequest,Pair<Long,Long>>()
+        var rounds : Pair<Long,Long>
 
         val tontines = tontineRequestDomain.findAllByBeneficiary(memberConnected.get())
         val tontinesValidated = tontineRequestDomain.findAllByBeneficiaryAndState(memberConnected.get(),0)
 
+        tontinesValidated.forEach{ tonts ->
+            val nbRound = tonts.tontine?.let { tontinePeriodicityDomain.findAllByTontine(it).count() }
+            val actualRound = tontinePeriodicityDomain.findAllByPeriodicityState(TontineType.OPENED)[0]
+
+            rounds = Pair(actualRound.periodicityNumber,nbRound!!.toLong())
+            dataMemberTontine.put(tonts,rounds)
+        }
+
+
         model.addAttribute("tontines", tontines)
-        model.addAttribute("tontinesValidated", tontinesValidated)
+        model.addAttribute("tontinesValidated", dataMemberTontine)
         return forwardTo("member_list_tontine")
     }
 
