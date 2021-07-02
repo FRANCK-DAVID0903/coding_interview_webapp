@@ -37,7 +37,7 @@
                                         </div>
                                         <div class="card-body">
 
-                                            <div class="col-lg-8">
+                                            <div class="col-lg-8" th:if="${connectedUser=='PDG' || connectedUser=='association_admin'}">
                                                 <a th:href="@{/backend/association/__${association.id}__/tontines/create}"
                                                    class="btn btn-primary"
                                                    th:text="#{association_tontine_create_page}"></a>

@@ -422,16 +422,18 @@ class TontineController(
                         if (association.isPresent) {
                             val tontines = tontineDomain.findAllTontinesByAssociation(association.get())
                             model.addAttribute("association_tontines", tontines)
-                            injectAssociation(model ,association.get())
+
                         }
+                        injectAssociation(model ,association.get())
                     }
                     UserType.ASSOCIATION_ADMIN -> {
                         val association = associationDomain.findAssociationById(association_id.toLong())
                         if (association.isPresent) {
                             val tontines = tontineDomain.findAllTontinesByAssociation(association.get())
                             model.addAttribute("association_tontines", tontines)
-                            injectAssociation(model ,association.get())
                         }
+                        injectAssociation(model ,association.get())
+
                     }
                     UserType.ASSOCIATION_MEMBER -> {
                         val association = associationDomain.findAssociationById(association_id.toLong()).orElse(null)
@@ -443,15 +445,17 @@ class TontineController(
                                 if (connectedUser == "PDG") {
                                     val tontines = tontineDomain.findAllTontinesByAssociation(association)
                                     model.addAttribute("association_tontines", tontines)
-                                    injectAssociation(model ,association)
+
                                 } else {
                                     val tontines = tontineDomain.findAllTontinesByAssociationAndType(association, "OPENED")
                                     model.addAttribute("association_tontines", tontines)
-                                    injectAssociation(model ,association)
+
                                 }
                             }
+                            injectAssociation(model ,association)
                         }
                     }
+
                 }
 
             }
