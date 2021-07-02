@@ -1,132 +1,113 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="theme-one">
 
-    <!-- Head ============================================= -->
-    <th:block th:replace="fragments/frontend_fragment_head('Contact Us')" />
+    <!--Head
+    ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_head('Contact')" />
 
     <body id="ContactPage">
 
-        <!-- Header ============================================= -->
-        <th:block th:replace="fragments/frontend_fragment_header" />
+    <!-- Header ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_header" />
 
 
-        <!-- Content ============================================= -->
+    <!-- Content ============================================= -->
 
-        <!-- page-header -->
-        <div class="page-header">
-            <canvas class="particles-bg"></canvas>
+    <div class="main-content">
+        <!-- Breadcrumbs Section Start -->
+        <div class="rs-breadcrumbs bg-6">
             <div class="container">
-                <div class="row page-section">
-                    <div class="col-md-5 page-description">
-                        <h1 class="page-title">Nous contacter</h1>
-                        <p>
-                            Vous avez une question ? Un commentaire ? Envoyez-nous un message !
-                        </p>
-                    </div>
-                    <!-- quote block -->
-                    <div class="col-md-7 page-quote">
-                        <a th:href="@{/account/register}" class="btn btn-third btn-lg">Cliquer ici pour vous inscrire</a>
-                    </div>
+                <div class="content-part text-center">
+                    <h1 class="breadcrumbs-title white-color mb-0">Contact</h1>
                 </div>
             </div>
         </div>
+        <!-- Breadcrumbs Section End -->
 
-        <!-- main container -->
-        <div class="main-container">
+        <!-- Contact Section Start -->
+        <div id="rs-contact" class="rs-contact inner pt-50 pb-50 md-pt-30 md-pb-30">
             <div class="container">
-                <div class="row d-flex flex-row justify-content-center">
-                    <div class="col-xs-12 col-sm-12 col-md-11">
-                        <!-- content -->
-                        <div class="col-xs-12 col-sm-12 col-md-7 content">
-                            <div class="widget">
-                                <h1>Ecriver nous !</h1>
-                                <p>
-                                    Utilisez le formulaire ci-dessous pour nous envoyer un message.
-                                </p>
-                                <div class="row">
-                                    <form th:action="@{/frontend-contact-us}" method="post">
-                                        <!-- Text input-->
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="control-label" for="fname">
-                                                    Nom et prénoms <span class="required">*</span>
-                                                </label>
-                                                <input id="fname" name="fullname" type="text" class="form-control input-md" placeholder="Entrer votre nom et vos prenoms" required />
-                                            </div>
-                                        </div>
-                                        <!-- Text input-->
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="control-label" for="email">
-                                                    Adresse mail <span class="required">*</span>
-                                                </label>
-                                                <input id="email" name="email" type="text" class="form-control input-md" placeholder="Entrer votre adresse mail" required>
-                                            </div>
-                                        </div>
-                                        <!-- Text input-->
-                                        <div class="col-md-12">
-                                            <div class="form-group">
-                                                <label class="control-label" for="message">Message</label>
-                                                <textarea class="form-control" id="message" rows="7" name="message" placeholder="Entrer votre message ici"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <button type="submit" class="btn btn-default">Envoyer</button>
-                                        </div>
-                                        <!-- Text input
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="control-label" for="phone">
-                                                    Contact <span class="required">*</span>
-                                                </label>
-                                                <input id="phone" name="phone" type="text" class="form-control input-md" placeholder="Entrer votre numéro de téléphone" required />
-                                            </div>
-                                        </div>
-                                        -->
-                                    </form>
+                <div class="content-info-part mb-60">
+                    <div class="row gutter-16">
+                        <div class="col-lg-4 md-mb-30">
+                            <div class="info-item">
+                                <div class="icon-part">
+                                    <i class="fa fa-at"></i>
+                                </div>
+                                <div class="content-part">
+                                    <h4 class="title">Numéro de téléphone</h4>
+                                    <a href="tel:+088589-8745">(+225)27-27-27-27-27</a>
                                 </div>
                             </div>
                         </div>
-                        <!-- /.content -->
-
-                        <!-- sidebar -->
-                        <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-4 sidebar">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="widget">
-                                        <h2>Informations</h2>
-                                        <ul class="listnone contact">
-                                            <li>
-                                                <i class="fa fa-map-marker"></i>
-                                                <address>
-                                                    Cocody Centre, ABIDJAN, Côte d'ivoire
-                                                </address>
-                                            </li>
-                                            <li>
-                                                <i class="fa fa-phone"></i> 123 - 456-789
-                                            </li>
-                                            <li>
-                                                <i class="fa fa-envelope-o"></i>info@lungcahswebapp.com
-                                            </li>
-                                        </ul>
+                        <div class="col-lg-4 md-mb-30">
+                            <div class="info-item">
+                                <div class="icon-part">
+                                    <i class="fa fa-map-o"></i>
+                                </div>
+                                <div class="content-part">
+                                    <h4 class="title">Localisation</h4>
+                                    <p>Cocody Corniche, ABIDJAN, Côte d'Ivoire</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="info-item">
+                                <div class="icon-part">
+                                    <i class="fa fa-envelope-o"></i>
+                                </div>
+                                <div class="content-part">
+                                    <h4 class="title">Adresse mail</h4>
+                                    <a href="mailto:support@rstheme.com">lungcash@support.com</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form-part">
+                    <div class="row md-col-padding">
+                        <div class="col-md-5 custom1 pr-0">
+                            <div class="img-part"></div>
+                        </div>
+                        <div class="col-md-7 custom2 pl-0">
+                            <div id="form-messages"></div>
+                            <form id="contact-form" method="post" th:action="@{/frontend-contact-us}">
+                                <div class="sec-title mb-53 md-mb-42">
+                                    <h2 class="title white-color mb-0">Ecrivez-nous !</h2>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" name="fullname" placeholder="Nom et prénoms" required="">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="email" name="email" placeholder="Adresse mail" required="">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <textarea name="message" placeholder="Votre message" required=""></textarea>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="readon modify">Envoyer</button>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
-                        <!-- /.sidebar -->
                     </div>
                 </div>
             </div>
+            <div class="g-map mt-100 md-mt-80">
+                <iframe src="https://maps.google.com/maps?q=37.803467%2C%20-122.472369&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed"></iframe>
+            </div>
         </div>
-        <!-- /.main container -->
+        <!-- Contact Section End -->
+    </div>
 
-        <div class="map" id="googleMap"></div>
 
-        <!-- Footer ============================================= -->
-        <th:block th:replace="fragments/frontend_fragment_footer" />
+    <!-- Footer ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_footer" />
 
-        <!-- Script ============================================= -->
-        <th:block th:replace="fragments/frontend_fragment_script" />
+    <!-- Script ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_script" />
+
 
     </body>
 

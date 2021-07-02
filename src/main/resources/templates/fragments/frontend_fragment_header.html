@@ -1,10 +1,176 @@
 <div xmlns:th="http://www.thymeleaf.org" th:fragment="frontend_header">
 
-    <!-- navigation -->
-    <div class="navigation sticky-effect">
+    <!-- New template navigation -->
+
+    <!-- Preloader area start here -->
+    <div id="loader" class="loader">
+        <div class="spinner"></div>
+    </div>
+    <!--End preloader here -->
+
+    <!--Full width header Start-->
+    <div class="full-width-header">
+
+        <!--
+            --- Toolbar Start ---
+        <div class="toolbar-area hidden-md">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="toolbar-contact">
+                            <ul>
+                                <li><i class="flaticon-email"></i><a href="mailto:info@yourwebsite.com">support@rstheme.com</a></li>
+                                <li><i class="flaticon-call"></i><a href="tel:+123456789">(+123) 456789</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="toolbar-sl-share">
+                            <ul>
+                                <li class="opening"> <i class="flaticon-clock"></i> Mon - Fri: 9:00 am - 06.00pm / Closed on Weekends</li>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        -->
+
+        <!--Header Start-->
+        <header id="rs-header" class="rs-header">
+            <!-- Menu Start -->
+            <div class="menu-area menu-sticky">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="logo-area">
+                                <a th:href="@{/}"><img th:src="@{/assets/img/logo_fond_blanc.png}" alt="logo"></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 text-right">
+                            <div class="rs-menu-area">
+                                <div class="main-menu pl-4 pr-2">
+                                    <div class="mobile-menu">
+                                        <a class="rs-menu-toggle">
+                                            <i class="fa fa-bars"></i>
+                                        </a>
+                                    </div>
+                                    <nav class="rs-menu">
+                                        <ul class="nav-menu">
+                                            <li class="current-menu-item">
+                                                <a th:href="@{/}">Accueil</a>
+                                            </li>
+
+                                            <li class="">
+                                                <a th:href="@{/frontend-how-it-works}">Comment ça marche ?</a>
+                                            </li>
+
+                                            <li class="">
+                                                <a th:href="@{/frontend-faq}">FAQ</a>
+                                            </li>
+
+                                            <li class="">
+                                                <a th:href="@{/frontend-contact-us}">Contact</a>
+                                            </li>
+
+                                            <li class="">
+                                                <a th:href="@{/account/register}">S'inscrire</a>
+                                            </li>
+
+                                            <li class="">
+                                                <a th:href="@{/account/login}">Se connecter</a>
+                                            </li>
+                                        </ul>
+                                        <!-- //.nav-menu -->
+                                    </nav>
+                                </div> <!-- //.main-menu -->
+                                <div class="expand-btn-inner">
+                                    <ul>
+                                        <li class="search-parent">
+                                            <a class="hidden-xs rs-search" data-target=".search-modal" data-toggle="modal" href="#">
+                                                <i class="flaticon-search"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a id="nav-expander" class="humburger nav-expander" href="#">
+                                                <span class="dot1"></span>
+                                                <span class="dot2"></span>
+                                                <span class="dot3"></span>
+                                                <span class="dot4"></span>
+                                                <span class="dot5"></span>
+                                                <span class="dot6"></span>
+                                                <span class="dot7"></span>
+                                                <span class="dot8"></span>
+                                                <span class="dot9"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Menu End -->
+
+            <!-- Canvas Menu start -->
+            <nav class="right_menu_togle hidden-md">
+                <div class="close-btn">
+                    <span id="nav-close" class="humburger">
+                            <span class="dot1"></span>
+                            <span class="dot2"></span>
+                            <span class="dot3"></span>
+                            <span class="dot4"></span>
+                            <span class="dot5"></span>
+                            <span class="dot6"></span>
+                            <span class="dot7"></span>
+                            <span class="dot8"></span>
+                            <span class="dot9"></span>
+                        </span>
+                </div>
+                <div class="canvas-logo">
+                    <a th:href="@{/}">
+                        <img th:src="@{/assets/img/logo_fond_blanc.png}" alt="logo">
+                    </a>
+                </div>
+                <div class="offcanvas-text">
+                    <p>
+                        Une plateforme numérique Simple, Fiable, et Sécurisé pour le renforcement de la solidarité financière.
+                    </p>
+                </div>
+                <div class="canvas-contact">
+                    <ul class="contact">
+                        <li><i class="flaticon-location"></i>Cocody Corniche, ABIDJAN, Côte d'Ivoire</li>
+                        <li><i class="flaticon-call"></i>(+225)27-27-27-27-27</li>
+                        <li><i class="flaticon-email"></i><a href="mailto:lungcash@support.com">lungcash@support.com</a></li>
+                    </ul>
+                    <ul class="social">
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- Canvas Menu end -->
+        </header>
+        <!--Header End-->
+    </div>
+    <!--Full width header End-->
+
+    <!-- End new template navigation -->
+
+
+    <!--
+        --- Old template navigation ---
+        <div class="navigation sticky-effect">
         <nav class="navbar navbar-default">
             <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
+                -- Brand and toggle get grouped for better mobile display -
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
@@ -16,7 +182,7 @@
                         <img th:src="@{/assets/frontend/images/logo.png}" alt="">
                     </a>
                 </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
+                -- Collect the nav links, forms, and other content for toggling -
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
@@ -25,21 +191,20 @@
                         <li>
                             <a th:href="@{/frontend-contact-us}" title="Contact us">Nous contacter</a>
                         </li>
-                        <!--
                         <li>
                             <a th:href="@{/frontend-sign-up}" title="Register">S'inscrire</a>
                         </li>
-                        -->
                         <li>
                             <a th:href="@{/account/login}" title="Log in">Se connecter</a>
                         </li>
                     </ul>
                 </div>
-                <!-- /.navbar-collapse -->
+                -- /.navbar-collapse -
             </div>
-            <!-- /.container-fluid -->
+            -- /.container-fluid --
         </nav>
     </div>
-    <!-- / navigation -->
+
+    -->
 
 </div>

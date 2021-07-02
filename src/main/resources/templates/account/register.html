@@ -1,156 +1,141 @@
-<div xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="theme-one">
 
-    <!DOCTYPE html>
-    <html lang="en">
+    <!--Head
+    ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_head('Register')" />
+
+    <body id="RegisterPage">
+
+        <!-- Header ============================================= -->
+        <th:block th:replace="fragments/frontend_fragment_header" />
 
 
-    <head>
-        <meta charset="UTF-8">
-        <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-        <title>Tontine - S'enregistrer</title>
-        <!-- General CSS Files -->
-        <link rel="stylesheet" th:href="@{/assets/css/app.min.css}">
-        <link rel="stylesheet" th:href="@{/assets/bundles/bootstrap-social/bootstrap-social.css}">
-        <!-- Template CSS -->
-        <link rel="stylesheet" th:href="@{/assets/css/style.css}">
-        <link rel="stylesheet" th:href="@{/assets/css/components.css}">
-        <!-- Custom style CSS -->
-        <link rel="stylesheet" th:href="@{/assets/css/custom.css}">
-        <link rel='shortcut icon' type='image/x-icon' th:href="@{/assets/img/favicon.ico}" />
-    </head>
+        <!-- Content ============================================= -->
+        <div class="main-content">
+            <!-- Breadcrumbs Section Start -->
+            <div class="rs-breadcrumbs bg-6">
+                <div class="container">
+                    <div class="content-part text-center">
+                        <h1 class="breadcrumbs-title white-color mb-0">Inscription</h1>
+                    </div>
+                </div>
+            </div>
+            <!-- Breadcrumbs Section End -->
 
-    <body>
-    <div class="loader"></div>
-    <div id="app">
-        <section class="section">
-            <li>
-                <!--<a ><span th:text="#{lang.change}"></span><i class="fa fa-caret-down"></i></a>-->
-                <ul class="lang-tooltip lang-action">
-                    <li>
-                        <a onclick="ChangeLanguage('fr');"
-                           class="current-lan"
-                           th:text="#{lang.fr}"
-                           th:style = "#{'Français'}">
-                        </a>
-                    </li>
-
-                    <li>
-                        <a onclick="ChangeLanguage('en');"
-                           th:text="#{lang.eng}"
-                           th:style = "#{'English'}">
-                        </a>
-                    </li>
-
-                </ul>
-
-            </li>
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h4 th:text="#{member_register}"></h4>
-                            </div>
-                            <div class="card-body">
-                                <form method="POST" th:action="@{/account/register}" enctype="multipart/form-data">
+            <!-- Register Section Start -->
+            <div class="rs-contact gray-bg pt-80 pb-60 md-pt-30 md-pb-30">
+                <div class="container">
+                    <div class="content white-bg">
+                        <div class="row">
+                            <div class="col-lg-8 form-part">
+                                <!--
+                                <div class="sec-title mb-35 md-mb-30">
+                                    <h2 class="title mb-0">Ecrivez-nous</h2>
+                                </div>
+                                -->
+                                <form method="POST" th:action="@{/account/register}" enctype="multipart/form-data" class="contact-form">
                                     <div class="row">
-                                        <div class="form-group col-6">
-                                            <label for="lastname" th:text="#{member_lastname}"></label>
-                                            <input id="lastname" type="text" class="form-control" name="lastname">
+                                        <!-- Text input-->
+                                        <input id="img" name="img" type="file" class="form-control" hidden>
+                                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                            <label class="control-label" for="fname">
+                                                <span th:text="#{member_lastname}"></span> *
+                                            </label>
+                                            <input id="fname" name="lastname" type="text" placeholder="Entrer votre nom" class="form-control input-md" required>
                                         </div>
-                                        <div class="form-group col-6">
-                                            <label for="firstname" th:text="#{member_firstname}"></label>
-                                            <input id="firstname" type="text" class="form-control" name="firstname" autofocus>
+                                        <!-- Text input-->
+                                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                            <label class="control-label" for="lname">
+                                                <span th:text="#{member_firstname}"></span> *
+                                            </label>
+                                            <input id="lname" name="firstname" type="text" placeholder="Entrer votre/vos prénom(s)" class="form-control input-md" autofocus required>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email" th:text="#{member_email}"></label>
-                                        <input id="email" type="email" class="form-control" name="email">
-                                        <div class="invalid-feedback">
+                                        <!-- Text input-->
+                                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                            <label class="control-label" for="username">
+                                                <span th:text="#{member_username}"></span> *
+                                            </label>
+                                            <input id="username" name="username" type="text" placeholder="Entrer username ou login pour votre connexion" class="form-control input-md" required>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label th:text="#{member_pictures}"></label>
-                                        <input id="img" name="img" type="file" class="form-control">
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-4">
-                                            <label for="username" th:text="#{member_username}"></label>
-                                            <input id="username" type="text" class="form-control" name="username" autofocus>
+                                        <!-- Text input-->
+                                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                            <label class="control-label" for="email">
+                                                <span th:text="#{member_email}"></span> *
+                                            </label>
+                                            <input id="email" name="email" type="text" placeholder="Entrer votre adresse mail" class="form-control input-md" required>
                                         </div>
-                                        <div class="form-group col-4">
-                                            <label for="tel" th:text="#{member_phone}"></label>
-                                            <input id="tel" type="text" class="form-control" name="tel">
+                                        <!-- Text input-->
+                                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                            <label class="control-label" for="phone">
+                                                <span th:text="#{member_phone}"></span> *
+                                            </label>
+                                            <input id="phone" name="tel" type="text" placeholder="Entrer votre numéro de téléphone" class="form-control input-md" required>
                                         </div>
-                                        <div class="form-group col-4">
-                                            <label for="dateNaissance" th:text="#{member_birthday}"></label>
-                                            <input id="dateNaissance" type="date" class="form-control" name="dateNaissance">
+                                        <!-- Text input -->
+                                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                            <label class="control-label" for="naissance">
+                                                <span th:text="#{member_birthday}"></span> *
+                                            </label>
+                                            <input id="naissance" name="dateNaissance" type="date" class="form-control input-md" required>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-6">
-                                            <label for="password" class="d-block" th:text="#{member_password}"></label>
-                                            <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator"
-                                                   name="password">
-                                            <div id="pwindicator" class="pwindicator">
-                                                <div class="bar"></div>
-                                                <div class="label"></div>
+                                        <!-- Text input-->
+                                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                            <label class="control-label" for="mdp">
+                                                <span th:text="#{member_password}"></span> *
+                                            </label>
+                                            <input id="mdp" name="password" type="password" placeholder="Entrer votre mot de passe" class="form-control input-md" required>
+                                        </div>
+                                        <!-- Text input -->
+                                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                            <label class="control-label" for="cmdp">
+                                                <span th:text="#{member_password_confirm}"></span> *
+                                            </label>
+                                            <input id="cmdp" name="password2" type="password" placeholder="Confirmer votre mot de passe" class="form-control input-md" required>
+                                        </div>
+                                        <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" name="agree" class="custom-control-input" id="agree">
+                                                <label class="custom-control-label" for="agree" th:text="#{member_accept_terms}"></label>
                                             </div>
                                         </div>
-                                        <div class="form-group col-6">
-                                            <label for="password2" class="d-block" th:text="#{member_password_confirm}"></label>
-                                            <input id="password2" type="password" class="form-control" name="password2">
+                                        <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                            <p style="margin-bottom:0px;">
+                                                Déjà enregistré? <a th:href="@{/account/login}" class="color-primary-color">Connectez-vous</a>
+                                            </p>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" name="agree" class="custom-control-input" id="agree">
-                                            <label class="custom-control-label" for="agree" th:text="#{member_accept_terms}"></label>
+                                        <div class="form-group col-xs-12 col-sm-12 col-md-12 mt-10 d-flex flex-row justify-content-start">
+                                            <button type="submit" class="btn btn-default readon">S'inscrire</button>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block" th:text="#{member_register}">
-
-                                        </button>
                                     </div>
                                 </form>
                             </div>
-                            <div class="mb-4 text-muted text-center">
-                                Déjà enregistré? <a th:href="@{/account/login}">Connexion</a>
+                            <div class="col-lg-4 pl-0 md-pl-pr-15 pt-100 img-part">
+                                <img th:src="@{/assets/img/signup-image.jpeg}" alt="sing up image">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
-    <script>
-        function ChangeLanguage(lang) {
+            <!-- Register Section End -->
+        </div>
 
-            //alert("The URL of this page is: " + window.location.href+"/?lang="+lang);
-            var newUrl = window.location.pathname+"?lang="+lang
-            window.location.replace(newUrl);
+        <!-- Footer ============================================= -->
+        <th:block th:replace="fragments/frontend_fragment_footer" />
 
-        }
-    </script>
-    <!-- General JS Scripts -->
-    <script th:src="@{/assets/js/app.min.js}"></script>
-    <!-- JS Libraies -->
+        <!-- Script ============================================= -->
+        <th:block th:replace="fragments/frontend_fragment_script" />
 
-    <script th:src="@{/assets/bundles/jquery-pwstrength/jquery.pwstrength.min.js}"></script>
-    <script th:src="@{/assets/bundles/jquery-selectric/jquery.selectric.min.js}"></script>
-    <!-- Page Specific JS File -->
-    <script th:src="@{/assets/js/page/auth-register.js}"></script>
-    <!-- Page Specific JS File -->
-    <!-- Template JS File -->
-    <script th:src="@{/assets/js/scripts.js}"></script>
-    <!-- Custom JS File -->
-    <script th:src="@{/assets/js/custom.js}"></script>
-    <!-- SweetAlert JS File -->
-    <script th:src="@{/assets/js/sweetalert2.min.js}"></script>
+        <script>
+            function ChangeLanguage(lang) {
+
+                //alert("The URL of this page is: " + window.location.href+"/?lang="+lang);
+                var newUrl = window.location.pathname+"?lang="+lang
+                window.location.replace(newUrl);
+
+            }
+        </script>
+
     </body>
 
-
-    </html>
-
-</div>
+</html>

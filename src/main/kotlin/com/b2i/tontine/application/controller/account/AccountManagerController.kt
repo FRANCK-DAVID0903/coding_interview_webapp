@@ -49,7 +49,7 @@ class AccountManagerController(
         redirectAttributes: RedirectAttributes
     ): String {
 
-        return "account/register"
+        return forwardTo("register")
     }
 
     @PostMapping(value = ["/register"])

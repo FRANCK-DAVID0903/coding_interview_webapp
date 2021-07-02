@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <!-- Head ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_head('Contact Us')" />
+
+    <body id="ContactPage">
+
+        <!-- Header ============================================= -->
+        <th:block th:replace="fragments/frontend_fragment_header" />
+
+
+        <!-- Content ============================================= -->
+
+        <!-- page-header -->
+        <div class="page-header">
+            <canvas class="particles-bg"></canvas>
+            <div class="container">
+                <div class="row page-section">
+                    <div class="col-md-5 page-description">
+                        <h1 class="page-title">Nous contacter</h1>
+                        <p>
+                            Vous avez une question ? Un commentaire ? Envoyez-nous un message !
+                        </p>
+                    </div>
+                    <!-- quote block -->
+                    <div class="col-md-7 page-quote">
+                        <a th:href="@{/account/register}" class="btn btn-third btn-lg">Cliquer ici pour vous inscrire</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- main container -->
+        <div class="main-container">
+            <div class="container">
+                <div class="row d-flex flex-row justify-content-center">
+                    <div class="col-xs-12 col-sm-12 col-md-11">
+                        <!-- content -->
+                        <div class="col-xs-12 col-sm-12 col-md-7 content">
+                            <div class="widget">
+                                <h1>Ecriver nous !</h1>
+                                <p>
+                                    Utilisez le formulaire ci-dessous pour nous envoyer un message.
+                                </p>
+                                <div class="row">
+                                    <form th:action="@{/frontend-contact-us}" method="post">
+                                        <!-- Text input-->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label" for="fname">
+                                                    Nom et prénoms <span class="required">*</span>
+                                                </label>
+                                                <input id="fname" name="fullname" type="text" class="form-control input-md" placeholder="Entrer votre nom et vos prenoms" required />
+                                            </div>
+                                        </div>
+                                        <!-- Text input-->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label" for="email">
+                                                    Adresse mail <span class="required">*</span>
+                                                </label>
+                                                <input id="email" name="email" type="text" class="form-control input-md" placeholder="Entrer votre adresse mail" required>
+                                            </div>
+                                        </div>
+                                        <!-- Text input-->
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="control-label" for="message">Message</label>
+                                                <textarea class="form-control" id="message" rows="7" name="message" placeholder="Entrer votre message ici"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-default">Envoyer</button>
+                                        </div>
+                                        <!-- Text input
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label" for="phone">
+                                                    Contact <span class="required">*</span>
+                                                </label>
+                                                <input id="phone" name="phone" type="text" class="form-control input-md" placeholder="Entrer votre numéro de téléphone" required />
+                                            </div>
+                                        </div>
+                                        -->
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.content -->
+
+                        <!-- sidebar -->
+                        <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-4 sidebar">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="widget">
+                                        <h2>Informations</h2>
+                                        <ul class="listnone contact">
+                                            <li>
+                                                <i class="fa fa-map-marker"></i>
+                                                <address>
+                                                    Cocody Centre, ABIDJAN, Côte d'ivoire
+                                                </address>
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-phone"></i> 123 - 456-789
+                                            </li>
+                                            <li>
+                                                <i class="fa fa-envelope-o"></i>info@lungcahswebapp.com
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.sidebar -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.main container -->
+
+        <div class="map" id="googleMap"></div>
+
+        <!-- Footer ============================================= -->
+        <th:block th:replace="fragments/frontend_fragment_footer" />
+
+        <!-- Script ============================================= -->
+        <th:block th:replace="fragments/frontend_fragment_script" />
+
+    </body>
+
+</html>
