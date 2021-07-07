@@ -49,8 +49,8 @@ class TontineBiddingController(
         @PathVariable association_id: String,
         @PathVariable tontine_id: String,
         @RequestParam id: String,
-        //@RequestParam interestType: String,
         @RequestParam interest: String,
+        //@RequestParam id_periodicity: String,
         locale: Locale
     ): String {
         var url = "$association_id/tontines/$tontine_id"
@@ -73,41 +73,45 @@ class TontineBiddingController(
             else -> {
                 val user = authenticationFacade.getAuthenticatedUser().get()
                 val tontine = tontineDomain.findTontineById(tontine_id.toLong()).orElse(null)
+                var periodicity = tontinePeriodicityDomain.findById(id.toLong())
 
                 when (userDomain.findTypeBy(user.id)) {
                     UserType.ASSOCIATION_MEMBER -> {
                         var interestValue = 0.0
-                        val tontineBidding = TontineBidding()
 
-                        interestValue = interest.toDouble()
-
-                        tontineBidding.interestByValue = interestValue
+                        val per = periodicity.get()
 
                         val memb = memberDomain.findById(user.id).orElse(null)
                         if (memb != null) {
+                            val tontineBidding = tontineBiddingDomain.findByTontinePeriodicityAndMember(per,memb).orElse(TontineBidding())
+
+                            interestValue = interest.toDouble()
+
+                            tontineBidding.interestByValue = interestValue
                             tontineBidding.member = memb
-                        }
 
-                        val result: OperationResult<TontineBidding> =
-                            tontineBiddingDomain.makeBidding(tontineBidding, id.toLong())
+                            val result: OperationResult<TontineBidding> =
+                                    tontineBiddingDomain.makeBidding(tontineBidding, id.toLong())
 
-                        val err: MutableMap<String, String> = mutableMapOf()
-                        if (result.errors!!.isNotEmpty()) {
-                            result.errors.forEach { (key, value) ->
-                                err[key] = messageSource.getMessage(value, null, locale)
+                            val err: MutableMap<String, String> = mutableMapOf()
+                            if (result.errors!!.isNotEmpty()) {
+                                result.errors.forEach { (key, value) ->
+                                    err[key] = messageSource.getMessage(value, null, locale)
+                                }
+                            }
+
+                            if (
+                                    ControlForm.verifyHashMapRedirect(
+                                            redirectAttributes,
+                                            err,
+                                            messageSource.getMessage("tontine_bidding_created", null, locale)
+                                    )
+                            ) {
+                                //url = "$association_id/tontines/$tontine_id/periodicity/$id"
+                                url = "$association_id/tontines/$tontine_id"
                             }
                         }
 
-                        if (
-                            ControlForm.verifyHashMapRedirect(
-                                redirectAttributes,
-                                err,
-                                messageSource.getMessage("tontine_bidding_created", null, locale)
-                            )
-                        ) {
-                            //url = "$association_id/tontines/$tontine_id/periodicity/$id"
-                            url = "$association_id/tontines/$tontine_id"
-                        }
                     }
                 }
             }

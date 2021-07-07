@@ -31,7 +31,7 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="card card-statistic-1">
-                                        <div class="card-icon l-bg-green">
+                                        <div class="card-icon l-bg-orange">
                                             <i class="fas fa-users-cog"></i>
                                         </div>
                                         <div class="card-wrap">
@@ -116,7 +116,7 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th th:text="#{association_tontine_detail_page_table_name}"></th>
-                                                                    <th th:text="#{association_tontine_detail_page_table_acquisition_date}"></th>
+                                                                    <th th:text="#{table_amount_contribute_in_tontine}"></th>
                                                                     <th th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}" th:text="#{association_detail_page_action}"></th>
                                                                 </tr>
                                                             </thead>
@@ -124,15 +124,15 @@
                                                             <tbody>
                                                                 <tr th:each="tontineMember : ${tontineMembers}">
 
-                                                                    <td th:text="${tontineMember.beneficiary.firstname} +' '+ ${tontineMember.beneficiary.lastname}"></td>
+                                                                    <td th:text="${tontineMember['key'].beneficiary.firstname} +' '+ ${tontineMember['key'].beneficiary.lastname}"></td>
 
-                                                                    <td th:text="${tontineMember.beneficiary.firstname}"></td>
+                                                                    <td th:text="${tontineMember['value']}"></td>
 
                                                                     <td th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}">
-                                                                        <a class="btn btn-primary btn-action mr-1" title="" th:data-original-title="#{table_contribute}">
+                                                                        <!--<a class="btn btn-primary btn-action mr-1" title="" th:data-original-title="#{table_contribute}">
                                                                             <i class="fas fa-check-circle"></i>
-                                                                        </a>
-                                                                        <a class="btn btn-danger btn-action mr-1" title="" th:data-original-title="#{table_delete}">
+                                                                        </a>-->
+                                                                        <a class="btn btn-danger btn-action mr-1" th:data-original-title="#{table_button_delete_member_tontine}" th:title="#{table_button_delete_member_tontine}">
                                                                             <i class="fas fa-trash"></i>
                                                                         </a>
                                                                     </td>
@@ -283,7 +283,8 @@
 
                                                                         <td th:text="${#calendars.format(periode.contributionStartDate, 'dd-MM-yyyy')}"></td>
                                                                         <td th:text="${#calendars.format(periode.contributionEndDate, 'dd-MM-yyyy')}"></td>
-                                                                        <td th:text="${periode.biddingState}"></td>
+                                                                        <td th:if="${periode.biddingState == 'OPENED'}" th:text="#{association_tontine_create_page_label_type_open}"></td>
+                                                                        <td th:if="${periode.biddingState == 'CLOSED'}" th:text="#{association_tontine_create_page_label_type_close}"></td>
                                                                         <td th:text="${periode.biddingAmount}"></td>
                                                                         <td class="align-middle" th:if="${periode.beneficiary != null}" th:text="${periode.beneficiary.firstname}"></td>
                                                                         <td class="align-middle" th:if="${periode.beneficiary == null}" ></td>
@@ -291,7 +292,7 @@
                                                                         <td th:text="${#calendars.format(periode.biddingDeadline, 'dd-MM-yyyy')}"></td>
 
                                                                         <td>
-                                                                            <a th:if="${(connectedUser == 'actuator' || connectedUser == 'PDG') && (periode.nextPeriodicity == true)}"
+                                                                            <a th:if="${(connectedUser == 'actuator' || connectedUser == 'PDG' || connectedUser == 'association_admin') && (periode.nextPeriodicity == true)}"
                                                                                class="btn btn-primary btn-action mr-1" type="button" data-toggle="modal" data-target="#updatePeriodicityModal"
                                                                                th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));">
                                                                                 <i class="fas fa-check-circle"></i>
@@ -312,7 +313,7 @@
                                                                                 <i class="fas fa-money-bill"></i>
                                                                             </a>
 
-                                                                            <a th:if="${(periode.periodicityState == 'OPENED' && connectedUser != 'actuator')}" class="btn btn-primary btn-action mr-1" type="button" data-toggle="modal" data-target="#makeBiddingModal"
+                                                                            <a th:if="${(periode.biddingState == 'OPENED' && connectedUser != 'actuator')}" class="btn btn-primary btn-action mr-1" type="button" data-toggle="modal" data-target="#makeBiddingModal"
                                                                                th:data-entity="${stringHelper.clean(periode.toJSON())}" onclick="onActivatedPer(this.getAttribute('data-entity'));" th:title="#{tontine_bidding_make}">
                                                                                 <i class="fas fa-percent "></i>
                                                                             </a>
@@ -328,7 +329,7 @@
 
                                                 <!-- Tontine update -->
                                                 <div th:if="${connectedUser == 'actuator' || connectedUser == 'PDG'}" class="tab-pane fade" id="update" role="tabpanel" aria-labelledby="update-tab2">
-                                                    <form method="post" th:action="@{/backend/association/__${association.id}__/tontines/update}">
+                                                    <form method="post" th:action="@{/backend/association/__${association.id}__/tontines/update/__${tontine.id}__}">
 
                                                         <div class="card-body">
                                                             <div class="form-row">
@@ -569,7 +570,7 @@
                                 <div class="form-group col-12">
                                     <label for="endDate" th:text="#{association_tontine_detail_page_table_Endate}"></label>
                                     <select name="benef" id="benef">
-                                        <option th:each="tontineMember : ${tontineMembers}" th:value="${tontineMember.beneficiary.id}" th:text="${tontineMember.beneficiary.firstname} +' '+ ${tontineMember.beneficiary.lastname}"></option>
+                                        <option th:each="tontineMember : ${tontineMembers}" th:value="${tontineMember['key'].beneficiary.id}" th:text="${tontineMember['key'].beneficiary.firstname} +' '+ ${tontineMember['key'].beneficiary.lastname}"></option>
                                     </select>
 
                                 </div>

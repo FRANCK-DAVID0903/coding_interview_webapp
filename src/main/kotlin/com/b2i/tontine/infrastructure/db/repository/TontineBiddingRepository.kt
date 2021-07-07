@@ -23,4 +23,6 @@ interface TontineBiddingRepository : JpaRepository<TontineBidding, Long> {
 
     fun findByTontinePeriodicityAndBiddingApproved(tontinePeriodicity: TontinePeriodicity,state:Boolean): Optional<TontineBidding>
 
+    fun findByTontinePeriodicityAndMember(tontinePeriodicity: TontinePeriodicity,member: Member) : Optional<TontineBidding>
+
 }

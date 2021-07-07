@@ -29,4 +29,7 @@ interface IManageTontineBidding {
     fun findByTontinePeriodicityAndBiddingApproved(tontinePeriodicity: TontinePeriodicity,state:Boolean): Optional<TontineBidding>
 
     fun apprroveBidding(tontineBidding: TontineBidding):OperationResult<TontineBidding>
+
+    fun findByTontinePeriodicityAndMember(tontinePeriodicity: TontinePeriodicity,member: Member):Optional<TontineBidding>
+
 }

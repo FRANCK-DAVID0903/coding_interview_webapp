@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import javax.servlet.http.HttpServletRequest
@@ -20,7 +21,7 @@ import kotlin.jvm.Throws
  */
 @Configuration
 @EnableWebSecurity
-class WebSecurityConfig @Autowired
+class   WebSecurityConfig @Autowired
 constructor(
     private val userDetailsServiceImplementation: UserDetailsServiceImplementation,
     private val authenticationSuccessHandler: AuthenticationSuccessHandler,
@@ -29,6 +30,8 @@ constructor(
 
     @Throws(Exception::class)
     override fun configure(http: HttpSecurity) {
+        http.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
         http
                 .cors()
                .and()

@@ -95,6 +95,8 @@ class tontinePeriodicityController(
             if (contribution != null){
                 if (forMe.toInt() == 1){
                     contribution.state = 1
+                }else{
+                    contribution.state = 0
                 }
                 contribution.contributed = true
                 contribution.contributionAmount = periodicity.tontine!!.contributionAmount
@@ -155,16 +157,17 @@ class tontinePeriodicityController(
 
 
             if(type == "EN VALEUR"){
-
                 periodicity.biddingAmount = biddingAmount.toDouble()
             }else{
-
                 periodicity.biddingAmount = (periodicity.tontine!!.contributionAmount*periodicity.tontine!!.numberOfParticipant) * (biddingAmount.toDouble()/100)
             }
 
             //On trouve la prochaine periodicité pour la mettre a jour
             val nextP = tontinePeriodicityDomain.findByPeriodicityNumberAndTontine((periodicity.periodicityNumber+1),periodicity.tontine!!).orElse(null)
             if (nextP != null){
+                //newCodeAdd
+                nextP.periodicityState = TontineType.OPENED
+
                 nextP.nextPeriodicity = true
             }
             //Fin de la mise a jour de la prochaine périodicité

@@ -687,7 +687,7 @@ $(function () {
 
   //start up class add, add default class on body tag
   jQuery("body").addClass("light"); // light or dark
-  jQuery("body").addClass("dark-sidebar"); // light-sidebar or dark-sidebar
+  jQuery("body").addClass("light-sidebar"); // light-sidebar or dark-sidebar
   jQuery("body").addClass("theme-cyan"); // theme-white/theme-cyan/theme-black/theme-purple/theme-orange/theme-green/theme-red
   // set theme default color
   $(".choose-theme li").removeClass("active");

@@ -21,6 +21,7 @@ import com.b2i.tontine.domain.tontine_contribution.entity.TontineContribution
 import com.b2i.tontine.domain.tontine_contribution.port.TontineContributionDomain
 import com.b2i.tontine.domain.tontine_periodicity.entity.TontinePeriodicity
 import com.b2i.tontine.domain.tontine_periodicity.port.TontinePeriodicityDomain
+import com.b2i.tontine.domain.tontine_request.entity.TontineRequest
 import com.b2i.tontine.domain.tontine_request.port.TontineRequestDomain
 import com.b2i.tontine.utils.OperationResult
 import org.springframework.context.MessageSource
@@ -399,6 +400,53 @@ class TontineController(
         return redirectTo(url)
     }
 
+    @PostMapping(value = ["/{association_id}/tontines/update/{tontine_id}"])
+    fun updateTontine(
+            redirectAttributes: RedirectAttributes,
+            @PathVariable tontine_id: String,
+            @PathVariable association_id: String,
+            @RequestParam("type")type: String,
+            @RequestParam("name")name: String,
+            @RequestParam("numberOfParticipant")numberOfParticipant: String,
+            @RequestParam("contributionAmount")contributionAmount: String,
+            @RequestParam("periodicity")periodicity: String,
+            locale: Locale
+    ): String {
+
+
+        var url = "$association_id/tontines/$tontine_id"
+        var tontine = tontineDomain.findTontineById(tontine_id.toLong()).orElse(null)
+
+        if (tontine == null){
+            ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("tontine_not_found", null, locale),
+                    Color.green
+            )
+        }
+        else{
+
+            //Update tonine now
+            tontine.name = name
+            tontine.numberOfParticipant = numberOfParticipant.toLong()
+            tontine.contributionAmount = contributionAmount.toDouble()
+            tontine.periodicity = periodicity
+            tontine.type = type
+
+            val result: OperationResult<Tontine> = tontineDomain.createTontine(tontine,association_id.toLong())
+
+            ControlForm.redirectAttribute(
+                    redirectAttributes,
+                    messageSource.getMessage("tontine_update_success", null, locale),
+                    Color.green
+            )
+
+        }
+
+        return redirectTo(url)
+
+    }
+
 
     @GetMapping("/{association_id}/tontines")
     fun listOfAssociationTontines(
@@ -470,6 +518,7 @@ class TontineController(
         var isMembershipDeadline = false
         val association: Association? = associationDomain.findAssociationById(association_id.toLong()).orElse(null)
         val tontine: Tontine? = tontineDomain.findTontineById(tontine_id.toLong()).orElse(null)
+        var dataMemberTontine = mutableMapOf<TontineRequest,Double>()
 
         if (association == null || tontine == null) {
             page = "list_tontine"
@@ -481,16 +530,29 @@ class TontineController(
             if (tontine.membershipDeadline!!.before(today)) {
                 isMembershipDeadline = true
             }
+            val requestValidated = tontineRequestDomain.findAllApprovedTontineMembers(tontine, true, 0)
+
+            requestValidated.forEach{ tonts ->
+                val montant = tonts.beneficiary?.let { tontineContributionDomain.findAllByMemberAndContributed(it,true).sumByDouble { it!!.contributionAmount } }
+                if (montant != null) {
+                    dataMemberTontine.put(tonts,montant)
+                }else{
+                    dataMemberTontine.put(tonts,0.0)
+                }
+            }
 
             model.addAttribute("associationMembers", associationMembers)
             model.addAttribute("tontineRequests", tontineRequestDomain.findAllApprovedTontineMembers(tontine, false, 0))
-            model.addAttribute("tontineMembers", tontineRequestDomain.findAllApprovedTontineMembers(tontine, true, 0))
+            //model.addAttribute("tontineMembers", tontineRequestDomain.findAllApprovedTontineMembers(tontine, true, 0))
+            model.addAttribute("tontineMembers", dataMemberTontine)
             model.addAttribute("tontinePeriodicities", tontinePeriodicityDomain.findAllByTontine(tontine).sortedBy { it.periodicityNumber })
             model.addAttribute("association", association)
             model.addAttribute("membershipDeadline", isMembershipDeadline)
             model.addAttribute("tontine", tontine)
             injectAssociation(model, association)
-        }
+
+            }
+
 
         return forwardTo(page)
     }
