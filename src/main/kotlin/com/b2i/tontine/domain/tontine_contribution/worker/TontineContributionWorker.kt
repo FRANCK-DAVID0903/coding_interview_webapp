@@ -50,4 +50,8 @@ class TontineContributionWorker: TontineContributionDomain {
     override fun findAllByMemberAndContributedAndTontine_Association(member: Member, contributed: Boolean, association: Association): MutableList<TontineContribution> {
         return tontineContributionRepository.findAllByMemberAndContributedAndTontine_Association(member,contributed,association)
     }
+
+    override fun findAllByMemberAndContributedAndTontine(member: Member, contributed: Boolean, tontine: Tontine): MutableList<TontineContribution> {
+        return tontineContributionRepository.findAllByMemberAndContributedAndTontine(member,contributed,tontine)
+    }
 }

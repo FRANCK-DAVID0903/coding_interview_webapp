@@ -24,4 +24,6 @@ interface IManageTontineContribution {
 
     fun findAllByMemberAndContributedAndTontine_Association(member: Member,contributed: Boolean,association: Association): MutableList<TontineContribution>
 
+    fun findAllByMemberAndContributedAndTontine(member: Member,contributed: Boolean,tontine: Tontine): MutableList<TontineContribution>
+
 }

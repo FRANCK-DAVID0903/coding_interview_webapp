@@ -533,7 +533,8 @@ class TontineController(
             val requestValidated = tontineRequestDomain.findAllApprovedTontineMembers(tontine, true, 0)
 
             requestValidated.forEach{ tonts ->
-                val montant = tonts.beneficiary?.let { tontineContributionDomain.findAllByMemberAndContributed(it,true).sumByDouble { it!!.contributionAmount } }
+                //val montant = tonts.beneficiary?.let { tontineContributionDomain.findAllByMemberAndContributed(it,true).sumByDouble { it!!.contributionAmount } }
+                val montant = tonts.tontine?.let { tonts.beneficiary?.let { it1 -> tontineContributionDomain.findAllByMemberAndContributedAndTontine(it1,true, it).sumByDouble { it.contributionAmount } } }
                 if (montant != null) {
                     dataMemberTontine.put(tonts,montant)
                 }else{
