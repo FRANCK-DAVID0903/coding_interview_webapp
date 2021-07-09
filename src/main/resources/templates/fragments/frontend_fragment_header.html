@@ -61,28 +61,32 @@
                                     </div>
                                     <nav class="rs-menu">
                                         <ul class="nav-menu">
-                                            <li class="current-menu-item">
+                                            <li th:class="${(currentLink=='/') ? 'current-menu-item' : ''}">
                                                 <a th:href="@{/}">Accueil</a>
                                             </li>
 
-                                            <li class="">
+                                            <li th:class="${(currentLink=='frontend-how-it-works') ? 'current-menu-item' : ''}">
                                                 <a th:href="@{/frontend-how-it-works}">Comment ça marche ?</a>
                                             </li>
 
-                                            <li class="">
+                                            <li th:class="${(currentLink=='frontend-faq') ? 'current-menu-item' : ''}">
                                                 <a th:href="@{/frontend-faq}">FAQ</a>
                                             </li>
 
-                                            <li class="">
+                                            <li th:class="${(currentLink=='frontend-contact-us') ? 'current-menu-item' : ''}">
                                                 <a th:href="@{/frontend-contact-us}">Contact</a>
                                             </li>
 
-                                            <li class="">
+                                            <li th:unless="${user != null}" th:class="${(currentLink=='register') ? 'current-menu-item' : ''}">
                                                 <a th:href="@{/account/register}">S'inscrire</a>
                                             </li>
 
-                                            <li class="">
+                                            <li th:unless="${user != null}" th:class="${(currentLink=='login') ? 'current-menu-item' : ''}">
                                                 <a th:href="@{/account/login}">Se connecter</a>
+                                            </li>
+
+                                            <li th:if="${user != null}">
+                                                <a th:href="@{/account/logout}">Se déconnecter</a>
                                             </li>
                                         </ul>
                                         <!-- //.nav-menu -->
@@ -94,6 +98,36 @@
                                             <a class="hidden-xs rs-search" data-target=".search-modal" data-toggle="modal" href="#">
                                                 <i class="flaticon-search"></i>
                                             </a>
+                                        </li>
+                                        <li th:if="${user != null}" class="header-navbar-rht nav-item dropdown has-arrow logged-item">
+                                            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                                                <span class="user-img">
+                                                    <img th:if="${user.photo != ''}" th:src="@{'/__${rootLocation}__/members/__${user.photo}__'}" alt="User Image">
+                                                    <img th:unless="${user.photo != ''}" th:src="@{/assets/img/user.png}" alt="User profile img">
+                                                </span>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <div class="user-header">
+                                                    <div class="avatar avatar-sm mb-20 text-center">
+                                                        <img th:if="${user.photo != ''}" th:src="@{'/__${rootLocation}__/members/__${user.photo}__'}" alt="User Image" class="avatar-img rounded-circle">
+                                                        <img th:unless="${user.photo != ''}" th:src="@{/assets/img/user.png}" alt="User Image" class="avatar-img rounded-circle">
+                                                    </div>
+                                                    <div class="user-text text-center">
+                                                        <span class="mb-10" th:if="${user != null}" th:text="${'Welcome '+user.username}"></span>
+                                                        <span class="mb-10" th:unless="${user != null}">Welcome</span>
+                                                        <div class="pt-5">
+                                                            <i th:if="${user.actuator}">(ACTUATOR)</i>
+                                                            <i th:if="${user.superAdmin}">(SUPER ADMIN)</i>
+                                                            <i th:if="${user.admin}">(ADMIN)</i>
+                                                            <i th:if="${user.basicUser}">(UTILISATEUR)</i>
+                                                            <i th:if="${user.member}">(MEMBRE)</i>
+                                                            <i th:if="${user.associationAdmin}">(ASSOCIATION ADMIN)</i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a class="dropdown-item" th:href="@{/backend/profile/myProfile}">Paramètre du profil</a>
+                                                <a class="dropdown-item" th:href="@{/account/logout}">Se déconnecter</a>
+                                            </div>
                                         </li>
                                         <li>
                                             <a id="nav-expander" class="humburger nav-expander" href="#">

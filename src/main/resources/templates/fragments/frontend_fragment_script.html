@@ -8,6 +8,9 @@
     <!-- jquery latest version -->
     <script th:src="@{/assets/frontend/new_template/js/jquery.min.js}"></script>
 
+    <!-- Popper js for bootstrap -->
+    <script th:src="@{/assets/frontend/new_template/js/popper.min.js}"></script>
+
     <!-- Bootstrap v4.4.1 js -->
     <script th:src="@{/assets/frontend/new_template/js/bootstrap.min.js}"></script>
 
@@ -66,10 +69,30 @@
 
 <!-- End template script ressources -->
 
-    <!-- Sweet alert -->
-    <script th:src="@{/assets/js/sweetalert2.min.js}"></script>
-
     <script>
+
+        /*--------------------------------------
+        Dropdown Elts on How-It-Works Page
+        ---------------------------------------*/
+        $('#associationAdvantagesLink>a').click(function () {
+            if($('#associationAdvantagesContent').hasClass('hideElt')) {
+                $('#associationAdvantagesContent').removeClass('hideElt')
+                $('#associationAdvantagesContent').addClass('showElt')
+            } else {
+                $('#associationAdvantagesContent').removeClass('showElt')
+                $('#associationAdvantagesContent').addClass('hideElt')
+            }
+        })
+        $('#memberAdvantagesLink>a').click(function () {
+            if($('#memberAdvantagesContent').hasClass('hideElt')) {
+                $('#memberAdvantagesContent').removeClass('hideElt')
+                $('#memberAdvantagesContent').addClass('showElt')
+            } else {
+                $('#memberAdvantagesContent').removeClass('showElt')
+                $('#memberAdvantagesContent').addClass('hideElt')
+            }
+        })
+
 
         /*--------------------------------------
         Particles on background script
@@ -303,33 +326,5 @@
             notifySuccess('Success', operationMessage)
         }
     </script>
-
-
-    <!--
-        --- Old template script ressources ---
-
-        -- jQuery (necessary for Bootstrap's JavaScript plugins) --
-        <script th:src="@{/assets/frontend/js/jquery.min.js}"></script>
-
-        -- Include all compiled plugins (below), or include individual files as needed --
-        <script th:src="@{/assets/frontend/js/bootstrap.min.js}"></script>
-
-        -- Header sticky --
-        <script th:src="@{/assets/frontend/js/jquery.sticky.js}"></script>
-        <script th:src="@{/assets/frontend/js/sticky-header.js}"></script>
-
-        -- Header Nav Dropdown --
-        <script th:src="@{/assets/frontend/js/nav.js}"></script>
-
-        -- Particles JS --
-        <script th:src="@{/assets/frontend/js/particles.min.js}"></script>
-
-        -- Owl carousel --
-        <script th:src="@{/assets/frontend/js/owl.carousel.min.js}"></script>
-
-        -- Others --
-        <script src="http://maps.googleapis.com/maps/api/js"></script>
-
-    -->
 
 </div>

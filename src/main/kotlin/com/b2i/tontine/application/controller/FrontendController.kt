@@ -28,6 +28,7 @@ class FrontendController(
             model: Model,
             redirectAttributes: RedirectAttributes
     ) : String {
+        model.addAttribute("currentLink", "/")
         return "frontend/home"
     }
 
@@ -36,6 +37,7 @@ class FrontendController(
             model: Model,
             redirectAttributes: RedirectAttributes
     ) : String {
+        model.addAttribute("currentLink", "/")
         return "frontend/home"
     }
 
@@ -44,6 +46,7 @@ class FrontendController(
             model: Model,
             redirectAttributes: RedirectAttributes
     ) : String {
+        model.addAttribute("currentLink", "frontend-how-it-works")
         return "frontend/how-it-works"
     }
 
@@ -52,6 +55,7 @@ class FrontendController(
             model: Model,
             redirectAttributes: RedirectAttributes
     ) : String {
+        model.addAttribute("currentLink", "frontend-faq")
         return "frontend/faq"
     }
 
@@ -60,6 +64,7 @@ class FrontendController(
             model: Model,
             redirectAttributes: RedirectAttributes
     ) : String {
+        model.addAttribute("currentLink", "frontend-contact-us")
         return "frontend/contact"
     }
 

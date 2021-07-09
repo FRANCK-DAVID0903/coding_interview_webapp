@@ -39,7 +39,10 @@ class AccountManagerController(
 ) : BaseController(ControllerEndpoint.BACKEND_ACCOUNT) {
 
     @RequestMapping(value = ["/login"])
-    fun login(): String {
+    fun login(
+            model: Model
+    ): String {
+        model.addAttribute("currentLink", "login")
         return forwardTo("login")
     }
 
@@ -48,7 +51,7 @@ class AccountManagerController(
         model: Model,
         redirectAttributes: RedirectAttributes
     ): String {
-
+        model.addAttribute("currentLink", "register")
         return forwardTo("register")
     }
 
