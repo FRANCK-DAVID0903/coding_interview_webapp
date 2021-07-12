@@ -113,15 +113,15 @@
                                                         <img th:unless="${user.photo != ''}" th:src="@{/assets/img/user.png}" alt="User Image" class="avatar-img rounded-circle">
                                                     </div>
                                                     <div class="user-text text-center">
-                                                        <span class="mb-10" th:if="${user != null}" th:text="${'Welcome '+user.username}"></span>
-                                                        <span class="mb-10" th:unless="${user != null}">Welcome</span>
-                                                        <div class="pt-5">
-                                                            <i th:if="${user.actuator}">(ACTUATOR)</i>
-                                                            <i th:if="${user.superAdmin}">(SUPER ADMIN)</i>
-                                                            <i th:if="${user.admin}">(ADMIN)</i>
-                                                            <i th:if="${user.basicUser}">(UTILISATEUR)</i>
-                                                            <i th:if="${user.member}">(MEMBRE)</i>
-                                                            <i th:if="${user.associationAdmin}">(ASSOCIATION ADMIN)</i>
+                                                        <span th:if="${user != null}" th:text="${'Welcome '+user.username}"></span>
+                                                        <span th:unless="${user != null}">Welcome</span>
+                                                        <div class="mt-8">
+                                                            <i th:if="${user.actuator}">(ACTUATOR) <br/> </i>
+                                                            <i th:if="${user.superAdmin}">(SUPER ADMIN)<br/> </i>
+                                                            <i th:if="${user.admin}">(ADMIN)<br/> </i>
+                                                            <i th:if="${user.basicUser}">(UTILISATEUR) <br/> </i>
+                                                            <i th:if="${user.member}">(MEMBRE) <br/> </i>
+                                                            <i th:if="${user.associationAdmin}">(ASSOCIATION ADMIN) <br/> </i>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -179,8 +179,8 @@
                 <div class="canvas-contact">
                     <ul class="contact">
                         <li><i class="flaticon-location"></i>Cocody Corniche, ABIDJAN, Côte d'Ivoire</li>
-                        <li><i class="flaticon-call"></i>(+225)27-27-27-27-27</li>
-                        <li><i class="flaticon-email"></i><a href="mailto:lungcash@support.com">lungcash@support.com</a></li>
+                        <li><i class="flaticon-call"></i>(+33) 63-23-62-413, (+237) 65-76-11-472, (+225) 22-40-37-50</li>
+                        <li><i class="flaticon-email"></i><a href="mailto:contact@b2i-solutions.com">contact@b2i-solutions.com</a></li>
                     </ul>
                     <ul class="social">
                         <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -197,48 +197,4 @@
     <!--Full width header End-->
 
     <!-- End new template navigation -->
-
-
-    <!--
-        --- Old template navigation ---
-        <div class="navigation sticky-effect">
-        <nav class="navbar navbar-default">
-            <div class="container">
-                -- Brand and toggle get grouped for better mobile display -
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" th:href="@{/frontend-home}">
-                        <img th:src="@{/assets/frontend/images/logo.png}" alt="">
-                    </a>
-                </div>
-                -- Collect the nav links, forms, and other content for toggling -
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a th:href="@{/frontend-home}" title="Home">Accueil</a>
-                        </li>
-                        <li>
-                            <a th:href="@{/frontend-contact-us}" title="Contact us">Nous contacter</a>
-                        </li>
-                        <li>
-                            <a th:href="@{/frontend-sign-up}" title="Register">S'inscrire</a>
-                        </li>
-                        <li>
-                            <a th:href="@{/account/login}" title="Log in">Se connecter</a>
-                        </li>
-                    </ul>
-                </div>
-                -- /.navbar-collapse -
-            </div>
-            -- /.container-fluid --
-        </nav>
-    </div>
-
-    -->
-
 </div>
