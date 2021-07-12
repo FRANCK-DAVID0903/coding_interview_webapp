@@ -43,8 +43,8 @@
                                                 <th th:text="#{profile_tontine_association}"></th>
                                                 <th th:text="#{profile_tontine_amount}"></th>
                                                 <th th:text="#{profile_tontine_period}"></th>
-                                                <th th:text="#{profile_tontine_beginDate}"></th>
-                                                <th th:text="#{profile_tontine_end}"></th>
+                                                <th th:text="#{profile_tontine_jackpot_amount}"></th>
+                                                <th th:text="#{tontine_number_rounds}"></th>
                                                 <th th:text="#{profile_tontine_status}"></th>
                                                 <th th:text="#{association_list_page_table_header_Action}"></th>
                                             </tr>
@@ -52,15 +52,18 @@
 
                                             <tbody>
                                             <tr th:each="ton : ${tontinesValidated}">
-                                                <td th:text="${ton.tontine.name}"></td>
-                                                <td class="align-middle" th:text="${ton.tontine.association.name}"></td>
-                                                <td class="align-middle" th:text="${ton.tontine.contributionAmount}"></td>
-                                                <td class="align-middle" th:text="${ton.tontine.periodicity}"></td>
-                                                <td class="align-middle" th:text="${ton.tontine.startDate}"></td>
-                                                <td class="align-middle" th:text="${ton.tontine.endDate}"></td>
-                                                <td class="align-middle" th:text="${ton.tontine.isClosed}"></td>
+                                                <td th:text="${ton['key'].tontine.name}"></td>
+                                                <td class="align-middle" th:text="${ton['key'].tontine.association.name}"></td>
+                                                <td class="align-middle" th:text="${ton['key'].tontine.contributionAmount}"></td>
+                                                <td class="align-middle" th:if="${ton['key'].tontine.periodicity == 'MONTHLY'}" th:text="#{association_tontine_create_page_label_periodicity_monthly}"></td>
+                                                <td class="align-middle" th:if="${ton['key'].tontine.periodicity == 'WEEKLY'}" th:text="#{association_tontine_create_page_label_periodicity_weekly}"></td>
+                                                <td class="align-middle" th:if="${ton['key'].tontine.periodicity == 'ANNUAL'}" th:text="#{association_tontine_create_page_label_periodicity_annual}"></td>
+                                                <td class="align-middle" th:text="${ton['key'].tontine.tontineGlobalAmountEstimated}"></td>
+                                                <td class="align-middle" th:text="${ton['value'].first} +' / '+ ${ton['value'].second}" ></td>
+                                                <td class="align-middle" th:if="${ton['key'].tontine.isClosed == false}" th:text="#{profile_tontine_in_progess}"></td>
+                                                <td class="align-middle" th:if="${ton['key'].tontine.isClosed == true}" th:text="#{profile_tontine_finished}"></td>
                                                 <td class="text-center">
-                                                    <a th:href="@{/backend/association/__${ton.tontine.association.id}__/tontines/__${ton.tontine.id}__}"
+                                                    <a th:href="@{/backend/association/__${ton['key'].tontine.association.id}__/tontines/__${ton['key'].tontine.id}__}"
                                                        class="btn btn-primary" th:text="#{association_list_page_table_header_action_detail}"></a>
                                                 </td>
                                             </tr>

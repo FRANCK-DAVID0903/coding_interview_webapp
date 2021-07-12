@@ -170,4 +170,8 @@ class TontineBiddingWorker : TontineBiddingDomain {
 
         return OperationResult(data, errors)
     }
+
+    override fun findByTontinePeriodicityAndMember(tontinePeriodicity: TontinePeriodicity, member: Member):Optional<TontineBidding> {
+        return tontineBiddingRepository.findByTontinePeriodicityAndMember(tontinePeriodicity,member)
+    }
 }

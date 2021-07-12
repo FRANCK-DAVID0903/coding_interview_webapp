@@ -1,12 +1,15 @@
 package com.b2i.tontine.domain.tontine_request.worker
 
 import com.b2i.tontine.application.controlForm.ControlForm
+import com.b2i.tontine.application.facade.AuthenticationFacade
+import com.b2i.tontine.domain.account.entity.AssociationRole
 import com.b2i.tontine.domain.account.member.entity.Member
 import com.b2i.tontine.domain.association_member.entity.AssociationMember
 import com.b2i.tontine.domain.tontine.entity.Tontine
 import com.b2i.tontine.domain.tontine.entity.TontineType
 import com.b2i.tontine.domain.tontine_request.entity.TontineRequest
 import com.b2i.tontine.domain.tontine_request.port.TontineRequestDomain
+import com.b2i.tontine.infrastructure.db.repository.AssociationMemberRepository
 import com.b2i.tontine.infrastructure.db.repository.MemberRepository
 import com.b2i.tontine.infrastructure.db.repository.TontineRepository
 import com.b2i.tontine.infrastructure.db.repository.TontineRequestRepository
@@ -33,6 +36,12 @@ class TontineRequestWorker:TontineRequestDomain {
 
     @Autowired
     lateinit var tontineRepository: TontineRepository
+
+    @Autowired
+    lateinit var associationMemberRepository: AssociationMemberRepository
+
+    @Autowired
+    lateinit var authenticationFacade: AuthenticationFacade
 
     override fun createTontineRequest(tontine_id: Long, member_id: Long): OperationResult<TontineRequest> {
         val errors: MutableMap<String, String> = mutableMapOf()
@@ -61,6 +70,17 @@ class TontineRequestWorker:TontineRequestDomain {
 
                 val requestDate = LocalDate.now()
                 tontineRequest.requestDate = ControlForm.formatDate(requestDate.toString())
+
+                //Trouver le statut du gars dans la tontine
+                val user = authenticationFacade.getAuthenticatedUser()
+                val memb = tontine.association?.let { associationMemberRepository.findByAssociationAndUser(it,user.get()) }
+
+                val role = memb?.get()?.role
+
+                if (role != AssociationRole.MEMBER){
+                    tontineRequest.approved = true
+                    tontine.numberOfParticipant += 1
+                }
 
                 if (tontine.type == TontineType.CLOSED) {
                     tontineRequest.approved = true

@@ -44,6 +44,7 @@ class TontineContribution : BaseEntity() {
 
     //0 = Cotisation faite par le presi ou l'admin association
     //1 = Cotisation faite par le membre en attente de validation
+    //2 = Cotisation generer automatiquement par le système
     var state : Int = 0
 
 }

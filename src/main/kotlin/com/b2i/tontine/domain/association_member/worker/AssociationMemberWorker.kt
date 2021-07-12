@@ -116,6 +116,9 @@ class AssociationMemberWorker : AssociationMemberDomain {
                         data = associationMemberRepository.save(associationMember)
                     }
                 }
+                else{
+                    data = associationMemberRepository.save(associationMember)
+                }
 
             } else {
 
