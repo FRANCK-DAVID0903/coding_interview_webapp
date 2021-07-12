@@ -77,12 +77,12 @@
                                                 <a th:href="@{/frontend-contact-us}">Contact</a>
                                             </li>
 
-                                            <li th:unless="${user != null}" th:class="${(currentLink=='register') ? 'current-menu-item' : ''}">
-                                                <a th:href="@{/account/register}">S'inscrire</a>
-                                            </li>
-
                                             <li th:unless="${user != null}" th:class="${(currentLink=='login') ? 'current-menu-item' : ''}">
                                                 <a th:href="@{/account/login}">Se connecter</a>
+                                            </li>
+
+                                            <li th:unless="${user != null}" th:class="${(currentLink=='register') ? 'current-menu-item' : ''}">
+                                                <a th:href="@{/account/register}">S'inscrire</a>
                                             </li>
 
                                             <li th:if="${user != null}">

@@ -550,6 +550,10 @@
 /***** END HOW IT WORKS PAGE STYLE *****/
 
 /***** FAQ PAGE STYLE *****/
+.theme-one #FaqPage .rs-breadcrumbs.bg-2 {
+    background-image: url(../images/tontine-img11.jpg) !important;
+    background-position-y: -40px;
+}
 .theme-one #FaqPage .rs-breadcrumbs.bg-6 {
     background-image: url(../images/tontine-img8.jpeg) !important;
     background-position-y: -400px !important;

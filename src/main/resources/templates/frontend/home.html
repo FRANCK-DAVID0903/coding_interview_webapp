@@ -50,7 +50,7 @@
                         <div class="sec-title mb-15">
                             <div class="sub-title">A propos de LUNGCASH</div>
                             <h2 class="title mb-15">La tontine en ligne</h2>
-                            <div class="desc color-primary-color">
+                            <div class="desc">
                                 Une plateforme numérique Fiable, Sécurisé pour le renforcement de la solidarité financière et simple à utiliser.
                             </div>
                         </div>
@@ -204,7 +204,7 @@
                                 <h2 class="title mb-0">Ecrivez-nous</h2>
                             </div>
                             <div id="form-messages"></div>
-                            <form class="contact-form" method="post">
+                            <form class="contact-form" th:method="post" th:action="@{/frontend-contact-us}">
                                 <div class="row">
                                     <div class="col-md-6 mb-30">
                                         <div class="common-control">

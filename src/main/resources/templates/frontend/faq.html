@@ -83,11 +83,11 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <form class="sidebar-form mt-8">
+                        <form class="sidebar-form mt-8" th:method="post" th:action="@{/frontend-contact-us}">
                             <h3 class="title white-color mb-26">Vous avez d'autres questions ?</h3>
-                            <input type="text" name="name" placeholder="Nom et prénoms" required>
+                            <input type="text" name="fullname" placeholder="Nom et prénoms" required>
                             <input type="email" name="email" placeholder="Adresse mail" required>
-                            <textarea placeholder="Entrer votre question ici"></textarea>
+                            <textarea name="message" placeholder="Entrer votre question ici"></textarea>
                             <button class="readon" type="submit">Envoyer</button>
                         </form>
                     </div>
