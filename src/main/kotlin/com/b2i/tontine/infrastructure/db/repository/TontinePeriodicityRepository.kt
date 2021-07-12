@@ -10,7 +10,7 @@ import java.util.*
 
 interface TontinePeriodicityRepository:JpaRepository<TontinePeriodicity,Long> {
 
-    fun findAllByPeriodicityState(state:String): MutableList<TontinePeriodicity>
+    fun findAllByPeriodicityStateAndTontine(state:String,tontine: Tontine): MutableList<TontinePeriodicity>
 
     fun countAllByBiddingState(state: String): Long
 

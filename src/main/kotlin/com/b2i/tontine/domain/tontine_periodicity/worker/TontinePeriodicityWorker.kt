@@ -36,8 +36,8 @@ class TontinePeriodicityWorker: TontinePeriodicityDomain {
         return tontinePeriodicityRepository.count()
     }
 
-    override fun findAllByPeriodicityState(state: String): MutableList<TontinePeriodicity> {
-        return tontinePeriodicityRepository.findAllByPeriodicityState(state)
+    override fun findAllByPeriodicityStateAndTontine(state:String,tontine: Tontine): MutableList<TontinePeriodicity> {
+        return tontinePeriodicityRepository.findAllByPeriodicityStateAndTontine(state,tontine)
     }
 
     override fun countAllByBiddingState(state: String): Long {

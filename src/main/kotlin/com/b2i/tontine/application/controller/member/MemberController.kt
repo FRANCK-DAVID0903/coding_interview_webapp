@@ -63,9 +63,14 @@ class MemberController(
 
         tontinesValidated.forEach{ tonts ->
             val nbRound = tonts.tontine?.let { tontinePeriodicityDomain.findAllByTontine(it).count() }
-            val actualRound = tontinePeriodicityDomain.findAllByPeriodicityState(TontineType.OPENED)[0]
+            val actualRound = tonts.tontine?.let { tontinePeriodicityDomain.findAllByPeriodicityStateAndTontine(TontineType.OPENED, it) }?.get(0)
 
-            rounds = Pair(actualRound.periodicityNumber,nbRound!!.toLong())
+            if (actualRound != null) {
+                rounds = Pair(actualRound.periodicityNumber,nbRound!!.toLong())
+            }
+            else{
+                rounds = Pair(0 , 0)
+            }
             dataMemberTontine.put(tonts,rounds)
         }
 
