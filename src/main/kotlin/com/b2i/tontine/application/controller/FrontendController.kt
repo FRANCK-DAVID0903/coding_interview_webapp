@@ -6,6 +6,9 @@ import com.b2i.tontine.application.event.SendContactEmailEvent
 import com.b2i.tontine.application.facade.AuthenticationFacade
 import com.b2i.tontine.domain.account.entity.UserNonRegistered
 import com.b2i.tontine.domain.account.member.port.MemberDomain
+import com.b2i.tontine.domain.account.port.UserDomain
+import com.b2i.tontine.domain.association.port.AssociationDomain
+import com.b2i.tontine.domain.tontine.port.TontineDomain
 import com.b2i.tontine.infrastructure.local.storage.StorageService
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Controller
@@ -21,6 +24,9 @@ class FrontendController(
         private val eventPublisher: ApplicationEventPublisher,
         private val storageService: StorageService,
         private val memberDomain: MemberDomain,
+        private val userDomain: UserDomain,
+        private val tontineDomain: TontineDomain,
+        private val associationDomain: AssociationDomain
 ) {
 
     @GetMapping("/")
@@ -28,7 +34,15 @@ class FrontendController(
             model: Model,
             redirectAttributes: RedirectAttributes
     ) : String {
+        val allTontines = tontineDomain.countAllTontines()
+        val allMember = memberDomain.countAllMembers()
+        val allAssocications = associationDomain.countAllAssociations()
+
         model.addAttribute("currentLink", "/")
+        model.addAttribute("allTontines", allTontines)
+        model.addAttribute("allMember", allMember)
+        model.addAttribute("allAssocications", allAssocications)
+
         return "frontend/home"
     }
 
@@ -38,6 +52,7 @@ class FrontendController(
             redirectAttributes: RedirectAttributes
     ) : String {
         model.addAttribute("currentLink", "/")
+
         return "frontend/home"
     }
 

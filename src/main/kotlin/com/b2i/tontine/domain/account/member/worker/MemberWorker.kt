@@ -148,4 +148,8 @@ class MemberWorker: MemberDomain {
         return memberRepository.findByContactMobile(tel)
     }
 
+    override fun countAllMembers(): Long {
+        return memberRepository.count()
+    }
+
 }

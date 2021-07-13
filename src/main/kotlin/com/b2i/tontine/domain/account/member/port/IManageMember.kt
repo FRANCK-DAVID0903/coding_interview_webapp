@@ -19,4 +19,6 @@ interface IManageMember {
     fun findByContactEmail(email:String):Optional<Member>
 
     fun findByContactMobile(tel:String):Optional<Member>
+
+    fun countAllMembers():Long
 }
