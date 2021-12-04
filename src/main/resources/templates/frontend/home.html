@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<!--Header
+============================================= -->
+<th:block th:replace="fragments/frontend_fragment_head('Home')" />
+
+<body>
+
+    <div id="main" class="homePage">
+
+    <!-- Header ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_header :: frontend_header" />
+
+
+
+    <!-- Main Content ============================================= -->
+        <section class="dorne-welcome-area bg-img bg-overlay" th:style="'background-image: url(' +@{/assets/frontend/img/bg-img/hero-1.jpg} + ');'" >
+            <div class="container h-100">
+                <div class="row h-100 align-items-center justify-content-center">
+                    <div class="col-12 col-md-10">
+                        <div class="hero-content">
+                            <h2>Decouvrez les meilleurs prestataires de services</h2>
+                            <h4>Le meilleur site pour obtenir un service de qualité</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Hero Social Btn -->
+            <div class="hero-social-btn">
+                <div class="social-title d-flex align-items-center">
+                    <h6>Suivez-nous sur les reseaux sociaux</h6>
+                    <span></span>
+                </div>
+                <div class="social-btns">
+                    <a href="#"><i class="fa fa-linkedin" aria-haspopup="true"></i></a>
+                    <a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-twitter" aria-haspopup="true"></i></a>
+                    <a href="#"><i class="fa fa-facebook" aria-haspopup="true"></i></a>
+                </div>
+            </div>
+        </section>
+        <!-- ***** Welcome Area End ***** -->
+
+        <!-- ***** Catagory Area Start ***** -->
+        <section class="dorne-catagory-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="all-catagories">
+                            <div class="row">
+                                <!-- Single Catagory Area -->
+                                <div class="col-12 col-sm-6 col-md">
+                                    <div class="single-catagory-area wow fadeInUpBig" data-wow-delay="0.2s">
+                                        <div class="catagory-content">
+                                            <img th:src="@{assets/frontend/img/core-img/icon-1.png}" alt="">
+                                            <a href="#">
+                                                <h6>Menuisiers</h6>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Catagory Area -->
+                                <div class="col-12 col-sm-6 col-md">
+                                    <div class="single-catagory-area wow fadeInUpBig" data-wow-delay="0.4s">
+                                        <div class="catagory-content">
+                                            <img th:src="@{assets/frontend/img/core-img/icon-2.png}" alt="">
+                                            <a href="#">
+                                                <h6>Couturiers</h6>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Catagory Area -->
+                                <div class="col-12 col-sm-6 col-md">
+                                    <div class="single-catagory-area wow fadeInUpBig" data-wow-delay="0.6s">
+                                        <div class="catagory-content">
+                                            <img th:src="@{assets/frontend/img/core-img/icon-3.png}" alt="">
+                                            <a href="#">
+                                                <h6>Carreleurs</h6>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Catagory Area -->
+                                <div class="col-12 col-sm-6 col-md">
+                                    <div class="single-catagory-area wow fadeInUpBig" data-wow-delay="0.8s">
+                                        <div class="catagory-content">
+                                            <img th:src="@{assets/frontend/img/core-img/icon-4.png}" alt="">
+                                            <a href="#">
+                                                <h6>Peintre</h6>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Catagory Area -->
+                                <div class="col-12 col-md">
+                                    <div class="single-catagory-area wow fadeInUpBig" data-wow-delay="1s">
+                                        <div class="catagory-content">
+                                            <img th:src="@{assets/frontend/img/core-img/icon-5.png}" alt="">
+                                            <a href="#">
+                                                <h6>Jardinier</h6>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ***** Catagory Area End ***** -->
+
+        <!-- ***** About Area Start ***** -->
+        <section class="dorne-about-area section-padding-0-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="about-content text-center">
+                            <h2>Decouvrez tous nos  <br><span>Secteurs d'activités</span></h2>
+                            <p>Liste de tous nos secteurs d'activité en disponibles avec des prestataires étudiés et validés par nos experts sur leurs compétences.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ***** About Area End ***** -->
+
+        <!-- ***** Features Destinations Area Start ***** -->
+        <section class="dorne-features-destinations-area">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="features-slides owl-carousel">
+                            <!-- Single Features Area -->
+                            <div class="single-features-area">
+                                <img th:src="@{assets/frontend/img/bg-img/feature-1.jpg}" alt="">
+                                <!-- Price -->
+                                <div class="price-start">
+                                    <p>FROM $59/night</p>
+                                </div>
+                                <div class="feature-content d-flex align-items-center justify-content-between">
+                                    <div class="feature-title">
+                                        <h5>Ibiza</h5>
+                                        <p>Party</p>
+                                    </div>
+                                    <div class="feature-favourite">
+                                        <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Single Features Area -->
+                            <div class="single-features-area">
+                                <img src="img/bg-img/feature-2.jpg" alt="">
+                                <!-- Price -->
+                                <div class="price-start">
+                                    <p>FROM $59/night</p>
+                                </div>
+                                <div class="feature-content d-flex align-items-center justify-content-between">
+                                    <div class="feature-title">
+                                        <h5>Paris</h5>
+                                        <p>Luxury</p>
+                                    </div>
+                                    <div class="feature-favourite">
+                                        <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Single Features Area -->
+                            <div class="single-features-area">
+                                <img src="img/bg-img/feature-3.jpg" alt="">
+                                <!-- Price -->
+                                <div class="price-start">
+                                    <p>FROM $59/night</p>
+                                </div>
+                                <div class="feature-content d-flex align-items-center justify-content-between">
+                                    <div class="feature-title">
+                                        <h5>Lake Como</h5>
+                                        <p>Spectacular</p>
+                                    </div>
+                                    <div class="feature-favourite">
+                                        <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Single Features Area -->
+                            <div class="single-features-area">
+                                <img src="img/bg-img/feature-4.jpg" alt="">
+                                <!-- Price -->
+                                <div class="price-start">
+                                    <p>FROM $59/night</p>
+                                </div>
+                                <div class="feature-content d-flex align-items-center justify-content-between">
+                                    <div class="feature-title">
+                                        <h5>Greece</h5>
+                                        <p>Sunny</p>
+                                    </div>
+                                    <div class="feature-favourite">
+                                        <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Single Features Area -->
+                            <div class="single-features-area">
+                                <img src="img/bg-img/feature-5.jpg" alt="">
+                                <!-- Price -->
+                                <div class="price-start">
+                                    <p>FROM $59/night</p>
+                                </div>
+                                <div class="feature-content d-flex align-items-center justify-content-between">
+                                    <div class="feature-title">
+                                        <h5>Norway</h5>
+                                        <p>All Year round</p>
+                                    </div>
+                                    <div class="feature-favourite">
+                                        <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ***** Features Destinations Area End ***** -->
+
+
+        <!-- ***** Features Events Area Start ***** -->
+        <section class="dorne-features-events-area bg-img bg-overlay-9 section-padding-100-50" th:style="'background-image: url(' +@{/assets/frontend/img/bg-img/hero-3.jpg} + ');'">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-heading text-center">
+                            <span></span>
+                            <h4>Annonces</h4>
+                            <p>Liste des annonces publiés</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-12 col-lg-6">
+                        <div class="single-feature-events-area d-sm-flex align-items-center wow fadeInUpBig" data-wow-delay="0.3s">
+                            <div class="feature-events-thumb">
+                                <img th:src="@{assets/frontend/img/bg-img/event-2.jpg}" alt="">
+                                <div class="date-map-area d-flex">
+                                    <a href="#">26 Nov</a>
+                                    <a href="#"><img th:src="@{assets/frontend/img/core-img/map.png}" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="feature-events-content">
+                                <h5>DeeJay in the house</h5>
+                                <h6>Manhathan</h6>
+                                <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra...</p>
+                            </div>
+                            <div class="feature-events-details-btn">
+                                <a href="#">+</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- ***** Features Events Area End ***** -->
+
+    <!-- Fixed Footer ============================================= -->
+    <th:block th:replace="fragments/frontend_fragment_footer ::frontend_fixed_footer" />
+
+    <!-- Scripts ============================================= -->
+    <th:block th:include="fragments/frontend_fragment_script :: frontend_script"/>
+
+</div>
+
+</body>
+
+</html>

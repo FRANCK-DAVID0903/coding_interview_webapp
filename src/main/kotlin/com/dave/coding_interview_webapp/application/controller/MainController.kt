@@ -21,6 +21,15 @@ class MainController(
     private val storageService: StorageService
 ): BaseController(ControllerEndpoint.BACKEND_DASHBOARD) {
 
+    @GetMapping(value = ["/", "/"])
+    fun homePage(
+        model:Model,
+        redirectAttributes: RedirectAttributes
+    ): String {
+
+        return "frontend/home"
+    }
+
     @GetMapping(value = ["/backend", "/backend"])
     fun dashboardPage(
             model:Model,
@@ -46,13 +55,10 @@ class MainController(
                 redirectTo("dashboard/dashboard_admin")
             }
 
-            UserType.BACKOFFICE_SUPER_ADMIN -> {
-                return "account/home"
-            }
-
             else -> redirectTo("dashboard/dashboard_basic_user")
         }
     }
+
 
 
 }

@@ -1,0 +1,28 @@
+<!-- Banner frontend account -->
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="frontend_account_banner"
+     class="ft-account-banner d-flex flex-column align-items-center"
+>
+    <div class="user-profile-icon">
+        <img th:src="@{/assets/frontend/images/default-user-img.png}" >
+    </div>
+    <p class="user-profile-text">
+        <span style="font-weight: normal">
+            Bienvenue <strong th:text="${(user!=null) ? user.username : ''}"></strong>
+        </span> <br/>
+        <span>Sur votre espace client.</span>
+    </p>
+</div>
+<!-- Banner frontend account end -->
+
+<!-- Navbar frontend account -->
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="frontend_account_navbar"
+     class="ft-account-navbar"
+>
+    <a th:href="@{/user-dashboard}" th:class="${currentAccountNavbarLink=='/user-dashboard'} ? 'active' : ''">Tableau de bords</a>
+    <a th:href="@{/user-profil}" th:class="${currentAccountNavbarLink=='/user-profil'} ? 'active' : ''">Mon Profil</a>
+    <a th:href="@{/user-projects}" th:class="${currentAccountNavbarLink=='/user-projects'} ? 'active' : ''">Mes Projets</a>
+    <a th:href="@{/user-factures}" th:class="${currentAccountNavbarLink=='/user-factures'} ? 'active' : ''">Mes factures</a>
+    <a th:href="@{/user-meeting}" th:class="${currentAccountNavbarLink=='/user-meeting'} ? 'active' : ''">Mes Rendez-vous</a>
+    <a th:href="@{/account/logout}">Déconnexion</a>
+</div>
+<!-- Navbar frontend account end -->
