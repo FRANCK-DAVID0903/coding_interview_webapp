@@ -6,7 +6,7 @@ $(function () {
     $(".portfolio-item").each(function () {
       if (itemSelected == "*") {
         $(this).removeClass("filtered").removeClass("selected");
-        return;
+
       } else if ($(this).is(itemSelected)) {
         $(this).removeClass("filtered").addClass("selected");
       } else {

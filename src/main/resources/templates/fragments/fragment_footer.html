@@ -1,17 +1,24 @@
-<footer class="footer" xmlns:th="http://www.thymeleaf.org" th:fragment="footer" >
-
-  <footer class="main-footer">
-    <div class="footer-left" id="copyright">
-      Copyright &copy;
-      <script>
-        document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
-      </script>
-      <div class="bullet"></div> Design By <a href="#">B2I</a>
+<footer xmlns:th="http://www.thymeleaf.org" class="footer" th:fragment="footer">
+    <div class=" container-fluid ">
+        <!-- <nav>
+            <ul>
+                <li>
+                    <a href="#">
+                        Link 1
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Link 2
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Link 3
+                    </a>
+                </li>
+            </ul>
+        </nav> -->
+        <th:block th:replace="fragments/fragment_copyright :: copyright"/>
     </div>
-    <div class="footer-right"></div>
-  </footer>
-
-  <!-- Scripts ============================================= -->
-  <th:block th:replace="fragments/fragment_script :: script"/>
-
 </footer>

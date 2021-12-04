@@ -1,1 +1,1 @@
-rootProject.name = "tontine_webapp"
+rootProject.name = "coding_interview_webapp"

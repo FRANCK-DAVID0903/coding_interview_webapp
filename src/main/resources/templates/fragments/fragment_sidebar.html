@@ -1,143 +1,375 @@
-<div xmlns:th="http://www.thymeleaf.org" th:fragment="sidebar" class="main-sidebar sidebar-style-2">
-
-    <aside id="sidebar-wrapper">
-        <div class="sidebar-brand">
-            <a href="#">
-                <img alt="image" th:src="@{/assets/img/logo_fond_blanc.png}" class="header-logo">
-                <!--<span class="logo-name">Lung Cash</span>-->
-            </a>
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="sidebar" class="sidebar" data-color="orange">
+    <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
+    -->
+    <div class="logo">
+        <a href="" class="simple-text logo-mini"> </a>
+        <a href="" class="simple-text logo-normal">
+            Manicawe
+        </a>
+        <div class="navbar-minimize">
+            <button id="minimizeSidebar" class="btn btn-outline-white btn-icon btn-round" >
+                <img th:src="@{/assets/img/logo-mani.jpg}" alt="member_icon"/>
+            </button>
         </div>
-        <ul class="sidebar-menu">
+    </div>
+    <div class="sidebar-wrapper" id="sidebar-wrapper">
+        <div class="user">
+            <div class="photo">
+                <img th:src="@{/assets/img/default-avatar.png}" alt="member_icon"/>
+            </div>
+            <div class="info">
+                <a data-toggle="collapse" href="#collapseExample" class="collapsed" >
+                <span th:text="${user.username}"></span><b class="caret"></b>
+                </a>
+                <div class="clearfix"></div>
+                <div class="collapse" id="collapseExample">
+                    <ul class="nav">
 
-            <li class="menu-header">
-                <span th:text="#{sidebar_menu}"></span>
-            </li>
-            <li class="dropdown" th:if="${user.actuator || user.superAdmin || user.admin}">
-                <a href="#" class="nav-link">
-                    <i data-feather="monitor"></i>
-                    <span th:text="#{sidebar_dashboard}"></span>
+                        <li th:if="${user.global_admin}">
+                            <a th:href="@{/backend/profil/update-profil}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">Mon Profil</span>
+                            </a>
+                        </li>
+
+                        <li th:if="${user.pfAdmin}">
+                            <a th:href="@{/backend/profil/update-profil}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">Mon Profil</span>
+                            </a>
+                        </li>
+
+                        <li th:if="${user.actuator || user.admin}">
+                           <a th:href="@{/backend/profil/focal-admin}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">Mon Profil</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a th:href="@{/account/logout}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">Me Déconnecter</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <ul class="nav">
+            <li  th:if="${user.global_admin || user.financial_partner}">
+                <a th:href="@{/backend/}">
+                    <i class="now-ui-icons design_app"></i>
+                    <p>Dashboard</p>
                 </a>
             </li>
 
-            <li id="association" class="dropdown" th:if="${user.actuator || user.superAdmin || user.admin}">
-                <a href="#" class="menu-toggle nav-link has-dropdown">
-                    <i data-feather="monitor"></i>
-                    <span th:text="#{sidebar_association}"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li id="association-add">
-                        <a class="nav-link" th:href="@{/backend/association/create}">
-                            <span th:text="#{sidebar_association_create}"></span>
-                        </a>
-                    </li>
-                    <li id="association-list">
-                        <a class="nav-link" th:href="@{/backend/association/list_associations}">
-                            <span th:text="#{sidebar_association_list}"></span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <!--<li class="dropdown">
-                <a href="#" class="menu-toggle nav-link has-dropdown">
-                    <i data-feather="briefcase"></i>
-                    <span>Widgets</span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="#">Chart Widgets</a></li>
-                    <li><a class="nav-link" href="#">Data Widgets</a></li>
-                </ul>
-            </li>-->
-
-            <!--<li class="menu-header">Apps</li>
-            <li class="dropdown">
-                <a href="#" class="nav-link">
-                    <i data-feather="calendar"></i>
-                    <span>Calendar</span>
-                </a>
-            </li>-->
-
-            <li id="myAssociation" class="dropdown" th:if="${user.member }" >
-                <a th:href="@{/backend/members/my_associations}" class="nav-link">
-                    <i data-feather="monitor"></i>
-                    <span th:text="#{sidebar_myAssociation}"></span>
+            <li  th:if="${user.association}">
+                <a th:href="@{/backend/association/list-association}">
+                    <i class="now-ui-icons design_app"></i>
+                    <p>Mon association</p>
                 </a>
             </li>
 
-            <li id="myTontine" class="dropdown" th:if="${user.member}">
-                <a th:href="@{/backend/members/my_tontines}" class="nav-link">
-                    <i data-feather="monitor"></i>
-                    <span th:text="#{sidebar_myTontine}"></span>
+            <li th:if="${user.global_admin || user.pfAdmin || user.actuator}">
+                <a data-toggle="collapse" href="#navAsso">
+                    <i class="now-ui-icons objects_diamond"></i>
+                    <p>Associations<b class="caret"></b></p>
+                </a>
+                <div class="collapse" id="navAsso">
+                    <ul class="nav">
+                        <li>
+                            <a th:href="@{/backend/association/add-association}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal"> Enregistrer Associations </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a th:href="@{/backend/association/list-association}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">
+                                     Lister Associations
+                                </span>
+                            </a>
+                        </li>
+
+
+                        <!--<li>
+                            <a th:href="@{/backend/member/add-member}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal"> Enregistrer Membres </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a th:href="@{/backend/association/list-member-association}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">Lister Membres Associations</span>
+                            </a>
+                        </li>
+
+
+                        <li>
+                            <a th:href="@{/backend/association/add-type-association}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">
+                                   Type Association
+                                </span>
+                            </a>
+                        </li>-->
+
+
+
+                    </ul>
+                </div>
+            </li>
+
+
+            <li th:if="${user.global_admin  || user.actuator}">
+                <a data-toggle="collapse" href="#navPoint">
+                    <i class="now-ui-icons files_single-copy-04"></i>
+                    <p>Points Focaux <b class="caret"></b></p>
+                </a>
+                <div class="collapse" id="navPoint">
+                    <ul class="nav">
+                        <li>
+                            <a th:href="@{/backend/focal/add-focal}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">Enregistrer Point Focal</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/backend/focal/list-focal}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">Lister Point Focal</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
+            <li th:if="${user.global_admin || user.actuator}">
+                <a data-toggle="collapse" href="#navUser">
+                    <i class="now-ui-icons users_single-02"></i>
+                    <p>Utilisateurs <b class="caret"></b></p>
+                </a>
+                <div class="collapse" id="navUser">
+                    <ul class="nav">
+                        <li>
+                            <a th:href="@{/backend/user/add-user}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">Enregistrer un admin</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/backend/user/add-financialPartner}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">Enregistrer partenaire financier</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/backend/user/list-user}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">Listes des utilisateurs</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
+            <li th:if="${user.financial_partner}">
+                <a data-toggle="collapse" href="#navUser">
+                    <i class="now-ui-icons users_single-02"></i>
+                    <p>Utilisateurs <b class="caret"></b></p>
+                </a>
+                <div class="collapse" id="navUser">
+                    <ul class="nav">
+
+                        <li>
+                            <a th:href="@{/backend/user/add-financialPartnerPf}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">Enregistrer utilisateur</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/backend/user/liste-financialPartnerPf}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">liste des utilisateurs</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
+            <li th:if="${user.global_admin || user.actuator || user.pfAdmin || user.financial_partner_pf || user.financial_partner}">
+                <a data-toggle="collapse" href="#navCredit">
+                    <i class="now-ui-icons files_box"></i>
+                    <p>Credits <b class="caret"></b></p>
+                </a>
+                <div class="collapse" id="navCredit">
+                    <ul class="nav">
+                        <li th:if="${user.global_admin || user.actuator || user.pfAdmin || user.financial_partner_pf}">
+                            <a th:href="@{/backend/commitment/commitment-send}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">Voir les demandes</span>
+                            </a>
+                        </li>
+                        <li th:if="${user.financial_partner}">
+                            <a th:href="@{/backend/commitment/commitment-send}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">Voir les demandes validées</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/backend/commitment/commitment-validated}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">Crédits validés</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
+
+            <li th:if="${user.global_admin || user.actuator}">
+                <a th:href="@{/backend/actuality/list-actuality}">
+                    <i class="now-ui-icons design_image"></i>
+                    <p>ACTUALITES</p>
                 </a>
             </li>
 
-            <li id="adminTontine" class="dropdown" th:if="${user.associationAdmin}">
-                <a th:href="@{/backend/association/__${user.id}__/tontines}" class="nav-link">
-                    <i data-feather="monitor"></i>
-                    <span th:text="#{sidebar_theTontines}"></span>
+            <li th:if="${user.global_admin}">
+                <a th:href="@{/backend/gallery/gallery_list}">
+                    <i class="now-ui-icons design_image"></i>
+                    <p>GALERIE</p>
                 </a>
             </li>
 
-            <li id="adminAssoCotisation" class="dropdown" th:if="${user.associationAdmin}">
-                <a th:href="@{/backend/association/cotisations}" class="nav-link">
-                    <i data-feather="monitor"></i>
-                    <span th:text="#{sidebar_theCotisations}"></span>
+            <li th:if="${user.global_admin || user.pfAdmin || user.actuator}">
+                <a th:href="@{/backend/project/project}">
+                    <i class="now-ui-icons business_bulb-63"></i>
+                    <p>PROJET</p>
                 </a>
             </li>
 
-            <li id="cotisations" class="dropdown" th:if="${user.member}">
-                <a th:href="@{/backend/members/my_transactions}" class="nav-link">
-                    <i data-feather="monitor"></i>
-                    <span th:text="#{sidebar_myCotisations}"></span>
+            <li th:if="${user.global_admin || user.actuator}">
+                <a th:href="@{/backend/formation/list-formation}">
+                    <i class="now-ui-icons design_bullet-list-67"></i>
+                    <p>FORMATION</p>
                 </a>
             </li>
 
-            <!--<li class="dropdown" th:if="${user.member}">
-                <a th:href="@{/backend/members/my_transactions}" class="nav-link">
-                    <i data-feather="monitor"></i>
-                    <span th:text="#{sidebar_myTransactions}"></span>
+            <li th:if="${user.actuator}">
+                <a data-toggle="collapse" href="#navParams">
+                    <i class="now-ui-icons ui-1_settings-gear-63"></i>
+                    <p>Paramètres <b class="caret"></b></p>
                 </a>
-            </li>-->
+                <div class="collapse" id="navParams">
+                    <ul class="nav">
+                        <li>
+                            <a th:href="@{/backend/setting/association_type}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">Type association</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/backend/setting/formation_type}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal"> Type formation </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/backend/setting/activity_sector}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal"> Secteur d'activité </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/backend/setting/job}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal"> Profession </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/backend/setting/region}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal"> Région </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/backend/setting/city}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal"> Ville </span>
+                            </a>
+                        </li>
 
-            <!--<li id="tontine" class="dropdown" th:if="${user.actuator || user.superAdmin || user.admin}" >
-                <a href="#" class="menu-toggle nav-link has-dropdown">
-                    <i data-feather="briefcase"></i>
-                    <span th:text="#{sidebar_tontine}"></span>
+                        <li>
+                            <a th:href="@{/backend/setting/commitment-type}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal"> Type de cédit </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li id="sidebar_link_showcase" th:if="${user.actuator}">
+                <a data-toggle="collapse" href="#navShowcase">
+                    <i class="fa fa-tools"></i>
+                    <p>Vitrine<b class="caret"></b></p>
                 </a>
-                <ul class="dropdown-menu">
-                    <li id="tontine-add">
-                        <a class="nav-link" th:href="@{/backend/users/add-user}">
-                            <span th:text="#{sidebar_tontine_create}"></span>
-                        </a>
-                    </li>
-                    <li id="tontine-list">
-                        <a class="nav-link" th:href="@{/backend/users/list-user}">
-                            <span th:text="#{sidebar_tontine_list}"></span>
-                        </a>
-                    </li>
-                </ul>
-            </li>-->
 
-            <li class="dropdown" id="users">
-                <a href="#" class="menu-toggle nav-link has-dropdown" th:if="${user.actuator || user.superAdmin || user.admin}">
-                    <i data-feather="briefcase"></i>
-                    <span th:text="#{sidebar_users}"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li id="users-add">
-                        <a class="nav-link" th:href="@{/backend/users/add-user}">
-                            <span th:text="#{sidebar_user_create}"></span>
-                        </a>
-                    </li>
-                    <li id="users-list">
-                        <a class="nav-link" th:href="@{/backend/users/list-user}">
-                            <span th:text="#{sidebar_user_list}"></span>
-                        </a>
-                    </li>
-                </ul>
+                <div class="collapse" id="navShowcase">
+                    <ul class="nav">
+
+                        <li >
+                            <a th:href="@{/backend/showcase/about}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">A propos</span>
+                            </a>
+                        </li>
+
+                        <li >
+                            <a th:href="@{/backend/showcase/contact}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">Contact</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a th:href="@{/backend/showcase/team}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">Equipe</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a th:href="@{/backend/showcase/partner}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">Partenaire</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a th:href="@{/backend/showcase/slider}">
+                                <span class="sidebar-mini-icon">*</span>
+                                <span class="sidebar-normal">Slider</span>
+                            </a>
+                        </li>
+
+
+
+                    </ul>
+                </div>
+
             </li>
 
         </ul>
-    </aside>
-
+    </div>
 </div>

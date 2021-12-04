@@ -1,105 +1,15 @@
-<div xmlns:th="http://www.thymeleaf.org" th:fragment="navbar">
-    <div class="navbar-bg"></div>
-    <nav class="navbar navbar-expand-lg main-navbar sticky">
-        <div class="form-inline mr-auto">
-            <ul class="navbar-nav mr-3">
-                <li>
-                    <a href="#" data-toggle="sidebar" class="nav-link nav-link-lg collapse-btn">
-                        <i data-feather="menu"></i>
-                    </a>
-                </li>
-            </ul>
+<nav xmlns:th="http://www.thymeleaf.org" th:fragment="navbar (title_left)"
+     class="navbar navbar-expand-lg navbar-transparent bg-primary navbar-absolute">
+    <div class="container-fluid">
+        <div class="navbar-wrapper">
+            <div class="navbar-toggle">
+                <button type="button" class="navbar-toggler">
+                    <span class="navbar-toggler-bar bar1"></span>
+                    <span class="navbar-toggler-bar bar2"></span>
+                    <span class="navbar-toggler-bar bar3"></span>
+                </button>
+            </div>
+            <span class="navbar-brand" href="#" th:text="${title_left}"></span>
         </div>
-        <ul class="navbar-nav navbar-right">
-            <li>
-                <a href="#" class="nav-link nav-link-lg fullscreen-btn">
-                    <i data-feather="maximize"></i>
-                </a>
-            </li>
-
-            <li class="dropdown dropdown-list-toggle" th:if="${nbNotif>0}">
-                <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg">
-                    <i data-feather="bell" class="feather feather-mail mailAnim"></i>
-                </a>
-                <span class="badge headerBadge1"></span>
-                <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
-                    <div class="dropdown-header">
-                        Notifications
-                        <div class="float-right">
-                            <a href="#">Mark All As Read</a>
-                        </div>
-                    </div>
-                    <div class="dropdown-list-content dropdown-list-icons">
-
-                        <a th:each="notif : ${allsNotifs}" th:href="@{/backend/readNotification/__${notif.id}__}" class="dropdown-item">
-                            <span class="dropdown-item-icon l-bg-orange text-white">
-                                <i class="fas fa-bell"></i>
-                            </span>
-                                <span class="dropdown-item-desc"> Nouvel offre valide pour une périodicité sur la tontine
-                                <span class="time" th:text="${notif.tontine.name}"></span>
-                            </span>
-                        </a>
-
-                    </div>
-                    <div class="dropdown-footer text-center">
-                        <a href="#">Voir toute les tontine <i class="fas fa-chevron-right"></i></a>
-                    </div>
-                </div>
-            </li>
-
-            <li class="dropdown dropdown-list-toggle">
-                <a href="#" data-toggle="dropdown" class="nav-link notification-toggle nav-link-lg">
-                    <i data-feather="globe"></i>
-                </a>
-                <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
-                    <div class="dropdown-header">
-                        <span class="dropdown-item-desc" th:text="#{language}"></span>
-                    </div>
-
-                    <div class="dropdown-list-content dropdown-list-icons">
-                        <a onclick="ChangeLanguage('en');" class="dropdown-item dropdown-item-unread">
-                            <img alt="image" th:src="@{/assets/bundles/flag-icon-css/flags/4x3/us.svg}" class="dropdown-item-icon">
-                            <span class="dropdown-item-desc" th:text="#{lang.eng}">
-                                <span class="time">EN / US</span>
-                            </span>
-                        </a>
-                        <a onclick="ChangeLanguage('fr');" class="dropdown-item dropdown-item-unread">
-                            <img alt="image" th:src="@{/assets/bundles/flag-icon-css/flags/4x3/fr.svg}" class="dropdown-item-icon">
-                            <span class="dropdown-item-desc" th:text="#{lang.fr}">
-                                <span class="time">FR</span>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-            </li>
-
-            <li class="dropdown">
-                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                    <img alt="image" th:if="${user.photo !=''}" th:src="${'/'+rootLocation+'/members/'+user.photo}" class="user-img-radious-style">
-                    <img alt="image" th:if="${user.photo ==''}" th:src="${'/'+rootLocation+'/members/user_a.png'}" class="user-img-radious-style">
-                    <span class="d-sm-none d-lg-inline-block"></span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right pullDown">
-                    <div class="dropdown-title" th:text="${user.username}"></div>
-                    <a th:href="@{/backend/profile/myProfile}" class="dropdown-item has-icon" th:if="${user.member}">
-                        <i class="far fa-user"></i>
-                        <span th:text="#{navbar_profile}"></span>
-                    </a>
-                    <!--<a href="#" class="dropdown-item has-icon">
-                        <i class="fas fa-bolt"></i> Activities
-                    </a>-->
-                    <!--<a href="#" class="dropdown-item has-icon">
-                        <i class="fas fa-cog"></i>
-                        <span th:text="#{navbar_setting}"></span>
-                    </a>-->
-                    <div class="dropdown-divider"></div>
-                    <a th:href="@{/account/logout}" class="dropdown-item has-icon text-danger">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span th:text="#{navbar_logout}"></span>
-                    </a>
-                </div>
-            </li>
-        </ul>
-    </nav>
-
-</div>
+    </div>
+</nav>
