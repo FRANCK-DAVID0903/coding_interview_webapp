@@ -70,7 +70,7 @@ class EmailHelper( private val javaMailSender: JavaMailSender,
 
     fun signUpVerifiedInscription(user: User) {
 
-        val baseUrl : String = "http://localhost:8085"  + "account/email/"
+        val baseUrl : String = "http://localhost:8085"  + "/account/email/"
 
         val link : String = baseUrl + "confirm-account/" + user.username
 
