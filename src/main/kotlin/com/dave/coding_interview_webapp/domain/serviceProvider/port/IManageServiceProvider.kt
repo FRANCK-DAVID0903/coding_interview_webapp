@@ -12,4 +12,6 @@ interface IManageServiceProvider {
     fun saveProvider(serviceProvider: ServiceProvider): OperationResult<ServiceProvider>
 
     fun findById(id:Long) : Optional<ServiceProvider>
+
+    fun findAllByStatus(status:Int): MutableList<ServiceProvider>
 }

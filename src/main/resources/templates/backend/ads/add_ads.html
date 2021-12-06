@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="fragments/fragment_head :: head (title='Setting activity sector')"/>
+<body>
+<div class="wrapper">
+    <th:block th:replace="fragments/fragment_sidebar :: sidebar"/>
+    <div class="main-panel" id="main-panel">
+        <th:block
+                th:replace="fragments/fragment_panel_header :: header (title='AJOUTER DES ANNONCES', category='Ajouter annonces')"/>
+        <div class="content">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header"></div>
+                    <div class="card-body">
+                        <div class="toolbar">
+
+
+
+                                <form th:action="@{/backend/ads/add-ads}" method="POST">
+                                    <div class="form-body row max-height">
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Titre</label>
+                                        <input type="text" id="title" class="form-control"
+                                               placeholder=""
+                                               name="title" required/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="title">Date</label>
+                                        <input type="date" id="date" class="form-control"
+                                               placeholder=""
+                                               name="date" required/>
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="sector">Secteur d'activité</label>
+                                        <select required id="sector" name="sector" class="selectpicker" data-size="7"
+                                                data-style="btn btn-default btn-round btn-block" title="Sélectionner...">
+                                            <option  th:each="sector :${sectors}" th:text="${sector.label}" th:value="${sector.id}"></option>
+
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-12">
+                                        <label for="description">Description</label>
+                                        <textarea id="description" name="description" class="form-control"></textarea>
+                                    </div>
+
+                                    </div>
+
+                                    <div class="card-footer text-center ">
+                                        <button id="validate" type="submit" class="btn btn-primary  col-lg-6">Enregistrer</button>
+                                    </div>
+                                </form>
+
+
+                        </div>
+
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+        </div>
+        <th:block th:replace="fragments/fragment_footer :: footer"/>
+    </div>
+</div>
+<th:block th:replace="fragments/fragment_script :: script"/>
+<script>
+    $(document).ready(function () {
+        $('#sidebar_link_members').attr('class', 'active');
+        $('#sidebar_link_members_list').attr('class', 'active');
+
+        $('.modal').on('hidden.bs.modal', function () {
+            $(this).find('form').trigger('reset');
+        });
+    });
+
+    $('#btn-add').click(function () {
+        $('.model-id').val("");
+    });
+
+</script>
+
+<!-- BEGIN PAGE LEVEL JS-->
+<script type="application/javascript">
+
+    function onUpdate(json) {
+        var object = jQuery.parseJSON(json.replace("'", "\\'"));
+        $('.model-id').val(object.id);
+    }
+
+    function onDelete(id) {
+        $('.model-id').val(id);
+    }
+
+</script>
+<!-- END PAGE LEVEL JS-->
+
+</body>
+</html>

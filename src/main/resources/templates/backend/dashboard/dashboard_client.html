@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="fragments/fragment_head :: head (title='Tableau de bord')"/>
+<body>
+<div class="wrapper">
+    <th:block th:replace="fragments/fragment_sidebar :: sidebar"/>
+    <div class="main-panel" id="main-panel">
+        <th:block
+                th:replace="fragments/fragment_panel_header :: header (title='TABLEAU DE BORD', category='')"/>
+        <div class="content">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header"></div>
+                    <div class="card-body">
+                        <div class="toolbar">
+
+
+
+
+                        </div>
+
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+        </div>
+        <th:block th:replace="fragments/fragment_footer :: footer"/>
+    </div>
+</div>
+<th:block th:replace="fragments/fragment_script :: script"/>
+<script>
+    $(document).ready(function () {
+        $('#sidebar_link_members').attr('class', 'active');
+        $('#sidebar_link_members_list').attr('class', 'active');
+
+        $('.modal').on('hidden.bs.modal', function () {
+            $(this).find('form').trigger('reset');
+        });
+    });
+
+    $('#btn-add').click(function () {
+        $('.model-id').val("");
+    });
+
+</script>
+
+<!-- BEGIN PAGE LEVEL JS-->
+<script type="application/javascript">
+
+    function onUpdate(json) {
+        var sector = jQuery.parseJSON(json.replace("'", "\\'"));
+        $('.model-id').val(sector.id);
+        $('#name').val(sector.label);
+        $('#description').val(sector.description);
+    }
+
+    function onDelete(id) {
+        $('.model-id').val(id);
+    }
+
+</script>
+<!-- END PAGE LEVEL JS-->
+
+</body>
+</html>

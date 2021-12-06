@@ -12,6 +12,7 @@ import com.dave.coding_interview_webapp.domain.account.entity.UserType
 import com.dave.coding_interview_webapp.domain.account.port.RoleDomain
 import com.dave.coding_interview_webapp.domain.account.port.UserDomain
 import com.dave.coding_interview_webapp.domain.activity_sector.port.ActivitySectorDomain
+import com.dave.coding_interview_webapp.domain.client.entity.Client
 import com.dave.coding_interview_webapp.domain.serviceProvider.entity.ServiceProvider
 import com.dave.coding_interview_webapp.domain.serviceProvider.port.ServiceProviderDomain
 import com.dave.coding_interview_webapp.infrastructure.local.storage.StorageService
@@ -58,7 +59,7 @@ class AccountManagerController(
     }
 
     @PostMapping(value = ["/register-prestataire"])
-    fun registerSave(
+    fun registerSaveProvider(
             @RequestParam("firstname") firstname: String,
             @RequestParam("lastname") lastname: String,
             @RequestParam("tel") tel: String,
@@ -145,6 +146,10 @@ class AccountManagerController(
 
         val user = userDomain.findByUsername(username).orElse(null)
 
+        user.locked = false
+
+        userDomain.saveUser(user)
+
         if (user !=null){
             if (!user.contact.email.isEmpty()){
                 eventPublisher.publishEvent(SendEmailEvent(user))
@@ -153,6 +158,53 @@ class AccountManagerController(
 
         //model.addAttribute("currentLink", "login")
         return forwardTo("confirm_account")
+    }
+
+
+    @PostMapping(value = ["/register-client"])
+    fun registerSaveClient(
+        @RequestParam("firstname") firstname: String,
+        @RequestParam("lastname") lastname: String,
+        @RequestParam("email") email: String,
+        @RequestParam("username") username: String,
+        @RequestParam("password") password: String,
+        @RequestParam("password2") password2: String,
+        locale: Locale,
+        redirectAttributes: RedirectAttributes,
+        model: Model
+    ): String {
+
+        var page = "account/register"
+
+        roleDomain.findByName(UserType.CLIENT).ifPresent { role ->
+
+            val client = Client()
+
+            client.firstname = firstname
+            client.lastname = lastname
+            client.contact.email=email
+            client.username = username
+            client.roles = Collections.singleton(role)
+
+            if(password != password2){
+                ControlForm.model(model,"Les mots de passe ne sont pas identiques", Color.red)
+            }else{
+                client.password = password
+            }
+
+            //Email
+            if (!email.isEmpty()){
+                eventPublisher.publishEvent(SendEmailEvent(client))
+            }
+
+
+            userDomain.saveUser(client)
+
+            ControlForm.model( model, "Compte crée avec succès, veuillez consulter vos emails pour activation", Color.green )
+            page = "account/login"
+        }
+
+        return redirectTo(page)
     }
 
 }

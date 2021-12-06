@@ -18,7 +18,7 @@
                    aria-labelledby="enableModal" aria-hidden="true">
 
                 <div th:insert="fragments/modal/fragment_add_modal ::
-                                        fragment_add_modal(title='Suppression',
+                                        fragment_add_modal(title='Activation',
                                         methodUrl='/backend/clients/change-status',
                                         body = ~{ :: #modal_enable})">
 
@@ -40,7 +40,7 @@
                                         body = ~{ :: #modal_retire})">
 
                   <div class="modal-body" id="modal_retire">
-                    <input type="hidden" name="visible" value="1"/>
+                    <input type="hidden" name="visible" value="2"/>
                     <p> Retirer ce client ?</p>
 
                   </div>
@@ -68,7 +68,7 @@
               <br>
 
               <div class="col-md-12 col-sm-12">
-                <h3>Liste des prestataires</h3>
+                <h3>Liste des clients</h3>
               </div>
 
               <div class="table-responsive">
@@ -77,7 +77,7 @@
                   <tr>
                     <th> Nom </th>
                     <th> Prenoms </th>
-                    <th> Secteurs d'activité </th>
+                    <th> Email </th>
                     <th> Statut </th>
                     <th class="text-right"> Actions </th>
                   </tr>
@@ -86,24 +86,25 @@
                   <tr th:each="client : ${allClients}">
                     <td th:text="${client.lastname}"></td>
                     <td th:text="${client.firstname}"></td>
-                    <td th:text="${client.activitySector.label}"></td>
+                    <td th:text="${client.contact.email}"></td>
                     <td th:if="${client.status == 0}">Actif</td>
                     <td th:if="${client.status == 1}">Inactif</td>
                     <td th:if="${client.status == 2}">Rétiré</td>
                     <td class="text-right">
-                      <button th:if="${client.status != 1 || client.status != 2}" type="button" rel="tooltip" class="btn btn-success btn-icon btn-sm "
+                      <button th:if="${client.status == 1}" type="button" rel="tooltip" class="btn btn-success btn-icon btn-sm "
                               th:data-entity="${stringHelper.clean(client.toJSON())}" onclick="onUpdate(this.getAttribute('data-entity'));"
                               data-original-title="" title="Activer" data-toggle="modal" data-target="#enableModal">
-                        <i class="now-ui-icons fa-edit"></i>
+                        <i class="now-ui-icons fa-check-circle"></i>
                       </button>
 
-                      <button th:if="${provider.status != 0 || provider.status != 2}" title="Retirer" type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm" th:data-entity="${stringHelper.clean(provider.toJSON())}" data-toggle="modal" data-target="#disableModal" onclick="onUpdate(this.getAttribute('data-entity'));" data-original-title="" title="Supprimer">
+                      <button th:if="${client.status == 0}" type="button" rel="tooltip" class="btn btn-warning btn-icon btn-sm" th:data-entity="${stringHelper.clean(client.toJSON())}" data-toggle="modal" data-target="#disableModal" onclick="onUpdate(this.getAttribute('data-entity'));" data-original-title="" title="Desactiver">
                         <i class="now-ui-icons ui-1_simple-remove"></i>
                       </button>
 
-                      <button th:if="${client.status == 1}" title="Rendre invisible" type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm" th:data-entity="${stringHelper.clean(provider.toJSON())}" data-toggle="modal" data-target="#disableModal" onclick="onUpdate(this.getAttribute('data-entity'));" data-original-title="" title="Supprimer">
-                        <i class="now-ui-icons ui-1_simple-remove"></i>
+                      <button th:if="${client.status == 0 || client.status == 1 }"  type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm" th:data-entity="${stringHelper.clean(client.toJSON())}" data-toggle="modal" data-target="#retireModal" onclick="onUpdate(this.getAttribute('data-entity'));" data-original-title="" title="Retirer">
+                        <i class="now-ui-icons fa-trash"></i>
                       </button>
+
                     </td>
                   </tr>
                   </tbody>

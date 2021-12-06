@@ -21,4 +21,8 @@ interface IManageAds {
     fun countAllByClient(client: Client): Long
 
     fun findById(id:Long): Optional<Ads>
+
+    fun findAllByStatus(status: Int): MutableList<Ads>
+
+    fun findAllByActivitySectorAndStatus(activitySector: ActivitySector,status: Int): MutableList<Ads>
 }

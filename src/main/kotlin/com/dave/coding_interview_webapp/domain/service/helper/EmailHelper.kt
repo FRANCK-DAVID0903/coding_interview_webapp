@@ -20,7 +20,7 @@ class EmailHelper( private val javaMailSender: JavaMailSender,
     {
         val msg = SimpleMailMessage()
         msg.setTo(to)
-        msg.setSubject("Bienvenue sur MyTonTine / Welcome to myTontine")
+        msg.setSubject("Bienvenue / Welcome ")
         msg.setText("Votre username est : $username \n" + "Votre mot de passe est : $mdp \n" + "Connectez-vous pour profiter de nos services en ligne.")
 
         msg.setText("Your login is : $username \n" + "Your password is : $mdp \n" + "Log in to take advantage of our online services.")
@@ -35,7 +35,7 @@ class EmailHelper( private val javaMailSender: JavaMailSender,
         val msg = javaMailSender.createMimeMessage()
         val helper = MimeMessageHelper(msg)
         helper.setTo(to)
-        helper.setSubject("Bienvenue sur MyTonTine / Welcome to myTontine")
+        helper.setSubject("Bienvenue chez nous / Welcome")
         helper.setText(html, true)
         /*
         msg.setText("Your login is : $username \n" + "Your password is : $mdp \n" + "Log in to take advantage of our online services.")
@@ -70,7 +70,7 @@ class EmailHelper( private val javaMailSender: JavaMailSender,
 
     fun signUpVerifiedInscription(user: User) {
 
-        val baseUrl : String = "http://localhost:8085"  + "/email/"
+        val baseUrl : String = "http://localhost:8085"  + "account/email/"
 
         val link : String = baseUrl + "confirm-account/" + user.username
 

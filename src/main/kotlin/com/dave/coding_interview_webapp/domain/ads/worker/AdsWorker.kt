@@ -50,4 +50,12 @@ class AdsWorker:AdsDomain {
         return adsRepository.findById(id)
     }
 
+    override fun findAllByStatus(status: Int): MutableList<Ads> {
+        return adsRepository.findAllByStatus(status)
+    }
+
+    override fun findAllByActivitySectorAndStatus(activitySector: ActivitySector, status: Int): MutableList<Ads> {
+        return adsRepository.findAllByActivitySectorAndStatus(activitySector,status)
+    }
+
 }

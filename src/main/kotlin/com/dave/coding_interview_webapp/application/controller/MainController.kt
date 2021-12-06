@@ -5,6 +5,8 @@ import com.dave.coding_interview_webapp.application.facade.AuthenticationFacade
 import com.dave.coding_interview_webapp.domain.account.port.RoleDomain
 import com.dave.coding_interview_webapp.domain.account.port.UserDomain
 import com.dave.coding_interview_webapp.domain.activity_sector.port.ActivitySectorDomain
+import com.dave.coding_interview_webapp.domain.ads.port.AdsDomain
+import com.dave.coding_interview_webapp.domain.serviceProvider.port.ServiceProviderDomain
 import com.dave.coding_interview_webapp.infrastructure.local.storage.StorageService
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Controller
@@ -18,7 +20,9 @@ class MainController(
     private val authenticationFacade: AuthenticationFacade,
     private val userDomain: UserDomain,
     private val roleDomain: RoleDomain,
+    private val serviceProviderDomain: ServiceProviderDomain,
     private val activitySectorDomain: ActivitySectorDomain,
+    private val adsDomain: AdsDomain,
     private val eventPublisher: ApplicationEventPublisher,
     private val storageService: StorageService
 ): BaseController(ControllerEndpoint.BACKEND_DASHBOARD) {
@@ -28,6 +32,10 @@ class MainController(
         model:Model,
         redirectAttributes: RedirectAttributes
     ): String {
+
+        model.addAttribute("allSectors", activitySectorDomain.findAllActivitySector())
+        model.addAttribute("allAds", adsDomain.findAllByStatus(1))
+        model.addAttribute("allProvider", serviceProviderDomain.findAllByStatus(2))
 
         return "frontend/home"
     }
@@ -44,18 +52,16 @@ class MainController(
 
         model.addAttribute("userData",user)
 
-        val userType = userDomain.findTypeBy(user.id)
-
-        return when (userType)
+        return when (userDomain.findTypeBy(user.id))
         {
 
             UserType.ACTUATOR -> {
                 forwardTo("dashboard/dashboard_actuator")
             }
 
-            UserType.BACKOFFICE_ADMIN -> {
+            UserType.CLIENT -> {
 
-                redirectTo("dashboard/dashboard_admin")
+                forwardTo("dashboard/dashboard_client")
             }
 
             UserType.SERVICE_PROVIDER -> {

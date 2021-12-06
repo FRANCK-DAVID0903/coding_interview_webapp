@@ -7,4 +7,6 @@ import java.util.*
 interface ClientRepository: JpaRepository<Client,Long> {
 
     fun findByUsername(username:String): Optional<Client>
+
+    fun findAllByStatus(status:Long): MutableList<Client>
 }

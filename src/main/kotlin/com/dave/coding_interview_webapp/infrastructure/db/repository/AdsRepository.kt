@@ -15,4 +15,8 @@ interface AdsRepository: JpaRepository<Ads,Long> {
     fun countDistinctByActivitySector(activitySector: ActivitySector): Long
 
     fun countAllByClient(client: Client): Long
+
+    fun findAllByStatus(status: Int): MutableList<Ads>
+
+    fun findAllByActivitySectorAndStatus(activitySector: ActivitySector,status: Int): MutableList<Ads>
 }

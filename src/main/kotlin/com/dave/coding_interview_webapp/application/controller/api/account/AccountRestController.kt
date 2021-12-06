@@ -51,25 +51,16 @@ class AccountRestController(
             errors["user"] = "utilisateur introuvable"
         }
         else{
-            user.authorities.firstOrNull()?.let {
-                val role = it.authority.split('_')[1]
-                optionalRole = Optional.of(role)
+            if (errors.isEmpty()) {
+                val result = clientDomain.authenticateClient(username, password)
+                if (result.errors!!.isEmpty()){
+                    data["user"] = user
+                } else{
+                    data["msg"]="Login et mot de passe incorrect"
+                    errors["user"] = "utilisateur introuvable"
+                }
 
             }
-        }
-
-        if (errors.isEmpty()) {
-            data["role"] = optionalRole
-            //Update session token
-            val roleUser = optionalRole.get()
-            val result = clientDomain.authenticateClient(username, password)
-            if (result.errors!!.isEmpty()){
-                data["user"] = user
-            } else{
-                data["msg"]="Login et mot de passe incorrect"
-                errors["user"] = "utilisateur introuvable"
-            }
-
         }
 
         return ResponseEntity(ResponseBody(data, ResponseSummary(errors)), HttpStatus.OK)

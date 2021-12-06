@@ -4,4 +4,6 @@ import com.dave.coding_interview_webapp.domain.serviceProvider.entity.ServicePro
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface ServiceProviderRepository: JpaRepository<ServiceProvider,Long> {
+
+    fun findAllByStatus(status:Int): MutableList<ServiceProvider>
 }

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="fragments/fragment_head :: head (title='Editer profile')"/>
+
+<body>
+<div class="wrapper">
+    <th:block th:replace="fragments/fragment_sidebar :: sidebar"/>
+    <div class="main-panel" id="main-panel">
+        <th:block
+                th:replace="fragments/fragment_panel_header :: header (title='Mon profil: ', category='Editer mon profil')"/>
+
+
+        <div class="content">
+
+            <div class="col-md-12">
+                <form>
+                    <div class="card ">
+                        <div class="card-header ">
+                            <h4 class="card-title">Informations de base</h4>
+                        </div>
+                        <div class="card-body ">
+
+                            <div class="row">
+
+                                <input type="hidden" name="id" th:value="${provider.id}"/>
+
+                                <div class="form-group has-label col-lg-4">
+                                    <label for="lastname">
+                                        Nom *
+                                    </label>
+                                    <input class="form-control" id="lastname" name="lastname" type="text"
+                                           required="true" th:value="${provider.lastname}" disabled/>
+
+                                </div>
+
+                                <div class="form-group has-label col-lg-4">
+                                    <label for="firstname">
+                                        Prénoms *
+                                    </label>
+                                    <input class="form-control" id="firstname" name="firstname" type="text"
+                                           required="true" th:value="${provider.firstname}" disabled/>
+                                </div>
+
+                                <div class="form-group has-label col-lg-4">
+                                    <label for="phone">
+                                        Téléphone 1 *
+                                    </label>
+                                    <input class="form-control" id="tel" name="tel"
+                                           type="tel"
+                                           required="true" th:value="${provider.contact.phone}" disabled/>
+                                </div>
+
+                                <div class="form-group has-label col-lg-4">
+                                    <label for="phone2">
+                                        Téléphone 2
+                                    </label>
+                                    <input class="form-control" id="mobile" name="mobile"
+                                           type="tel" th:value="${provider.contact.mobile}" disabled/>
+                                </div>
+
+                                <div class="form-group has-label col-lg-4">
+                                    <label for="email">
+                                        Email
+                                    </label>
+                                    <input  class="form-control" id="email" name="email" type="text" th:value="${provider.contact.email}" disabled/>
+                                    <!--<div id="res_email"></div>-->
+
+                                </div>
+
+
+                                <div class="form-group has-label col-lg-4">
+                                    <label for="username">
+                                        Login *
+                                    </label>
+                                    <input class="form-control" id="username" name="username" type="text"
+                                           required="true" th:value="${provider.username}" disabled/>
+                                </div>
+
+
+                                <div class="form-group has-label col-lg-4">
+                                    <label for="city">
+                                        Secteur d'activité
+                                    </label>
+                                    <input class="form-control" id="username" name="username" type="text"
+                                           th:value="${provider.activitySector.label}" disabled/>
+                                </div>
+
+
+                                <div class="form-group col-lg-12">
+                                    <label for="city">
+                                        Biographie
+                                    </label>
+                                    <textarea class="form-control" id="bio" name="bio" th:utext="${provider.bio}" disabled></textarea>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card ">
+
+                <div class="card-header ">
+                    <h4 class="card-title">Formations</h4>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="">
+                        <tr>
+                            <th> Année </th>
+                            <th> Libellé </th>
+                            <th> Description </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="formation : ${provider.formations}">
+                            <td th:text="${formation.year}"></td>
+                            <td th:text="${formation.label}"></td>
+                            <td th:text="${formation.description}"></td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="col-md-12">
+
+            <div class="card ">
+
+                <div class="card-header ">
+                    <h4 class="card-title">Experiences</h4>
+                </div>
+
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="">
+                        <tr>
+                            <th> Année </th>
+                            <th> Libellé </th>
+                            <th> Description </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="experience : ${provider.experiences}">
+                            <td th:text="${experience.year}"></td>
+                            <td th:text="${experience.label}"></td>
+                            <td th:text="${experience.description}"></td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+            <div class="card ">
+
+                <div class="card-header ">
+                    <h4 class="card-title">References</h4>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="">
+                        <tr>
+                            <th> Année </th>
+                            <th> Libellé </th>
+                            <th> Description </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="reference : ${provider.references}">
+                            <td th:text="${reference.year}"></td>
+                            <td th:text="${reference.label}"></td>
+                            <td th:text="${reference.description}"></td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <th:block th:replace="fragments/fragment_footer :: footer"/>
+    </div>
+</div>
+
+<th:block th:replace="fragments/fragment_script :: script"/>
+
+<script th:src="@{/assets/js/verifyData.js}"></script>
+<script>
+    //Open Model Delete
+    function onDeleteLine(json) {
+        let line = jQuery.parseJSON(json.replace("'", "\\'"));
+        $('.model-id').val(line.id);
+    }
+
+    $(document).ready(function () {
+        $('#sidebar_link_members').attr('class', 'active');
+        $('#sidebar_link_member_organization_register').attr('class', 'active');
+    });
+
+
+
+
+</script>
+
+
+<!--<script th:src="@{/assets/js/jquery.validate.js}"></script>-->
+</body>
+</html>

@@ -35,4 +35,8 @@ class ServiceProviderWorker:ServiceProviderDomain {
     override fun findById(id: Long): Optional<ServiceProvider> {
         return serviceProviderRepository.findById(id)
     }
+
+    override fun findAllByStatus(status: Int): MutableList<ServiceProvider> {
+        return serviceProviderRepository.findAllByStatus(status)
+    }
 }

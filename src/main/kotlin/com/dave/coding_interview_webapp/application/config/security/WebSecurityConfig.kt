@@ -45,7 +45,7 @@ constructor(
                 "/account/register",
                 "/account/register-prestataire",
                 "/account/register-client",
-                "/email/confirm-account/**",
+                "/account/email/confirm-account/**",
                 "/account/confirm_account",
                 "/","/frontend-ads",
             )

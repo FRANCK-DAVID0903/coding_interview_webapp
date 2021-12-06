@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="fragments/fragment_head :: head (title='Annonces pour le prestaire')"/>
+<body>
+<div class="wrapper">
+    <th:block th:replace="fragments/fragment_sidebar :: sidebar"/>
+    <div class="main-panel" id="main-panel">
+        <th:block
+                th:replace="fragments/fragment_panel_header :: header (title='LISTE DES ANNONCES DANS MON DOMAINE', category='')"/>
+        <div class="content">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header"></div>
+                    <div class="card-body">
+                        <div class="toolbar">
+
+                            <div class="modal fade" id="enableModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="enableModal" aria-hidden="true">
+
+                                <div th:insert="fragments/modal/fragment_add_modal ::
+                                        fragment_add_modal(title='Activation',
+                                        methodUrl='/backend/ads/provider-apply',
+                                        body = ~{ :: #modal_enable})">
+
+                                    <div class="modal-body" id="modal_enable">
+                                        <input type="hidden" name="visible" value="1"/>
+                                        <p> Voulez vous postuler a cette annonce ?</p>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="col-md-12 col-sm-12">
+                                <h3>Liste des annonces</h3>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="">
+                                    <tr>
+                                        <th> Date </th>
+                                        <th> Titre </th>
+                                        <th> Description </th>
+                                        <th> Client </th>
+                                        <th> Secteur d'activité </th>
+                                        <th class="text-right"> Actions </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="ad : ${allAds}">
+                                        <td th:text="${ad.date}"></td>
+                                        <td th:text="${ad.title}"></td>
+                                        <td th:text="${ad.description}"></td>
+                                        <td th:text="${ad.client.lastname}"></td>
+                                        <td th:text="${ad.activitySector.label}"></td>
+                                        <td th:if="${ad.status == 0}">Inactif</td>
+                                        <td th:if="${ad.status == 1}">Actif</td>
+                                        <td th:if="${ad.status == 2}">Rétiré</td>
+                                        <td class="text-right">
+                                            <button th:if="${ad.status == 0 && user.actuator}" type="button" rel="tooltip" class="btn btn-success btn-icon btn-sm "
+                                                    th:data-entity="${stringHelper.clean(ad.toJSON())}" onclick="onUpdate(this.getAttribute('data-entity'));"
+                                                    data-original-title="" title="Postuler" data-toggle="modal" data-target="#enableModal">
+                                                <i class="now-ui-icons fa-check-circle"></i>
+                                            </button>
+
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+        </div>
+        <th:block th:replace="fragments/fragment_footer :: footer"/>
+    </div>
+</div>
+<th:block th:replace="fragments/fragment_script :: script"/>
+<script>
+    $(document).ready(function () {
+        $('#sidebar_link_members').attr('class', 'active');
+        $('#sidebar_link_members_list').attr('class', 'active');
+
+        $('.modal').on('hidden.bs.modal', function () {
+            $(this).find('form').trigger('reset');
+        });
+    });
+
+    $('#btn-add').click(function () {
+        $('.model-id').val("");
+    });
+
+</script>
+
+<!-- BEGIN PAGE LEVEL JS-->
+<script type="application/javascript">
+
+    function onUpdate(json) {
+        var object = jQuery.parseJSON(json.replace("'", "\\'"));
+        $('.model-id').val(object.id);
+    }
+
+    function onDelete(id) {
+        $('.model-id').val(id);
+    }
+
+</script>
+<!-- END PAGE LEVEL JS-->
+
+</body>
+</html>

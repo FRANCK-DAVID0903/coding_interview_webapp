@@ -75,11 +75,11 @@
                                         <td class="text-right">
                                             <button th:if="${provider.status == 0}" type="button" rel="tooltip" class="btn btn-success btn-icon btn-sm "
                                                     th:data-entity="${stringHelper.clean(provider.toJSON())}" onclick="onUpdate(this.getAttribute('data-entity'));"
-                                                    data-original-title="" title="Rendre visible" data-toggle="modal" data-target="#enableModal">
+                                                     title="Rendre visible" data-toggle="modal" data-target="#enableModal">
                                                 <i class="now-ui-icons fa-edit"></i>
                                             </button>
 
-                                            <button th:if="${provider.status == 1}" title="Rendre invisible" type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm" th:data-entity="${stringHelper.clean(provider.toJSON())}" data-toggle="modal" data-target="#disableModal" onclick="onUpdate(this.getAttribute('data-entity'));" data-original-title="" title="Supprimer">
+                                            <button th:if="${provider.status == 1}" type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm" th:data-entity="${stringHelper.clean(provider.toJSON())}" data-toggle="modal" data-target="#disableModal" onclick="onUpdate(this.getAttribute('data-entity'));" title="Rendre invisible">
                                                 <i class="now-ui-icons ui-1_simple-remove"></i>
                                             </button>
                                         </td>

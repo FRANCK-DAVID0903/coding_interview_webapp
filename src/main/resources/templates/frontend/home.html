@@ -134,92 +134,25 @@
 
                 <div class="row">
                     <div class="col-12">
-                        <div class="features-slides owl-carousel">
+                        <div class="features-slides owl-carousel" >
                             <!-- Single Features Area -->
-                            <div class="single-features-area">
-                                <img th:src="@{assets/frontend/img/bg-img/feature-1.jpg}" alt="">
+                            <div class="single-features-area" th:each="sector :${allSectors}">
+                                <img alt="">
                                 <!-- Price -->
                                 <div class="price-start">
-                                    <p>FROM $59/night</p>
+
                                 </div>
                                 <div class="feature-content d-flex align-items-center justify-content-between">
                                     <div class="feature-title">
-                                        <h5>Ibiza</h5>
-                                        <p>Party</p>
+                                        <h5 th:text="${sector.label}"></h5>
+                                        <p>Secteur d'activité</p>
                                     </div>
                                     <div class="feature-favourite">
-                                        <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+                                        <a href="#"><i class="fa fa-file-archive-o" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Single Features Area -->
-                            <div class="single-features-area">
-                                <img src="img/bg-img/feature-2.jpg" alt="">
-                                <!-- Price -->
-                                <div class="price-start">
-                                    <p>FROM $59/night</p>
-                                </div>
-                                <div class="feature-content d-flex align-items-center justify-content-between">
-                                    <div class="feature-title">
-                                        <h5>Paris</h5>
-                                        <p>Luxury</p>
-                                    </div>
-                                    <div class="feature-favourite">
-                                        <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Single Features Area -->
-                            <div class="single-features-area">
-                                <img src="img/bg-img/feature-3.jpg" alt="">
-                                <!-- Price -->
-                                <div class="price-start">
-                                    <p>FROM $59/night</p>
-                                </div>
-                                <div class="feature-content d-flex align-items-center justify-content-between">
-                                    <div class="feature-title">
-                                        <h5>Lake Como</h5>
-                                        <p>Spectacular</p>
-                                    </div>
-                                    <div class="feature-favourite">
-                                        <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Single Features Area -->
-                            <div class="single-features-area">
-                                <img src="img/bg-img/feature-4.jpg" alt="">
-                                <!-- Price -->
-                                <div class="price-start">
-                                    <p>FROM $59/night</p>
-                                </div>
-                                <div class="feature-content d-flex align-items-center justify-content-between">
-                                    <div class="feature-title">
-                                        <h5>Greece</h5>
-                                        <p>Sunny</p>
-                                    </div>
-                                    <div class="feature-favourite">
-                                        <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Single Features Area -->
-                            <div class="single-features-area">
-                                <img src="img/bg-img/feature-5.jpg" alt="">
-                                <!-- Price -->
-                                <div class="price-start">
-                                    <p>FROM $59/night</p>
-                                </div>
-                                <div class="feature-content d-flex align-items-center justify-content-between">
-                                    <div class="feature-title">
-                                        <h5>Norway</h5>
-                                        <p>All Year round</p>
-                                    </div>
-                                    <div class="feature-favourite">
-                                        <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -243,19 +176,19 @@
 
                 <div class="row">
 
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-lg-6" th:each="ad :${allAds}">
                         <div class="single-feature-events-area d-sm-flex align-items-center wow fadeInUpBig" data-wow-delay="0.3s">
                             <div class="feature-events-thumb">
                                 <img th:src="@{assets/frontend/img/bg-img/event-2.jpg}" alt="">
                                 <div class="date-map-area d-flex">
-                                    <a href="#">26 Nov</a>
+                                    <a href="#"></a>
                                     <a href="#"><img th:src="@{assets/frontend/img/core-img/map.png}" alt=""></a>
                                 </div>
                             </div>
                             <div class="feature-events-content">
-                                <h5>DeeJay in the house</h5>
-                                <h6>Manhathan</h6>
-                                <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra...</p>
+                                <h5 th:text="${ad.title}"></h5>
+                                <h6 th:text="${ad.activitySector.label}"></h6>
+                                <p th:text="${ad.description}"></p>
                             </div>
                             <div class="feature-events-details-btn">
                                 <a href="#">+</a>

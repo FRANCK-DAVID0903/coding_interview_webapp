@@ -14,6 +14,8 @@ object ControllerEndpoint {
 
     const val BACKEND_SERVICE_PROVIDER = "$BACKEND_DASHBOARD/service-providers"
 
+    const val BACKEND_CLIENT= "$BACKEND_DASHBOARD/clients"
+
     const val BACKEND_ADS = "$BACKEND_DASHBOARD/ads"
 
     const val FRONTEND_ADS = "$FRONTEND/ads"
