@@ -10,6 +10,6 @@ import javax.persistence.Entity
 class Client: User() {
     //0 = activé
     //1 = désactivé
-    //2 = supprimé
+    //2 = retirer
     var status : Int = 0
 }

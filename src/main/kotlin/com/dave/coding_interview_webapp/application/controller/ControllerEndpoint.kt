@@ -12,7 +12,7 @@ object ControllerEndpoint {
 
     const val BACKEND_PROFILE = "$BACKEND_DASHBOARD/profile"
 
-    const val BACKEND_USERS = "$BACKEND_DASHBOARD/users"
+    const val BACKEND_SERVICE_PROVIDER = "$BACKEND_DASHBOARD/service-providers"
 
     const val BACKEND_ADS = "$BACKEND_DASHBOARD/ads"
 

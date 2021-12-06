@@ -1,4 +1,4 @@
 package com.dave.coding_interview_webapp.domain.formation.port
 
-interface FormationDomain {
+interface FormationDomain: IManageFormation {
 }

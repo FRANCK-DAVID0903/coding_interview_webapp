@@ -43,6 +43,10 @@ constructor(
                 "/${RestControllerEndpoint.API_BASE_SECURED_URL}/**",
                 "/account/login",
                 "/account/register",
+                "/account/register-prestataire",
+                "/account/register-client",
+                "/email/confirm-account/**",
+                "/account/confirm_account",
                 "/","/frontend-ads",
             )
             .permitAll()

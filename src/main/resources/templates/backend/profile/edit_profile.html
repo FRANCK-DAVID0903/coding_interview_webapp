@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="fragments/fragment_head :: head (title='Editer profile')"/>
+
+<body>
+<div class="wrapper">
+    <th:block th:replace="fragments/fragment_sidebar :: sidebar"/>
+    <div class="main-panel" id="main-panel">
+        <th:block
+                th:replace="fragments/fragment_panel_header :: header (title='Mon profil: ', category='Editer mon profil')"/>
+
+
+        <div class="content">
+
+            <div class="col-md-12">
+                <form id="updateInfo" enctype="multipart/form-data" th:action="@{/backend/profile/edit-profile}" method="POST">
+                    <div class="card ">
+                        <div class="card-header ">
+                            <h4 class="card-title">Informations de base</h4>
+                        </div>
+                        <div class="card-body ">
+
+                            <div class="row">
+
+                                <input type="hidden" name="id" th:value="${provider.id}"/>
+
+                                <div class="form-group has-label col-lg-4">
+                                    <label for="lastname">
+                                        Nom *
+                                    </label>
+                                    <input class="form-control" id="lastname" name="lastname" type="text"
+                                           required="true" th:value="${provider.lastname}"/>
+
+                                </div>
+
+                                <div class="form-group has-label col-lg-4">
+                                    <label for="firstname">
+                                        Prénoms *
+                                    </label>
+                                    <input class="form-control" id="firstname" name="firstname" type="text"
+                                           required="true" th:value="${provider.firstname}"/>
+                                </div>
+
+                                <div class="form-group has-label col-lg-4">
+                                    <label for="phone">
+                                        Téléphone 1 *
+                                    </label>
+                                    <input class="form-control" id="tel" name="tel"
+                                           type="tel"
+                                           required="true" th:value="${provider.contact.phone}"/>
+                                </div>
+
+                                <div class="form-group has-label col-lg-4">
+                                    <label for="phone2">
+                                        Téléphone 2
+                                    </label>
+                                    <input class="form-control" id="mobile" name="mobile"
+                                           type="tel" th:value="${provider.contact.mobile}"/>
+                                </div>
+
+                                <div class="form-group has-label col-lg-4">
+                                    <label for="email">
+                                        Email
+                                    </label>
+                                    <input  class="form-control" id="email" name="email" type="text" th:value="${provider.contact.email}" disabled/>
+                                    <!--<div id="res_email"></div>-->
+
+                                </div>
+
+
+                                <div class="form-group has-label col-lg-4">
+                                    <label for="username">
+                                        Login *
+                                    </label>
+                                    <input class="form-control" id="username" name="username" type="text"
+                                           required="true" th:value="${provider.username}" disabled/>
+                                </div>
+
+
+                                <div class="form-group has-label col-lg-4">
+                                    <label for="city">
+                                        Secteur d'activité
+                                    </label>
+                                    <input class="form-control" id="username" name="username" type="text"
+                                            th:value="${provider.activitySector.label}" disabled/>
+                                </div>
+
+                                <div class="form-group has-label col-lg-4">
+                                    <h4 style="font-size: 12px" class="card-title">Verso Cni *</h4>
+
+                                    <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                        <div class="fileinput-new thumbnail">
+                                            <img style="width: 150px;height: 150px" th:src="${'/__${rootLocation}__/serviceProvider/__${provider.cniVerso}__'}" alt="...">
+                                        </div>
+                                        <div style="width: 150px;height: 150px" class="fileinput-preview fileinput-exists thumbnail"></div>
+                                        <div>
+                                          <span class="btn btn-rose btn-round btn-file">
+                                              <span class="fileinput-new">Selectionner une image</span>
+                                              <span class="fileinput-exists">Changer</span>
+                                              <input th:value="${provider.cniVerso}" type="file" name="versoCNI" />
+                                          </span>
+                                            <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Supprimer</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group has-label col-lg-4">
+                                    <h4 style="font-size: 12px" class="card-title">Recto Cni *</h4>
+                                    <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                        <div class="fileinput-new thumbnail">
+                                            <img style="width: 150px;height: 150px" th:src="${'/__${rootLocation}__/serviceProvider/__${provider.cniRecto}__'}" alt="...">
+                                        </div>
+                                        <div style="width: 150px;height: 150px" class="fileinput-preview fileinput-exists thumbnail"></div>
+                                        <div>
+                                          <span class="btn btn-rose btn-round btn-file">
+                                              <span class="fileinput-new">Selectionner image</span>
+                                              <span class="fileinput-exists">Changer</span>
+                                              <input th:value="${provider.cniRecto}" type="file" name="rectoCNI" />
+                                          </span>
+                                            <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Supprimer</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group has-label col-lg-12">
+                                    <label for="city">
+                                        Biographie
+                                    </label>
+                                    <textarea class="form-group" id="bio" name="bio" th:utext="${provider.bio}"></textarea>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="card-footer text-center ">
+                            <button id="validate" type="submit" class="btn btn-primary  col-lg-6">Enregistrer</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-12">
+                <div class="card ">
+
+                    <div class="card-header ">
+                        <h4 class="card-title">Formations</h4>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <button type="button" id="btn-add" class="btn btn-primary btn-round btn-block" data-toggle="modal" data-target="#formationModal">
+                            Ajouter formation
+                        </button>
+                    </div>
+
+                    <div class="modal fade" id="formationModal" tabindex="-1" role="dialog"
+                         aria-labelledby="formationModalLabel" aria-hidden="true">
+
+                        <div th:insert="fragments/modal/fragment_add_modal ::
+                                                fragment_add_modal (title='Ajouter une formation',
+                                                methodUrl='/backend/profile/add-formation',
+                                                body = ~{ :: #modal_body})">
+
+                            <div id="modal_body">
+                                <div class="form-body row max-height">
+
+                                    <div class="form-group col-md-6">
+                                        <label for="name">Libellé</label>
+                                        <input type="text" id="name" class="form-control"
+                                               placeholder="Libellé"
+                                               name="name" required/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="name">Année</label>
+                                        <input type="text" id="year" class="form-control"
+                                               placeholder="Année"
+                                               name="year" required/>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="description">Description</label>
+                                        <textarea id="description" name="description" class="form-control"></textarea>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="">
+                            <tr>
+                                <th> Année </th>
+                                <th> Libellé </th>
+                                <th> Description </th>
+                                <th class="text-right"> Actions </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="formation : ${provider.formations}">
+                                <td th:text="${formation.year}"></td>
+                                <td th:text="${formation.label}"></td>
+                                <td th:text="${formation.description}"></td>
+                                <td class="text-right">
+
+                                    <button type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm" data-toggle="modal" data-target="#deleteLineFormation" data-original-title="" title="Supprimer" th:data-entity="${stringHelper.clean(formation.toJSON())}" onclick="onDeleteLine(this.getAttribute('data-entity'))">
+                                        <i class="now-ui-icons ui-1_simple-remove"></i>
+                                    </button>
+
+                                    <div class="modal fade" id="deleteLineFormation" tabindex="-1" role="dialog"
+                                         aria-labelledby="deleteModal" aria-hidden="true">
+
+                                        <div th:insert="fragments/modal/fragment_add_modal ::
+                                        fragment_add_modal(title='Supprimer la ligne',
+                                        methodUrl='/backend/profile/delete-formation',
+                                        body = ~{ :: #modal_deleteLineFormation})">
+
+                                            <div class="modal-body" id="modal_deleteLineFormation">
+                                                <p> Voulez-vous Supprimer cette formation ?</p>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+        </div>
+
+        <div class="col-md-12">
+
+                <div class="card ">
+
+                    <div class="card-header ">
+                        <h4 class="card-title">Experiences</h4>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <button type="button" id="btn-add" class="btn btn-primary btn-round btn-block" data-toggle="modal" data-target="#experienceModal">
+                            Ajouter experience
+                        </button>
+                    </div>
+
+                    <div class="modal fade" id="experienceModal" tabindex="-1" role="dialog"
+                         aria-labelledby="experienceModalLabel" aria-hidden="true">
+
+                        <div th:insert="fragments/modal/fragment_add_modal ::
+                                                fragment_add_modal (title='Ajouter une experience',
+                                                methodUrl='/backend/profile/add-experience',
+                                                body = ~{ :: #modal_bodyExperience})">
+
+                            <div id="modal_bodyExperience">
+                                <div class="form-body row max-height">
+
+                                    <div class="form-group col-md-6">
+                                        <label for="name">Libellé</label>
+                                        <input type="text" id="name" class="form-control"
+                                               placeholder="Libellé"
+                                               name="name" required/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="name">Année</label>
+                                        <input type="text" id="year" class="form-control"
+                                               placeholder="Année"
+                                               name="year" required/>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="description">Description</label>
+                                        <textarea id="description" name="description" class="form-control"></textarea>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="">
+                            <tr>
+                                <th> Année </th>
+                                <th> Libellé </th>
+                                <th> Description </th>
+                                <th class="text-right"> Actions </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="experience : ${provider.experiences}">
+                                <td th:text="${experience.year}"></td>
+                                <td th:text="${experience.label}"></td>
+                                <td th:text="${experience.description}"></td>
+                                <td class="text-right">
+
+                                    <button type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm" data-toggle="modal" data-target="#deleteLineExperience" data-original-title="" title="Supprimer" th:data-entity="${stringHelper.clean(experience.toJSON())}" onclick="onDeleteLine(this.getAttribute('data-entity'))">
+                                        <i class="now-ui-icons ui-1_simple-remove"></i>
+                                    </button>
+
+                                    <div class="modal fade" id="deleteLineExperience" tabindex="-1" role="dialog"
+                                         aria-labelledby="deleteModal" aria-hidden="true">
+
+                                        <div th:insert="fragments/modal/fragment_add_modal ::
+                                                   fragment_add_modal(title='Supprimer la ligne',
+                                                   methodUrl='/backend/profile/delete-experience',
+                                                   body = ~{ :: #modal_deleteLineExperience})">
+
+                                            <div class="modal-body" id="modal_deleteLineExperience">
+                                                <p> Voulez-vous Supprimer cette experience ?</p>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+                <div class="card ">
+
+                    <div class="card-header ">
+                        <h4 class="card-title">References</h4>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <button type="button" id="btn-add" class="btn btn-primary btn-round btn-block" data-toggle="modal" data-target="#referenceModal">
+                            Ajouter reference
+                        </button>
+                    </div>
+
+                    <div class="modal fade" id="referenceModal" tabindex="-1" role="dialog"
+                         aria-labelledby="referenceModalLabel" aria-hidden="true">
+
+                        <div th:insert="fragments/modal/fragment_add_modal ::
+                                                fragment_add_modal (title='Ajouter une reference',
+                                                methodUrl='/backend/profile/add-reference',
+                                                body = ~{ :: #modal_bodyReference})">
+
+                            <div id="modal_bodyReference">
+                                <div class="form-body row max-height">
+
+                                    <div class="form-group col-md-6">
+                                        <label for="name">Libellé</label>
+                                        <input type="text" id="name" class="form-control"
+                                               placeholder="Libellé"
+                                               name="name" required/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="name">Année</label>
+                                        <input type="text" id="year" class="form-control"
+                                               placeholder="Année"
+                                               name="year" required/>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="description">Description</label>
+                                        <textarea id="description" name="description" class="form-control"></textarea>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="">
+                            <tr>
+                                <th> Année </th>
+                                <th> Libellé </th>
+                                <th> Description </th>
+                                <th class="text-right"> Actions </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="reference : ${provider.references}">
+                                <td th:text="${reference.year}"></td>
+                                <td th:text="${reference.label}"></td>
+                                <td th:text="${reference.description}"></td>
+                                <td class="text-right">
+
+                                    <button type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm" data-toggle="modal" data-target="#deleteLineReference" data-original-title="" title="Supprimer" th:data-entity="${stringHelper.clean(reference.toJSON())}" onclick="onDeleteLine(this.getAttribute('data-entity'))">
+                                        <i class="now-ui-icons ui-1_simple-remove"></i>
+                                    </button>
+
+                                    <div class="modal fade" id="deleteLineReference" tabindex="-1" role="dialog"
+                                         aria-labelledby="deleteModal" aria-hidden="true">
+
+                                        <div th:insert="fragments/modal/fragment_add_modal ::
+                                                   fragment_add_modal(title='Supprimer la ligne',
+                                                   methodUrl='/backend/profile/delete-reference',
+                                                   body = ~{ :: #modal_deleteLineReference})">
+
+                                            <div class="modal-body" id="modal_deleteLineReference">
+                                                <p> Voulez-vous Supprimer cette reference ?</p>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+
+        </div>
+
+        <th:block th:replace="fragments/fragment_footer :: footer"/>
+    </div>
+</div>
+
+<th:block th:replace="fragments/fragment_script :: script"/>
+
+<script th:src="@{/assets/js/verifyData.js}"></script>
+<script>
+    //Open Model Delete
+    function onDeleteLine(json) {
+        let line = jQuery.parseJSON(json.replace("'", "\\'"));
+        $('.model-id').val(line.id);
+    }
+
+    $(document).ready(function () {
+        $('#sidebar_link_members').attr('class', 'active');
+        $('#sidebar_link_member_organization_register').attr('class', 'active');
+    });
+
+
+
+
+</script>
+
+
+<!--<script th:src="@{/assets/js/jquery.validate.js}"></script>-->
+</body>
+</html>

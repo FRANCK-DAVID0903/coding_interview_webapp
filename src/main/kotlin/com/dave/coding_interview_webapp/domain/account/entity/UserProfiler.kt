@@ -30,12 +30,18 @@ object UserProfiler {
 
         var admin: Boolean = false
 
+        var service_provider: Boolean = false
+
+        var client: Boolean = false
+
 
         init {
             val roles = user.roles
             actuator = roles!!.any { it.name == UserType.ACTUATOR }
             superAdmin = roles.any { it.name == UserType.BACKOFFICE_SUPER_ADMIN }
             admin = roles.any { it.name == UserType.BACKOFFICE_ADMIN }
+            service_provider = roles.any { it.name == UserType.SERVICE_PROVIDER }
+            client = roles.any { it.name == UserType.CLIENT }
         }
     }
 }

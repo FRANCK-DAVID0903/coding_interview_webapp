@@ -26,21 +26,8 @@
                 <div class="collapse" id="collapseExample">
                     <ul class="nav">
 
-                        <li>
-                            <a th:href="@{/backend/profil/update-profil}">
-                                <span class="sidebar-mini-icon">*</span>
-                                <span class="sidebar-normal">Mon Profil</span>
-                            </a>
-                        </li>
 
-                        <li th:if="${user.pfAdmin}">
-                            <a th:href="@{/backend/profil/update-profil}">
-                                <span class="sidebar-mini-icon">*</span>
-                                <span class="sidebar-normal">Mon Profil</span>
-                            </a>
-                        </li>
-
-                        <li th:if="${user.actuator || user.admin || user.service_provider}">
+                        <li th:if="${user.service_provider}">
                            <a th:href="@{/backend/profile/edit-profile}">
                                 <span class="sidebar-mini-icon">*</span>
                                 <span class="sidebar-normal">Mon Profil</span>
@@ -66,29 +53,32 @@
                 </a>
             </li>
 
-            <li  th:if="${user.association}">
+            <li >
+                <a th:href="@{/backend/service-providers/list}">
+                    <i class="now-ui-icons design_app"></i>
+                    <p>Prestataires</p>
+                </a>
+            </li>
+
+            <li th:if="${user.actuator}" >
+                <a th:href="@{/backend/clients/list-clients}">
+                    <i class="now-ui-icons design_app"></i>
+                    <p>Clients</p>
+                </a>
+            </li>
+
+            <li >
                 <a th:href="@{/backend/ads/list-ads}">
                     <i class="now-ui-icons design_app"></i>
                     <p>Annonces</p>
                 </a>
             </li>
 
-            <li >
-                <a data-toggle="collapse" href="#navParams">
+            <li th:if="${user.actuator}" >
+                <a th:href="@{/backend/settings/activity-sector}">
                     <i class="now-ui-icons ui-1_settings-gear-63"></i>
-                    <p>Paramètres <b class="caret"></b></p>
+                    <p>Secteur d'activité</p>
                 </a>
-                <div class="collapse" id="navParams">
-                    <ul class="nav">
-
-                        <li>
-                            <a th:href="@{/backend/settings/activity-sector}">
-                                <span class="sidebar-mini-icon">*</span>
-                                <span class="sidebar-normal"> Secteur d'activité </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </li>
 
         </ul>

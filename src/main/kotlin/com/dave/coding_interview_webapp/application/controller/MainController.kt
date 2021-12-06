@@ -4,6 +4,7 @@ import com.dave.coding_interview_webapp.domain.account.entity.UserType
 import com.dave.coding_interview_webapp.application.facade.AuthenticationFacade
 import com.dave.coding_interview_webapp.domain.account.port.RoleDomain
 import com.dave.coding_interview_webapp.domain.account.port.UserDomain
+import com.dave.coding_interview_webapp.domain.activity_sector.port.ActivitySectorDomain
 import com.dave.coding_interview_webapp.infrastructure.local.storage.StorageService
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Controller
@@ -17,6 +18,7 @@ class MainController(
     private val authenticationFacade: AuthenticationFacade,
     private val userDomain: UserDomain,
     private val roleDomain: RoleDomain,
+    private val activitySectorDomain: ActivitySectorDomain,
     private val eventPublisher: ApplicationEventPublisher,
     private val storageService: StorageService
 ): BaseController(ControllerEndpoint.BACKEND_DASHBOARD) {
@@ -30,7 +32,8 @@ class MainController(
         return "frontend/home"
     }
 
-    @GetMapping(value = ["/backend", "/backend"])
+
+    @GetMapping(value = ["/backend/", "/backend/"])
     fun dashboardPage(
             model:Model,
             redirectAttributes: RedirectAttributes
@@ -53,6 +56,11 @@ class MainController(
             UserType.BACKOFFICE_ADMIN -> {
 
                 redirectTo("dashboard/dashboard_admin")
+            }
+
+            UserType.SERVICE_PROVIDER -> {
+
+                forwardTo("dashboard/dashboard_service_provider")
             }
 
             else -> redirectTo("dashboard/dashboard_basic_user")

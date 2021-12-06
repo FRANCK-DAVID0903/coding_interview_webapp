@@ -7,9 +7,8 @@ import javax.persistence.Entity
 @Entity
 class ActivitySector(): BaseEntity() {
 
-    @JsonIgnore
+
     var label : String = ""
 
-    @JsonIgnore
     var description: String = ""
 }

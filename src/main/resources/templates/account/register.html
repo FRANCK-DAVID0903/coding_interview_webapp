@@ -12,7 +12,37 @@
 
 
         <!-- Content ============================================= -->
-        <div class="main-content">
+        <section class="dorne-welcome-area bg-img bg-overlay" th:style="'background-image: url(' +@{/assets/frontend/img/bg-img/hero-1.jpg} + ');'" >
+            <div class="container h-100">
+                <div class="row h-100 align-items-center justify-content-center">
+                    <div class="col-12 col-md-10">
+                        <div class="hero-content">
+                            <h2>Decouvrez les meilleurs prestataires de services</h2>
+                            <h4>Le meilleur site pour obtenir un service de qualité</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Hero Social Btn -->
+            <div class="hero-social-btn">
+                <div class="social-title d-flex align-items-center">
+                    <h6>Suivez-nous sur les reseaux sociaux</h6>
+                    <span></span>
+                </div>
+                <div class="social-btns">
+                    <a href="#"><i class="fa fa-linkedin" aria-haspopup="true"></i></a>
+                    <a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+                    <a href="#"><i class="fa fa-twitter" aria-haspopup="true"></i></a>
+                    <a href="#"><i class="fa fa-facebook" aria-haspopup="true"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <br>
+        <br>
+        <br>
+        <div class="dorne-contact-area d-md-flex">
             <!-- Breadcrumbs Section Start -->
             <div class="rs-breadcrumbs bg-6">
                 <div class="container">
@@ -28,91 +58,216 @@
                 <div class="container">
                     <div class="content white-bg">
                         <div class="row">
-                            <div class="col-lg-8 form-part">
+                            <div class="col-lg-12 form-part">
                                 <!--
                                 <div class="sec-title mb-35 md-mb-30">
                                     <h2 class="title mb-0">Ecrivez-nous</h2>
                                 </div>
                                 -->
-                                <form th:method="POST" th:action="@{/account/register}" enctype="multipart/form-data" class="contact-form">
-                                    <div class="row">
-                                        <!-- Text input-->
-                                        <input id="img" name="img" type="file" class="form-control" hidden>
-                                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
-                                            <label class="control-label" for="fname">
-                                                <span th:text="#{member_lastname}"></span> *
-                                            </label>
-                                            <input id="fname" name="lastname" type="text" placeholder="Entrer votre nom" class="form-control input-md" required>
-                                        </div>
-                                        <!-- Text input-->
-                                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
-                                            <label class="control-label" for="lname">
-                                                <span th:text="#{member_firstname}"></span> *
-                                            </label>
-                                            <input id="lname" name="firstname" type="text" placeholder="Entrer votre/vos prénom(s)" class="form-control input-md" autofocus required>
-                                        </div>
-                                        <!-- Text input-->
-                                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
-                                            <label class="control-label" for="username">
-                                                <span th:text="#{member_username}"></span> *
-                                            </label>
-                                            <input id="username" name="username" type="text" placeholder="Entrer username ou login pour votre connexion" class="form-control input-md" required>
-                                        </div>
-                                        <!-- Text input-->
-                                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
-                                            <label class="control-label" for="email">
-                                                <span th:text="#{member_email}"></span> *
-                                            </label>
-                                            <input id="email" name="email" type="text" placeholder="Entrer votre adresse mail" class="form-control input-md" required>
-                                        </div>
-                                        <!-- Text input-->
-                                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
-                                            <label class="control-label" for="phone">
-                                                <span th:text="#{member_phone}"></span> *
-                                            </label>
-                                            <input id="phone" name="tel" type="text" placeholder="Entrer votre numéro de téléphone" class="form-control input-md" required>
-                                        </div>
-                                        <!-- Text input -->
-                                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
-                                            <label class="control-label" for="naissance">
-                                                <span th:text="#{member_birthday}"></span> *
-                                            </label>
-                                            <input id="naissance" name="dateNaissance" type="date" class="form-control input-md" required>
-                                        </div>
-                                        <!-- Text input-->
-                                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
-                                            <label class="control-label" for="mdp">
-                                                <span th:text="#{member_password}"></span> *
-                                            </label>
-                                            <input id="mdp" name="password" type="password" placeholder="Entrer votre mot de passe" class="form-control input-md" required>
-                                        </div>
-                                        <!-- Text input -->
-                                        <div class="form-group col-xs-12 col-sm-12 col-md-6">
-                                            <label class="control-label" for="cmdp">
-                                                <span th:text="#{member_password_confirm}"></span> *
-                                            </label>
-                                            <input id="cmdp" name="password2" type="password" placeholder="Confirmer votre mot de passe" class="form-control input-md" required>
-                                        </div>
-                                        <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" name="agree" class="custom-control-input" id="agree">
-                                                <label class="custom-control-label" for="agree" th:text="#{member_accept_terms}"></label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                            <p style="margin-bottom:0px;">
-                                                Déjà enregistré? <a th:href="@{/account/login}" class="color-primary-color">Connectez-vous</a>
-                                            </p>
-                                        </div>
-                                        <div class="form-group col-xs-12 col-sm-12 col-md-12 mt-10 d-flex flex-row justify-content-start">
-                                            <button type="submit" class="btn btn-default readon">S'inscrire</button>
+
+
+                                <div class="row">
+                                    <div class="col-5 col-sm-3">
+                                        <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
+                                            <a class="nav-link active" id="particular-tabs" data-toggle="pill" href="#particular" role="tab" aria-controls="particular" aria-selected="false">Prestataire</a>
+                                            <a class="nav-link" id="enterprise-tabs" data-toggle="pill" href="#enterprise" role="tab" aria-controls="enterprise" aria-selected="true">Client</a>
                                         </div>
                                     </div>
-                                </form>
+                                    <div class="col-7 col-sm-9">
+                                        <div class="tab-content" id="vert-tabs-tabContent">
+                                            <div class="tab-pane text-left fade active show" id="particular" role="tabpanel" aria-labelledby="particular-tabs">
+
+                                                <!-- /.card-header -->
+                                                <div class="card-body">
+                                                    <form th:method="POST" th:action="@{/account/register-prestataire}" enctype="multipart/form-data" class="contact-form">
+                                                        <div class="row">
+                                                            <!-- Text input-->
+
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                                                <label class="control-label" for="fname">
+                                                                    <span > Nom</span> *
+                                                                </label>
+                                                                <input id="fname" name="lastname" type="text" placeholder="Entrer votre nom" class="form-control input-md" required>
+                                                            </div>
+                                                            <!-- Text input-->
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                                                <label class="control-label" for="lname">
+                                                                    <span > Prenoms</span> *
+                                                                </label>
+                                                                <input id="lname" name="firstname" type="text" placeholder="Entrer votre/vos prénom(s)" class="form-control input-md" autofocus required>
+                                                            </div>
+                                                            <!-- Text input-->
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                                                <label class="control-label" for="username">
+                                                                    <span>Nom d'utilisateur</span> *
+                                                                </label>
+                                                                <input id="username" name="username" type="text" placeholder="Entrer username ou login pour votre connexion" class="form-control input-md" required>
+                                                            </div>
+                                                            <!-- Text input-->
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                                                <label class="control-label" for="email">
+                                                                    <span >Email</span> *
+                                                                </label>
+                                                                <input id="email" name="email" type="email" placeholder="Entrer votre adresse mail" class="form-control input-md" required>
+                                                            </div>
+                                                            <!-- Text input-->
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                                                <label class="control-label" for="tel">
+                                                                    <span> Numero de telephone 1</span> *
+                                                                </label>
+                                                                <input id="tel" name="tel" type="text" class="form-control input-md" required>
+                                                            </div>
+                                                            <!-- Text input -->
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                                                <label class="control-label" for="mobile">
+                                                                    <span > Numero de telephone 2</span> *
+                                                                </label>
+                                                                <input id="mobile" name="mobile" type="text" class="form-control input-md" required>
+                                                            </div>
+                                                            <!-- Text input -->
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                                                <label class="control-label" for="rectoCNI">
+                                                                    <span > Photo CNI recto</span> *
+                                                                </label>
+                                                                <input id="rectoCNI" name="rectoCNI" type="file" class="form-control input-md" required>
+                                                            </div>
+                                                            <!-- Text input -->
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                                                <label class="control-label" for="versoCNI">
+                                                                    <span > Photo CNI verso</span> *
+                                                                </label>
+                                                                <input id="versoCNI" name="versoCNI" type="file" class="form-control input-md" required>
+                                                            </div>
+                                                            <!-- Text input-->
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                                                <label class="control-label" for="mdp">
+                                                                    <span > Mot de passe</span> *
+                                                                </label>
+                                                                <input id="mdp" name="password" type="password" placeholder="Entrer votre mot de passe" class="form-control input-md" required>
+                                                            </div>
+                                                            <!-- Text input -->
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                                                <label class="control-label" for="cmdp">
+                                                                    <span> Confirmer le mot de passe</span> *
+                                                                </label>
+                                                                <input id="cmdp" name="password2" type="password" placeholder="Confirmer votre mot de passe" class="form-control input-md" required>
+                                                            </div>
+
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                                                <label class="control-label" for="cmdp">
+                                                                    <span> Biographie</span> *
+                                                                </label>
+                                                                <textarea class="form-control" id="bio" name="bio"></textarea>
+                                                            </div>
+
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                                                <label class="control-label" for="cmdp">
+                                                                    <span> Secteur d'activité</span> *
+                                                                </label>
+                                                                <select required id="sector" name="sector" class="form-control input-md"
+                                                                        data-style="btn btn-default btn-round btn-block" title="Sélectionner...">
+                                                                    <option  th:each="sector :${allActivitySectors}" th:text="${sector.label}" th:value="${sector.id}"></option>
+
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                                                <p style="margin-bottom:0px;">
+                                                                    Déjà enregistré? <a th:href="@{/account/login}" class="color-primary-color">Connectez-vous</a>
+                                                                </p>
+                                                            </div>
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-12 mt-10 d-flex flex-row justify-content-start">
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="dorne-add-listings-btn">
+                                                            <button type="submit" class="btn btn-default readon">
+                                                                S'inscrire
+                                                            </button>
+
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <!-- /.card-body -->
+                                            </div>
+                                            <div class="tab-pane fade" id="enterprise" role="tabpanel" aria-labelledby="enterprise-tabs">
+                                                <div class="card-body">
+                                                    <form th:method="POST" th:action="@{/account/register-client}" enctype="multipart/form-data" class="contact-form">
+                                                        <div class="row">
+                                                            <!-- Text input-->
+
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                                                <label class="control-label" for="fname">
+                                                                    <span > Nom</span> *
+                                                                </label>
+                                                                <input id="fname" name="lastname" type="text" placeholder="Entrer votre nom" class="form-control input-md" required>
+                                                            </div>
+                                                            <!-- Text input-->
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                                                <label class="control-label" for="lname">
+                                                                    <span > Prenoms</span> *
+                                                                </label>
+                                                                <input id="lname" name="firstname" type="text" placeholder="Entrer votre/vos prénom(s)" class="form-control input-md" autofocus required>
+                                                            </div>
+                                                            <!-- Text input-->
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                                                <label class="control-label" for="username">
+                                                                    <span>Nom d'utilisateur</span> *
+                                                                </label>
+                                                                <input id="username" name="username" type="text" placeholder="Entrer username ou login pour votre connexion" class="form-control input-md" required>
+                                                            </div>
+                                                            <!-- Text input-->
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                                                <label class="control-label" for="email">
+                                                                    <span >Email</span> *
+                                                                </label>
+                                                                <input id="email" name="email" type="email" placeholder="Entrer votre adresse mail" class="form-control input-md" required>
+                                                            </div>
+                                                            <!-- Text input-->
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                                                <label class="control-label" for="mdp">
+                                                                    <span > Mot de passe</span> *
+                                                                </label>
+                                                                <input id="mdp" name="password" type="password" placeholder="Entrer votre mot de passe" class="form-control input-md" required>
+                                                            </div>
+                                                            <!-- Text input -->
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-6">
+                                                                <label class="control-label" for="cmdp">
+                                                                    <span> Confirmer le mot de passe</span> *
+                                                                </label>
+                                                                <input id="cmdp" name="password2" type="password" placeholder="Confirmer votre mot de passe" class="form-control input-md" required>
+                                                            </div>
+
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                                                <p style="margin-bottom:0px;">
+                                                                    Déjà enregistré? <a th:href="@{/account/login}" class="color-primary-color">Connectez-vous</a>
+                                                                </p>
+                                                            </div>
+                                                            <div class="form-group col-xs-12 col-sm-12 col-md-12 mt-10 d-flex flex-row justify-content-start">
+
+                                                            </div>
+
+                                                            <div class="dorne-add-listings-btn">
+                                                                <button type="submit" class="btn btn-default readon">
+                                                                    S'inscrire
+                                                                </button>
+
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
                             </div>
-                            <div class="col-lg-4 pl-0 md-pl-pr-15 pt-100 img-part">
-                                <img th:src="@{/assets/img/signup-image.jpeg}" alt="sing up image">
-                            </div>
+
                         </div>
                     </div>
                 </div>

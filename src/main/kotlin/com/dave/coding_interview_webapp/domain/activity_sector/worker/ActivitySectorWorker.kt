@@ -40,5 +40,9 @@ class ActivitySectorWorker: ActivitySectorDomain {
         return activitySectorRepository.count()
     }
 
+    override fun deleteById(activitySector: ActivitySector) {
+        return activitySectorRepository.delete(activitySector)
+    }
+
 
 }

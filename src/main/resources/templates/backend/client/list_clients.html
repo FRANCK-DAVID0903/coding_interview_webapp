@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="fragments/fragment_head :: head (title='Setting activity sector')"/>
+<body>
+<div class="wrapper">
+  <th:block th:replace="fragments/fragment_sidebar :: sidebar"/>
+  <div class="main-panel" id="main-panel">
+    <th:block
+            th:replace="fragments/fragment_panel_header :: header (title='LISTE DES CLIENTS', category='Desactiver/Retirer un client')"/>
+    <div class="content">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header"></div>
+          <div class="card-body">
+            <div class="toolbar">
+
+              <div class="modal fade" id="enableModal" tabindex="-1" role="dialog"
+                   aria-labelledby="enableModal" aria-hidden="true">
+
+                <div th:insert="fragments/modal/fragment_add_modal ::
+                                        fragment_add_modal(title='Suppression',
+                                        methodUrl='/backend/clients/change-status',
+                                        body = ~{ :: #modal_enable})">
+
+                  <div class="modal-body" id="modal_enable">
+                    <input type="hidden" name="visible" value="0"/>
+                    <p> Activer le client ?</p>
+
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="modal fade" id="retireModal" tabindex="-1" role="dialog"
+                   aria-labelledby="retireModal" aria-hidden="true">
+
+                <div th:insert="fragments/modal/fragment_add_modal ::
+                                        fragment_add_modal(title='Suppression',
+                                        methodUrl='/backend/clients/change-status',
+                                        body = ~{ :: #modal_retire})">
+
+                  <div class="modal-body" id="modal_retire">
+                    <input type="hidden" name="visible" value="1"/>
+                    <p> Retirer ce client ?</p>
+
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="modal fade" id="disableModal" tabindex="-1" role="dialog"
+                   aria-labelledby="disableModal" aria-hidden="true">
+
+                <div th:insert="fragments/modal/fragment_add_modal ::
+                                        fragment_add_modal(title='Desactivation',
+                                        methodUrl='/backend/clients/change-status',
+                                        body = ~{ :: #modal_disable})">
+
+                  <div class="modal-body" id="modal_disable">
+                    <input type="hidden" name="visible" value="1"/>
+                    <p> Desactiver le client ?</p>
+
+                  </div>
+
+                </div>
+              </div>
+
+              <br>
+
+              <div class="col-md-12 col-sm-12">
+                <h3>Liste des prestataires</h3>
+              </div>
+
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class="">
+                  <tr>
+                    <th> Nom </th>
+                    <th> Prenoms </th>
+                    <th> Secteurs d'activité </th>
+                    <th> Statut </th>
+                    <th class="text-right"> Actions </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr th:each="client : ${allClients}">
+                    <td th:text="${client.lastname}"></td>
+                    <td th:text="${client.firstname}"></td>
+                    <td th:text="${client.activitySector.label}"></td>
+                    <td th:if="${client.status == 0}">Actif</td>
+                    <td th:if="${client.status == 1}">Inactif</td>
+                    <td th:if="${client.status == 2}">Rétiré</td>
+                    <td class="text-right">
+                      <button th:if="${client.status != 1 || client.status != 2}" type="button" rel="tooltip" class="btn btn-success btn-icon btn-sm "
+                              th:data-entity="${stringHelper.clean(client.toJSON())}" onclick="onUpdate(this.getAttribute('data-entity'));"
+                              data-original-title="" title="Activer" data-toggle="modal" data-target="#enableModal">
+                        <i class="now-ui-icons fa-edit"></i>
+                      </button>
+
+                      <button th:if="${provider.status != 0 || provider.status != 2}" title="Retirer" type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm" th:data-entity="${stringHelper.clean(provider.toJSON())}" data-toggle="modal" data-target="#disableModal" onclick="onUpdate(this.getAttribute('data-entity'));" data-original-title="" title="Supprimer">
+                        <i class="now-ui-icons ui-1_simple-remove"></i>
+                      </button>
+
+                      <button th:if="${client.status == 1}" title="Rendre invisible" type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm" th:data-entity="${stringHelper.clean(provider.toJSON())}" data-toggle="modal" data-target="#disableModal" onclick="onUpdate(this.getAttribute('data-entity'));" data-original-title="" title="Supprimer">
+                        <i class="now-ui-icons ui-1_simple-remove"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+
+          </div>
+          <!-- end content-->
+        </div>
+        <!--  end card  -->
+      </div>
+    </div>
+    <th:block th:replace="fragments/fragment_footer :: footer"/>
+  </div>
+</div>
+<th:block th:replace="fragments/fragment_script :: script"/>
+<script>
+  $(document).ready(function () {
+    $('#sidebar_link_members').attr('class', 'active');
+    $('#sidebar_link_members_list').attr('class', 'active');
+
+    $('.modal').on('hidden.bs.modal', function () {
+      $(this).find('form').trigger('reset');
+    });
+  });
+
+  $('#btn-add').click(function () {
+    $('.model-id').val("");
+  });
+
+</script>
+
+<!-- BEGIN PAGE LEVEL JS-->
+<script type="application/javascript">
+
+  function onUpdate(json) {
+    var object = jQuery.parseJSON(json.replace("'", "\\'"));
+    $('.model-id').val(object.id);
+  }
+
+  function onDelete(id) {
+    $('.model-id').val(id);
+  }
+
+</script>
+<!-- END PAGE LEVEL JS-->
+
+</body>
+</html>

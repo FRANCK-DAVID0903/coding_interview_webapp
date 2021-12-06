@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" class="theme-one">
+
+<!--Head
+============================================= -->
+<th:block th:replace="fragments/frontend_fragment_head('Register')" />
+
+<body id="RegisterPage">
+
+<!-- Header ============================================= -->
+<th:block th:replace="fragments/frontend_fragment_header" />
+
+
+<!-- Content ============================================= -->
+<section class="dorne-welcome-area bg-img bg-overlay" th:style="'background-image: url(' +@{/assets/frontend/img/bg-img/hero-1.jpg} + ');'" >
+    <div class="container h-100">
+        <div class="row h-100 align-items-center justify-content-center">
+            <div class="col-12 col-md-10">
+                <div class="hero-content">
+                    <h2>Decouvrez les meilleurs prestataires de services</h2>
+                    <h4>Le meilleur site pour obtenir un service de qualité</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero Social Btn -->
+    <div class="hero-social-btn">
+        <div class="social-title d-flex align-items-center">
+            <h6>Suivez-nous sur les reseaux sociaux</h6>
+            <span></span>
+        </div>
+        <div class="social-btns">
+            <a href="#"><i class="fa fa-linkedin" aria-haspopup="true"></i></a>
+            <a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a>
+            <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
+            <a href="#"><i class="fa fa-twitter" aria-haspopup="true"></i></a>
+            <a href="#"><i class="fa fa-facebook" aria-haspopup="true"></i></a>
+        </div>
+    </div>
+</section>
+
+<br>
+<br>
+<br>
+<div class="dorne-contact-area d-md-flex">
+    <!-- Breadcrumbs Section Start -->
+    <div class="rs-breadcrumbs bg-12">
+        <div class="container">
+            <div class="content-part text-center">
+                <h1 class="breadcrumbs-title white-color mb-0">Création de compte confirmé - veuillez consulter votre mail pour avoir vos informations de connexion</h1>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumbs Section End -->
+
+    <!-- Register Section Start -->
+    <div class="form-group col-xs-12 col-sm-12 col-md-12">
+        <p style="margin-bottom:0px;">
+             <a th:href="@{/account/login}" class="color-primary-color">Connectez-vous</a>
+        </p>
+    </div>
+    <!-- Register Section End -->
+</div>
+
+<!-- Footer ============================================= -->
+<th:block th:replace="fragments/frontend_fragment_footer" />
+
+<!-- Script ============================================= -->
+<th:block th:replace="fragments/frontend_fragment_script" />
+
+<script>
+    function ChangeLanguage(lang) {
+
+        //alert("The URL of this page is: " + window.location.href+"/?lang="+lang);
+        var newUrl = window.location.pathname+"?lang="+lang
+        window.location.replace(newUrl);
+
+    }
+</script>
+
+</body>
+
+</html>

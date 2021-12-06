@@ -15,4 +15,6 @@ interface IManageActivitySector {
     fun findById(id:Long): Optional<ActivitySector>
 
     fun countAllActivities(): Long
+
+    fun deleteById(activitySector: ActivitySector): Unit
 }
