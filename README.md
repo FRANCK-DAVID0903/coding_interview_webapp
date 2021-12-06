@@ -5,8 +5,6 @@ Plateforme de publications de services entre artisans et clients
 1. [General Info](#general-info)
 2. [Technologies](#technologies)
 3. [Installation](#installation)
-4. [Collaboration](#collaboration)
-5. [FAQs](#faqs)
 ### General Info
 ***
 
@@ -22,6 +20,7 @@ This repository contains 1 project:
 A list of technologies used within the project:
 * [Thymeleaf](https://www.thymeleaf.org/): Version 3.0.13 
 * [Spring Framework](https://example.com): Version 2.6.1
+* 
 ## Installation
 ***
 
